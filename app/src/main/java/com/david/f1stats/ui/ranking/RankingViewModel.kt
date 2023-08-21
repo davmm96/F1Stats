@@ -1,13 +1,13 @@
-package com.david.f1stats.ui.notifications
+package com.david.f1stats.ui.ranking
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class NotificationsViewModel : ViewModel() {
+class RankingViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is notifications Fragment"
+        value = "This is ranking Fragment"
     }
     val text: LiveData<String> = _text
 }
