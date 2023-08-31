@@ -6,11 +6,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.david.f1stats.data.model.race.RaceData
 import com.david.f1stats.domain.GetRacesUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class RacesViewModel : ViewModel() {
-
-    var getRacesUseCase = GetRacesUseCase()
+@HiltViewModel
+class RacesViewModel @Inject constructor(
+    private val getRacesUseCase: GetRacesUseCase
+): ViewModel() {
 
    private val raceModel = MutableLiveData<RaceData>()
 

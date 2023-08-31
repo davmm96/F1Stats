@@ -7,8 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.david.f1stats.databinding.FragmentRacesBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class RacesFragment : Fragment() {
 
     private var _binding: FragmentRacesBinding? = null

@@ -1,17 +1,14 @@
 package com.david.f1stats.data.source.network
 
-import com.david.f1stats.data.RetrofitHelper
 import com.david.f1stats.data.model.race.RaceData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class RaceService {
-
-    private val retrofit = RetrofitHelper.getRetrofit()
-
+class RaceService @Inject constructor(private val api:RaceAPIClient){
     suspend fun getRaces():List<RaceData>{
         return withContext(Dispatchers.IO) {
-            val response = retrofit.create(RaceAPIClient::class.java).getCurrentRaces()
+            val response = api.getCurrentRaces()
             response.body()?.response ?: emptyList()
         }
     }
