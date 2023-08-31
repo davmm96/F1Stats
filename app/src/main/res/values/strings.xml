@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">F1Stats</string>
+    <string name="app_name" translatable="false">F1 Stats</string>
     <string name="title_home" translatable="false">Carreras</string>
     <string name="title_dashboard" translatable="false">Clasificación</string>
     <string name="title_notifications" translatable="false">Circuitos</string>

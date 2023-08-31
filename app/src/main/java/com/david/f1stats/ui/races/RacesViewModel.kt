@@ -1,13 +1,32 @@
 package com.david.f1stats.ui.races
 
-import androidx.lifecycle.LiveData
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.david.f1stats.data.model.race.RaceData
+import com.david.f1stats.domain.GetRacesUseCase
+import kotlinx.coroutines.launch
 
 class RacesViewModel : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is races Fragment"
+    var getRacesUseCase = GetRacesUseCase()
+
+   private val raceModel = MutableLiveData<RaceData>()
+
+    fun onCreate(){
+        viewModelScope.launch {
+            val result = getRacesUseCase()
+
+            if(result.isNotEmpty()){
+                Log.d("TAG", result[0].toString())
+                raceModel.postValue(result[0])
+            }
+            else
+            {
+                Log.d("TAG", "Error")
+            }
+        }
     }
-    val text: LiveData<String> = _text
 }
+

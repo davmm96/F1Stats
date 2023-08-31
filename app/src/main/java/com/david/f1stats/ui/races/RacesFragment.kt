@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.david.f1stats.databinding.FragmentRacesBinding
+
 
 class RacesFragment : Fragment() {
 
@@ -23,15 +23,13 @@ class RacesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val racesViewModel =
-            ViewModelProvider(this).get(RacesViewModel::class.java)
+            ViewModelProvider(this)[RacesViewModel::class.java]
 
         _binding = FragmentRacesBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textRaces
-        racesViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
+        racesViewModel.onCreate()
+
         return root
     }
 
