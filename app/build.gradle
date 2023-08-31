@@ -22,8 +22,7 @@ android {
         debug {
             applicationIdSuffix ".pre"
             buildConfigField "String", "API_BASE", "\"https://v1.formula-1.api-sports.io/\""
-            buildConfigField "String", "API_KEY", "\"034da704a4fcc0f36f7f6c59b86529ff\""
-            buildConfigField "String", "API_HEADER", "\"x-apisports-key\""
+            buildConfigField "String", "API_KEY_HEADER", "\"x-apisports-key: 034da704a4fcc0f36f7f6c59b86529ff\""
             debuggable true
             minifyEnabled false
         }

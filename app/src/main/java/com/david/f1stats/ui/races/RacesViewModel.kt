@@ -19,7 +19,6 @@ class RacesViewModel : ViewModel() {
             val result = getRacesUseCase()
 
             if(result.isNotEmpty()){
-                Log.d("TAG", result[0].toString())
                 raceModel.postValue(result[0])
             }
             else

@@ -1,7 +1,7 @@
 package com.david.f1stats.data.model.race
 
-data class Competition(
+data class RaceCompetitionData(
     val id: Int,
-    val location: Location,
+    val location: RaceLocationData,
     val name: String
 )

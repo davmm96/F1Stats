@@ -1,5 +1,5 @@
 package com.david.f1stats.data.model.race
 
-data class Driver(
+data class RaceDriverData(
     val id: Int
 )

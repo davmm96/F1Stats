@@ -1,17 +1,19 @@
 package com.david.f1stats.data.source.network
 
+import com.david.f1stats.BuildConfig
 import retrofit2.http.GET
 import retrofit2.http.Query
 import com.david.f1stats.data.model.race.RaceResponse
 import com.david.f1stats.utils.Constants.URL_RACES
 import retrofit2.Response
 import retrofit2.http.Headers
+import java.util.Calendar
 
 interface RaceAPIClient {
-    @Headers("x-apisports-key: 034da704a4fcc0f36f7f6c59b86529ff")//TODO Change this
+    @Headers(BuildConfig.API_KEY_HEADER)
     @GET(URL_RACES)
-    suspend fun getRaces(
+    suspend fun getCurrentRaces(
         @Query("type") type: String = "race",
-        @Query("season") season: String = "2023"
+        @Query("season") season: String = Calendar.getInstance().get(Calendar.YEAR).toString()
     ): Response<RaceResponse>
 }
