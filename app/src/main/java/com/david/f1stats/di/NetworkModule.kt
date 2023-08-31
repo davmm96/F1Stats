@@ -38,5 +38,4 @@ object NetworkModule {
     fun provideRaceApiClient(retrofit: Retrofit):RaceAPIClient{
         return retrofit.create(RaceAPIClient::class.java)
     }
-
 }

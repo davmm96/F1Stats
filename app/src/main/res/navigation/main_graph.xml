@@ -3,13 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_races">
-
+    app:startDestination="@id/navigation_races">
     <fragment
         android:id="@+id/navigation_races"
         android:name="com.david.f1stats.ui.races.RacesFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_races"/>
+        tools:layout="@layout/fragment_races">
+        <action
+            android:id="@+id/action_navigation_races_to_raceDetailFragment"
+            app:destination="@id/raceDetailFragment"
+            app:popUpTo="@id/navigation_races" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_ranking"
@@ -22,4 +26,13 @@
         android:name="com.david.f1stats.ui.circuits.CircuitsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_circuits" />
+    <fragment
+        android:id="@+id/raceDetailFragment"
+        android:name="com.david.f1stats.ui.raceDetail.RaceDetailFragment"
+        android:label="fragment_race_detail"
+        tools:layout="@layout/fragment_race_detail" >
+        <argument
+            android:name="idRace"
+            app:argType="string" />
+    </fragment>
 </navigation>
