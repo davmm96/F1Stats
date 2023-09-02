@@ -3,4 +3,5 @@
     <string name="title_home" translatable="false">Carreras</string>
     <string name="title_dashboard" translatable="false">Clasificación</string>
     <string name="title_notifications" translatable="false">Circuitos</string>
+    <string name="settings">Opciones</string>
 </resources>

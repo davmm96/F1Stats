@@ -6,10 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.david.f1stats.databinding.FragmentRacesBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_races.view.btnGo
 
 @AndroidEntryPoint
 class RacesFragment : Fragment() {
@@ -31,12 +29,7 @@ class RacesFragment : Fragment() {
         _binding = FragmentRacesBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val btnGo = root.btnGo
 
-        btnGo.setOnClickListener{
-            findNavController()
-                .navigate(RacesFragmentDirections.actionNavigationRacesToRaceDetailFragment(idRace = "Carrera 1"))
-        }
         racesViewModel.onCreate()
 
         return root

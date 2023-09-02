@@ -19,7 +19,7 @@ class RacesViewModel @Inject constructor(
 
     fun onCreate(){
         viewModelScope.launch {
-            val result = getRacesUseCase()
+            val result = emptyList<RaceData>()
 
             if(result.isNotEmpty()){
                 raceModel.postValue(result[0])
