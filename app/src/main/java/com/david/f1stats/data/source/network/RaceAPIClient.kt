@@ -16,4 +16,11 @@ interface RaceAPIClient {
         @Query("type") type: String = "race",
         @Query("season") season: String = Calendar.getInstance().get(Calendar.YEAR).toString()
     ): Response<RaceResponse>
+
+    @Headers(BuildConfig.API_KEY_HEADER)
+    @GET(URL_RACES)
+    suspend fun getRaceDetails(
+        @Query("competition") competition: Int,
+        @Query("season") season: String = Calendar.getInstance().get(Calendar.YEAR).toString()
+    ): Response<RaceResponse>
 }

@@ -29,10 +29,13 @@
     <fragment
         android:id="@+id/raceDetailFragment"
         android:name="com.david.f1stats.ui.raceDetail.RaceDetailFragment"
-        android:label="fragment_race_detail"
+        android:label="{country}"
         tools:layout="@layout/fragment_race_detail" >
         <argument
             android:name="idRace"
+            app:argType="string" />
+        <argument
+            android:name="country"
             app:argType="string" />
     </fragment>
 </navigation>

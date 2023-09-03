@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_home">Grandes Premios</string>
+    <string name="title_dashboard">Clasificación</string>
+    <string name="title_notifications">Circuitos</string>
+    <string name="settings">Opciones</string>
+    <string name="laps">" vueltas"</string>
+    <string name="race">Carrera</string>
+    <string name="qualy">Clasificación</string>
+    <string name="p1">Libres 1</string>
+    <string name="p2">Libres 2</string>
+    <string name="p3">Libres 3</string>
+    <string name="race_weekend">Race weekend</string>
+</resources>

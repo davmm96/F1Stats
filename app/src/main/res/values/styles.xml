@@ -1,7 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="toolbar">
-        <item name="android:textColor">@color/white</item>
+    <style name="toolbar" parent="Theme.MaterialComponents">
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:textColorSecondary">@android:color/white</item>
+        <item name="actionMenuTextColor">@android:color/white</item>
+        <item name="android:elevation">@dimen/toolbar_elevation</item>
+        <item name="android:background">@color/red</item>
+    </style>
+    <style name="titleText" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/red</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/title_text_size</item>
+    </style>
+    <style name="cardView" parent="CardView">
+        <item name="cardCornerRadius">6dp</item>
+    </style>
+    <style name="cardViewText" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">@dimen/cardView_textLeft</item>
+    </style>
+    <style name="cardViewText.bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="cardViewTitle" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">@dimen/cardView_textTitle</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 </resources>
