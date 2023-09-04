@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--Toolbar-->
     <style name="toolbar" parent="Theme.MaterialComponents">
         <item name="android:textColorPrimary">@android:color/white</item>
         <item name="android:textColorSecondary">@android:color/white</item>
@@ -7,11 +8,25 @@
         <item name="android:elevation">@dimen/toolbar_elevation</item>
         <item name="android:background">@color/red</item>
     </style>
+
+    <!--Title-->
     <style name="titleText" parent="Widget.AppCompat.TextView">
-        <item name="android:textColor">@color/red</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">@dimen/title_text_size</item>
     </style>
+    <style name="titleText.red">
+        <item name="android:textColor">@color/red</item>
+    </style>
+    <style name="titleText.black">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <!--Subtitle-->
+    <style name="subtitleText" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">@dimen/subtitle_text_size</item>
+    </style>
+
+    <!--CardView-->
     <style name="cardView" parent="CardView">
         <item name="cardCornerRadius">6dp</item>
     </style>
@@ -24,6 +39,13 @@
     <style name="cardViewTitle" parent="Widget.AppCompat.TextView">
         <item name="android:textSize">@dimen/cardView_textTitle</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <!--Race Detail RaceWeekend-->
+    <style name="raceWeekend" parent="Widget.AppCompat.TextView">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/text_weekend_size</item>
         <item name="android:textColor">@color/black</item>
     </style>
 </resources>

@@ -15,13 +15,13 @@ import dagger.hilt.android.AndroidEntryPoint
 class RaceDetailFragment : Fragment() {
 
     private var _binding: FragmentRaceDetailBinding? = null
-    private val viewModel: RaceDetailViewModel by viewModels()
+    private val raceDetailViewModel: RaceDetailViewModel by viewModels()
 
     private val binding get() = _binding!!
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        arguments?.getInt("id")?.let { viewModel.start(it) }
+        arguments?.getInt("id")?.let { raceDetailViewModel.start(it) }
     }
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,7 +31,7 @@ class RaceDetailFragment : Fragment() {
         _binding = FragmentRaceDetailBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        viewModel.raceList.observe(viewLifecycleOwner) { race ->
+        raceDetailViewModel.raceList.observe(viewLifecycleOwner) { race ->
             race?.forEach {
                 when (it.type) {
                     TypeRace.RACE -> setRace(it)
@@ -53,7 +53,6 @@ class RaceDetailFragment : Fragment() {
         binding.circuitRace.text = race.circuit
         binding.lapsRace.text = race.laps
         binding.raceDay.text = race.day
-        binding.raceMonth.text = race.day
         binding.raceMonth.text = race.month
         binding.raceHour.text = race.hour
     }

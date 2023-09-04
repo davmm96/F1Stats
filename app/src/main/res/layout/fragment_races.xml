@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:theme="@style/titleText"
+        app:theme="@style/titleText.red"
         tools:text="2023"/>
 
     <androidx.recyclerview.widget.RecyclerView

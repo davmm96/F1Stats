@@ -16,16 +16,15 @@ class RaceDetailViewModel @Inject constructor(
     private val getRaceDetailsUseCase: GetRaceDetailsUseCase
 ) : ViewModel() {
 
-    private val _raceModel = MutableLiveData<List<RaceDetail>?>()
+    private val _raceListModel = MutableLiveData<List<RaceDetail>?>()
 
     fun start(id: Int) {
-
         viewModelScope.launch {
             val result = getRaceDetailsUseCase.invoke(id)
 
             if (result != null) {
                 if(result.isNotEmpty()){
-                    _raceModel.postValue(result)
+                    _raceListModel.postValue(result)
                 } else {
                     Log.d("TAG", "Error")
                 }
@@ -33,5 +32,5 @@ class RaceDetailViewModel @Inject constructor(
         }
     }
 
-    val raceList: LiveData<List<RaceDetail>?> = _raceModel
+    val raceList: LiveData<List<RaceDetail>?> = _raceListModel
 }

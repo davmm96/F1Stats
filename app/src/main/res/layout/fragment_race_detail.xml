@@ -3,392 +3,299 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.raceDetail.RaceDetailFragment"
     android:background="@color/light_grey"
-    android:paddingHorizontal="20dp">
+    android:paddingHorizontal="@dimen/scrollView_padding_hor">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <TextView
             android:id="@+id/nameRace"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/text_title_margin_top"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:textSize="24sp"
             tools:text="Singapore Grand Prix"
-            android:layout_marginBottom="4dp"/>
-
+            android:theme="@style/titleText.black"
+            android:layout_marginBottom="@dimen/text_title_margin_bottom"/>
         <TextView
             android:id="@+id/locationRace"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             tools:text= "Singapour, Singapore"
-            android:layout_marginBottom="20dp"/>
-
+            android:theme="@style/subtitleText"
+            android:layout_marginBottom="@dimen/subtitle_text_margin_bottom"/>
         <TextView
             android:id="@+id/circuitRace"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             tools:text="Marina Bay Street Circuit"
-            android:layout_marginBottom="4dp"/>
-
+            android:layout_marginBottom="@dimen/description_margin_bottom"/>
         <TextView
             android:id="@+id/lapsRace"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             tools:text= "70 laps"
-            android:layout_marginBottom="24dp"/>
-
+            android:layout_marginBottom="@dimen/block_margin_bottom"/>
         <TextView
             android:id="@+id/raceWeekend"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:textSize="16sp"
             tools:text="RACE WEEKEND"
+            android:theme="@style/raceWeekend"
             android:text= "@string/race_weekend"
-            android:layout_marginBottom="12dp"/>
-
+            android:layout_marginBottom="@dimen/text_weekend_margin_bottom"/>
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp">
-            <LinearLayout
+            android:layout_marginVertical="@dimen/cardViewDetailRace_margin_v"
+            android:layout_marginStart="@dimen/cardViewDetailRace_margin_l"
+            android:layout_marginEnd="@dimen/cardViewDetailRace_margin_r">
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="20dp">
-                <RelativeLayout
+                android:padding="@dimen/cardView_padding">
+                <LinearLayout
+                    android:id="@+id/raceDetail_date_linear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_centerVertical="true">
+                    <TextView
+                        android:id="@+id/raceDay"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:theme="@style/cardViewText"
+                        tools:text="20"/>
+                    <TextView
+                        android:id="@+id/raceMonth"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:theme="@style/cardViewText.bold"
+                        tools:text="Oct"/>
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/raceText"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <LinearLayout
-                        android:id="@+id/linearRaceDay"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_gravity="center_vertical"
-                        android:layout_alignParentStart="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginEnd="30dp">
-                        <TextView
-                            android:id="@+id/raceDay"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            tools:text="20"
-                            android:textSize="12sp"
-                            android:gravity="center"/>
-                        <TextView
-                            android:id="@+id/raceMonth"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:textSize="12sp"
-                            android:textStyle="bold"
-                            tools:text="Oct"/>
-                    </LinearLayout>
-                    <LinearLayout
-                        android:id="@+id/linearRace"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_alignParentTop="true"
-                        android:layout_toEndOf="@id/linearRaceDay"
-                        android:layout_marginEnd="16dp">
-                        <TextView
-                            android:id="@+id/raceText"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="16sp"
-                            android:textColor="@color/black"
-                            android:textStyle="bold"
-                            android:layout_marginBottom="4dp"
-                            android:text="@string/race"
-                            tools:text="RACE"/>
-                        <TextView
-                            android:id="@+id/raceHour"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="12sp"
-                            android:layout_marginBottom="4dp"
-                            tools:text="14:00"/>
-                    </LinearLayout>
-                </RelativeLayout>
-            </LinearLayout>
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/cardView_title_margin_start"
+                    android:layout_toEndOf="@id/raceDetail_date_linear"
+                    android:theme="@style/cardViewTitle"
+                    android:text="@string/race"
+                    tools:text="Race"/>
+                <TextView
+                    android:id="@+id/raceHour"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/cardViewText"
+                    android:layout_below="@id/raceText"
+                    android:layout_alignStart="@id/raceText"
+                    tools:text="14:00"/>
+            </RelativeLayout>
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp">
-            <LinearLayout
+            android:layout_marginVertical="@dimen/cardViewDetailRace_margin_v"
+            android:layout_marginStart="@dimen/cardViewDetailRace_margin_l"
+            android:layout_marginEnd="@dimen/cardViewDetailRace_margin_r">
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="20dp">
-                <RelativeLayout
+                android:padding="@dimen/cardView_padding">
+                <LinearLayout
+                    android:id="@+id/qualyDetail_date_linear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_centerVertical="true">
+                    <TextView
+                        android:id="@+id/qualyDay"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:theme="@style/cardViewText"
+                        tools:text="20"/>
+                    <TextView
+                        android:id="@+id/qualyMonth"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:theme="@style/cardViewText.bold"
+                        tools:text="Oct"/>
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/qualyText"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <LinearLayout
-                        android:id="@+id/linearQualyDate"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_gravity="center_vertical"
-                        android:layout_alignParentStart="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginEnd="30dp">
-                        <TextView
-                            android:id="@+id/qualyDay"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            tools:text="20"
-                            android:textSize="12sp"
-                            android:gravity="center"/>
-                        <TextView
-                            android:id="@+id/qualyMonth"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:textSize="12sp"
-                            android:textStyle="bold"
-                            tools:text="Oct"/>
-                    </LinearLayout>
-                    <LinearLayout
-                        android:id="@+id/linearQualy"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_toEndOf="@id/linearQualyDate"
-                        android:layout_marginEnd="16dp">
-                        <TextView
-                            android:id="@+id/qualyText"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="16sp"
-                            android:textColor="@color/black"
-                            android:textStyle="bold"
-                            android:layout_marginBottom="4dp"
-                            android:text="@string/qualy"/>
-                        <TextView
-                            android:id="@+id/qualyHour"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="12sp"
-                            android:layout_marginBottom="4dp"
-                            tools:text="14:00"/>
-                    </LinearLayout>
-                </RelativeLayout>
-            </LinearLayout>
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/cardView_title_margin_start"
+                    android:layout_toEndOf="@id/qualyDetail_date_linear"
+                    android:theme="@style/cardViewTitle"
+                    android:text="@string/qualy"
+                    tools:text="Qualifying"/>
+                <TextView
+                    android:id="@+id/qualyHour"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_below="@id/qualyText"
+                    android:layout_alignStart="@id/qualyText"
+                    tools:text="14:00"/>
+            </RelativeLayout>
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp">
-            <LinearLayout
+            android:layout_marginVertical="@dimen/cardViewDetailRace_margin_v"
+            android:layout_marginStart="@dimen/cardViewDetailRace_margin_l"
+            android:layout_marginEnd="@dimen/cardViewDetailRace_margin_r">
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="20dp">
-                <RelativeLayout
+                android:padding="@dimen/cardView_padding">
+                <LinearLayout
+                    android:id="@+id/p3_date_linear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_centerVertical="true">
+                    <TextView
+                        android:id="@+id/p3Day"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:theme="@style/cardViewText"
+                        tools:text="20"/>
+                    <TextView
+                        android:id="@+id/p3Month"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:theme="@style/cardViewText.bold"
+                        tools:text="Oct"/>
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/p3Text"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <LinearLayout
-                        android:id="@+id/linearP3Date"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_gravity="center_vertical"
-                        android:layout_alignParentStart="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginEnd="30dp">
-                        <TextView
-                            android:id="@+id/p3Day"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            tools:text="20"
-                            android:textSize="12sp"
-                            android:gravity="center"/>
-                        <TextView
-                            android:id="@+id/p3Month"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:textSize="12sp"
-                            android:textStyle="bold"
-                            tools:text="Oct"/>
-                    </LinearLayout>
-                    <LinearLayout
-                        android:id="@+id/linearP3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_alignParentTop="true"
-                        android:layout_toEndOf="@id/linearP3Date"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginEnd="16dp">
-                        <TextView
-                            android:id="@+id/p3text"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="16sp"
-                            android:textColor="@color/black"
-                            android:textStyle="bold"
-                            android:layout_marginBottom="4dp"
-                            android:text="@string/p3"
-                            tools:text="PRACTICE 3"/>
-                        <TextView
-                            android:id="@+id/p3Hour"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="12sp"
-                            android:layout_marginBottom="4dp"
-                            tools:text="14:00"/>
-                    </LinearLayout>
-                </RelativeLayout>
-            </LinearLayout>
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/cardView_title_margin_start"
+                    android:layout_toEndOf="@id/p3_date_linear"
+                    android:theme="@style/cardViewTitle"
+                    android:text="@string/p3"
+                    tools:text="Practice 3"/>
+                <TextView
+                    android:id="@+id/p3Hour"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_below="@id/p3Text"
+                    android:layout_alignStart="@id/p3Text"
+                    tools:text="14:00"/>
+            </RelativeLayout>
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp">
-            <LinearLayout
+            android:layout_marginVertical="@dimen/cardViewDetailRace_margin_v"
+            android:layout_marginStart="@dimen/cardViewDetailRace_margin_l"
+            android:layout_marginEnd="@dimen/cardViewDetailRace_margin_r">
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="20dp">
-                <RelativeLayout
+                android:padding="@dimen/cardView_padding">
+                <LinearLayout
+                    android:id="@+id/p2_date_linear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_centerVertical="true">
+                    <TextView
+                        android:id="@+id/p2Day"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:theme="@style/cardViewText"
+                        tools:text="20"/>
+                    <TextView
+                        android:id="@+id/p2Month"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:theme="@style/cardViewText.bold"
+                        tools:text="Oct"/>
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/p2Text"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <LinearLayout
-                        android:id="@+id/linearP2Date"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_gravity="center_vertical"
-                        android:layout_alignParentStart="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginEnd="30dp">
-                        <TextView
-                            android:id="@+id/p2Day"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            tools:text="20"
-                            android:textSize="12sp"
-                            android:gravity="center"/>
-                        <TextView
-                            android:id="@+id/p2Month"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:textSize="12sp"
-                            android:textStyle="bold"
-                            tools:text="Oct"/>
-                    </LinearLayout>
-                    <LinearLayout
-                        android:id="@+id/linearP2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_alignParentTop="true"
-                        android:layout_toEndOf="@id/linearP2Date"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginEnd="16dp">
-                        <TextView
-                            android:id="@+id/p2text"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="16sp"
-                            android:textColor="@color/black"
-                            android:textStyle="bold"
-                            android:layout_marginBottom="4dp"
-                            android:text="@string/p2"
-                            tools:text="PRACTICE 2"/>
-                        <TextView
-                            android:id="@+id/p2Hour"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="12sp"
-                            android:layout_marginBottom="4dp"
-                            tools:text="14:00"/>
-                    </LinearLayout>
-                </RelativeLayout>
-            </LinearLayout>
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/cardView_title_margin_start"
+                    android:layout_toEndOf="@id/p2_date_linear"
+                    android:theme="@style/cardViewTitle"
+                    android:text="@string/p2"
+                    tools:text="Practice 2"/>
+                <TextView
+                    android:id="@+id/p2Hour"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_below="@id/p2Text"
+                    android:layout_alignStart="@id/p2Text"
+                    tools:text="14:00"/>
+            </RelativeLayout>
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp">
-            <LinearLayout
+            android:layout_marginVertical="@dimen/cardViewDetailRace_margin_v"
+            android:layout_marginStart="@dimen/cardViewDetailRace_margin_l"
+            android:layout_marginEnd="@dimen/cardViewDetailRace_margin_r">
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="20dp">
-                <RelativeLayout
+                android:padding="@dimen/cardView_padding">
+                <LinearLayout
+                    android:id="@+id/p1_date_linear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_centerVertical="true">
+                    <TextView
+                        android:id="@+id/p1Day"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:theme="@style/cardViewText"
+                        tools:text="20"/>
+                    <TextView
+                        android:id="@+id/p1Month"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:theme="@style/cardViewText.bold"
+                        tools:text="Oct"/>
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/p1Text"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <LinearLayout
-                        android:id="@+id/linearP1Date"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_gravity="center_vertical"
-                        android:layout_alignParentStart="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginEnd="30dp">
-                        <TextView
-                            android:id="@+id/p1Day"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            tools:text="20"
-                            android:textSize="12sp"
-                            android:gravity="center"/>
-                        <TextView
-                            android:id="@+id/p1Month"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:textSize="12sp"
-                            android:textStyle="bold"
-                            tools:text="Oct"/>
-                    </LinearLayout>
-                    <LinearLayout
-                        android:id="@+id/linearP1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_alignParentTop="true"
-                        android:layout_toEndOf="@id/linearP1Date"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginEnd="16dp">
-                        <TextView
-                            android:id="@+id/p1text"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="16sp"
-                            android:textColor="@color/black"
-                            android:textStyle="bold"
-                            android:layout_marginBottom="4dp"
-                            android:text="@string/p1"
-                            tools:text="PRACTICE 1"/>
-                        <TextView
-                            android:id="@+id/p1Hour"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="12sp"
-                            android:layout_marginBottom="4dp"
-                            tools:text="14:00"/>
-                    </LinearLayout>
-                </RelativeLayout>
-            </LinearLayout>
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/cardView_title_margin_start"
+                    android:layout_toEndOf="@id/p1_date_linear"
+                    android:theme="@style/cardViewTitle"
+                    android:text="@string/p1"
+                    tools:text="Practice 1"/>
+                <TextView
+                    android:id="@+id/p1Hour"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_below="@id/p1Text"
+                    android:layout_alignStart="@id/p1Text"
+                    tools:text="14:00"/>
+            </RelativeLayout>
         </androidx.cardview.widget.CardView>
     </LinearLayout>
 </ScrollView>
