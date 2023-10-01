@@ -46,4 +46,19 @@
             app:argType="string" />
     </fragment>
 
+    <fragment
+        android:id="@+id/tab1Fragment"
+        android:name="com.david.f1stats.ui.ranking.RankingDriversFragment"
+        android:label="Tab 1" />
+
+    <fragment
+        android:id="@+id/tab2Fragment"
+        android:name="com.david.f1stats.ui.ranking.RankingTeamsFragment"
+        android:label="Tab 2" />
+
+    <fragment
+        android:id="@+id/tab3Fragment"
+        android:name="com.david.f1stats.ui.ranking.RankingRacesFragment"
+        android:label="Tab 3" />
+
 </navigation>

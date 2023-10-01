@@ -5,20 +5,28 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewpager2.widget.ViewPager2
+import com.david.f1stats.R
 import com.david.f1stats.databinding.FragmentRankingBinding
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class RankingFragment : Fragment(), RankingDriversAdapter.RankingItemListener, RankingTeamsAdapter.RankingItemListener {
+class RankingFragment : Fragment(){
 
     private var _binding: FragmentRankingBinding? = null
     private val binding get() = _binding!!
     private lateinit var adapter: RankingDriversAdapter
     private lateinit var adapterTeam: RankingTeamsAdapter
+    private lateinit var adapterTabs: RankingTabsAdapter
+    private lateinit var viewPager: ViewPager2
+    private lateinit var tabLayout: TabLayout
     private val rankingViewModel: RankingViewModel by viewModels()
 
     override fun onCreateView(
@@ -30,48 +38,41 @@ class RankingFragment : Fragment(), RankingDriversAdapter.RankingItemListener, R
         _binding = FragmentRankingBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        rankingViewModel.onCreate()
+
 
         return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupRecyclerView()
 
-        rankingViewModel.rankingList.observe(viewLifecycleOwner) {
-            it?.let { it1 -> ArrayList(it1) }?.let { it2 -> adapter.setItems(it2) }
-        }
+        viewPager = binding.viewPager
+        tabLayout = binding.tabLayout
 
-        rankingViewModel.rankingTeamsList.observe(viewLifecycleOwner) {
-            it?.let { it1 -> ArrayList(it1) }?.let { it2 -> adapterTeam.setItems(it2) }
-        }
+        val adapter = RankingTabsAdapter(this)
+        viewPager.adapter = adapter
 
-        rankingViewModel.isLoading.observe(viewLifecycleOwner){
-            binding.progressBar.isVisible = it
-        }
+        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+            when (position) {
+                0 -> {
+                    tab.text = "Drivers"
+                    tab.icon = ContextCompat.getDrawable(requireContext(), R.drawable.icon_driver)
+                }
+                1 -> {
+                    tab.text = "Teams"
+                    tab.icon = ContextCompat.getDrawable(requireContext(), R.drawable.icon_team)
+                }
+                2 -> {
+                    tab.text = "Races"
+                    tab.icon = ContextCompat.getDrawable(requireContext(), R.drawable.icon_race)
+                }
+                else -> throw IllegalArgumentException("Invalid position")
+            }
+        }.attach()
+
     }
 
     private fun setupRecyclerView() {
-        adapter = RankingDriversAdapter(this)
-        binding.rvRanking.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvRanking.adapter = adapter
 
-        adapterTeam = RankingTeamsAdapter(this)
-        binding.rvRankingTeams.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvRankingTeams.adapter = adapterTeam
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
-    override fun onClickedDriver(driverId: Int) {
-        Toast.makeText(this.context, "Piloto seleccionado-> $driverId", Toast.LENGTH_SHORT).show()
-    }
-
-    override fun onClickedRankingTeam(rankingTeamId: Int) {
-        Toast.makeText(this.context, "Equipo seleccionado-> $rankingTeamId", Toast.LENGTH_SHORT).show()
     }
 }
