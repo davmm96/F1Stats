@@ -17,7 +17,7 @@ interface APIClient {
     @Headers(BuildConfig.API_KEY_HEADER)
     @GET(URL_RACES)
     suspend fun getCurrentRaces(
-        @Query("type") type: String = "race",
+        @Query("type") type: String = Constants.TYPE_RACE_QUERY_PARAM,
         @Query("season") season: String = Calendar.getInstance().get(Calendar.YEAR).toString()
     ): Response<RaceResponse>
 
@@ -26,6 +26,14 @@ interface APIClient {
     suspend fun getRaceDetails(
         @Query("competition") competition: Int,
         @Query("season") season: String = Calendar.getInstance().get(Calendar.YEAR).toString()
+    ): Response<RaceResponse>
+
+    @Headers(BuildConfig.API_KEY_HEADER)
+    @GET(URL_RACES)
+    suspend fun getCompletedRaces(
+        @Query("season") season: String = Calendar.getInstance().get(Calendar.YEAR).toString(),
+        @Query("type") type: String = Constants.TYPE_RACE_QUERY_PARAM,
+        @Query("last") last: Int = Constants.NUM_GP_SEASON
     ): Response<RaceResponse>
 
     @Headers(BuildConfig.API_KEY_HEADER)

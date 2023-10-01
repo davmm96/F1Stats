@@ -19,4 +19,11 @@ class RaceService @Inject constructor(private val api:APIClient){
             response.body()?.response ?: emptyList()
         }
     }
+
+    suspend fun getCompletedRaces():List<RaceData>{
+        return withContext(Dispatchers.IO) {
+            val response = api.getCompletedRaces()
+            response.body()?.response ?: emptyList()
+        }
+    }
 }

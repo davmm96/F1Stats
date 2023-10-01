@@ -46,6 +46,9 @@ class RankingDriversAdapter (private val listener: RankingItemListener) : Recycl
 
         fun bind(item: RankingDriver) {
             this.rankingDriver = item
+            if(item.position == 1)
+                itemBinding.root.setCardBackgroundColor(itemBinding.root.context.getColor(android.R.color.darker_gray))
+
             itemBinding.tvName.text = item.name
             itemBinding.tvTeam.text = item.team
             Picasso.get()

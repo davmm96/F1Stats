@@ -24,4 +24,9 @@ class RaceRepository @Inject constructor(
         val response = api.getRaceDetails(id)
         return raceDetailMapper.fromMap(response)
     }
+
+    suspend fun getCompletedRaces(): List<Race>? {
+        val response = api.getCompletedRaces()
+        return raceMapper.fromMap(response)
+    }
 }
