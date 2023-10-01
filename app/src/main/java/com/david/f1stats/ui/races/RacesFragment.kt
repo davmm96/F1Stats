@@ -69,6 +69,4 @@ class RacesFragment : Fragment(), RacesAdapter.RaceItemListener {
         super.onDestroyView()
         _binding = null
     }
-
-
 }

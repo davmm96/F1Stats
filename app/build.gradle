@@ -85,6 +85,8 @@ dependencies {
     kapt "com.google.dagger:hilt-compiler:2.44"
 
     implementation "androidx.viewpager2:viewpager2:1.0.0"
+
+    implementation 'com.squareup.picasso:picasso:2.8'
 }
 
 kapt {

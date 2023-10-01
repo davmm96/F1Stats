@@ -12,4 +12,7 @@
     <string name="p3">Libres 3</string>
     <string name="race_weekend">Race weekend</string>
     <string name="title_favorites">Favoritos</string>
+    <string name="ranking_drivers">Drivers</string>
+    <string name="ranking_teams">Teams</string>
+    <string name="ranking_races">Races</string>
 </resources>

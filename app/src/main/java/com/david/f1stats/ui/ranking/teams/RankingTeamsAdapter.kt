@@ -1,4 +1,4 @@
-package com.david.f1stats.ui.ranking
+package com.david.f1stats.ui.ranking.teams
 
 import android.annotation.SuppressLint
 import androidx.recyclerview.widget.RecyclerView
@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.david.f1stats.databinding.RankingTeamItemBinding
+import com.david.f1stats.utils.RoundedTransformation
+import com.squareup.picasso.Picasso
 
 class RankingTeamsAdapter(private val listener: RankingItemListener) : RecyclerView.Adapter<RankingTeamsAdapter.RankingViewHolder>()  {
     interface RankingItemListener {
@@ -45,6 +47,10 @@ class RankingTeamsAdapter(private val listener: RankingItemListener) : RecyclerV
             this.rankingTeam = item
             itemBinding.tvName.text = item.name
             itemBinding.tvPoints.text = item.points
+            Picasso.get()
+                .load(item.image)
+                .transform( RoundedTransformation(30, 0))
+                .into(itemBinding.ivTeam)
         }
 
         override fun onClick(v: View?) {

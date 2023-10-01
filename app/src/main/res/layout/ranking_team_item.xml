@@ -16,12 +16,10 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_centerVertical="true">
-            <TextView
-                android:id="@+id/tvPoints"
+            <ImageView
+                android:id="@+id/ivTeam"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:theme="@style/cardViewText.bold"
-                tools:text="300"/>
+                android:layout_height="wrap_content"/>
         </LinearLayout>
         <TextView
             android:id="@+id/tvName"
@@ -33,5 +31,14 @@
             android:theme="@style/cardViewTitle"
             tools:text="Red Bull"
             tools:ignore="RelativeOverlap" />
+        <TextView
+            android:id="@+id/tvPoints"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvName"
+            android:layout_alignStart="@id/tvName"
+            android:layout_marginBottom="@dimen/cardView_info_margin_bottom"
+            android:theme="@style/cardViewText"
+            tools:text="500 pts"/>
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

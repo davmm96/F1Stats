@@ -12,5 +12,8 @@
     <string name="p2">Practice 2</string>
     <string name="p3">Practice 3</string>
     <string name="race_weekend">Race weekend</string>
+    <string name="ranking_drivers">Drivers</string>
+    <string name="ranking_teams">Teams</string>
+    <string name="ranking_races">Races</string>
     <string name="card_arrow_content_description" translatable="false">Flecha roja</string>
 </resources>

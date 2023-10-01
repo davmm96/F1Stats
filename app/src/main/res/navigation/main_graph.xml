@@ -48,17 +48,17 @@
 
     <fragment
         android:id="@+id/tab1Fragment"
-        android:name="com.david.f1stats.ui.ranking.RankingDriversFragment"
+        android:name="com.david.f1stats.ui.ranking.drivers.RankingDriversFragment"
         android:label="Tab 1" />
 
     <fragment
         android:id="@+id/tab2Fragment"
-        android:name="com.david.f1stats.ui.ranking.RankingTeamsFragment"
+        android:name="com.david.f1stats.ui.ranking.teams.RankingTeamsFragment"
         android:label="Tab 2" />
 
     <fragment
         android:id="@+id/tab3Fragment"
-        android:name="com.david.f1stats.ui.ranking.RankingRacesFragment"
+        android:name="com.david.f1stats.ui.ranking.races.RankingRacesFragment"
         android:label="Tab 3" />
 
 </navigation>

@@ -8,4 +8,5 @@ object Constants {
     const val FORMAT_DAY = "dd"
     const val FORMAT_MONTH = "MMM"
     const val FORMAT_HOUR = "HH:mm"
+    const val NUM_TABS_RANKING = 3
 }

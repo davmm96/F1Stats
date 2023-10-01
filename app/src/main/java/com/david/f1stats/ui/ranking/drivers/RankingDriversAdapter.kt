@@ -1,4 +1,4 @@
-package com.david.f1stats.ui.ranking
+package com.david.f1stats.ui.ranking.drivers
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.david.f1stats.databinding.RankingDriverItemBinding
 import com.david.f1stats.domain.model.RankingDriver
+import com.david.f1stats.utils.RoundedTransformation
+import com.squareup.picasso.Picasso
 
 class RankingDriversAdapter (private val listener: RankingItemListener) : RecyclerView.Adapter<RankingDriversAdapter.RankingViewHolder>() {
 
@@ -45,8 +47,11 @@ class RankingDriversAdapter (private val listener: RankingItemListener) : Recycl
         fun bind(item: RankingDriver) {
             this.rankingDriver = item
             itemBinding.tvName.text = item.name
-            itemBinding.tvPoints.text = item.points.toString()
             itemBinding.tvTeam.text = item.team
+            Picasso.get()
+                .load(item.image)
+                .transform( RoundedTransformation(30, 0))
+                .into(itemBinding.ivDriver)
         }
 
         override fun onClick(v: View?) {
