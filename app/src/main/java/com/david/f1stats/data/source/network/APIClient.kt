@@ -6,6 +6,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 import com.david.f1stats.data.model.race.RaceResponse
 import com.david.f1stats.data.model.rankingDriver.RankingDriverResponse
+import com.david.f1stats.data.model.rankingTeam.RankingTeamResponse
 import com.david.f1stats.utils.Constants
 import com.david.f1stats.utils.Constants.URL_RACES
 import retrofit2.Response
@@ -36,4 +37,10 @@ interface APIClient {
     @Headers(BuildConfig.API_KEY_HEADER)
     @GET(Constants.URL_CIRCUITS)
     suspend fun getCircuits(): Response<CircuitResponse>
+
+    @Headers(BuildConfig.API_KEY_HEADER)
+    @GET(Constants.URL_RANKING_TEAMS)
+    suspend fun getCurrentRankingTeams(
+        @Query("season") season: String = Calendar.getInstance().get(Calendar.YEAR).toString()
+    ): Response<RankingTeamResponse>
 }

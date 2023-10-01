@@ -13,11 +13,12 @@ import com.david.f1stats.databinding.FragmentRankingBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class RankingFragment : Fragment(), RankingAdapter.RankingItemListener {
+class RankingFragment : Fragment(), RankingDriversAdapter.RankingItemListener, RankingTeamsAdapter.RankingItemListener {
 
     private var _binding: FragmentRankingBinding? = null
     private val binding get() = _binding!!
-    private lateinit var adapter: RankingAdapter
+    private lateinit var adapter: RankingDriversAdapter
+    private lateinit var adapterTeam: RankingTeamsAdapter
     private val rankingViewModel: RankingViewModel by viewModels()
 
     override fun onCreateView(
@@ -42,15 +43,23 @@ class RankingFragment : Fragment(), RankingAdapter.RankingItemListener {
             it?.let { it1 -> ArrayList(it1) }?.let { it2 -> adapter.setItems(it2) }
         }
 
+        rankingViewModel.rankingTeamsList.observe(viewLifecycleOwner) {
+            it?.let { it1 -> ArrayList(it1) }?.let { it2 -> adapterTeam.setItems(it2) }
+        }
+
         rankingViewModel.isLoading.observe(viewLifecycleOwner){
             binding.progressBar.isVisible = it
         }
     }
 
     private fun setupRecyclerView() {
-        adapter = RankingAdapter(this)
+        adapter = RankingDriversAdapter(this)
         binding.rvRanking.layoutManager = LinearLayoutManager(requireContext())
         binding.rvRanking.adapter = adapter
+
+        adapterTeam = RankingTeamsAdapter(this)
+        binding.rvRankingTeams.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvRankingTeams.adapter = adapterTeam
     }
 
     override fun onDestroyView() {
@@ -60,5 +69,9 @@ class RankingFragment : Fragment(), RankingAdapter.RankingItemListener {
 
     override fun onClickedDriver(driverId: Int) {
         Toast.makeText(this.context, "Piloto seleccionado-> $driverId", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onClickedRankingTeam(rankingTeamId: Int) {
+        Toast.makeText(this.context, "Equipo seleccionado-> $rankingTeamId", Toast.LENGTH_SHORT).show()
     }
 }

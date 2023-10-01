@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.david.f1stats.databinding.RankingDriverItemBinding
 import com.david.f1stats.domain.model.RankingDriver
 
-class RankingAdapter (private val listener: RankingItemListener) : RecyclerView.Adapter<RankingAdapter.RankingViewHolder>() {
+class RankingDriversAdapter (private val listener: RankingItemListener) : RecyclerView.Adapter<RankingDriversAdapter.RankingViewHolder>() {
 
     interface RankingItemListener {
         fun onClickedDriver(driverId: Int)
