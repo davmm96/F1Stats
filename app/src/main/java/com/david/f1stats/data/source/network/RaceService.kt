@@ -5,7 +5,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class RaceService @Inject constructor(private val api:RaceAPIClient){
+class RaceService @Inject constructor(private val api:APIClient){
     suspend fun getRaces():List<RaceData>{
         return withContext(Dispatchers.IO) {
             val response = api.getCurrentRaces()

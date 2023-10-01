@@ -5,8 +5,10 @@
       <map>
         <entry key="app/src/main/res/font/f1fontfamily.xml" value="0.4351851851851852" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.4623931623931624" />
+        <entry key="app/src/main/res/layout/fragment_circuits.xml" value="0.4625908507909363" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.5008787346221442" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.4623931623931624" />
+        <entry key="app/src/main/res/layout/fragment_race_detail.xml" value="0.4625908507909363" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.5489583333333333" />
       </map>
     </option>

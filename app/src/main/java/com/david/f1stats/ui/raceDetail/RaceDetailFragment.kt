@@ -35,10 +35,10 @@ class RaceDetailFragment : Fragment() {
             race?.forEach {
                 when (it.type) {
                     TypeRace.RACE -> setRace(it)
-                    TypeRace.QUALY -> setQualy(it)
-                    TypeRace.P3 -> setP3(it)
-                    TypeRace.P2 -> setP2(it)
-                    TypeRace.P1 -> setP1(it)
+                    TypeRace.QUALY -> setQualifying(it)
+                    TypeRace.P3 -> setPractice3(it)
+                    TypeRace.P2 -> setPractice2(it)
+                    TypeRace.P1 -> setPractice1(it)
                     TypeRace.NONE -> {}
                 }
             }
@@ -57,25 +57,25 @@ class RaceDetailFragment : Fragment() {
         binding.raceHour.text = race.hour
     }
 
-    private fun setQualy(race: RaceDetail){
+    private fun setQualifying(race: RaceDetail){
         binding.qualyDay.text = race.day
         binding.qualyMonth.text = race.month
         binding.qualyHour.text = race.hour
     }
 
-    private fun setP3(race: RaceDetail){
+    private fun setPractice3(race: RaceDetail){
         binding.p3Day.text = race.day
         binding.p3Month.text = race.month
         binding.p3Hour.text = race.hour
     }
 
-    private fun setP2(race: RaceDetail){
+    private fun setPractice2(race: RaceDetail){
         binding.p2Day.text = race.day
         binding.p2Month.text = race.month
         binding.p2Hour.text = race.hour
     }
 
-    private fun setP1(race: RaceDetail){
+    private fun setPractice1(race: RaceDetail){
         binding.p1Day.text = race.day
         binding.p1Month.text = race.month
         binding.p1Hour.text = race.hour

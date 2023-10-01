@@ -1,7 +1,7 @@
 package com.david.f1stats.di
 
 import com.david.f1stats.BuildConfig
-import com.david.f1stats.data.source.network.RaceAPIClient
+import com.david.f1stats.data.source.network.APIClient
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -35,7 +35,7 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideRaceApiClient(retrofit: Retrofit):RaceAPIClient{
-        return retrofit.create(RaceAPIClient::class.java)
+    fun provideRaceApiClient(retrofit: Retrofit):APIClient{
+        return retrofit.create(APIClient::class.java)
     }
 }

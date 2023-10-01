@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:theme="@style/cardView"
+    android:layout_marginBottom="@dimen/cardView_margin_bottom">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/cardView_padding">
+        <LinearLayout
+            android:id="@+id/race_date_linear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_centerVertical="true">
+            <TextView
+                android:id="@+id/tvPoints"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:theme="@style/cardViewText.bold"
+                tools:text="300"/>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/cardView_info_margin_bottom"
+            android:layout_marginStart="@dimen/cardView_title_margin_start"
+            android:layout_toEndOf="@id/race_date_linear"
+            android:theme="@style/cardViewTitle"
+            tools:text="Verstappen"
+            tools:ignore="RelativeOverlap" />
+        <TextView
+            android:id="@+id/tvTeam"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvName"
+            android:layout_alignStart="@id/tvName"
+            android:layout_marginBottom="@dimen/cardView_info_margin_bottom"
+            android:theme="@style/cardViewText"
+            tools:text="Red Bull"/>
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
