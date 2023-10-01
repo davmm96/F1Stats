@@ -26,6 +26,13 @@
         android:name="com.david.f1stats.ui.circuits.CircuitsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_circuits" />
+
+    <fragment
+        android:id="@+id/navigation_favorites"
+        android:name="com.david.f1stats.ui.favorites.FavoritesFragment"
+        android:label="@string/title_favorites"
+        tools:layout="@layout/fragment_favorites" />
+
     <fragment
         android:id="@+id/raceDetailFragment"
         android:name="com.david.f1stats.ui.raceDetail.RaceDetailFragment"
@@ -38,4 +45,5 @@
             android:name="country"
             app:argType="string" />
     </fragment>
+
 </navigation>

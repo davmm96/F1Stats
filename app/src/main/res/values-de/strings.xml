@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="title_home">Racing</string>
+    <string name="title_home">Calendar</string>
     <string name="title_dashboard">Ranking</string>
     <string name="title_notifications">Circuits</string>
     <string name="settings">Settings</string>
@@ -11,4 +11,5 @@
     <string name="p2">Practice 2</string>
     <string name="p3">Practice 3</string>
     <string name="race_weekend">Race weekend</string>
+    <string name="title_favorites">Favorites</string>
 </resources>
