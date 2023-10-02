@@ -10,4 +10,5 @@ data class RaceDetail(
     val id: Int,
     val laps: String,
     val type: TypeRace,
+    val dateCalendar: Long
 )

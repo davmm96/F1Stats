@@ -16,6 +16,7 @@ class RaceDetailFragment : Fragment() {
 
     private var _binding: FragmentRaceDetailBinding? = null
     private val raceDetailViewModel: RaceDetailViewModel by viewModels()
+    private var raceDate: Long? = null
 
     private val binding get() = _binding!!
 
@@ -44,6 +45,10 @@ class RaceDetailFragment : Fragment() {
             }
         }
 
+        binding.raceWeekend.setOnClickListener {
+            raceDetailViewModel.onAddToCalendarRequested(requireContext(), "F1 Race", "Race Circuit", raceDate!!)
+        }
+
         return root
     }
 
@@ -55,6 +60,7 @@ class RaceDetailFragment : Fragment() {
         binding.raceDay.text = race.day
         binding.raceMonth.text = race.month
         binding.raceHour.text = race.hour
+        raceDate = race.dateCalendar
     }
 
     private fun setQualifying(race: RaceDetail){

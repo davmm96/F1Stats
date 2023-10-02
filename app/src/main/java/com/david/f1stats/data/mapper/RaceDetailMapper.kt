@@ -6,6 +6,7 @@ import com.david.f1stats.domain.model.TypeRace
 import com.david.f1stats.utils.Constants.FORMAT_DAY
 import com.david.f1stats.utils.Constants.FORMAT_HOUR
 import com.david.f1stats.utils.Constants.FORMAT_MONTH
+import com.david.f1stats.utils.dateToMillis
 import com.david.f1stats.utils.formatDate
 import javax.inject.Inject
 
@@ -21,7 +22,8 @@ class RaceDetailMapper @Inject constructor(): IMapper<List<RaceData>?, List<Race
                 country = raceData.competition.location.country,
                 id = raceData.competition.id,
                 laps = raceData.laps.total.toString() + " laps",
-                type = getRaceType(raceData.type)
+                type = getRaceType(raceData.type),
+                dateCalendar = dateToMillis(raceData.date)
             )
         }
     }
