@@ -4,8 +4,6 @@
     <style name="toolbar" parent="Theme.MaterialComponents">
         <item name="android:textColorPrimary">@android:color/white</item>
         <item name="android:textColorSecondary">@android:color/white</item>
-        <item name="actionMenuTextColor">@android:color/white</item>
-        <item name="android:elevation">@dimen/toolbar_elevation</item>
         <item name="android:background">@color/red</item>
     </style>
 

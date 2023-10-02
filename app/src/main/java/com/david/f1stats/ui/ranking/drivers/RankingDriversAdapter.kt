@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.david.f1stats.databinding.RankingDriverItemBinding
+import com.david.f1stats.databinding.ItemRankingDriverBinding
 import com.david.f1stats.domain.model.RankingDriver
 import com.david.f1stats.utils.RoundedTransformation
 import com.squareup.picasso.Picasso
@@ -26,7 +26,7 @@ class RankingDriversAdapter (private val listener: RankingItemListener) : Recycl
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RankingViewHolder {
-        val binding: RankingDriverItemBinding = RankingDriverItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding: ItemRankingDriverBinding = ItemRankingDriverBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return RankingViewHolder(binding, listener)
     }
 
@@ -34,7 +34,7 @@ class RankingDriversAdapter (private val listener: RankingItemListener) : Recycl
 
     override fun onBindViewHolder(holder: RankingViewHolder, position: Int) = holder.bind(items[position])
 
-    inner class RankingViewHolder(private val itemBinding: RankingDriverItemBinding, private val listener: RankingItemListener) :
+    inner class RankingViewHolder(private val itemBinding: ItemRankingDriverBinding, private val listener: RankingItemListener) :
         RecyclerView.ViewHolder(itemBinding.root),
         View.OnClickListener {
 

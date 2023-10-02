@@ -12,6 +12,7 @@
         <action
             android:id="@+id/action_navigation_races_to_raceDetailFragment"
             app:destination="@id/raceDetailFragment"
+            app:enterAnim="@android:anim/slide_in_left"
             app:popUpTo="@id/navigation_races" />
     </fragment>
 

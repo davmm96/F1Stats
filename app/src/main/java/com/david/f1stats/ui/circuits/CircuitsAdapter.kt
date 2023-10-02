@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.david.f1stats.databinding.CircuitItemBinding
+import com.david.f1stats.databinding.ItemCircuitBinding
 import com.david.f1stats.domain.model.Circuit
 
 class CircuitsAdapter (private val listener: CircuitItemListener) : RecyclerView.Adapter<CircuitsAdapter.CircuitViewHolder>() {
@@ -24,7 +24,7 @@ class CircuitsAdapter (private val listener: CircuitItemListener) : RecyclerView
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CircuitViewHolder {
-        val binding: CircuitItemBinding = CircuitItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding: ItemCircuitBinding = ItemCircuitBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return CircuitViewHolder(binding, listener)
     }
 
@@ -32,7 +32,7 @@ class CircuitsAdapter (private val listener: CircuitItemListener) : RecyclerView
 
     override fun onBindViewHolder(holder: CircuitViewHolder, position: Int) = holder.bind(items[position])
 
-    inner class CircuitViewHolder(private val itemBinding: CircuitItemBinding, private val listener: CircuitItemListener) :
+    inner class CircuitViewHolder(private val itemBinding: ItemCircuitBinding, private val listener: CircuitItemListener) :
         RecyclerView.ViewHolder(itemBinding.root),
         View.OnClickListener {
 

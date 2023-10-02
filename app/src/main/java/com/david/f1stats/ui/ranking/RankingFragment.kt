@@ -52,7 +52,7 @@ class RankingFragment : Fragment(){
                 }
                 2 -> {
                     tab.text = getString(R.string.ranking_races)
-                    tab.icon = ContextCompat.getDrawable(requireContext(), R.drawable.icon_race)
+                    tab.icon = ContextCompat.getDrawable(requireContext(), R.drawable.icon_ranking)
                 }
                 else -> throw IllegalArgumentException("Invalid position")
             }

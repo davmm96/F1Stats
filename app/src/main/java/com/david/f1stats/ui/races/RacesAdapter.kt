@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.david.f1stats.databinding.RaceItemBinding
+import com.david.f1stats.databinding.ItemRaceBinding
 import com.david.f1stats.domain.model.Race
 
 
@@ -25,7 +25,7 @@ class RacesAdapter (private val listener: RaceItemListener) : RecyclerView.Adapt
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RacesViewHolder {
-        val binding: RaceItemBinding = RaceItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding: ItemRaceBinding = ItemRaceBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return RacesViewHolder(binding, listener)
     }
 
@@ -33,7 +33,7 @@ class RacesAdapter (private val listener: RaceItemListener) : RecyclerView.Adapt
 
     override fun onBindViewHolder(holder: RacesViewHolder, position: Int) = holder.bind(items[position])
 
-    inner class RacesViewHolder(private val itemBinding: RaceItemBinding, private val listener: RaceItemListener) :
+    inner class RacesViewHolder(private val itemBinding: ItemRaceBinding, private val listener: RaceItemListener) :
         RecyclerView.ViewHolder(itemBinding.root),
         View.OnClickListener {
 

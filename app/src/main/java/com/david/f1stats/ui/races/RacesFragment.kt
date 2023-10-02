@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.david.f1stats.R
 import com.david.f1stats.databinding.FragmentRacesBinding
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.Calendar
 
 @AndroidEntryPoint
 class RacesFragment : Fragment(), RacesAdapter.RaceItemListener {
@@ -31,8 +30,6 @@ class RacesFragment : Fragment(), RacesAdapter.RaceItemListener {
 
         _binding = FragmentRacesBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
-        binding.tvSeason.text = Calendar.getInstance().get(Calendar.YEAR).toString()
         racesViewModel.onCreate()
 
         return root

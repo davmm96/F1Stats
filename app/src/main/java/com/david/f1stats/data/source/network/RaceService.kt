@@ -8,7 +8,7 @@ import javax.inject.Inject
 class RaceService @Inject constructor(private val api:APIClient){
     suspend fun getRaces():List<RaceData>{
         return withContext(Dispatchers.IO) {
-            val response = api.getCurrentRaces()
+            val response = api.getNextRaces()
             response.body()?.response ?: emptyList()
         }
     }
