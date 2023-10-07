@@ -38,14 +38,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:theme="@style/cardViewTitle"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 tools:text="Verstappen" />
             <TextView
                 android:id="@+id/tvTeam"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:theme="@style/cardViewText"
-                android:textSize="12sp"
+                android:textSize="11sp"
                 tools:text="Red Bull"/>
         </LinearLayout>
         <LinearLayout
@@ -64,7 +64,7 @@
                 android:layout_marginBottom="@dimen/cardView_info_margin_bottom"
                 android:layout_marginStart="@dimen/cardView_title_margin_start"
                 android:gravity="center_vertical"
-                android:textSize="12sp"
+                android:textSize="11sp"
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:background="@drawable/rounded_grey_background"
