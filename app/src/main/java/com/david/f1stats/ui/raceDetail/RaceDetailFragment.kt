@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.david.f1stats.databinding.FragmentRaceDetailBinding
@@ -40,9 +41,15 @@ class RaceDetailFragment : Fragment() {
                     TypeRace.P3 -> setPractice3(it)
                     TypeRace.P2 -> setPractice2(it)
                     TypeRace.P1 -> setPractice1(it)
+                    TypeRace.SPRINT -> setSprint(it)
+                    TypeRace.SPRINT_SHOOTOUT -> setSprintShootout(it)
                     TypeRace.NONE -> {}
                 }
             }
+        }
+
+        raceDetailViewModel.isLoading.observe(viewLifecycleOwner){
+            binding.progressBar.isVisible = it
         }
 
         binding.raceWeekend.setOnClickListener {
@@ -69,21 +76,38 @@ class RaceDetailFragment : Fragment() {
         binding.qualyHour.text = race.hour
     }
 
+    private fun setSprint(race: RaceDetail){
+        binding.sprintDay.text = race.day
+        binding.sprintMonth.text = race.month
+        binding.sprintHour.text = race.hour
+        binding.cvSprint.visibility = View.VISIBLE
+    }
+
+    private fun setSprintShootout(race: RaceDetail) {
+        binding.sprintShootoutDay.text = race.day
+        binding.sprintShootoutMonth.text = race.month
+        binding.sprintShootoutHour.text = race.hour
+        binding.cvSprintShootout.visibility = View.VISIBLE
+    }
+
     private fun setPractice3(race: RaceDetail){
         binding.p3Day.text = race.day
         binding.p3Month.text = race.month
         binding.p3Hour.text = race.hour
+        binding.cvP3.visibility = View.VISIBLE
     }
 
     private fun setPractice2(race: RaceDetail){
         binding.p2Day.text = race.day
         binding.p2Month.text = race.month
         binding.p2Hour.text = race.hour
+        binding.cvP2.visibility = View.VISIBLE
     }
 
     private fun setPractice1(race: RaceDetail){
         binding.p1Day.text = race.day
         binding.p1Month.text = race.month
         binding.p1Hour.text = race.hour
+        binding.cvP1.visibility = View.VISIBLE
     }
 }

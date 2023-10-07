@@ -35,6 +35,8 @@ class RaceDetailMapper @Inject constructor(): IMapper<List<RaceData>?, List<Race
             "1st Practice" -> TypeRace.P1
             "2nd Practice" -> TypeRace.P2
             "3rd Practice" -> TypeRace.P3
+            "Sprint" -> TypeRace.SPRINT
+            "1st Sprint Shootout" -> TypeRace.SPRINT_SHOOTOUT
             else -> {
                 TypeRace.NONE
             }

@@ -18,4 +18,7 @@
     <string name="imageDriver" translatable="false">Imagen del piloto</string>
     <string name="imageTeam" translatable="false">Imagen del equipo</string>
     <string name="favorites_todo">Favorites</string>
+    <string name="sprint" translatable="false">Sprint</string>
+    <string name="sprint_shootout">Sprint Shootout</string>
+    <string name="add_to_calendar">Add to calendar</string>
 </resources>
