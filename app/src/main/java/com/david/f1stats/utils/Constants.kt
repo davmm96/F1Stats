@@ -11,4 +11,5 @@ object Constants {
     const val NUM_TABS_RANKING = 3
     const val NUM_GP_SEASON = 23
     const val TYPE_RACE_QUERY_PARAM = "race"
+    const val TIMEZONE = "Europe/Madrid"
 }

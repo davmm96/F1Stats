@@ -48,7 +48,7 @@ class RacesAdapter (private val listener: RaceItemListener) : RecyclerView.Adapt
             itemBinding.raceName.text = item.competition
             itemBinding.raceCountry.text = item.country
             itemBinding.raceLaps.text = item.laps
-            itemBinding.raceDateDay.text = item.day
+            itemBinding.raceDateDay.text = item.dayInterval
             itemBinding.raceDateMonth.text = item.month
         }
 

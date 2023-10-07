@@ -11,7 +11,7 @@ class CalendarHelper @Inject constructor()  {
             .setData(CalendarContract.Events.CONTENT_URI)
             .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, startMillis)
             .putExtra(CalendarContract.Events.TITLE, title)
-            .putExtra(CalendarContract.Events.EVENT_TIMEZONE, "UTC")
+            .putExtra(CalendarContract.Events.EVENT_TIMEZONE, Constants.TIMEZONE)
             .putExtra(CalendarContract.Events.DESCRIPTION, "F1 Race Event")
             .putExtra(CalendarContract.Events.EVENT_LOCATION, location)
         context.startActivity(intent)

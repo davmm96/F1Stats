@@ -19,14 +19,16 @@ interface APIClient {
     suspend fun getNextRaces(
         @Query("type") type: String = Constants.TYPE_RACE_QUERY_PARAM,
         @Query("season") season: String = Calendar.getInstance().get(Calendar.YEAR).toString(),
-        @Query("next") last: Int = Constants.NUM_GP_SEASON
+        @Query("next") last: Int = Constants.NUM_GP_SEASON,
+        @Query("timezone") timezone: String = Constants.TIMEZONE
     ): Response<RaceResponse>
 
     @Headers(BuildConfig.API_KEY_HEADER)
     @GET(URL_RACES)
     suspend fun getRaceDetails(
         @Query("competition") competition: Int,
-        @Query("season") season: String = Calendar.getInstance().get(Calendar.YEAR).toString()
+        @Query("season") season: String = Calendar.getInstance().get(Calendar.YEAR).toString(),
+        @Query("timezone") timezone: String = Constants.TIMEZONE
     ): Response<RaceResponse>
 
     @Headers(BuildConfig.API_KEY_HEADER)

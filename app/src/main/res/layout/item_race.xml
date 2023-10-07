@@ -12,7 +12,7 @@
         android:padding="@dimen/cardView_padding">
             <LinearLayout
                 android:id="@+id/race_date_linear"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_centerVertical="true">
@@ -21,11 +21,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:theme="@style/cardViewText"
-                    tools:text="20"/>
+                    android:layout_gravity="center_horizontal"
+                    tools:text="20-22"/>
                 <TextView
                     android:id="@+id/race_date_month"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
                     android:theme="@style/cardViewText.bold"
                     tools:text="Oct"/>
             </LinearLayout>
