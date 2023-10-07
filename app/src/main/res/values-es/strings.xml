@@ -9,12 +9,12 @@
     <string name="p1">Libres 1</string>
     <string name="p2">Libres 2</string>
     <string name="p3">Libres 3</string>
-    <string name="race_weekend">Race weekend</string>
+    <string name="race_weekend">Fin de semana</string>
     <string name="title_favorites">Favoritos</string>
-    <string name="ranking_drivers">Drivers</string>
-    <string name="ranking_teams">Teams</string>
-    <string name="ranking_races">Races</string>
+    <string name="ranking_drivers">Pilotos</string>
+    <string name="ranking_teams">Constructores</string>
+    <string name="ranking_races">Carreras</string>
     <string name="favorites_todo">Favorites</string>
-    <string name="sprint_shootout">Sprint Shootout</string>
-    <string name="add_to_calendar">Add to calendar</string>
+    <string name="sprint_shootout">Clasificación Sprint</string>
+    <string name="add_to_calendar">Añadir al calendario del dispositivo</string>
 </resources>
