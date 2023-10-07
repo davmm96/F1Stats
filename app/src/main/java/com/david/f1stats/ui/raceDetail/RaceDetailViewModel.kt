@@ -20,17 +20,16 @@ class RaceDetailViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _raceListModel = MutableLiveData<List<RaceDetail>?>()
-    private val _isLoading = MutableLiveData<Boolean>()
+    private val _raceInfoModel = MutableLiveData<RaceDetail>()
 
     fun start(id: Int) {
         viewModelScope.launch {
-            _isLoading.postValue(true)
             val result = getRaceDetailsUseCase.invoke(id)
 
             if (result != null) {
                 if(result.isNotEmpty()){
                     _raceListModel.postValue(result)
-                    _isLoading.postValue(false)
+                    _raceInfoModel.postValue(result.first())
                 } else {
                     Log.d("TAG", "Error")
                 }
@@ -38,10 +37,10 @@ class RaceDetailViewModel @Inject constructor(
         }
     }
 
-    fun onAddToCalendarRequested(context: Context, title: String, location: String, startMillis: Long) {
-        calendarHelper.addToCalendar(context, title, location, startMillis)
+    fun onAddToCalendarRequested(context: Context, title: String, description: String, location:String, startMillis: Long) {
+        calendarHelper.addToCalendar(context, title, description, location, startMillis)
     }
 
     val raceList: LiveData<List<RaceDetail>?> = _raceListModel
-    val isLoading: LiveData<Boolean> = _isLoading
+    val raceInfo: LiveData<RaceDetail> = _raceInfoModel
 }
