@@ -9,10 +9,10 @@ class RankingTeamMapper @Inject constructor(): IMapper<List<RankingTeamData>?, L
         return from?.map { rankingTeamData ->
             RankingTeam(
                 idTeam = rankingTeamData.team.id,
-                position = rankingTeamData.position.toString(),
+                position = rankingTeamData.position,
                 image = rankingTeamData.team.logo,
                 name = rankingTeamData.team.name,
-                points = rankingTeamData.points.toString()
+                points = rankingTeamData.points.toString() + " PTS"
             )
         }
     }

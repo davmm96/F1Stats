@@ -4,42 +4,74 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:theme="@style/cardView"
-    android:layout_marginBottom="@dimen/cardView_margin_bottom">
+    android:layout_marginBottom="5dp">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="@dimen/cardView_padding">
+        android:padding="15dp">
         <LinearLayout
             android:id="@+id/race_date_linear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_centerVertical="true">
-            <ImageView
-                android:id="@+id/ivTeam"
+            <TextView
+                android:id="@+id/tvPosition"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="@string/imageTeam"/>
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                tools:text="1"/>
         </LinearLayout>
-        <TextView
-            android:id="@+id/tvName"
+        <LinearLayout
+            android:id="@+id/raceLinear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_toEndOf="@id/race_date_linear"
             android:layout_marginBottom="@dimen/cardView_info_margin_bottom"
             android:layout_marginStart="@dimen/cardView_title_margin_start"
-            android:layout_toEndOf="@id/race_date_linear"
-            android:theme="@style/cardViewTitle"
-            tools:text="Red Bull"
-            tools:ignore="RelativeOverlap" />
-        <TextView
-            android:id="@+id/tvPoints"
+            android:layout_centerVertical="true">
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:maxLines="2"
+                android:theme="@style/cardViewTitle"
+                android:textSize="14sp"
+                tools:text="Red Bull"
+                tools:ignore="RelativeOverlap" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/pointsLinear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tvName"
-            android:layout_alignStart="@id/tvName"
-            android:layout_marginBottom="@dimen/cardView_info_margin_bottom"
-            android:theme="@style/cardViewText"
-            tools:text="500 pts"/>
+            android:layout_toStartOf="@id/ivArrow"
+            android:layout_marginEnd="15dp"
+            android:orientation="vertical"
+            android:layout_centerVertical="true"
+            tools:ignore="RelativeOverlap">
+            <TextView
+                android:id="@+id/tvPoints"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/cardView_info_margin_bottom"
+                android:layout_marginStart="@dimen/cardView_title_margin_start"
+                android:gravity="center_vertical"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:background="@drawable/rounded_grey_background"
+                tools:text="400 pts"/>
+        </LinearLayout>
+        <ImageView
+            android:id="@+id/ivArrow"
+            android:layout_width="@dimen/cardView_arrow"
+            android:layout_height="@dimen/cardView_arrow"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/arrow_right"
+            android:contentDescription="@string/card_arrow_content_description" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

@@ -6,9 +6,8 @@ import com.david.f1stats.domain.model.RankingTeam
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.david.f1stats.R
 import com.david.f1stats.databinding.ItemRankingTeamBinding
-import com.david.f1stats.utils.RoundedTransformation
-import com.squareup.picasso.Picasso
 
 class RankingTeamsAdapter(private val listener: RankingItemListener) : RecyclerView.Adapter<RankingTeamsAdapter.RankingViewHolder>()  {
     interface RankingItemListener {
@@ -45,12 +44,21 @@ class RankingTeamsAdapter(private val listener: RankingItemListener) : RecyclerV
 
         fun bind(item: RankingTeam) {
             this.rankingTeam = item
+
+            if(item.position == 1) {
+                itemBinding.root.setCardBackgroundColor(itemBinding.root.context.getColor(R.color.dark_grey))
+                itemBinding.tvName.setTextColor(itemBinding.root.context.getColor(R.color.white))
+                itemBinding.tvPosition.setTextColor(itemBinding.root.context.getColor(R.color.white))
+            }
+            else {
+                itemBinding.root.setCardBackgroundColor(itemBinding.root.context.getColor(R.color.white))
+                itemBinding.tvName.setTextColor(itemBinding.root.context.getColor(R.color.black))
+                itemBinding.tvPosition.setTextColor(itemBinding.root.context.getColor(R.color.black))
+            }
+
             itemBinding.tvName.text = item.name
             itemBinding.tvPoints.text = item.points
-            Picasso.get()
-                .load(item.image)
-                .transform( RoundedTransformation(30, 0))
-                .into(itemBinding.ivTeam)
+            itemBinding.tvPosition.text = item.position.toString()
         }
 
         override fun onClick(v: View?) {
