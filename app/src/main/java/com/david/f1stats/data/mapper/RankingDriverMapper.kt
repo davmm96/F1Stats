@@ -13,7 +13,7 @@ class RankingDriverMapper @Inject constructor(): IMapper<List<RankingDriverData>
                 image = rankingDriverData.driver.image,
                 name = rankingDriverData.driver.name,
                 team = rankingDriverData.team.name,
-                points = rankingDriverData.points
+                points = rankingDriverData.points.toString() + " PTS"
             )
         }
     }

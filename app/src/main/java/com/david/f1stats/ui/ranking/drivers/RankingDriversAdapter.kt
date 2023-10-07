@@ -5,10 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.david.f1stats.R
 import com.david.f1stats.databinding.ItemRankingDriverBinding
 import com.david.f1stats.domain.model.RankingDriver
-import com.david.f1stats.utils.RoundedTransformation
-import com.squareup.picasso.Picasso
 
 class RankingDriversAdapter (private val listener: RankingItemListener) : RecyclerView.Adapter<RankingDriversAdapter.RankingViewHolder>() {
 
@@ -17,7 +16,6 @@ class RankingDriversAdapter (private val listener: RankingItemListener) : Recycl
     }
 
     private val items = ArrayList<RankingDriver>()
-
 
     @SuppressLint("NotifyDataSetChanged")
     fun setItems(items: ArrayList<RankingDriver>) {
@@ -47,15 +45,24 @@ class RankingDriversAdapter (private val listener: RankingItemListener) : Recycl
 
         fun bind(item: RankingDriver) {
             this.rankingDriver = item
-            if(item.position == 1)
-                itemBinding.root.setCardBackgroundColor(itemBinding.root.context.getColor(android.R.color.darker_gray))
+
+            if(item.position == 1) {
+                itemBinding.root.setCardBackgroundColor(itemBinding.root.context.getColor(R.color.dark_grey))
+                itemBinding.tvName.setTextColor(itemBinding.root.context.getColor(R.color.white))
+                itemBinding.tvTeam.setTextColor(itemBinding.root.context.getColor(R.color.white))
+                itemBinding.tvPosition.setTextColor(itemBinding.root.context.getColor(R.color.white))
+            }
+            else {
+                itemBinding.root.setCardBackgroundColor(itemBinding.root.context.getColor(R.color.white))
+                itemBinding.tvName.setTextColor(itemBinding.root.context.getColor(R.color.black))
+                itemBinding.tvTeam.setTextColor(itemBinding.root.context.getColor(R.color.dark_grey))
+                itemBinding.tvPosition.setTextColor(itemBinding.root.context.getColor(R.color.black))
+            }
 
             itemBinding.tvName.text = item.name
             itemBinding.tvTeam.text = item.team
-            Picasso.get()
-                .load(item.image)
-                .transform( RoundedTransformation(30, 0))
-                .into(itemBinding.ivDriver)
+            itemBinding.tvPoints.text = item.points
+            itemBinding.tvPosition.text = item.position.toString()
         }
 
         override fun onClick(v: View?) {

@@ -6,5 +6,5 @@ data class RankingDriver (
     val image: String,
     val name: String,
     val team: String,
-    val points: Int,
+    val points: String,
 )
