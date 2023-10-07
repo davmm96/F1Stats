@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.david.f1stats.R
 import com.david.f1stats.databinding.ItemRankingTeamBinding
+import com.david.f1stats.utils.Constants.FIRST_POSITION_SIZE
 
 class RankingTeamsAdapter(private val listener: RankingItemListener) : RecyclerView.Adapter<RankingTeamsAdapter.RankingViewHolder>()  {
     interface RankingItemListener {
@@ -50,12 +51,14 @@ class RankingTeamsAdapter(private val listener: RankingItemListener) : RecyclerV
                 itemBinding.tvName.setTextColor(itemBinding.root.context.getColor(R.color.white))
                 itemBinding.tvPosition.setTextColor(itemBinding.root.context.getColor(R.color.white))
                 itemBinding.ivArrow.setImageResource(R.drawable.arrow_right_white)
+                itemBinding.tvName.textSize = FIRST_POSITION_SIZE
             }
             else {
                 itemBinding.root.setCardBackgroundColor(itemBinding.root.context.getColor(R.color.white))
                 itemBinding.tvName.setTextColor(itemBinding.root.context.getColor(R.color.black))
                 itemBinding.tvPosition.setTextColor(itemBinding.root.context.getColor(R.color.black))
                 itemBinding.ivArrow.setImageResource(R.drawable.arrow_right)
+                itemBinding.tvName.textSize = 14f
             }
 
             itemBinding.tvName.text = item.name

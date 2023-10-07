@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.david.f1stats.R
 import com.david.f1stats.databinding.ItemRankingDriverBinding
 import com.david.f1stats.domain.model.RankingDriver
+import com.david.f1stats.utils.Constants.FIRST_POSITION_SIZE
 
 class RankingDriversAdapter (private val listener: RankingItemListener) : RecyclerView.Adapter<RankingDriversAdapter.RankingViewHolder>() {
 
@@ -52,6 +53,7 @@ class RankingDriversAdapter (private val listener: RankingItemListener) : Recycl
                 itemBinding.tvTeam.setTextColor(itemBinding.root.context.getColor(R.color.white))
                 itemBinding.tvPosition.setTextColor(itemBinding.root.context.getColor(R.color.white))
                 itemBinding.ivArrow.setImageResource(R.drawable.arrow_right_white)
+                itemBinding.tvName.textSize = FIRST_POSITION_SIZE
             }
             else {
                 itemBinding.root.setCardBackgroundColor(itemBinding.root.context.getColor(R.color.white))
@@ -59,6 +61,7 @@ class RankingDriversAdapter (private val listener: RankingItemListener) : Recycl
                 itemBinding.tvTeam.setTextColor(itemBinding.root.context.getColor(R.color.dark_grey))
                 itemBinding.tvPosition.setTextColor(itemBinding.root.context.getColor(R.color.black))
                 itemBinding.ivArrow.setImageResource(R.drawable.arrow_right)
+                itemBinding.tvName.textSize = 14f
             }
 
             itemBinding.tvName.text = item.name

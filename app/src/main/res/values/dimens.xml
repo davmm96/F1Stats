@@ -15,8 +15,8 @@
     <dimen name="constraint_padding_ver">12dp</dimen>
 
     <!--CardView-->
-    <dimen name="cardView_margin_bottom">15dp</dimen>
-    <dimen name="cardView_padding">20dp</dimen>
+    <dimen name="cardView_margin_bottom">10dp</dimen>
+    <dimen name="cardView_padding">15dp</dimen>
     <dimen name="cardView_textLeft">12sp</dimen>
     <dimen name="cardView_info_margin_bottom">4dp</dimen>
     <dimen name="cardView_title_margin_start">30dp</dimen>
