@@ -51,12 +51,14 @@ class RankingDriversAdapter (private val listener: RankingItemListener) : Recycl
                 itemBinding.tvName.setTextColor(itemBinding.root.context.getColor(R.color.white))
                 itemBinding.tvTeam.setTextColor(itemBinding.root.context.getColor(R.color.white))
                 itemBinding.tvPosition.setTextColor(itemBinding.root.context.getColor(R.color.white))
+                itemBinding.ivArrow.setImageResource(R.drawable.arrow_right_white)
             }
             else {
                 itemBinding.root.setCardBackgroundColor(itemBinding.root.context.getColor(R.color.white))
                 itemBinding.tvName.setTextColor(itemBinding.root.context.getColor(R.color.black))
                 itemBinding.tvTeam.setTextColor(itemBinding.root.context.getColor(R.color.dark_grey))
                 itemBinding.tvPosition.setTextColor(itemBinding.root.context.getColor(R.color.black))
+                itemBinding.ivArrow.setImageResource(R.drawable.arrow_right)
             }
 
             itemBinding.tvName.text = item.name

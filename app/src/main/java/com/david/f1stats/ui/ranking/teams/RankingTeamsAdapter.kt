@@ -49,11 +49,13 @@ class RankingTeamsAdapter(private val listener: RankingItemListener) : RecyclerV
                 itemBinding.root.setCardBackgroundColor(itemBinding.root.context.getColor(R.color.dark_grey))
                 itemBinding.tvName.setTextColor(itemBinding.root.context.getColor(R.color.white))
                 itemBinding.tvPosition.setTextColor(itemBinding.root.context.getColor(R.color.white))
+                itemBinding.ivArrow.setImageResource(R.drawable.arrow_right_white)
             }
             else {
                 itemBinding.root.setCardBackgroundColor(itemBinding.root.context.getColor(R.color.white))
                 itemBinding.tvName.setTextColor(itemBinding.root.context.getColor(R.color.black))
                 itemBinding.tvPosition.setTextColor(itemBinding.root.context.getColor(R.color.black))
+                itemBinding.ivArrow.setImageResource(R.drawable.arrow_right)
             }
 
             itemBinding.tvName.text = item.name
