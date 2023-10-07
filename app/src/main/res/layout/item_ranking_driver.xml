@@ -19,7 +19,8 @@
             <ImageView
                 android:id="@+id/ivDriver"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/imageDriver"/>
         </LinearLayout>
         <TextView
             android:id="@+id/tvName"

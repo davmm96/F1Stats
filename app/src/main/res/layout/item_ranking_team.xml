@@ -19,7 +19,8 @@
             <ImageView
                 android:id="@+id/ivTeam"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/imageTeam"/>
         </LinearLayout>
         <TextView
             android:id="@+id/tvName"

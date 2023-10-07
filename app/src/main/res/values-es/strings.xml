@@ -4,7 +4,6 @@
     <string name="title_dashboard">Clasificación</string>
     <string name="title_notifications">Circuitos</string>
     <string name="settings">Opciones</string>
-    <string name="laps">" vueltas"</string>
     <string name="race">Carrera</string>
     <string name="qualy">Clasificación</string>
     <string name="p1">Libres 1</string>
@@ -15,4 +14,5 @@
     <string name="ranking_drivers">Drivers</string>
     <string name="ranking_teams">Teams</string>
     <string name="ranking_races">Races</string>
+    <string name="favorites_todo">Favorites</string>
 </resources>
