@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.david.f1stats.R
@@ -44,15 +43,12 @@ class RankingFragment : Fragment(){
             when (position) {
                 0 -> {
                     tab.text = getString(R.string.ranking_drivers)
-                    tab.icon = ContextCompat.getDrawable(requireContext(), R.drawable.icon_driver)
                 }
                 1 -> {
                     tab.text = getString(R.string.ranking_teams)
-                    tab.icon = ContextCompat.getDrawable(requireContext(), R.drawable.icon_team)
                 }
                 2 -> {
                     tab.text = getString(R.string.ranking_races)
-                    tab.icon = ContextCompat.getDrawable(requireContext(), R.drawable.icon_ranking)
                 }
                 else -> throw IllegalArgumentException("Invalid position")
             }
