@@ -9,6 +9,7 @@ data class RaceDetail(
     val country: String,
     val id: Int,
     val laps: String,
-    val type: TypeRace,
-    val dateCalendar: Long
+    val type: TypeRaceEnum,
+    val dateCalendar: Long,
+    val status: StatusRaceEnum
 )

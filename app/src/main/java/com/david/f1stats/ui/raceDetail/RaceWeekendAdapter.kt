@@ -7,7 +7,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.david.f1stats.databinding.ItemRaceWeekendBinding
 import com.david.f1stats.domain.model.RaceDetail
-import com.david.f1stats.domain.model.TypeRace
+import com.david.f1stats.domain.model.StatusRaceEnum
+import com.david.f1stats.domain.model.TypeRaceEnum
 
 class RaceWeekendAdapter (private val listener: CalendarListener) : RecyclerView.Adapter<RaceWeekendAdapter.RaceWeekendViewHolder>() {
 
@@ -45,7 +46,7 @@ class RaceWeekendAdapter (private val listener: CalendarListener) : RecyclerView
             fun bind(item: RaceDetail) {
                 this.race = item
 
-                if(item.type == TypeRace.NONE)
+                if(item.type == TypeRaceEnum.NONE || item.status != StatusRaceEnum.SCHEDULED)
                     itemBinding.root.visibility = View.GONE
 
                 itemBinding.raceWeekendText.text = item.type.getString(itemBinding.root.context)

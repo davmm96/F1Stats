@@ -3,7 +3,7 @@ package com.david.f1stats.domain.model
 import android.content.Context
 import com.david.f1stats.R
 
-enum class TypeRace(private val stringRes: Int) {
+enum class TypeRaceEnum(private val stringRes: Int) {
     RACE(R.string.race),
     QUALY(R.string.qualy),
     P3(R.string.p3),
