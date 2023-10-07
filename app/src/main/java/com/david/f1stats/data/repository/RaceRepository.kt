@@ -16,7 +16,7 @@ class RaceRepository @Inject constructor(
 
     suspend fun getRaces(): List<Race>?{
         val response = api.getRaces()
-        raceProvider.races = response
+        raceProvider.races = raceMapper.fromMap(response)
         return raceMapper.fromMap(response)
     }
 

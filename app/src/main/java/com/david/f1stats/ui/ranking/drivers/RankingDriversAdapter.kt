@@ -18,6 +18,7 @@ class RankingDriversAdapter (private val listener: RankingItemListener) : Recycl
 
     private val items = ArrayList<RankingDriver>()
 
+
     @SuppressLint("NotifyDataSetChanged")
     fun setItems(items: ArrayList<RankingDriver>) {
         this.items.clear()

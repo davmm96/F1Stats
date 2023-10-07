@@ -23,7 +23,7 @@ class RankingDriversFragment : Fragment(), RankingDriversAdapter.RankingItemList
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         _binding = FragmentRankingDriversBinding.inflate(inflater, container, false)
         val root: View = binding.root

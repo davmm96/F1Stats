@@ -3,7 +3,6 @@
 
 package com.david.f1stats.utils
 
-import java.time.Instant
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 
@@ -15,6 +14,7 @@ fun formatDate(dateTime: String, pattern: String): String {
 }
 
 fun dateToMillis(date: String): Long {
-    val instant = Instant.parse(date)
+    val offsetDateTime = OffsetDateTime.parse(date)
+    val instant = offsetDateTime.toInstant()
     return instant.toEpochMilli()
 }

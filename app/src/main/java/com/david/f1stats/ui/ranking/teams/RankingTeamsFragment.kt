@@ -23,7 +23,7 @@ class RankingTeamsFragment : Fragment(), RankingTeamsAdapter.RankingItemListener
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         _binding = FragmentRankingTeamsBinding.inflate(inflater, container, false)
         val root: View = binding.root

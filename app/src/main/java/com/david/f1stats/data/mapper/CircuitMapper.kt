@@ -8,14 +8,14 @@ class CircuitMapper @Inject constructor(): IMapper<List<CircuitData>?, List<Circ
     override fun fromMap(from: List<CircuitData>?): List<Circuit>? {
         return from?.map { circuitData ->
             Circuit(
-                id = circuitData.id,
-                name = circuitData.name,
-                country = circuitData.competition.location.country,
-                length = circuitData.length,
+                id = circuitData.id ?: 0,
+                name = circuitData.name ?: "Circuit name not found",
+                country = circuitData.competition?.location?.country ?: "Country not found",
+                length = circuitData.length ?: "Length not found",
                 laps = circuitData.laps.toString(),
                 firstGP = circuitData.first_grand_prix.toString(),
-                lapRecordTime = circuitData.lap_record.time?:"No time",
-                lapRecordDriver = circuitData.lap_record.driver?:"No driver",
+                lapRecordTime = circuitData.lap_record?.time ?: "Lap record time not found",
+                lapRecordDriver = circuitData.lap_record?.driver ?: "Lap record driver not found",
             )
         }
     }
