@@ -12,7 +12,7 @@ import com.david.f1stats.domain.model.Race
 class RacesAdapter (private val listener: RaceItemListener) : RecyclerView.Adapter<RacesAdapter.RacesViewHolder>() {
 
     interface RaceItemListener {
-        fun onClickedRace(raceId: Int, country: String)
+        fun onClickedRace(idCompetition: Int, country: String, idRace: Int)
     }
 
     private val items = ArrayList<Race>()
@@ -53,7 +53,7 @@ class RacesAdapter (private val listener: RaceItemListener) : RecyclerView.Adapt
         }
 
         override fun onClick(v: View?) {
-            listener.onClickedRace(race.id, race.country)
+            listener.onClickedRace(race.idCompetition, race.country, race.idRace)
         }
     }
 }

@@ -55,10 +55,10 @@ class RacesFragment : Fragment(), RacesAdapter.RaceItemListener {
     }
 
 
-    override fun onClickedRace(raceId: Int, country: String) {
+    override fun onClickedRace(idCompetition: Int, country: String, idRace: Int) {
         findNavController().navigate(
             R.id.action_navigation_races_to_raceDetailFragment,
-            bundleOf("id" to raceId, "country" to country)
+            bundleOf("id" to idCompetition, "country" to country)
         )
     }
 

@@ -29,7 +29,12 @@
             android:id="@+id/action_navigation_rankingTeams_to_teamDetailFragment"
             app:destination="@id/teamDetailFragment"
             app:enterAnim="@android:anim/slide_in_left"
-            app:popUpTo="@id/tab1Fragment" />
+            app:popUpTo="@id/tab2Fragment" />
+        <action
+            android:id="@+id/action_navigation_raceResults_to_raceResultFragment"
+            app:destination="@id/raceResultFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:popUpTo="@id/tab3Fragment" />
     </fragment>
 
     <fragment
@@ -70,7 +75,7 @@
 
     <fragment
         android:id="@+id/tab3Fragment"
-        android:name="com.david.f1stats.ui.ranking.races.RankingRacesFragment"
+        android:name="com.david.f1stats.ui.ranking.raceResult.RankingRacesFragment"
         android:label="Races" />
 
     <fragment
@@ -91,5 +96,16 @@
             android:name="idTeam"
             app:argType="string" />
     </fragment>
-
+    <fragment
+        android:id="@+id/raceResultFragment"
+        android:name="com.david.f1stats.ui.ranking.raceResult.RaceResultFragment"
+        android:label="{country}"
+        tools:layout="@layout/fragment_race_result" >
+        <argument
+            android:name="idRace"
+            app:argType="string" />
+        <argument
+            android:name="country"
+            app:argType="string" />
+    </fragment>
 </navigation>

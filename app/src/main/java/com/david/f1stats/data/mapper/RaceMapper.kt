@@ -15,7 +15,8 @@ class RaceMapper @Inject constructor(): IMapper<List<RaceData>?, List<Race>?> {
                 dayInterval = formatIntervalDate(raceData.date, 2),
                 month = formatDate(raceData.date, FORMAT_MONTH).replaceFirstChar  { it.uppercaseChar() },
                 country = raceData.competition.location.country,
-                id = raceData.competition.id,
+                idCompetition = raceData.competition.id,
+                idRace = raceData.id,
                 laps = raceData.laps.total.toString() + " laps"
             )
         }

@@ -5,6 +5,7 @@ data class Race(
     val dayInterval: String,
     val month: String,
     val country: String,
-    val id: Int,
+    val idCompetition: Int,
+    val idRace: Int,
     val laps: String,
 )

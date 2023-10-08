@@ -29,7 +29,7 @@ class RaceDetailMapper @Inject constructor(): IMapper<List<RaceData>?, List<Race
                     laps = raceData.laps.total.toString() + " laps",
                     type = typeRace,
                     dateCalendar = dateToMillis(raceData.date),
-                    status = raceStatus
+                    status = raceStatus,
                 )
             } else {
                 null

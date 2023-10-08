@@ -1,4 +1,4 @@
-package com.david.f1stats.ui.ranking.races
+package com.david.f1stats.ui.ranking.raceResult
 
 import android.util.Log
 import androidx.lifecycle.LiveData

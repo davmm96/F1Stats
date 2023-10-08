@@ -1,13 +1,16 @@
-package com.david.f1stats.ui.ranking.races
+package com.david.f1stats.ui.ranking.raceResult
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.david.f1stats.R
 import com.david.f1stats.databinding.FragmentRankingRacesBinding
 import com.david.f1stats.ui.races.RacesAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -54,8 +57,11 @@ class RankingRacesFragment : Fragment(), RacesAdapter.RaceItemListener {
     }
 
 
-    override fun onClickedRace(raceId: Int, country: String) {
-
+    override fun onClickedRace(idCompetition: Int, country: String, idRace: Int) {
+        findNavController().navigate(
+            R.id.action_navigation_raceResults_to_raceResultFragment,
+            bundleOf("id" to idRace, "country" to country)
+        )
     }
 
     override fun onDestroyView() {

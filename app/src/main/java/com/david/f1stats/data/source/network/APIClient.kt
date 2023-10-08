@@ -6,6 +6,7 @@ import com.david.f1stats.data.model.driverDetail.DriverDetailResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 import com.david.f1stats.data.model.race.RaceResponse
+import com.david.f1stats.data.model.raceResult.RaceResultResponse
 import com.david.f1stats.data.model.rankingDriver.RankingDriverResponse
 import com.david.f1stats.data.model.rankingTeam.RankingTeamResponse
 import com.david.f1stats.data.model.teamDetail.TeamDetailResponse
@@ -68,4 +69,10 @@ interface APIClient {
     suspend fun getTeamDetail(
         @Query("id") id: Int
     ): Response<TeamDetailResponse>
+
+    @Headers(BuildConfig.API_KEY_HEADER)
+    @GET(Constants.URL_RACE_RESULT)
+    suspend fun getRaceResult(
+        @Query("race") idRace: Int
+    ): Response<RaceResultResponse>
 }
