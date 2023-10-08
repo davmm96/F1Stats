@@ -2,6 +2,7 @@ package com.david.f1stats.data.source.network
 
 import com.david.f1stats.BuildConfig
 import com.david.f1stats.data.model.circuit.CircuitResponse
+import com.david.f1stats.data.model.driverDetail.DriverDetailResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 import com.david.f1stats.data.model.race.RaceResponse
@@ -54,4 +55,10 @@ interface APIClient {
     suspend fun getCurrentRankingTeams(
         @Query("season") season: String = Calendar.getInstance().get(Calendar.YEAR).toString()
     ): Response<RankingTeamResponse>
+
+    @Headers(BuildConfig.API_KEY_HEADER)
+    @GET(Constants.URL_DRIVERS)
+    suspend fun getDriverDetail(
+        @Query("id") id: Int
+    ): Response<DriverDetailResponse>
 }

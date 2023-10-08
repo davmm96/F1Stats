@@ -17,4 +17,10 @@
     <string name="favorites_todo">Favorites</string>
     <string name="sprint_shootout">Sprint Shootout</string>
     <string name="add_to_calendar">Add to calendar</string>
+    <string name="world_championships_label">World Championships</string>
+    <string name="podiums_label">Podiums</string>
+    <string name="wins_label">Wins</string>
+    <string name="races_label">Races</string>
+    <string name="total_points_label">Total points</string>
+    <string name="driverContentDescription">TODO</string>
 </resources>

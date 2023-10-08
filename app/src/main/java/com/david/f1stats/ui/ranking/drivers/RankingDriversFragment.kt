@@ -5,9 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.david.f1stats.R
 import com.david.f1stats.databinding.FragmentRankingDriversBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -53,7 +56,10 @@ class RankingDriversFragment : Fragment(), RankingDriversAdapter.RankingItemList
     }
 
     override fun onClickedDriver(driverId: Int) {
-
+        findNavController().navigate(
+            R.id.action_navigation_rankingDrivers_to_driverDetailFragment,
+            bundleOf("id" to driverId)
+        )
     }
 
     override fun onDestroyView() {

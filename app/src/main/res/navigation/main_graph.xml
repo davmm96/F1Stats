@@ -19,7 +19,13 @@
         android:id="@+id/navigation_ranking"
         android:name="com.david.f1stats.ui.ranking.RankingFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_ranking" />
+        tools:layout="@layout/fragment_ranking">
+        <action
+            android:id="@+id/action_navigation_rankingDrivers_to_driverDetailFragment"
+            app:destination="@id/driverDetailFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:popUpTo="@id/tab1Fragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_circuits"
@@ -49,16 +55,27 @@
     <fragment
         android:id="@+id/tab1Fragment"
         android:name="com.david.f1stats.ui.ranking.drivers.RankingDriversFragment"
-        android:label="Tab 1" />
+        android:label="Drivers">
+    </fragment>
 
     <fragment
         android:id="@+id/tab2Fragment"
         android:name="com.david.f1stats.ui.ranking.teams.RankingTeamsFragment"
-        android:label="Tab 2" />
+        android:label="Teams" />
 
     <fragment
         android:id="@+id/tab3Fragment"
         android:name="com.david.f1stats.ui.ranking.races.RankingRacesFragment"
-        android:label="Tab 3" />
+        android:label="Races" />
+
+    <fragment
+        android:id="@+id/driverDetailFragment"
+        android:name="com.david.f1stats.ui.ranking.drivers.DriverDetailFragment"
+        android:label=""
+        tools:layout="@layout/fragment_driver_detail">
+        <argument
+            android:name="idDriver"
+            app:argType="string" />
+    </fragment>
 
 </navigation>

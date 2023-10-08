@@ -18,7 +18,6 @@ class RaceDetailFragment : Fragment(), RaceWeekendAdapter.CalendarListener {
     private lateinit var adapter: RaceWeekendAdapter
     private val raceDetailViewModel: RaceDetailViewModel by viewModels()
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         arguments?.getInt("id")?.let { raceDetailViewModel.start(it) }
