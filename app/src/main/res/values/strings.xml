@@ -27,4 +27,7 @@
     <string name="races_label">Races</string>
     <string name="total_points_label">Total points</string>
     <string name="driverContentDescription">TODO</string>
+    <string name="first_season_label" translatable="false">First Season</string>
+    <string name="pole_positions_label" translatable="false">Pole Positions</string>
+    <string name="fastest_laps_label" translatable="false">Fastest Laps</string>
 </resources>

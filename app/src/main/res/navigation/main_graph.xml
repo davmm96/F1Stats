@@ -25,6 +25,11 @@
             app:destination="@id/driverDetailFragment"
             app:enterAnim="@android:anim/slide_in_left"
             app:popUpTo="@id/tab1Fragment" />
+        <action
+            android:id="@+id/action_navigation_rankingTeams_to_teamDetailFragment"
+            app:destination="@id/teamDetailFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:popUpTo="@id/tab1Fragment" />
     </fragment>
 
     <fragment
@@ -75,6 +80,15 @@
         tools:layout="@layout/fragment_driver_detail">
         <argument
             android:name="idDriver"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/teamDetailFragment"
+        android:name="com.david.f1stats.ui.ranking.teams.TeamDetailFragment"
+        android:label=""
+        tools:layout="@layout/fragment_team_detail" >
+        <argument
+            android:name="idTeam"
             app:argType="string" />
     </fragment>
 

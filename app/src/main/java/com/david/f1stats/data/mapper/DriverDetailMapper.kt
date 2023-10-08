@@ -18,11 +18,11 @@ class DriverDetailMapper @Inject constructor(): IMapper<DriverDetailData, Driver
             gpEntered = from.grands_prix_entered.toString(),
             worldChampionships = from.world_championships.toString(),
             podiums = from.podiums.toString(),
-            wins = getHighestRaceFinish(from.highest_race_finish)
+            wins = getWins(from.highest_race_finish)
         )
     }
 
-    private fun getHighestRaceFinish(highestRaceFinish: DriverDetailHighestRaceFinishData): String{
+    private fun getWins(highestRaceFinish: DriverDetailHighestRaceFinishData): String{
         return if(highestRaceFinish.position == 1) {
             highestRaceFinish.number.toString()
         } else {

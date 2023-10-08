@@ -5,6 +5,7 @@ object Constants {
     const val URL_RANKING_DRIVERS = "rankings/drivers"
     const val URL_RANKING_TEAMS = "rankings/teams"
     const val URL_DRIVERS = "drivers"
+    const val URL_TEAMS = "teams"
     const val URL_CIRCUITS = "circuits"
     const val FORMAT_DAY = "dd"
     const val FORMAT_MONTH = "MMM"

@@ -1,5 +1,5 @@
 package com.david.f1stats.data.model.teamDetail
 
-data class Parameters(
+data class TeamDetailParametersData(
     val id: String
 )
