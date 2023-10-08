@@ -30,4 +30,8 @@
     <string name="first_season_label" translatable="false">First Season</string>
     <string name="pole_positions_label" translatable="false">Pole Positions</string>
     <string name="fastest_laps_label" translatable="false">Fastest Laps</string>
+    <string name="pos_label" translatable="false">POS</string>
+    <string name="driver_label">DRIVER</string>
+    <string name="time_label" translatable="false">TIME</string>
+    <string name="points_label" translatable="false">POINTS</string>
 </resources>
