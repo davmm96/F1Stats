@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.david.f1stats.R
 import com.david.f1stats.databinding.FragmentRaceDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -17,6 +18,15 @@ class RaceDetailFragment : Fragment(), RaceWeekendAdapter.CalendarListener {
     private val binding get() = _binding!!
     private lateinit var adapter: RaceWeekendAdapter
     private val raceDetailViewModel: RaceDetailViewModel by viewModels()
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentRaceDetailBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -29,19 +39,23 @@ class RaceDetailFragment : Fragment(), RaceWeekendAdapter.CalendarListener {
             binding.lapsRace.text = it.laps
         }
 
+        raceDetailViewModel.isFavorite.observe(viewLifecycleOwner) {
+            if(it){
+                binding.ivFavorite.setImageResource(R.drawable.icon_favorites)
+            } else {
+                binding.ivFavorite.setImageResource(R.drawable.icon_favorites_off)
+            }
+        }
+
+        binding.ivFavorite.setOnClickListener {
+            raceDetailViewModel.onFavoriteClicked()
+        }
+
         setupRecyclerView()
 
         raceDetailViewModel.raceList.observe(viewLifecycleOwner) {
             it?.let { it1 -> ArrayList(it1) }?.let { it2 -> adapter.setItems(it2) }
         }
-    }
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentRaceDetailBinding.inflate(inflater, container, false)
-        return binding.root
     }
 
     private fun setupRecyclerView() {

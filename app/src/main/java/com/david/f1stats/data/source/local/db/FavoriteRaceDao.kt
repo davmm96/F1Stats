@@ -1,7 +1,6 @@
 package com.david.f1stats.data.source.local.db
 
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -16,8 +15,8 @@ interface RaceDao {
     suspend fun getAllFavoriteRaces(): List<FavoriteRace>
 
     @Query("SELECT * FROM favorite_races WHERE id = :raceId")
-    suspend fun getFavoriteRaceById(raceId: Int): FavoriteRace
+    suspend fun getFavoriteRaceById(raceId: Int): FavoriteRace?
 
-    @Delete
-    suspend fun deleteFavoriteRace(race: FavoriteRace)
+    @Query("DELETE FROM favorite_races WHERE id = :raceId")
+    suspend fun deleteFavoriteRace(raceId: Int)
 }

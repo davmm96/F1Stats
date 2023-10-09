@@ -46,6 +46,14 @@
             android:gravity="center_horizontal"
             tools:text= "70 laps"
             android:layout_marginBottom="@dimen/block_margin_bottom"/>
+        <ImageView
+            android:id="@+id/ivFavorite"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:src="@drawable/icon_favorites_off"
+            android:contentDescription="@string/add_to_favorite_list"
+            android:layout_marginBottom="@dimen/block_margin_bottom"/>
         <TextView
             android:id="@+id/raceWeekend"
             android:layout_width="match_parent"

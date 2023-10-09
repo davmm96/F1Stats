@@ -40,4 +40,6 @@
     <string name="lap_record_label" translatable="false">Lap record</string>
     <string name="close_button">Close</string>
     <string name="photo_content_desc" translatable="false">Photo</string>
+    <string name="no_favorites" translatable="false">No hay favoritos todavía</string>
+    <string name="add_to_favorite_list">Add to favorite list</string>
 </resources>
