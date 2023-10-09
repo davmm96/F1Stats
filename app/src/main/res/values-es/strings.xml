@@ -25,4 +25,5 @@
     <string name="driverContentDescription">TODO</string>
     <string name="driver_label">DRIVER</string>
     <string name="close_button">Close</string>
+    <string name="add_to_favorite_list">Add to favorite list</string>
 </resources>
