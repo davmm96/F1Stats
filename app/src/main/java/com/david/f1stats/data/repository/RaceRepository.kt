@@ -15,8 +15,8 @@ class RaceRepository @Inject constructor(
     private val raceProvider: RaceProvider,
     private val raceMapper: RaceMapper,
     private val raceDetailMapper: RaceDetailMapper,
-    private val raceResultMapper: RaceResultMapper) {
-
+    private val raceResultMapper: RaceResultMapper
+) {
     suspend fun getRaces(): List<Race>?{
         val response = api.getRaces()
         raceProvider.races = raceMapper.fromMap(response)
