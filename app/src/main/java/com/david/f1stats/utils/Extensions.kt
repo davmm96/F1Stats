@@ -4,28 +4,32 @@
 package com.david.f1stats.utils
 
 import java.time.OffsetDateTime
-import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 
 fun formatDate(dateTime: String, pattern: String): String {
-    val dateTimeFormatted = OffsetDateTime.parse(dateTime).toInstant()
-    val format = DateTimeFormatter.ofPattern(pattern).withZone(ZoneOffset.UTC)
+    val dateTimeParsed = OffsetDateTime.parse(dateTime)
+    val formatter = DateTimeFormatter.ofPattern(pattern)
 
-    return format.format(dateTimeFormatted)
+    return formatter.format(setOffset(dateTimeParsed))
 }
 
 fun formatIntervalDate(dateTime: String, interval: Int): String {
-    val dateTimeFormatted = OffsetDateTime.parse(dateTime)
+    val dateTimeParsed = OffsetDateTime.parse(dateTime)
+    val dateTimeOffset = setOffset(dateTimeParsed)
 
-    val startDay = dateTimeFormatted.minus(interval.toLong(), ChronoUnit.DAYS).dayOfMonth
-    val raceDay = dateTimeFormatted.dayOfMonth
+    val startDay = dateTimeOffset.minus(interval.toLong(), ChronoUnit.DAYS).dayOfMonth
+    val raceDay = dateTimeOffset.dayOfMonth
 
     return "$startDay-$raceDay"
 }
 
 fun dateToMillis(date: String): Long {
-    val offsetDateTime = OffsetDateTime.parse(date)
-    val instant = offsetDateTime.toInstant()
+    val dateTimeParsed = OffsetDateTime.parse(date)
+    val instant = setOffset(dateTimeParsed).toInstant()
     return instant.toEpochMilli()
+}
+
+private fun setOffset(dateTime: OffsetDateTime): OffsetDateTime{
+    return dateTime.plusHours(dateTime.offset.totalSeconds.toLong() / 3600)
 }
