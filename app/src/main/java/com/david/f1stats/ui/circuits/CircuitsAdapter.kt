@@ -46,6 +46,11 @@ class CircuitsAdapter (private val listener: CircuitItemListener) : RecyclerView
             this.circuit = item
             itemBinding.tvName.text = item.name
             itemBinding.tvCountry.text = item.country
+            itemBinding.tvCircuitLength.text = item.length
+            itemBinding.tvLaps.text = item.laps
+            itemBinding.tvFirstGP.text = item.firstGP
+            itemBinding.tvLapRecordTime.text = item.lapRecordTime
+            itemBinding.tvLapRecordDriver.text = item.lapRecordDriver
         }
 
         override fun onClick(v: View?) {

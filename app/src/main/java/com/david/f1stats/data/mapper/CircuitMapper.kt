@@ -17,6 +17,6 @@ class CircuitMapper @Inject constructor(): IMapper<List<CircuitData>?, List<Circ
                 lapRecordTime = circuitData.lap_record?.time ?: "Lap record time not found",
                 lapRecordDriver = circuitData.lap_record?.driver ?: "Lap record driver not found",
             )
-        }
+        }?.sortedBy { it.name }
     }
 }
