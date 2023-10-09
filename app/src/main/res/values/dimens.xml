@@ -35,4 +35,7 @@
     <dimen name="text_weekend_margin_bottom">12dp</dimen>
     <dimen name="text_title_margin_top">16dp</dimen>
     <dimen name="text_title_margin_bottom">4dp</dimen>
+
+    <dimen name="dialog_width">500dp</dimen>
+    <dimen name="dialog_height">500dp</dimen>
 </resources>

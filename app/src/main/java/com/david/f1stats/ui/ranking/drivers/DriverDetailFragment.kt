@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.david.f1stats.databinding.FragmentDriverDetailBinding
+import com.david.f1stats.utils.Constants
+import com.david.f1stats.utils.DialogHelper
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -46,6 +48,13 @@ class DriverDetailFragment : Fragment() {
             picasso
                 .load(it.image)
                 .into(binding.ivDriverImage)
+        }
+
+        binding.ivDriverImage.setOnClickListener {
+            val imageUrl = driverDetailViewModel.driverInfo.value?.image
+            if (imageUrl != null && imageUrl != Constants.IMAGE_NOT_FOUND) {
+                DialogHelper.showImageDialog(requireActivity(), picasso, imageUrl)
+            }
         }
     }
 }

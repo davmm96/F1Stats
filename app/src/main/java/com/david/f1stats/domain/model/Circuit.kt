@@ -9,4 +9,5 @@ data class Circuit (
     val firstGP: String,
     val lapRecordTime: String,
     val lapRecordDriver: String,
+    val imageURL: String
 )

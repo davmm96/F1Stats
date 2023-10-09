@@ -16,4 +16,5 @@ object Constants {
     const val TYPE_RACE_QUERY_PARAM = "race"
     const val TIMEZONE = "Europe/Madrid"
     const val FIRST_POSITION_SIZE = 18f
+    const val IMAGE_NOT_FOUND = "Image not found"
 }

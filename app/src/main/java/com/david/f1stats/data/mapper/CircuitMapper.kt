@@ -16,6 +16,7 @@ class CircuitMapper @Inject constructor(): IMapper<List<CircuitData>?, List<Circ
                 firstGP = circuitData.first_grand_prix.toString(),
                 lapRecordTime = circuitData.lap_record?.time ?: "Lap record time not found",
                 lapRecordDriver = circuitData.lap_record?.driver ?: "Lap record driver not found",
+                imageURL = circuitData.image ?: "Image not found"
             )
         }?.sortedBy { it.name }
     }

@@ -38,4 +38,6 @@
     <string name="laps_laps" translatable="false">Laps</string>
     <string name="first_grand_prix_laps" translatable="false">First Grand Prix</string>
     <string name="lap_record_label" translatable="false">Lap record</string>
+    <string name="close_button">Close</string>
+    <string name="photo_content_desc" translatable="false">Photo</string>
 </resources>

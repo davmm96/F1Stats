@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.david.f1stats.databinding.FragmentTeamDetailBinding
+import com.david.f1stats.utils.Constants
+import com.david.f1stats.utils.DialogHelper
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -45,6 +47,13 @@ class TeamDetailFragment : Fragment() {
             picasso
                 .load(it.image)
                 .into(binding.ivTeamImage)
+        }
+
+        binding.ivTeamImage.setOnClickListener {
+            val imageUrl = teamDetailViewModel.teamInfo.value?.image
+            if (imageUrl != null && imageUrl != Constants.IMAGE_NOT_FOUND) {
+                DialogHelper.showImageDialog(requireActivity(), picasso, imageUrl)
+            }
         }
     }
 

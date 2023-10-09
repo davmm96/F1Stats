@@ -11,7 +11,7 @@ import com.david.f1stats.domain.model.Circuit
 class CircuitsAdapter (private val listener: CircuitItemListener) : RecyclerView.Adapter<CircuitsAdapter.CircuitViewHolder>() {
 
     interface CircuitItemListener {
-        fun onClickedCircuit(circuitId: Int)
+        fun onClickedCircuit(imageUrl: String)
     }
 
     private val items = ArrayList<Circuit>()
@@ -54,7 +54,7 @@ class CircuitsAdapter (private val listener: CircuitItemListener) : RecyclerView
         }
 
         override fun onClick(v: View?) {
-            listener.onClickedCircuit(circuit.id)
+            listener.onClickedCircuit(circuit.imageURL)
         }
     }
 }
