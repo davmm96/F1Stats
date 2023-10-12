@@ -39,6 +39,7 @@ class RaceDetailFragment : Fragment(), RaceWeekendAdapter.CalendarListener {
             binding.lapsRace.text = it.laps
         }
 
+        /*
         raceDetailViewModel.isFavorite.observe(viewLifecycleOwner) {
             if(it){
                 binding.ivFavorite.setImageResource(R.drawable.icon_favorites)
@@ -50,6 +51,8 @@ class RaceDetailFragment : Fragment(), RaceWeekendAdapter.CalendarListener {
         binding.ivFavorite.setOnClickListener {
             raceDetailViewModel.onFavoriteClicked()
         }
+        */
+
 
         setupRecyclerView()
 
@@ -57,9 +60,12 @@ class RaceDetailFragment : Fragment(), RaceWeekendAdapter.CalendarListener {
             it?.let { it1 -> ArrayList(it1) }?.let { it2 -> adapter.setItems(it2) }
         }
 
+        /*
         raceDetailViewModel.toastMessage.observe(viewLifecycleOwner) { message ->
             Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
         }
+        */
+
     }
 
     private fun setupRecyclerView() {

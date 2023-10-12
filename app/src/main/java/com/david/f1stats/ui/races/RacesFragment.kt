@@ -7,11 +7,13 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.david.f1stats.R
 import com.david.f1stats.databinding.FragmentRacesBinding
+import com.david.f1stats.ui.SharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -21,6 +23,7 @@ class RacesFragment : Fragment(), RacesAdapter.RaceItemListener {
     private val binding get() = _binding!!
     private lateinit var adapter: RacesAdapter
     private val racesViewModel: RacesViewModel by viewModels()
+    private val sharedViewModel: SharedViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,11 +40,24 @@ class RacesFragment : Fragment(), RacesAdapter.RaceItemListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        sharedViewModel.selectedSeason.observe(viewLifecycleOwner) {
+            racesViewModel.onCreate()
+        }
+
         setupRecyclerView()
 
-        racesViewModel.raceList.observe(viewLifecycleOwner) {
-            it?.let { it1 -> ArrayList(it1) }?.let { it2 -> adapter.setItems(it2) }
+        racesViewModel.raceList.observe(viewLifecycleOwner) { races ->
+            races?.let {
+                if (it.isEmpty()) {
+                    binding.rvRaces.isVisible = false
+                } else {
+                    binding.rvRaces.isVisible = true
+                    adapter.setItems(ArrayList(it))
+                }
+            }
         }
+
 
         racesViewModel.isLoading.observe(viewLifecycleOwner){
             binding.progressBar.isVisible = it

@@ -17,7 +17,8 @@ class RaceMapper @Inject constructor(): IMapper<List<RaceData>?, List<Race>?> {
                 country = raceData.competition.location.country,
                 idCompetition = raceData.competition.id,
                 idRace = raceData.id,
-                laps = raceData.laps.total.toString() + " laps"
+                laps = raceData.laps.total.toString() + " laps",
+                season = raceData.season.toString()
             )
         }
     }

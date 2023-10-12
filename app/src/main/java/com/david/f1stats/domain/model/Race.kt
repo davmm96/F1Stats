@@ -8,4 +8,5 @@ data class Race(
     val idCompetition: Int,
     val idRace: Int,
     val laps: String,
+    val season: String
 )

@@ -7,11 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.david.f1stats.R
 import com.david.f1stats.databinding.FragmentRankingTeamsBinding
+import com.david.f1stats.ui.SharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -21,6 +23,7 @@ class RankingTeamsFragment : Fragment(), RankingTeamsAdapter.RankingItemListener
     private val binding get() = _binding!!
     private lateinit var adapter: RankingTeamsAdapter
     private val rankingTeamViewModel: RankingTeamsViewModel by viewModels()
+    private val sharedViewModel: SharedViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,6 +41,11 @@ class RankingTeamsFragment : Fragment(), RankingTeamsAdapter.RankingItemListener
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        sharedViewModel.selectedSeason.observe(viewLifecycleOwner) {
+            rankingTeamViewModel.onCreate()
+        }
+
         setupRecyclerView()
 
         rankingTeamViewModel.rankingTeamList.observe(viewLifecycleOwner) {

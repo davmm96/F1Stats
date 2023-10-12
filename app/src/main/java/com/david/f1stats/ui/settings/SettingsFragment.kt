@@ -7,10 +7,12 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.david.f1stats.R
 import com.david.f1stats.databinding.FragmentSettingsBinding
 import com.david.f1stats.domain.model.Season
+import com.david.f1stats.ui.SharedViewModel
 import com.david.f1stats.utils.PreferencesHelper
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Calendar
@@ -21,6 +23,7 @@ class SettingsFragment : Fragment() {
     private var _binding: FragmentSettingsBinding? = null
     private val binding get() = _binding!!
     private val settingsViewModel: SettingsViewModel by viewModels()
+    private val sharedViewModel: SharedViewModel by activityViewModels()
     private lateinit var seasonsAdapter: SeasonsAdapter
 
     @Inject
@@ -69,6 +72,7 @@ class SettingsFragment : Fragment() {
             override fun onItemSelected(parent: AdapterView<*>, view: View, pos: Int, id: Long) {
                 val season = parent.getItemAtPosition(pos) as Season
                 preferencesHelper.setSelectedSeason(season.season)
+                sharedViewModel.updateSelectedSeason(season.season)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {

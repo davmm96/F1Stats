@@ -3,7 +3,7 @@ package com.david.f1stats.data.repository
 import com.david.f1stats.data.mapper.FavoriteRaceMapper
 import com.david.f1stats.data.model.favoriteRace.FavoriteRace
 import com.david.f1stats.data.source.local.RaceDao
-import com.david.f1stats.domain.model.RaceDetail
+import com.david.f1stats.domain.model.Race
 import javax.inject.Inject
 
 class FavoriteRaceRepository @Inject constructor(
@@ -18,7 +18,7 @@ class FavoriteRaceRepository @Inject constructor(
         return raceDao.getFavoriteRaceById(id)
     }
 
-    suspend fun insertFavoriteRace(race: RaceDetail) {
+    suspend fun insertFavoriteRace(race: Race) {
         raceDao.insertFavoriteRace(favoriteRaceMapper.fromMap(race))
     }
 

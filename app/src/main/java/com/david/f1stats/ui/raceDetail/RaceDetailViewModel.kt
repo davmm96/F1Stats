@@ -42,7 +42,7 @@ class RaceDetailViewModel @Inject constructor(
                 }
             }
         }
-        checkIfRaceIsFavorite(id)
+        //checkIfRaceIsFavorite(id)
     }
 
 
@@ -50,6 +50,7 @@ class RaceDetailViewModel @Inject constructor(
         calendarHelper.addToCalendar(context, title, description, location, startMillis)
     }
 
+    /*
     fun onFavoriteClicked() {
         _raceInfoModel.value?.let { race ->
             _isFavorite.value?.let { isFavorite ->
@@ -73,9 +74,11 @@ class RaceDetailViewModel @Inject constructor(
             _isFavorite.postValue(result != null)
         }
     }
+    */
+
 
     val raceList: LiveData<List<RaceDetail>?> = _raceListModel
     val raceInfo: LiveData<RaceDetail> = _raceInfoModel
-    val isFavorite: LiveData<Boolean> = _isFavorite
-    val toastMessage: LiveData<String> = _toastMessage
+    //val isFavorite: LiveData<Boolean> = _isFavorite
+   // val toastMessage: LiveData<String> = _toastMessage
 }

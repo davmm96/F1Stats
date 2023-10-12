@@ -8,8 +8,6 @@ data class FavoriteRace (
     @PrimaryKey
     val id: Int,
     val competition: String,
-    val dayInterval: String,
-    val month: String,
     val country: String,
-    val laps: String,
+    val season: String,
 )

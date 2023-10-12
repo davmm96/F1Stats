@@ -46,9 +46,6 @@ class FavoritesAdapter (private val listener: FavoriteItemListener) : RecyclerVi
             this.race = item
             itemBinding.raceName.text = item.competition
             itemBinding.raceCountry.text = item.country
-            itemBinding.raceLaps.text = item.laps
-            itemBinding.raceDateDay.text = item.dayInterval
-            itemBinding.raceDateMonth.text = item.month
         }
 
         override fun onClick(v: View?) {

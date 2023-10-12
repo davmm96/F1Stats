@@ -22,7 +22,7 @@
                 android:layout_height="@dimen/cardView_arrow"
                 android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
-                android:src="@drawable/icon_favorites"
+                android:src="@drawable/icon_favorites_off"
                 android:contentDescription="@string/add_to_favorite_list" />
         </LinearLayout>
         <TextView
@@ -45,13 +45,13 @@
             android:theme="@style/cardViewText"
             tools:text="Abu Dhabi Grand Prix"/>
         <TextView
-            android:id="@+id/race_season"
+            android:id="@+id/race_laps"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/race_name"
             android:layout_alignStart="@id/race_country"
             android:theme="@style/cardViewText"
-            tools:text="2022"/>
+            tools:text="70 laps"/>
         <ImageView
             android:id="@+id/ivRightArrow"
             android:layout_width="@dimen/cardView_arrow"

@@ -28,7 +28,9 @@ class RacesViewModel @Inject constructor(
                 if(result.isNotEmpty()){
                     _raceModel.postValue(result)
                     _isLoading.postValue(false)
+                    _isSeasonCompleted.postValue(false)
                 } else {
+                    _raceModel.postValue(emptyList())
                     _isLoading.postValue(false)
                     _isSeasonCompleted.postValue(true)
                 }
