@@ -47,7 +47,13 @@
         android:id="@+id/navigation_favorites"
         android:name="com.david.f1stats.ui.favorites.FavoritesFragment"
         android:label="@string/title_favorites"
-        tools:layout="@layout/fragment_favorites" />
+        tools:layout="@layout/fragment_favorites" >
+        <action
+            android:id="@+id/action_navigation_favorites_to_raceDetailFragment"
+            app:destination="@id/raceDetailFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:popUpTo="@id/navigation_favorites" />
+    </fragment>
 
     <fragment
         android:id="@+id/raceDetailFragment"

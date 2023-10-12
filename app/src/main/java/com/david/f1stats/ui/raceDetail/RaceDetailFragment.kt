@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -34,7 +35,6 @@ class RaceDetailFragment : Fragment(), RaceWeekendAdapter.CalendarListener {
 
         raceDetailViewModel.raceInfo.observe(viewLifecycleOwner) {
             binding.nameRace.text = it.competition
-            binding.locationRace.text = it.country
             binding.circuitRace.text = it.circuit
             binding.lapsRace.text = it.laps
         }
@@ -55,6 +55,10 @@ class RaceDetailFragment : Fragment(), RaceWeekendAdapter.CalendarListener {
 
         raceDetailViewModel.raceList.observe(viewLifecycleOwner) {
             it?.let { it1 -> ArrayList(it1) }?.let { it2 -> adapter.setItems(it2) }
+        }
+
+        raceDetailViewModel.toastMessage.observe(viewLifecycleOwner) { message ->
+            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
         }
     }
 

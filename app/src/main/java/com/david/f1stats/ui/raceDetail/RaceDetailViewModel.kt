@@ -28,6 +28,7 @@ class RaceDetailViewModel @Inject constructor(
     private val _raceListModel = MutableLiveData<List<RaceDetail>?>()
     private val _raceInfoModel = MutableLiveData<RaceDetail>()
     private val _isFavorite = MutableLiveData<Boolean>()
+    private val _toastMessage = MutableLiveData<String>()
 
     fun start(id: Int) {
         viewModelScope.launch {
@@ -55,8 +56,10 @@ class RaceDetailViewModel @Inject constructor(
                 viewModelScope.launch {
                     if (isFavorite) {
                         deleteFavoriteUseCase.invoke(race.id)
+                        _toastMessage.postValue("Race removed from favorites")
                     } else {
                         insertFavoriteRaceUseCase.invoke(race)
+                        _toastMessage.postValue("Race added to favorites")
                     }
                     checkIfRaceIsFavorite(race.id)
                 }
@@ -74,4 +77,5 @@ class RaceDetailViewModel @Inject constructor(
     val raceList: LiveData<List<RaceDetail>?> = _raceListModel
     val raceInfo: LiveData<RaceDetail> = _raceInfoModel
     val isFavorite: LiveData<Boolean> = _isFavorite
+    val toastMessage: LiveData<String> = _toastMessage
 }

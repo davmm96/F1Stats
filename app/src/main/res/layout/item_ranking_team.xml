@@ -1,77 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:theme="@style/cardView"
-    android:layout_marginBottom="5dp">
-    <RelativeLayout
+    android:layout_marginBottom="5dp"
+    android:theme="@style/cardView">
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:padding="15dp">
-        <LinearLayout
-            android:id="@+id/race_date_linear"
+        <TextView
+            android:id="@+id/tvPosition"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_centerVertical="true">
-            <TextView
-                android:id="@+id/tvPosition"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                tools:text="1"/>
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/raceLinear"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="1" />
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:layout_marginStart="16dp"
+            android:textSize="14sp"
+            android:theme="@style/cardViewTitle"
+            app:layout_constraintEnd_toStartOf="@+id/tvPoints"
+            app:layout_constraintStart_toEndOf="@+id/tvPosition"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Red Bull" />
+        <TextView
+            android:id="@+id/tvPoints"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_toEndOf="@id/race_date_linear"
-            android:layout_marginBottom="@dimen/cardView_info_margin_bottom"
-            android:layout_marginStart="@dimen/cardView_title_margin_start"
-            android:layout_centerVertical="true">
-            <TextView
-                android:id="@+id/tvName"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:maxLines="2"
-                android:theme="@style/cardViewTitle"
-                android:textSize="14sp"
-                tools:text="Red Bull"
-                tools:ignore="RelativeOverlap" />
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/pointsLinear"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toStartOf="@id/ivArrow"
-            android:layout_marginEnd="15dp"
-            android:orientation="vertical"
-            android:layout_centerVertical="true"
-            tools:ignore="RelativeOverlap">
-            <TextView
-                android:id="@+id/tvPoints"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/cardView_info_margin_bottom"
-                android:layout_marginStart="@dimen/cardView_title_margin_start"
-                android:gravity="center_vertical"
-                android:textSize="11sp"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:background="@drawable/rounded_grey_background"
-                tools:text="400 pts"/>
-        </LinearLayout>
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/rounded_grey_background"
+            android:gravity="center_vertical"
+            android:textColor="@color/black"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/ivArrow"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="400 pts" />
         <ImageView
             android:id="@+id/ivArrow"
             android:layout_width="@dimen/cardView_arrow"
             android:layout_height="@dimen/cardView_arrow"
-            android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true"
+            android:contentDescription="@string/card_arrow_content_description"
             android:src="@drawable/arrow_right"
-            android:contentDescription="@string/card_arrow_content_description" />
-    </RelativeLayout>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
