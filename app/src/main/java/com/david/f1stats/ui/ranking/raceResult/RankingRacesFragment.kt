@@ -12,15 +12,17 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.david.f1stats.R
 import com.david.f1stats.databinding.FragmentRankingRacesBinding
-import com.david.f1stats.ui.races.RacesAdapter
+import com.david.f1stats.domain.model.Race
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class RankingRacesFragment : Fragment(), RacesAdapter.RaceItemListener {
+class RankingRacesFragment : Fragment(),
+    RankingRacesAdapter.RankingRacesNavListener,
+    RankingRacesAdapter.RankingRacesFavListener {
 
     private var _binding: FragmentRankingRacesBinding? = null
     private val binding get() = _binding!!
-    private lateinit var adapter: RacesAdapter
+    private lateinit var adapter: RankingRacesAdapter
     private val racesViewModel: RankingRacesViewModel by viewModels()
 
     override fun onCreateView(
@@ -45,23 +47,35 @@ class RankingRacesFragment : Fragment(), RacesAdapter.RaceItemListener {
             it?.let { it1 -> ArrayList(it1) }?.let { it2 -> adapter.setItems(it2) }
         }
 
+        racesViewModel.favoriteRacesIds.observe(viewLifecycleOwner) {
+            it?.let { it1 -> ArrayList(it1) }?.let { it2 -> adapter.updateFavoriteRaces(it2) }
+        }
+
         racesViewModel.isLoading.observe(viewLifecycleOwner){
             binding.progressBar.isVisible = it
         }
     }
 
     private fun setupRecyclerView() {
-        adapter = RacesAdapter(this)
+        adapter = RankingRacesAdapter(this, this, emptyList())
         binding.rvRanking.layoutManager = LinearLayoutManager(requireContext())
         binding.rvRanking.adapter = adapter
     }
 
 
-    override fun onClickedRace(idCompetition: Int, country: String, idRace: Int) {
+    override fun onNavClicked(idRace: Int, country: String) {
         findNavController().navigate(
             R.id.action_navigation_raceResults_to_raceResultFragment,
             bundleOf("id" to idRace, "country" to country)
         )
+    }
+
+    override fun onFavClicked(race: Race) {
+        if (racesViewModel.favoriteRacesIds.value?.contains(race.idRace) == true) {
+            racesViewModel.removeRaceFromFavorites(race.idRace)
+        } else {
+            racesViewModel.addRaceToFavorites(race)
+        }
     }
 
     override fun onDestroyView() {

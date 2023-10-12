@@ -5,14 +5,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.david.f1stats.R
 import com.david.f1stats.databinding.FragmentFavoritesBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class FavoritesFragment : Fragment(), FavoritesAdapter.FavoriteItemListener {
+class FavoritesFragment : Fragment(), FavoritesAdapter.FavoriteItemListener, FavoritesAdapter.FavoriteNavListener {
     private var _binding: FragmentFavoritesBinding? = null
     private val binding get() = _binding!!
     private lateinit var adapter: FavoritesAdapter
@@ -51,7 +54,7 @@ class FavoritesFragment : Fragment(), FavoritesAdapter.FavoriteItemListener {
     }
 
     private fun setupRecyclerView() {
-        adapter = FavoritesAdapter(this)
+        adapter = FavoritesAdapter(this, this)
         binding.rvRaces.layoutManager = LinearLayoutManager(requireContext())
         binding.rvRaces.adapter = adapter
     }
@@ -59,6 +62,12 @@ class FavoritesFragment : Fragment(), FavoritesAdapter.FavoriteItemListener {
 
     override fun removeFavorite(idRace: Int) {
         favoriteRacesViewModel.deleteFavorite(idRace)
+    }
+    override fun onNavClicked(idRace: Int, country: String) {
+        findNavController().navigate(
+            R.id.action_navigation_favorites_to_raceResultFragment,
+            bundleOf("id" to idRace, "country" to country)
+        )
     }
 
     override fun onDestroyView() {

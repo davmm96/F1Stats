@@ -17,6 +17,9 @@ interface RaceDao {
     @Query("SELECT * FROM favorite_races WHERE id = :raceId")
     suspend fun getFavoriteRaceById(raceId: Int): FavoriteRace?
 
+    @Query("SELECT id FROM favorite_races")
+    suspend fun getAllFavoriteRaceIds(): List<Int>
+
     @Query("DELETE FROM favorite_races WHERE id = :raceId")
     suspend fun deleteFavoriteRace(raceId: Int)
 }
