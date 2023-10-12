@@ -9,6 +9,7 @@ import com.david.f1stats.data.model.race.RaceResponse
 import com.david.f1stats.data.model.raceResult.RaceResultResponse
 import com.david.f1stats.data.model.rankingDriver.RankingDriverResponse
 import com.david.f1stats.data.model.rankingTeam.RankingTeamResponse
+import com.david.f1stats.data.model.season.SeasonResponse
 import com.david.f1stats.data.model.teamDetail.TeamDetailResponse
 import com.david.f1stats.utils.Constants
 import com.david.f1stats.utils.Constants.URL_RACES
@@ -75,4 +76,8 @@ interface APIClient {
     suspend fun getRaceResult(
         @Query("race") idRace: Int
     ): Response<RaceResultResponse>
+
+    @Headers(BuildConfig.API_KEY_HEADER)
+    @GET(Constants.URL_SEASONS)
+    suspend fun getSeasons(): Response<SeasonResponse>
 }

@@ -46,6 +46,11 @@ class RacesFragment : Fragment(), RacesAdapter.RaceItemListener {
         racesViewModel.isLoading.observe(viewLifecycleOwner){
             binding.progressBar.isVisible = it
         }
+
+        racesViewModel.isSeasonCompleted.observe(viewLifecycleOwner) { isCompleted ->
+            binding.seasonCompletedMessage.isVisible = isCompleted
+        }
+
     }
 
     private fun setupRecyclerView() {

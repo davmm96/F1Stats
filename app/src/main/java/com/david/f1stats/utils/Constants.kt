@@ -8,6 +8,7 @@ object Constants {
     const val URL_TEAMS = "teams"
     const val URL_RACE_RESULT = "rankings/races"
     const val URL_CIRCUITS = "circuits"
+    const val URL_SEASONS = "seasons"
     const val FORMAT_DAY = "dd"
     const val FORMAT_MONTH = "MMM"
     const val FORMAT_HOUR = "HH:mm"
