@@ -21,7 +21,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Theme"
+            android:text="Modo oscuro"
             android:layout_marginBottom="8dp"/>
         <RadioGroup
             android:id="@+id/themeRadioGroup"
@@ -30,20 +30,21 @@
             android:orientation="vertical"
             android:layout_marginBottom="16dp">
             <RadioButton
-                android:id="@+id/lightMode"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Light Mode"/>
-            <RadioButton
                 android:id="@+id/darkMode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Dark Mode"/>
+                android:text="Activado"/>
+            <RadioButton
+                android:id="@+id/lightMode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Desactivado"/>
             <RadioButton
                 android:id="@+id/defaultMode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Default to System"/>
+                android:checked="true"
+                android:text="Predeterminado del sistema"/>
         </RadioGroup>
 
         <!-- Year Spinner -->

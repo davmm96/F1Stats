@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -15,7 +16,10 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.david.f1stats.databinding.ActivityMainBinding
 import com.david.f1stats.ui.settings.SettingsActivity
+import com.david.f1stats.utils.MusicHelper
+import com.david.f1stats.utils.PreferencesHelper
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -23,8 +27,22 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var appToolbarConfiguration: AppBarConfiguration
 
+    @Inject
+    lateinit var preferencesManager: PreferencesHelper
+
+    @Inject
+    lateinit var musicManager: MusicHelper
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val themeMode = preferencesManager.getThemeMode()
+        AppCompatDelegate.setDefaultNightMode(themeMode)
+
+        val shouldPlayMusic = preferencesManager.getMusicState()
+        if (shouldPlayMusic) {
+            musicManager.playMusic()
+        }
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)

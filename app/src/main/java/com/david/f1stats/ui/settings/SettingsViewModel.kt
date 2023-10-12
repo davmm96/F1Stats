@@ -1,5 +1,6 @@
 package com.david.f1stats.ui.settings
 
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.MutableLiveData
@@ -25,6 +26,12 @@ class SettingsViewModel @Inject constructor(
             musicManager.pauseMusic()
         }
     }
+
+    fun setThemeMode(mode: Int) {
+        AppCompatDelegate.setDefaultNightMode(mode)
+        preferencesManager.saveThemeMode(mode)
+    }
+
 
     val isMusicPlaying: LiveData<Boolean> = _isMusicPlaying
 }
