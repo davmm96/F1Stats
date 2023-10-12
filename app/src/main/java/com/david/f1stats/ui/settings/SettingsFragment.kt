@@ -26,7 +26,14 @@ class SettingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.musicSwitch.isChecked = viewModel.isMusicPlaying.value ?: false
+
+        binding.musicSwitch.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.toggleMusic(isChecked)
+        }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
