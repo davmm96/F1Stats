@@ -13,8 +13,16 @@ class RankingDriverMapper @Inject constructor(): IMapper<List<RankingDriverData>
                 image = rankingDriverData.driver.image,
                 name = rankingDriverData.driver.name,
                 team = rankingDriverData.team.name,
-                points = rankingDriverData.points.toString() + " PTS"
+                points = formatPoints(rankingDriverData.points) + " PTS"
             )
+        }
+    }
+
+    private fun formatPoints(points: Float): String {
+        return if ((points % 1).toDouble() == 0.0) {
+            points.toInt().toString()
+        } else {
+            points.toString()
         }
     }
 }

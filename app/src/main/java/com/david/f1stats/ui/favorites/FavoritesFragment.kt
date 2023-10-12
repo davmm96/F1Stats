@@ -59,7 +59,6 @@ class FavoritesFragment : Fragment(), FavoritesAdapter.FavoriteItemListener, Fav
         binding.rvRaces.adapter = adapter
     }
 
-
     override fun removeFavorite(idRace: Int) {
         favoriteRacesViewModel.deleteFavorite(idRace)
     }

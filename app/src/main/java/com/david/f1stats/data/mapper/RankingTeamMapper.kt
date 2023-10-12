@@ -12,8 +12,16 @@ class RankingTeamMapper @Inject constructor(): IMapper<List<RankingTeamData>?, L
                 position = rankingTeamData.position,
                 image = rankingTeamData.team.logo,
                 name = rankingTeamData.team.name,
-                points = rankingTeamData.points.toString() + " PTS"
+                points = formatPoints(rankingTeamData.points) + " PTS"
             )
+        }
+    }
+
+    private fun formatPoints(points: Float): String {
+        return if ((points % 1).toDouble() == 0.0) {
+            points.toInt().toString()
+        } else {
+            points.toString()
         }
     }
 }

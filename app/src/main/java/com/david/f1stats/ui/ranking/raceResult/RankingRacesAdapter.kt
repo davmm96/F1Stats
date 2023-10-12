@@ -60,7 +60,7 @@ class RankingRacesAdapter (
             }
 
             itemBinding.ivRightArrow.setOnClickListener {
-                navigationListener.onNavClicked(race.idCompetition, race.country)
+                navigationListener.onNavClicked(race.idRace, race.country)
             }
         }
 

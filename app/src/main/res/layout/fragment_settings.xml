@@ -14,7 +14,7 @@
             android:id="@+id/musicSwitch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Toggle background music"
+            android:text="Music"
             android:layout_marginBottom="16dp"/>
 
         <!-- Theme RadioGroup -->
