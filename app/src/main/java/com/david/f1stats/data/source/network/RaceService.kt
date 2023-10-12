@@ -8,26 +8,25 @@ import kotlinx.coroutines.withContext
 import java.util.Calendar
 import javax.inject.Inject
 
-class RaceService @Inject constructor(private val api:APIClient, preferencesHelper: PreferencesHelper){
-    private val selectedSeason = preferencesHelper.getSelectedSeason() ?: Calendar.getInstance().get(Calendar.YEAR).toString()
+class RaceService @Inject constructor(private val api:APIClient, private val preferencesHelper: PreferencesHelper){
 
     suspend fun getRaces():List<RaceData>{
         return withContext(Dispatchers.IO) {
-            val response = api.getNextRaces(selectedSeason)
+            val response = api.getNextRaces(preferencesHelper.getSelectedSeason() ?: Calendar.getInstance().get(Calendar.YEAR).toString())
             response.body()?.response ?: emptyList()
         }
     }
 
     suspend fun getRaceDetails(id: Int):List<RaceData>{
         return withContext(Dispatchers.IO) {
-            val response = api.getRaceDetails(id, selectedSeason)
+            val response = api.getRaceDetails(id, preferencesHelper.getSelectedSeason() ?: Calendar.getInstance().get(Calendar.YEAR).toString())
             response.body()?.response ?: emptyList()
         }
     }
 
     suspend fun getCompletedRaces():List<RaceData>{
         return withContext(Dispatchers.IO) {
-            val response = api.getCompletedRaces(selectedSeason)
+            val response = api.getCompletedRaces(preferencesHelper.getSelectedSeason() ?: Calendar.getInstance().get(Calendar.YEAR).toString())
             response.body()?.response ?: emptyList()
         }
     }

@@ -8,19 +8,17 @@ import kotlinx.coroutines.withContext
 import java.util.Calendar
 import javax.inject.Inject
 
-class RankingService @Inject constructor(private val api:APIClient, preferencesHelper: PreferencesHelper){
-    private val selectedSeason = preferencesHelper.getSelectedSeason() ?: Calendar.getInstance().get(Calendar.YEAR).toString()
-
+class RankingService @Inject constructor(private val api:APIClient, private val preferencesHelper: PreferencesHelper){
     suspend fun getDriversRanking():List<RankingDriverData>{
         return withContext(Dispatchers.IO) {
-            val response = api.getCurrentRankingDrivers(selectedSeason)
+            val response = api.getCurrentRankingDrivers(preferencesHelper.getSelectedSeason() ?: Calendar.getInstance().get(Calendar.YEAR).toString())
             response.body()?.response ?: emptyList()
         }
     }
 
     suspend fun getTeamsRanking():List<RankingTeamData>{
         return withContext(Dispatchers.IO) {
-            val response = api.getCurrentRankingTeams(selectedSeason)
+            val response = api.getCurrentRankingTeams(preferencesHelper.getSelectedSeason() ?: Calendar.getInstance().get(Calendar.YEAR).toString())
             response.body()?.response ?: emptyList()
         }
     }
