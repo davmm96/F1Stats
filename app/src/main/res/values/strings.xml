@@ -42,4 +42,6 @@
     <string name="photo_content_desc" translatable="false">Photo</string>
     <string name="no_favorites" translatable="false">No hay favoritos todavía</string>
     <string name="add_to_favorite_list">Add to favorite list</string>
+    <string name="favorite_added" translatable="false">Carrera añadida a la lista de favoritos</string>
+    <string name="favorite_removed" translatable="false">Carrera eliminada de la lista de favoritos</string>
 </resources>

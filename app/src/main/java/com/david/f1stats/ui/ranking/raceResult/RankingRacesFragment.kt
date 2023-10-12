@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
@@ -81,8 +82,10 @@ class RankingRacesFragment : Fragment(),
     override fun onFavClicked(race: Race) {
         if (racesViewModel.favoriteRacesIds.value?.contains(race.idRace) == true) {
             racesViewModel.removeRaceFromFavorites(race.idRace)
+            Toast.makeText(context, getString(R.string.favorite_removed), Toast.LENGTH_SHORT).show()
         } else {
             racesViewModel.addRaceToFavorites(race)
+            Toast.makeText(context, getString(R.string.favorite_added), Toast.LENGTH_SHORT).show()
         }
     }
 

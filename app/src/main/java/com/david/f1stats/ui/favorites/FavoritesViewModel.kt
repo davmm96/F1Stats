@@ -19,6 +19,7 @@ class FavoritesViewModel @Inject constructor(
 
     private val _favoriteRaceModel = MutableLiveData<List<FavoriteRace>?>()
     private val _isLoading = MutableLiveData<Boolean>()
+    private val _isDeleted = MutableLiveData<Boolean>()
 
     fun onCreate() {
         fetchAllFavoriteRaces()
@@ -30,16 +31,19 @@ class FavoritesViewModel @Inject constructor(
             val result = getAllFavoriteRacesUseCase()
             _favoriteRaceModel.postValue(result)
             _isLoading.postValue(false)
+            _isDeleted.postValue(false)
         }
     }
 
     fun deleteFavorite(idRace: Int) {
         viewModelScope.launch {
             deleteFavoriteUseCase(idRace)
+            _isDeleted.postValue(true)
             fetchAllFavoriteRaces()
         }
     }
 
     val favoriteRaceList: LiveData<List<FavoriteRace>?> = _favoriteRaceModel
     val isLoading: LiveData<Boolean> = _isLoading
+    val isDeleted: LiveData<Boolean> = _isDeleted
 }
