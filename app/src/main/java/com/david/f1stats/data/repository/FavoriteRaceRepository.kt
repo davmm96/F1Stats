@@ -2,7 +2,7 @@ package com.david.f1stats.data.repository
 
 import com.david.f1stats.data.mapper.FavoriteRaceMapper
 import com.david.f1stats.data.model.favoriteRace.FavoriteRace
-import com.david.f1stats.data.source.local.db.RaceDao
+import com.david.f1stats.data.source.local.RaceDao
 import com.david.f1stats.domain.model.RaceDetail
 import javax.inject.Inject
 

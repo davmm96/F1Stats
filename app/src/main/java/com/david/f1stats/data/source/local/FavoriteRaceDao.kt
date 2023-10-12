@@ -1,4 +1,4 @@
-package com.david.f1stats.data.source.local.db
+package com.david.f1stats.data.source.local
 
 import androidx.room.Dao
 import androidx.room.Insert

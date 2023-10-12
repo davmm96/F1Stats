@@ -4,6 +4,6 @@ data class SeasonResponse(
     val errors: List<Any>,
     val get: String,
     val parameters: List<Any>,
-    val response: List<SeasonData>,
+    val response: List<Int>,
     val results: Int
 )

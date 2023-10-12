@@ -25,4 +25,12 @@ class PreferencesHelper @Inject constructor(private val sharedPreferences: Share
     fun getThemeMode(): Int {
         return sharedPreferences.getInt(THEME_MODE_KEY, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
     }
+
+    fun setSelectedSeason(season: String) {
+        sharedPreferences.edit().putString("SELECTED_SEASON", season).apply()
+    }
+
+    fun getSelectedSeason(): String? {
+        return sharedPreferences.getString("SELECTED_SEASON", null)
+    }
 }

@@ -19,6 +19,7 @@ import com.david.f1stats.ui.settings.SettingsActivity
 import com.david.f1stats.utils.MusicHelper
 import com.david.f1stats.utils.PreferencesHelper
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.Calendar
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -42,6 +43,11 @@ class MainActivity : AppCompatActivity() {
         val shouldPlayMusic = preferencesManager.getMusicState()
         if (shouldPlayMusic) {
             musicManager.playMusic()
+        }
+
+        val season = preferencesManager.getSelectedSeason()
+        if (season.isNullOrEmpty()) {
+            preferencesManager.setSelectedSeason(Calendar.getInstance().get(Calendar.YEAR).toString())
         }
 
         binding = ActivityMainBinding.inflate(layoutInflater)

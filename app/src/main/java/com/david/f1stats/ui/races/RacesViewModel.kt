@@ -19,8 +19,6 @@ class RacesViewModel @Inject constructor(
     private val _raceModel = MutableLiveData<List<Race>?>()
     private val _isLoading = MutableLiveData<Boolean>()
 
-
-
     fun onCreate(){
         viewModelScope.launch {
             _isLoading.postValue(true)

@@ -2,8 +2,8 @@ package com.david.f1stats.di
 
 import android.content.Context
 import androidx.room.Room
-import com.david.f1stats.data.source.local.db.RaceDao
-import com.david.f1stats.data.source.local.db.AppDatabase
+import com.david.f1stats.data.source.local.RaceDao
+import com.david.f1stats.data.source.local.AppDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
