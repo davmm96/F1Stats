@@ -16,6 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.F1Stats"
         tools:targetApi="31">
+        <activity android:name=".ui.settings.SettingsActivity" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
