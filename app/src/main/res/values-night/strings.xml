@@ -20,4 +20,5 @@
     <string name="app_icon_content_description">Icono de la aplicación</string>
     <string name="icon_noFavorites">Icono de favoritos vacío</string>
     <string name="noFavorites_subtitle">Puedes añadirlos desde las carreras de clasificación</string>
+    <string name="map_text">Map</string>
 </resources>
