@@ -36,7 +36,7 @@ class RacesFragment : Fragment(), RacesAdapter.RaceItemListener {
 
         _binding = FragmentRacesBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = getString(R.string.title_dashboard, sharedViewModel.selectedSeason.value.toString())
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = getString(R.string.title_home, sharedViewModel.selectedSeason.value.toString())
         racesViewModel.onCreate()
 
         return root
@@ -47,8 +47,8 @@ class RacesFragment : Fragment(), RacesAdapter.RaceItemListener {
         super.onViewCreated(view, savedInstanceState)
 
         sharedViewModel.selectedSeason.observe(viewLifecycleOwner) {
+            (requireActivity() as AppCompatActivity).supportActionBar?.title = getString(R.string.title_home, sharedViewModel.selectedSeason.value.toString())
             racesViewModel.onCreate()
-            (requireActivity() as AppCompatActivity).supportActionBar?.title = getString(R.string.title_dashboard, sharedViewModel.selectedSeason.value.toString())
         }
 
         setupRecyclerView()

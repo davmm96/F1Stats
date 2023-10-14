@@ -33,7 +33,7 @@ class RankingFragment : Fragment(){
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentRankingBinding.inflate(inflater, container, false)
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = getString(R.string.title_home, sharedViewModel.selectedSeason.value.toString())
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = getString(R.string.title_dashboard, sharedViewModel.selectedSeason.value.toString())
         return binding.root
     }
 
@@ -42,7 +42,7 @@ class RankingFragment : Fragment(){
         super.onViewCreated(view, savedInstanceState)
 
         sharedViewModel.selectedSeason.observe(viewLifecycleOwner) {
-            (requireActivity() as AppCompatActivity).supportActionBar?.title = getString(R.string.title_home, sharedViewModel.selectedSeason.value.toString())
+            (requireActivity() as AppCompatActivity).supportActionBar?.title = getString(R.string.title_dashboard, sharedViewModel.selectedSeason.value.toString())
         }
 
         viewPager = binding.viewPager
