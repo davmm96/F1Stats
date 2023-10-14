@@ -3,6 +3,8 @@
     <string name="title_home">Calendario - %1$s</string>
     <string name="title_dashboard">Clasificación - %1$s</string>
     <string name="title_notifications">Circuitos</string>
+    <string name="nav_home">Calendario</string>
+    <string name="nav_dashboard">Clasificación</string>
     <string name="settings">Opciones</string>
     <string name="race">Carrera</string>
     <string name="qualy">Clasificación</string>

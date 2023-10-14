@@ -3,11 +3,11 @@
     <item
         android:id="@+id/navigation_races"
         android:icon="@drawable/icon_race"
-        android:title="@string/title_home"/>
+        android:title="@string/nav_home"/>
     <item
         android:id="@+id/navigation_ranking"
         android:icon="@drawable/icon_cup"
-        android:title="@string/title_dashboard" />
+        android:title="@string/nav_dashboard" />
     <item
         android:id="@+id/navigation_circuits"
         android:icon="@drawable/icon_circuit"

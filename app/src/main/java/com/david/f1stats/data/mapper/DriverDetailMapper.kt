@@ -14,7 +14,7 @@ class DriverDetailMapper @Inject constructor(): IMapper<DriverDetailData, Driver
             points = from.career_points,
             image = from.image,
             country = from.country.name?: "Not found",
-            number = from.number.toString(),
+            number = "#" + from.number.toString(),
             gpEntered = from.grands_prix_entered.toString(),
             worldChampionships = from.world_championships.toString(),
             podiums = from.podiums.toString(),

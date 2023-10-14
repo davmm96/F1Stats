@@ -4,6 +4,8 @@
     <string name="title_dashboard">Ranking</string>
     <string name="title_notifications">Circuits</string>
     <string name="title_favorites">Favorites</string>
+    <string name="nav_home">Calendario</string>
+    <string name="nav_dashboard">Clasificación</string>
     <string name="settings">Settings</string>
     <string name="race">Race</string>
     <string name="qualy">Qualifying</string>

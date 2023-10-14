@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.david.f1stats.R
 import com.david.f1stats.databinding.ItemCircuitBinding
+import com.david.f1stats.databinding.ItemCircuitInfoBinding
 import com.david.f1stats.domain.model.Circuit
 
 class CircuitsAdapter (private val listener: CircuitItemListener) : RecyclerView.Adapter<CircuitsAdapter.CircuitViewHolder>() {
@@ -39,19 +41,31 @@ class CircuitsAdapter (private val listener: CircuitItemListener) : RecyclerView
         private lateinit var circuit: Circuit
 
         init {
-            itemBinding.root.setOnClickListener(this)
+            itemBinding.btnAction.setOnClickListener(this)
         }
 
         fun bind(item: Circuit) {
             this.circuit = item
             itemBinding.tvName.text = item.name
             itemBinding.tvCountry.text = item.country
-            itemBinding.tvCircuitLength.text = item.length
-            itemBinding.tvLaps.text = item.laps
-            itemBinding.tvFirstGP.text = item.firstGP
+
+            setSectionData(itemBinding.circuitLengthSection, itemBinding.root.context.getString(R.string.circuit_length_label), item.length)
+            setSectionData(itemBinding.lapsSection, itemBinding.root.context.getString(R.string.laps_laps), item.laps)
+            setSectionData(itemBinding.firstGPSection, itemBinding.root.context.getString(R.string.first_grand_prix_laps), item.firstGP)
+
             itemBinding.tvLapRecordTime.text = item.lapRecordTime
             itemBinding.tvLapRecordDriver.text = item.lapRecordDriver
         }
+
+        private fun setSectionData(section: ItemCircuitInfoBinding, label: String, value: String) {
+            val tvLabel = section.tvLabel
+            val tvValue = section.tvValue
+
+            tvLabel.text = label
+            tvValue.text = value
+        }
+
+
 
         override fun onClick(v: View?) {
             listener.onClickedCircuit(circuit.imageURL)

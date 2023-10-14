@@ -1,146 +1,102 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:theme="@style/cardView"
-    android:layout_marginBottom="20dp">
-    <RelativeLayout
+    android:layout_marginBottom="20dp"
+    android:padding="15dp"
+    android:theme="@style/cardView">
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="15dp">
+        android:padding="15dp"
+        android:orientation="vertical">
+
         <TextView
             android:id="@+id/tvName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/cardView_info_margin_bottom"
-            android:layout_marginStart="5dp"
             android:theme="@style/cardViewTitle"
-            tools:text="Albert Park Circuit"
-            tools:ignore="RelativeOverlap" />
+            tools:text="Albert Park Circuit" />
+
         <TextView
             android:id="@+id/tvCountry"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tvName"
-            android:layout_alignStart="@id/tvName"
             android:layout_marginBottom="15dp"
             android:theme="@style/cardViewText"
-            tools:text="Australia"/>
+            tools:text="Australia" />
+
+        <!-- Row Container for Circuit Length, Laps, and First Grand Prix -->
         <LinearLayout
             android:id="@+id/rowContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tvCountry"
-            android:layout_alignStart="@id/tvName"
             android:layout_marginBottom="15dp"
             android:orientation="horizontal"
             android:baselineAligned="false">
 
-            <!-- Circuit Length Section -->
+            <!-- Each section is represented in a similar manner -->
+            <include layout="@layout/item_circuit_info"
+                android:id="@+id/circuitLengthSection"
+                tools:ignore="ContentDescription" />
+
+            <include layout="@layout/item_circuit_info"
+                android:id="@+id/lapsSection"
+                tools:ignore="ContentDescription" />
+
+            <include layout="@layout/item_circuit_info"
+                android:id="@+id/firstGPSection"
+                tools:ignore="ContentDescription" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
             <LinearLayout
+                android:id="@+id/rowRecordContainer"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:orientation="vertical">
-
+                android:layout_weight="4"
+                android:layout_marginBottom="15dp"
+                android:orientation="vertical"
+                android:baselineAligned="false">
+                <!-- Lap Record Section -->
                 <TextView
-                    android:id="@+id/tvCircuitLengthLabel"
+                    android:id="@+id/tvLapRecordLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="11sp"
-                    android:text="@string/circuit_length_label"
-                    tools:text="Circuit length" />
+                    android:text="@string/lap_record_label"
+                    tools:text="Lap record" />
 
                 <TextView
-                    android:id="@+id/tvCircuitLength"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/tvLapRecordTime"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/cardView_info_margin_bottom"
+                    android:textColor="@color/red"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:textSize="13sp"
-                    tools:text="5303 Kms" />
-            </LinearLayout>
+                    android:theme="@style/cardViewText"
+                    tools:text="1.31.447" />
 
-            <!-- Laps Section -->
-            <LinearLayout
+                <TextView
+                    android:id="@+id/tvLapRecordDriver"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/cardView_info_margin_bottom"
+                    android:textSize="11sp"
+                    tools:text="Michael Schumacher" />
+            </LinearLayout>
+            <ImageButton
+                android:id="@+id/btnAction"
+                android:padding="5dp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tvLapsLabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="11sp"
-                    android:text="@string/laps_laps"
-                    tools:text="Laps" />
-
-                <TextView
-                    android:id="@+id/tvLaps"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:textSize="13sp"
-                    tools:text="58" />
-            </LinearLayout>
-
-            <!-- First Grand Prix Section -->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tvFirstGPLabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="11sp"
-                    android:text="@string/first_grand_prix_laps"
-                    tools:text="First Grand Prix" />
-
-                <TextView
-                    android:id="@+id/tvFirstGP"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:textSize="13sp"
-                    tools:text="1996" />
-            </LinearLayout>
+                android:background="@color/red"
+                android:src="@drawable/icon_map" />
         </LinearLayout>
-        <TextView
-            android:id="@+id/tvLapRecordLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/rowContainer"
-            android:layout_alignStart="@id/tvName"
-            android:textSize="11sp"
-            android:text="@string/lap_record_label"
-            tools:text="Lap record" />
-        <TextView
-            android:id="@+id/tvLapRecordTime"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tvLapRecordLabel"
-            android:layout_alignStart="@id/tvLapRecordLabel"
-            android:layout_marginBottom="@dimen/cardView_info_margin_bottom"
-            android:theme="@style/cardViewText"
-            android:textColor="@color/red"
-            android:textStyle="bold"
-            tools:text="1.31.447"/>
-        <TextView
-            android:id="@+id/tvLapRecordDriver"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tvLapRecordTime"
-            android:layout_alignStart="@id/tvLapRecordLabel"
-            android:layout_marginBottom="@dimen/cardView_info_margin_bottom"
-            android:textSize="11sp"
-            tools:text="Michael Schumacher"/>
-    </RelativeLayout>
+    </LinearLayout>
 </androidx.cardview.widget.CardView>
