@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="title_home">Calendario</string>
-    <string name="title_dashboard">Clasificación</string>
+    <string name="title_home">Calendario - %1$s</string>
+    <string name="title_dashboard">Clasificación - %1$s</string>
     <string name="title_notifications">Circuitos</string>
     <string name="settings">Opciones</string>
     <string name="race">Carrera</string>

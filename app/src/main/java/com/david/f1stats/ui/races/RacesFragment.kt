@@ -1,9 +1,11 @@
 package com.david.f1stats.ui.races
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -25,6 +27,7 @@ class RacesFragment : Fragment(), RacesAdapter.RaceItemListener {
     private val racesViewModel: RacesViewModel by viewModels()
     private val sharedViewModel: SharedViewModel by activityViewModels()
 
+    @SuppressLint("StringFormatInvalid")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -33,16 +36,19 @@ class RacesFragment : Fragment(), RacesAdapter.RaceItemListener {
 
         _binding = FragmentRacesBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = getString(R.string.title_dashboard, sharedViewModel.selectedSeason.value.toString())
         racesViewModel.onCreate()
 
         return root
     }
 
+    @SuppressLint("StringFormatInvalid")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         sharedViewModel.selectedSeason.observe(viewLifecycleOwner) {
             racesViewModel.onCreate()
+            (requireActivity() as AppCompatActivity).supportActionBar?.title = getString(R.string.title_dashboard, sharedViewModel.selectedSeason.value.toString())
         }
 
         setupRecyclerView()
@@ -58,7 +64,6 @@ class RacesFragment : Fragment(), RacesAdapter.RaceItemListener {
             }
         }
 
-
         racesViewModel.isLoading.observe(viewLifecycleOwner){
             binding.progressBar.isVisible = it
         }
@@ -66,7 +71,6 @@ class RacesFragment : Fragment(), RacesAdapter.RaceItemListener {
         racesViewModel.isSeasonCompleted.observe(viewLifecycleOwner) { isCompleted ->
             binding.seasonCompletedMessage.isVisible = isCompleted
         }
-
     }
 
     private fun setupRecyclerView() {
