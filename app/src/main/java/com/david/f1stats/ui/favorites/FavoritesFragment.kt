@@ -43,9 +43,13 @@ class FavoritesFragment : Fragment(), FavoritesAdapter.FavoriteItemListener, Fav
             list?.let { it1 -> ArrayList(it1) }?.let { it2 -> adapter.setItems(it2) }
             if(list.isNullOrEmpty()){
                 binding.tvNoFavorites.isVisible = adapter.itemCount == 0
+                binding.tvNoFavoriteSubtitle.isVisible = adapter.itemCount == 0
+                binding.ivNoFavorites.isVisible = adapter.itemCount == 0
             }
             else{
                 binding.tvNoFavorites.isVisible = false
+                binding.tvNoFavoriteSubtitle.isVisible = false
+                binding.ivNoFavorites.isVisible = false
             }
         }
 
