@@ -12,4 +12,10 @@
     <string name="driver_label">DRIVER</string>
     <string name="close_button">Close</string>
     <string name="add_to_favorite_list">Add to favorite list</string>
+    <string name="music_label">Music</string>
+    <string name="music_label_title">Activar música</string>
+    <string name="select_season_label">Select Season</string>
+    <string name="app_version_label">F1 Stats v1.0</string>
+    <string name="about_label">About</string>
+    <string name="app_icon_content_description">Icono de la aplicación</string>
 </resources>

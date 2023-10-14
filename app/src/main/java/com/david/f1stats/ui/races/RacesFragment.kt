@@ -57,8 +57,10 @@ class RacesFragment : Fragment(), RacesAdapter.RaceItemListener {
             races?.let {
                 if (it.isEmpty()) {
                     binding.rvRaces.isVisible = false
+                    binding.calendarTitle.isVisible = false
                 } else {
                     binding.rvRaces.isVisible = true
+                    binding.calendarTitle.isVisible = true
                     adapter.setItems(ArrayList(it))
                 }
             }
