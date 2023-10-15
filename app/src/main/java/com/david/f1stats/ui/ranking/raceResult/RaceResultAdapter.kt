@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.david.f1stats.databinding.ItemRaceResultBinding
 import com.david.f1stats.domain.model.RaceResult
+import com.david.f1stats.utils.getColor
 
 class RaceResultAdapter : RecyclerView.Adapter<RaceResultAdapter.RaceResultViewHolder>() {
 
@@ -39,6 +40,9 @@ class RaceResultAdapter : RecyclerView.Adapter<RaceResultAdapter.RaceResultViewH
             itemBinding.tvDriver.text = item.driverAbbr
             itemBinding.tvTime.text = item.time
             itemBinding.tvPoints.text = item.points
+            itemBinding.verticalSeparator.setBackgroundColor(itemBinding.root.context.getColor(
+                getColor(item.idTeam)
+            ))
         }
 
         override fun onClick(p0: View?) {}

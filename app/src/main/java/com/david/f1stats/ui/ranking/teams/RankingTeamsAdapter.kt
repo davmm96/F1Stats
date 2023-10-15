@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import com.david.f1stats.R
 import com.david.f1stats.databinding.ItemRankingTeamBinding
 import com.david.f1stats.utils.Constants.FIRST_POSITION_SIZE
+import com.david.f1stats.utils.getColor
 
 class RankingTeamsAdapter(private val listener: RankingItemListener) : RecyclerView.Adapter<RankingTeamsAdapter.RankingViewHolder>()  {
     interface RankingItemListener {
@@ -64,6 +65,9 @@ class RankingTeamsAdapter(private val listener: RankingItemListener) : RecyclerV
             itemBinding.tvName.text = item.name
             itemBinding.tvPoints.text = item.points
             itemBinding.tvPosition.text = item.position.toString()
+            itemBinding.verticalSeparator.setBackgroundColor(itemBinding.root.context.getColor(
+                getColor(item.idTeam)
+            ))
         }
 
         override fun onClick(v: View?) {

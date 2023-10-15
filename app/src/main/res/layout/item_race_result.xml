@@ -15,15 +15,28 @@
         android:textColor="@color/black"
         android:textStyle="bold"
         tools:text="1"/>
-    <TextView
-        android:id="@+id/tvDriver"
+    <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="1"
-        android:gravity="center"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        tools:text="VER"/>
+        android:orientation="horizontal">
+        <View
+            android:id="@+id/verticalSeparator"
+            android:layout_width="5dp"
+            android:layout_height="match_parent"
+            android:background="@color/grey"/>
+        <TextView
+            android:id="@+id/tvDriver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_marginStart="5dp"
+            tools:text="VER"/>
+    </LinearLayout>
+
     <TextView
         android:id="@+id/tvTime"
         android:layout_width="0dp"

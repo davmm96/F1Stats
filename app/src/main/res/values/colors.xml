@@ -8,4 +8,22 @@
     <color name="light_grey">#fafafa</color>
     <color name="dark_red">#DA0000</color>
     <color name="dark_blue">#020224</color>
+    <color name="color_RedBull">#3670C2</color>
+    <color name="color_McLaren">#FA7D1B</color>
+    <color name="color_Ferrari">#FD123A</color>
+    <color name="color_ForceIndia">#F27837</color>
+    <color name="color_Mercedes">#6AD7C3</color>
+    <color name="color_Lotus">#B6995A</color>
+    <color name="color_AlphaTauri">#5F8FA8</color>
+    <color name="color_Sauber">#DE3225</color>
+    <color name="color_Marussia">#FB2312</color>
+    <color name="color_Caterham">#005030</color>
+    <color name="color_HRT">#A6904F</color>
+    <color name="color_Williams">#3CBDDB</color>
+    <color name="color_Alpine">#2392D3</color>
+    <color name="color_Haas">#B9B9BA</color>
+    <color name="color_Virgin">#E60F05</color>
+    <color name="color_Manor">#1472C3</color>
+    <color name="color_AstonMartin">#3B8971</color>
+    <color name="color_AlfaRomeo">#C83048</color>
 </resources>

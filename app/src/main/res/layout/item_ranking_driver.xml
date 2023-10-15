@@ -20,6 +20,15 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             tools:text="1" />
+        <View
+            android:id="@+id/verticalSeparator"
+            android:layout_width="5dp"
+            android:layout_height="0dp"
+            android:background="@color/grey"
+            app:layout_constraintLeft_toRightOf="@id/tvPosition"
+            app:layout_constraintRight_toLeftOf="@id/tvName"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
         <TextView
             android:id="@+id/tvName"
             android:layout_width="0dp"

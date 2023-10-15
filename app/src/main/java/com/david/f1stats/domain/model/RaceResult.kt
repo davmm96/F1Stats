@@ -5,4 +5,5 @@ data class RaceResult (
     val driverAbbr: String = "",
     val time: String = "",
     val points: String = " ",
+    val idTeam: Int = 0,
 )

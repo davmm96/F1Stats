@@ -18,7 +18,8 @@ class DriverDetailMapper @Inject constructor(): IMapper<DriverDetailData, Driver
             gpEntered = from.grands_prix_entered.toString(),
             worldChampionships = from.world_championships.toString(),
             podiums = from.podiums.toString(),
-            wins = getWins(from.highest_race_finish)
+            wins = getWins(from.highest_race_finish),
+            teamImage = from.teams[0].team.logo
         )
     }
 

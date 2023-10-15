@@ -12,4 +12,5 @@ data class DriverDetail (
     val podiums: String,
     val wins: String,
     val points: String,
+    val teamImage: String
 )

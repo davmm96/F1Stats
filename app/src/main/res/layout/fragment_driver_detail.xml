@@ -13,14 +13,14 @@
             android:id="@+id/rlHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:orientation="horizontal">
             <TextView
                 android:id="@+id/tvDriverName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
-                android:textSize="20sp"
+                android:textSize="24sp"
                 android:textColor="@color/black"
                 tools:text="Fernando Alonso"
                 tools:ignore="RelativeOverlap" />
@@ -31,24 +31,24 @@
                 android:layout_below="@+id/tvDriverName"
                 android:layout_marginTop="10dp"
                 android:textStyle="bold"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 android:textColor="@color/black"
-                tools:text="14"/>
+                tools:text="#14"/>
             <TextView
                 android:id="@+id/tvDriverCountry"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tvDriverName"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
                 android:layout_toEndOf="@+id/tvDriverNumber"
-                android:textColor="@color/black"
-                android:textSize="16sp"
+                android:layout_alignBaseline="@id/tvDriverNumber"
+                android:textSize="18sp"
                 tools:text="Spain"/>
             <ImageView
                 android:id="@+id/ivDriverImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:contentDescription="@string/driverContentDescription" />
@@ -57,98 +57,187 @@
             android:id="@+id/rlInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp">
-            <TextView
-                android:id="@+id/tvWCLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/world_championships_label"
-                tools:text="World Championships"/>
+            android:layout_marginVertical="20dp">
+            <ImageView
+                android:id="@+id/ivWC"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/cup"
+                android:contentDescription="@string/icon_wc"/>
             <TextView
                 android:id="@+id/tvWC"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tvWCLabel"
-                android:textSize="50sp"
+                android:layout_toEndOf="@+id/ivWC"
+                android:layout_marginStart="20dp"
+                android:textSize="40sp"
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 tools:text="2"/>
             <TextView
-                android:id="@+id/tvPodiumsLabel"
+                android:id="@+id/tvWCLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                tools:text="Podiums"
-                android:text="@string/podiums_label"
-                android:layout_below="@+id/tvWC"/>
-            <TextView
-                android:id="@+id/tvPodiums"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tvPodiumsLabel"
-                android:textSize="30sp"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                tools:text="98"/>
-            <TextView
-                android:id="@+id/tvWinsLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_alignStart="@id/tvWC"
                 android:layout_below="@+id/tvWC"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="50dp"
-                android:layout_marginTop="10dp"
-                android:text="@string/wins_label"
-                tools:text="Wins"/>
+                android:textSize="14sp"
+                android:text="@string/world_championships_label"
+                tools:text="World Championships"/>
+            <ImageView
+                android:id="@+id/ivWins"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="50dp"
+                android:layout_below="@+id/ivWC"
+                android:layout_alignStart="@id/ivWC"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/winner"
+                android:contentDescription="@string/icon_wins"/>
             <TextView
                 android:id="@+id/tvWins"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tvWinsLabel"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="50dp"
-                android:textSize="30sp"
+                android:layout_marginTop="50dp"
+                android:layout_below="@+id/ivWC"
+                android:layout_toEndOf="@+id/ivWins"
+                android:layout_marginStart="20dp"
+                android:textSize="20sp"
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 tools:text="32"/>
             <TextView
-                android:id="@+id/tvRacesLabel"
+                android:id="@+id/tvWinsLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tvPodiums"
-                android:layout_marginTop="30dp"
-                android:text="@string/races_label"
-                tools:text="Races"/>
+                android:layout_below="@+id/tvWins"
+                android:layout_alignStart="@id/tvWins"
+                android:layout_marginEnd="50dp"
+                android:textSize="11sp"
+                android:text="@string/wins_label"
+                tools:text="Wins"/>
+            <LinearLayout
+                android:id="@+id/podiumLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@+id/ivWC"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="50dp">
+                <ImageView
+                    android:id="@+id/ivPodiums"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="20dp"
+                    android:src="@drawable/podium"
+                    android:contentDescription="@string/icon_podiums"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/tvPodiums"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:gravity="end"
+                        tools:text="98"/>
+                    <TextView
+                        android:id="@+id/tvPodiumsLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="Podiums"
+                        android:text="@string/podiums_label"
+                        android:textSize="11sp" />
+                </LinearLayout>
+            </LinearLayout>
+            <ImageView
+                android:id="@+id/ivRaces"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="50dp"
+                android:layout_below="@+id/podiumLayout"
+                android:layout_alignStart="@id/ivWC"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/race"
+                android:contentDescription="@string/icon_races"/>
             <TextView
                 android:id="@+id/tvRaces"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tvRacesLabel"
-                android:textSize="30sp"
+                android:layout_below="@+id/podiumLayout"
+                android:layout_alignStart="@id/tvWinsLabel"
+                android:textSize="20sp"
+                android:layout_marginTop="50dp"
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 tools:text="352"/>
             <TextView
-                android:id="@+id/tvPointsLabel"
+                android:id="@+id/tvRacesLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tvPodiums"
+                android:layout_below="@+id/tvRaces"
+                android:layout_alignStart="@id/tvWinsLabel"
+                android:text="@string/races_label"
+                android:textSize="11sp"
+                tools:text="Races"/>
+            <LinearLayout
+                android:id="@+id/pointsLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@+id/podiumLayout"
                 android:layout_alignParentEnd="true"
-                android:layout_marginEnd="50dp"
-                android:layout_marginTop="30dp"
-                android:text="@string/total_points_label"
-                tools:text="Total points"/>
+                android:layout_marginTop="50dp">
+                <ImageView
+                    android:id="@+id/ivPoints"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/icon_stats"
+                    android:contentDescription="@string/icon_points"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/tvPoints"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:textSize="20sp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        tools:text="2039"/>
+                    <TextView
+                        android:id="@+id/tvPointsLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/total_points_label"
+                        android:textSize="11sp"
+                        tools:text="Total points"/>
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
             <TextView
-                android:id="@+id/tvPoints"
+                android:id="@+id/tvActualTeam"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tvPointsLabel"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="50dp"
-                android:textSize="30sp"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                tools:text="2039"/>
+                android:layout_marginTop="10dp"
+                android:text="@string/driver_actual_team_label"
+                tools:text="Actual team" />
+            <ImageView
+                android:id="@+id/ivActualTeam"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_below="@id/tvActualTeam"
+                android:contentDescription="@string/image_actual_team"/>
         </RelativeLayout>
     </LinearLayout>
 </ScrollView>

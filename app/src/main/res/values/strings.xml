@@ -59,4 +59,11 @@
     <string name="icon_noFavorites">Icono de favoritos vacío</string>
     <string name="noFavorites_subtitle">Puedes añadirlos desde las carreras de clasificación</string>
     <string name="map_text">Map</string>
+    <string name="driver_actual_team_label">Equipo actual</string>
+    <string name="icon_wc">Icono campeonatos mundiales</string>
+    <string name="icon_wins">Icono victorias</string>
+    <string name="icon_podiums">Icono podios</string>
+    <string name="icon_races">Icono carreras</string>
+    <string name="icon_points">Icono puntos</string>
+    <string name="image_actual_team">Imagen equipo actual</string>
 </resources>

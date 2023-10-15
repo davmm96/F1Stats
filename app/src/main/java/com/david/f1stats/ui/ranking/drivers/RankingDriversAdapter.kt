@@ -9,6 +9,7 @@ import com.david.f1stats.R
 import com.david.f1stats.databinding.ItemRankingDriverBinding
 import com.david.f1stats.domain.model.RankingDriver
 import com.david.f1stats.utils.Constants.FIRST_POSITION_SIZE
+import com.david.f1stats.utils.getColor
 
 class RankingDriversAdapter (private val listener: RankingItemListener) : RecyclerView.Adapter<RankingDriversAdapter.RankingViewHolder>() {
 
@@ -68,6 +69,9 @@ class RankingDriversAdapter (private val listener: RankingItemListener) : Recycl
             itemBinding.tvTeam.text = item.team
             itemBinding.tvPoints.text = item.points
             itemBinding.tvPosition.text = item.position.toString()
+            itemBinding.verticalSeparator.setBackgroundColor(itemBinding.root.context.getColor(
+                getColor(item.idTeam)
+            ))
         }
 
         override fun onClick(v: View?) {

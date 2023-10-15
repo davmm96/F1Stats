@@ -48,6 +48,10 @@ class DriverDetailFragment : Fragment() {
             picasso
                 .load(it.image)
                 .into(binding.ivDriverImage)
+
+            picasso
+                .load(it.teamImage)
+                .into(binding.ivActualTeam)
         }
 
         binding.ivDriverImage.setOnClickListener {

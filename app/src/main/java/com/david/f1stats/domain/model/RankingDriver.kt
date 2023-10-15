@@ -7,4 +7,5 @@ data class RankingDriver (
     val name: String,
     val team: String,
     val points: String,
+    val idTeam: Int,
 )

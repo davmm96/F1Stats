@@ -8,14 +8,14 @@ import javax.inject.Inject
 class TeamDetailMapper @Inject constructor(): IMapper<TeamDetailData, TeamDetail> {
     override fun fromMap(from: TeamDetailData): TeamDetail {
         return TeamDetail(
-            name = from.name,
-            location = from.base,
-            image = from.logo,
-            firstSeason = from.first_team_entry,
+            name = from.name?:"Not found",
+            location = from.base ?: "Not found",
+            image = from.logo?:"Not found",
+            firstSeason = from.first_team_entry?:"Not found",
             worldChampionships = from.world_championships.toString(),
-            wins = getWins(from.highest_race_finish),
+            wins = getWins(from.highest_race_finish?: TeamDetailHighestRaceFinishData(0, 0)),
             polePositions = from.pole_positions.toString(),
-            fastestLaps = from.fastest_laps,
+            fastestLaps = from.fastest_laps?:"Not found",
         )
     }
 

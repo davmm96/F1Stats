@@ -11,7 +11,8 @@ class RaceResultMapper @Inject constructor(): IMapper<List<RaceResultData>?, Lis
                 position = raceResultData.position.toString(),
                 driverAbbr = getAbbr(raceResultData.driver.abbr ?: "NF", raceResultData.driver.name),
                 time = raceResultData.time?: "0",
-                points = getPoints(raceResultData.position).toString()
+                points = getPoints(raceResultData.position).toString(),
+                idTeam = raceResultData.team.id
             )
         }
     }
