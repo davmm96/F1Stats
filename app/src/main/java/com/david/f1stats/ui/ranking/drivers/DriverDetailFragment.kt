@@ -36,26 +36,25 @@ class DriverDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         arguments?.getInt("id")?.let { driverDetailViewModel.start(it) }
 
-        driverDetailViewModel.driverInfo.observe(viewLifecycleOwner) {
-            binding.tvDriverName.text = it.name
-            binding.tvDriverNumber.text = it.number
-            binding.tvDriverCountry.text = it.country
-            binding.tvWC.text = it.worldChampionships
-            binding.tvPodiums.text = it.podiums
-            binding.tvRaces.text = it.gpEntered
-            binding.tvWins.text = it.wins
-            binding.tvPoints.text = it.points
-            picasso
-                .load(it.image)
-                .into(binding.ivDriverImage)
+        driverDetailViewModel.driverInfo.observe(viewLifecycleOwner) { driver ->
+            binding.tvDriverName.text = driver.name
+            binding.tvDriverNumber.text = driver.number
+            binding.tvDriverCountry.text = driver.country
+            binding.tvWC.text = driver.worldChampionships
+            binding.tvPodiums.text = driver.podiums
+            binding.tvRaces.text = driver.gpEntered
+            binding.tvWins.text = driver.wins
+            binding.tvPoints.text = driver.points
+            picasso.load(driver.image).into(binding.ivDriverImage)
+            picasso.load(driver.teamImage).into(binding.ivActualTeam)
 
-            picasso
-                .load(it.teamImage)
-                .into(binding.ivActualTeam)
+            setupImageClickListener(binding.ivDriverImage, driver.image)
+            setupImageClickListener(binding.ivActualTeam, driver.teamImage)
         }
+    }
 
-        binding.ivDriverImage.setOnClickListener {
-            val imageUrl = driverDetailViewModel.driverInfo.value?.image
+    private fun setupImageClickListener(view: View, imageUrl: String?) {
+        view.setOnClickListener {
             if (imageUrl != null && imageUrl != Constants.IMAGE_NOT_FOUND) {
                 DialogHelper.showImageDialog(requireActivity(), picasso, imageUrl)
             }
