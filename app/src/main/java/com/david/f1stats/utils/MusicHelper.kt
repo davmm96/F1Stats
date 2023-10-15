@@ -10,6 +10,7 @@ class MusicHelper(context: Context) {
 
     fun playMusic() {
         if (!mediaPlayer.isPlaying) {
+            mediaPlayer.seekTo(0)
             mediaPlayer.start()
         }
     }
