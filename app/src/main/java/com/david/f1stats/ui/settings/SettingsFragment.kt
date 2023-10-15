@@ -13,7 +13,9 @@ import com.david.f1stats.R
 import com.david.f1stats.databinding.FragmentSettingsBinding
 import com.david.f1stats.domain.model.Season
 import com.david.f1stats.ui.SharedViewModel
+import com.david.f1stats.utils.DialogHelper
 import com.david.f1stats.utils.PreferencesHelper
+import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Calendar
 import javax.inject.Inject
@@ -28,6 +30,9 @@ class SettingsFragment : Fragment() {
 
     @Inject
     lateinit var preferencesHelper: PreferencesHelper
+
+    @Inject
+    lateinit var picasso: Picasso
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -66,6 +71,10 @@ class SettingsFragment : Fragment() {
                     binding.yearSpinner.setSelection(position)
                 }
             }
+        }
+
+        binding.ivAppIcon.setOnClickListener {
+            DialogHelper.showLocalImageDialog(requireActivity(), picasso, R.drawable.appicon_alpha)
         }
 
         binding.yearSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {

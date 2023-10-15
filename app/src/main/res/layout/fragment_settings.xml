@@ -64,6 +64,7 @@
             android:text="@string/about_label"
             android:layout_marginBottom="8dp"/>
         <ImageView
+            android:id="@+id/ivAppIcon"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginVertical="10dp"

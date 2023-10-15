@@ -9,7 +9,16 @@ import com.david.f1stats.databinding.DialogImageFullscreenBinding
 import com.squareup.picasso.Picasso
 
 object DialogHelper {
+
     fun showImageDialog(activity: FragmentActivity, picasso: Picasso, imageUrl: String) {
+        showDialog(activity, picasso, imageUrl)
+    }
+
+    fun showLocalImageDialog(activity: FragmentActivity, picasso: Picasso, imageResId: Int) {
+        showDialog(activity, picasso, imageResId)
+    }
+
+    private fun showDialog(activity: FragmentActivity, picasso: Picasso, imageSource: Any) {
         val dialog = Dialog(activity)
 
         val binding = DialogImageFullscreenBinding.inflate(activity.layoutInflater)
@@ -25,7 +34,10 @@ object DialogHelper {
         dialog.window?.attributes = layoutParams
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#BF000000")))
 
-        picasso.load(imageUrl).into(binding.fullscreenImageView)
+        when (imageSource) {
+            is String -> picasso.load(imageSource).into(binding.fullscreenImageView)
+            is Int -> picasso.load(imageSource).into(binding.fullscreenImageView)
+        }
 
         binding.closeButton.setOnClickListener {
             dialog.dismiss()
@@ -38,5 +50,3 @@ object DialogHelper {
         dialog.show()
     }
 }
-
-
