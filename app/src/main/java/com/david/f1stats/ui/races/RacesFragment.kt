@@ -71,7 +71,9 @@ class RacesFragment : Fragment(), RacesAdapter.RaceItemListener {
         }
 
         racesViewModel.isSeasonCompleted.observe(viewLifecycleOwner) { isCompleted ->
-            binding.seasonCompletedMessage.isVisible = isCompleted
+            binding.tvNoRaces.isVisible = isCompleted
+            binding.tvNoRacesSubtitle.isVisible = isCompleted
+            binding.ivNoRaces.isVisible = isCompleted
         }
     }
 

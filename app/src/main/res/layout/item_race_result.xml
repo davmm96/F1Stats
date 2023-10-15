@@ -22,7 +22,7 @@
         android:orientation="horizontal">
         <View
             android:id="@+id/verticalSeparator"
-            android:layout_width="5dp"
+            android:layout_width="4dp"
             android:layout_height="match_parent"
             android:background="@color/grey"/>
         <TextView
