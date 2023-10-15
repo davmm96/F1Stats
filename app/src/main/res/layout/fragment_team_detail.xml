@@ -13,112 +13,155 @@
             android:id="@+id/rlHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:orientation="horizontal">
-            <TextView
-                android:id="@+id/tvTeamName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textSize="20sp"
-                android:textColor="@color/black"
-                android:maxLines="2"
-                android:layout_toStartOf="@id/ivTeamImage"
-                android:layout_alignParentStart="true"
-                tools:text="Scuderia Ferrari"
-                tools:ignore="RelativeOverlap" />
-            <TextView
-                android:id="@+id/tvTeamCountry"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tvTeamName"
-                android:layout_marginTop="8dp"
-                android:maxLines="2"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:layout_toStartOf="@id/ivTeamImage"
-                android:layout_alignParentStart="true"
-                tools:text="Maranello, Italy"/>
             <ImageView
                 android:id="@+id/ivTeamImage"
-                android:layout_width="100dp"
-                android:layout_height="60dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
                 android:contentDescription="@string/driverContentDescription" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toStartOf="@+id/ivTeamImage"
+                android:layout_alignParentStart="true"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/tvTeamName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="24sp"
+                    android:textColor="@color/black"
+                    tools:text="Scuderia Ferrari"
+                    android:maxLines="2" />
+                <TextView
+                    android:id="@+id/tvTeamCountry"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    tools:text="Maranello, Italy" />
+            </LinearLayout>
         </RelativeLayout>
         <RelativeLayout
             android:id="@+id/rlInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp">
-            <TextView
-                android:id="@+id/tvWCLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/world_championships_label"
-                tools:text="World Championships"/>
+            android:layout_marginVertical="20dp">
+            <ImageView
+                android:id="@+id/ivWC"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/cup"
+                android:contentDescription="@string/icon_wc"/>
             <TextView
                 android:id="@+id/tvWC"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tvWCLabel"
-                android:textSize="50sp"
+                android:layout_toEndOf="@+id/ivWC"
+                android:layout_marginStart="20dp"
+                android:textSize="40sp"
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                tools:text="2"/>
+                tools:text="16"/>
             <TextView
-                android:id="@+id/tvFirstSeasonLabel"
+                android:id="@+id/tvWCLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                tools:text="First Season"
-                android:text="@string/first_season_label"
-                android:layout_below="@+id/tvWC"/>
-            <TextView
-                android:id="@+id/tvFirstSeason"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tvFirstSeasonLabel"
-                android:textSize="30sp"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                tools:text="1950"/>
-            <TextView
-                android:id="@+id/tvWinsLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_alignStart="@id/tvWC"
                 android:layout_below="@+id/tvWC"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="50dp"
-                android:layout_marginTop="10dp"
-                android:text="@string/wins_label"
-                tools:text="Wins"/>
+                android:textSize="14sp"
+                android:text="@string/world_championships_label"
+                tools:text="World Championships"/>
+            <ImageView
+                android:id="@+id/ivWins"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="50dp"
+                android:layout_below="@+id/ivWC"
+                android:layout_alignStart="@id/ivWC"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/winner"
+                android:contentDescription="@string/icon_wins"/>
             <TextView
                 android:id="@+id/tvWins"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tvWinsLabel"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="50dp"
-                android:textSize="30sp"
+                android:layout_marginTop="50dp"
+                android:layout_below="@+id/ivWC"
+                android:layout_toEndOf="@+id/ivWins"
+                android:layout_marginStart="20dp"
+                android:textSize="20sp"
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 tools:text="244"/>
             <TextView
-                android:id="@+id/tvPolePositionsLabel"
+                android:id="@+id/tvWinsLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tvFirstSeason"
-                android:layout_marginTop="30dp"
-                android:text="@string/pole_positions_label"
-                tools:text="Pole Positions"/>
+                android:layout_below="@+id/tvWins"
+                android:layout_alignStart="@id/tvWins"
+                android:layout_marginEnd="50dp"
+                android:textSize="11sp"
+                android:text="@string/wins_label"
+                tools:text="Wins"/>
+            <LinearLayout
+                android:id="@+id/podiumLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@+id/ivWC"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="50dp">
+                <ImageView
+                    android:id="@+id/ivPodiums"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="20dp"
+                    android:src="@drawable/driver"
+                    android:contentDescription="@string/icon_podiums"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/tvPolePositions"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:layout_gravity="end"
+                        tools:text="247"/>
+                    <TextView
+                        android:id="@+id/tvPolePositionsLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="Pole positions"
+                        android:text="@string/pole_positions_label"
+                        android:layout_gravity="end"
+                        android:textSize="11sp" />
+                </LinearLayout>
+            </LinearLayout>
+            <ImageView
+                android:id="@+id/ivFastestLap"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="50dp"
+                android:layout_below="@+id/podiumLayout"
+                android:layout_alignStart="@id/ivWC"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/time"
+                android:contentDescription="@string/icon_fast_lap"/>
             <TextView
-                android:id="@+id/tvPolePositions"
+                android:id="@+id/tvFastestLaps"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tvPolePositionsLabel"
-                android:textSize="30sp"
+                android:layout_below="@+id/podiumLayout"
+                android:layout_alignStart="@id/tvWinsLabel"
+                android:textSize="20sp"
+                android:layout_marginTop="50dp"
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 tools:text="247"/>
@@ -126,23 +169,36 @@
                 android:id="@+id/tvFastestLapsLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tvWins"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="50dp"
-                android:layout_marginTop="30dp"
+                android:layout_below="@+id/tvFastestLaps"
+                android:layout_alignStart="@id/tvWinsLabel"
                 android:text="@string/fastest_laps_label"
+                android:textSize="11sp"
                 tools:text="Fastest Laps"/>
-            <TextView
-                android:id="@+id/tvFastestLaps"
+            <LinearLayout
+                android:id="@+id/firstSeasonLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tvFastestLapsLabel"
+                android:orientation="vertical"
+                android:layout_below="@+id/podiumLayout"
                 android:layout_alignParentEnd="true"
-                android:layout_marginEnd="50dp"
-                android:textSize="30sp"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                tools:text="259"/>
+                android:layout_marginTop="50dp">
+                <TextView
+                    android:id="@+id/tvFirstSeason"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:textSize="20sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    tools:text="1950"/>
+                <TextView
+                    android:id="@+id/tvFirstSeasonLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/first_season_label"
+                    android:textSize="11sp"
+                    tools:text="First Season"/>
+            </LinearLayout>
         </RelativeLayout>
     </LinearLayout>
 </ScrollView>

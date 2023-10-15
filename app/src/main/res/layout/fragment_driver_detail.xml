@@ -15,43 +15,52 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:orientation="horizontal">
-            <TextView
-                android:id="@+id/tvDriverName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textSize="24sp"
-                android:textColor="@color/black"
-                tools:text="Fernando Alonso"
-                tools:ignore="RelativeOverlap" />
-            <TextView
-                android:id="@+id/tvDriverNumber"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tvDriverName"
-                android:layout_marginTop="10dp"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:textColor="@color/black"
-                tools:text="#14"/>
-            <TextView
-                android:id="@+id/tvDriverCountry"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tvDriverName"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="10dp"
-                android:layout_toEndOf="@+id/tvDriverNumber"
-                android:layout_alignBaseline="@id/tvDriverNumber"
-                android:textSize="18sp"
-                tools:text="Spain"/>
             <ImageView
                 android:id="@+id/ivDriverImage"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
+                android:layout_marginStart="10dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:contentDescription="@string/driverContentDescription" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toStartOf="@+id/ivDriverImage"
+                android:layout_alignParentStart="true"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/tvDriverName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="24sp"
+                    android:textColor="@color/black"
+                    tools:text="Fernando Alonso"
+                    android:maxLines="2"
+                    tools:ignore="RelativeOverlap" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/tvDriverNumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:textColor="@color/black"
+                        tools:text="#14" />
+
+                    <TextView
+                        android:id="@+id/tvDriverCountry"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:textSize="18sp"
+                        tools:text="Spain" />
+                </LinearLayout>
+            </LinearLayout>
         </RelativeLayout>
         <RelativeLayout
             android:id="@+id/rlInfo"
@@ -131,17 +140,17 @@
                     android:src="@drawable/podium"
                     android:contentDescription="@string/icon_podiums"/>
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
                     <TextView
                         android:id="@+id/tvPodiums"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="20sp"
                         android:textColor="@color/black"
                         android:textStyle="bold"
-                        android:gravity="end"
+                        android:layout_gravity="end"
                         tools:text="98"/>
                     <TextView
                         android:id="@+id/tvPodiumsLabel"
@@ -198,14 +207,14 @@
                     android:src="@drawable/icon_stats"
                     android:contentDescription="@string/icon_points"/>
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
                     <TextView
                         android:id="@+id/tvPoints"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="end"
+                        android:layout_gravity="end"
                         android:textSize="20sp"
                         android:textColor="@color/black"
                         android:textStyle="bold"

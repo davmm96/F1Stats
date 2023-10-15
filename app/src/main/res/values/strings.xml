@@ -66,4 +66,6 @@
     <string name="icon_races">Icono carreras</string>
     <string name="icon_points">Icono puntos</string>
     <string name="image_actual_team">Imagen equipo actual</string>
+    <string name="icon_fast_lap">Icono vuelta rápida</string>
+    <string name="icon_first_season">Icono primera temporada</string>
 </resources>
