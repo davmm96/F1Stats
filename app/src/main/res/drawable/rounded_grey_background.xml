@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- Set the shape of the drawable -->
-    <solid android:color="#e3e3e3"/> <!-- Grey color -->
-
-    <!-- Define the corners -->
-    <corners android:radius="20dp"/> <!-- Adjust the radius as needed -->
-
-    <!-- Optionally, you can add padding inside the drawable if needed -->
+    <solid android:color="@color/colorRoundedBackground"/>
+    <corners android:radius="20dp"/>
     <padding android:left="8dp" android:top="4dp" android:right="8dp" android:bottom="4dp"/>
 </shape>

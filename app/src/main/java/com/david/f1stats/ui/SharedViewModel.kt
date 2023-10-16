@@ -7,7 +7,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class SharedViewModel @Inject constructor(private val seasonManager: SeasonManager) : ViewModel() {
+class SharedViewModel @Inject constructor
+    (private val seasonManager: SeasonManager)
+    : ViewModel() {
 
     val selectedSeason: LiveData<String> = seasonManager.currentSeason
 

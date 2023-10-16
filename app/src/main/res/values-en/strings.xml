@@ -29,7 +29,7 @@
     <string name="close_button">Close</string>
     <string name="add_to_favorite_list">Add to favorite list</string>
     <string name="music_label">Music</string>
-    <string name="music_label_title">Activar música</string>
+    <string name="music_label_title">Play music</string>
     <string name="select_season_label">Select Season</string>
     <string name="card_arrow_content_description">Flecha roja</string>
     <string name="imageDriver">Imagen del piloto</string>
@@ -49,10 +49,10 @@
     <string name="no_favorites">No hay favoritos todavía</string>
     <string name="favorite_added">Carrera añadida a la lista de favoritos</string>
     <string name="favorite_removed">Carrera eliminada de la lista de favoritos</string>
-    <string name="dark_mode_label">Modo oscuro</string>
-    <string name="dark_mode_activated_option">Activado</string>
-    <string name="dark_mode_deactivated_option">Desactivado</string>
-    <string name="dark_mode_default_option">Predeterminado del sistema</string>
+    <string name="dark_mode_label">Dark Mode</string>
+    <string name="dark_mode_activated_option">Enabled</string>
+    <string name="dark_mode_deactivated_option">Disabled</string>
+    <string name="dark_mode_default_option">System default</string>
     <string name="app_version_label">F1 Stats v1.0</string>
     <string name="about_label">About</string>
     <string name="app_icon_content_description">Icono de la aplicación</string>

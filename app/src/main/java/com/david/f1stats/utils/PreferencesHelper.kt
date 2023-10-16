@@ -7,8 +7,11 @@ import javax.inject.Inject
 
 class PreferencesHelper @Inject constructor(private val sharedPreferences: SharedPreferences) {
 
-    private val THEME_MODE_KEY = "theme_mode_key"
-    private val MUSIC_STATE_KEY = "music_state_key"
+    companion object {
+        private const val THEME_MODE_KEY = "theme_mode_key"
+        private const val MUSIC_STATE_KEY = "music_state_key"
+        private const val SELECTED_SEASON_KEY = "selected_season_key"
+    }
 
     fun saveMusicState(isPlaying: Boolean) {
         sharedPreferences.edit().putBoolean(MUSIC_STATE_KEY, isPlaying).apply()
@@ -27,10 +30,10 @@ class PreferencesHelper @Inject constructor(private val sharedPreferences: Share
     }
 
     fun setSelectedSeason(season: String) {
-        sharedPreferences.edit().putString("SELECTED_SEASON", season).apply()
+        sharedPreferences.edit().putString(SELECTED_SEASON_KEY, season).apply()
     }
 
     fun getSelectedSeason(): String? {
-        return sharedPreferences.getString("SELECTED_SEASON", null)
+        return sharedPreferences.getString(SELECTED_SEASON_KEY, null)
     }
 }

@@ -18,9 +18,5 @@ class SeasonManager @Inject constructor(
         _currentSeason.value = season
     }
 
-    fun getSelectedSeason(): String? {
-        return preferencesHelper.getSelectedSeason()
-    }
-
     val currentSeason: LiveData<String> get() = _currentSeason
 }

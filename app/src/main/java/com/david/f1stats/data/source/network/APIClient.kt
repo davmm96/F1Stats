@@ -12,13 +12,12 @@ import com.david.f1stats.data.model.rankingTeam.RankingTeamResponse
 import com.david.f1stats.data.model.season.SeasonResponse
 import com.david.f1stats.data.model.teamDetail.TeamDetailResponse
 import com.david.f1stats.utils.Constants
-import com.david.f1stats.utils.Constants.URL_RACES
 import retrofit2.Response
 import retrofit2.http.Headers
 
 interface APIClient {
     @Headers(BuildConfig.API_KEY_HEADER)
-    @GET(URL_RACES)
+    @GET(Constants.URL_RACES)
     suspend fun getNextRaces(
         @Query("season") season: String,
         @Query("type") type: String = Constants.TYPE_RACE_QUERY_PARAM,
@@ -27,7 +26,7 @@ interface APIClient {
     ): Response<RaceResponse>
 
     @Headers(BuildConfig.API_KEY_HEADER)
-    @GET(URL_RACES)
+    @GET(Constants.URL_RACES)
     suspend fun getRaceDetails(
         @Query("competition") competition: Int,
         @Query("season") season: String,
@@ -35,7 +34,7 @@ interface APIClient {
     ): Response<RaceResponse>
 
     @Headers(BuildConfig.API_KEY_HEADER)
-    @GET(URL_RACES)
+    @GET(Constants.URL_RACES)
     suspend fun getCompletedRaces(
         @Query("season") season: String,
         @Query("type") type: String = Constants.TYPE_RACE_QUERY_PARAM,
@@ -44,7 +43,7 @@ interface APIClient {
 
     @Headers(BuildConfig.API_KEY_HEADER)
     @GET(Constants.URL_RANKING_DRIVERS)
-    suspend fun getCurrentRankingDrivers(
+    suspend fun getRankingDrivers(
         @Query("season") season: String
     ): Response<RankingDriverResponse>
 
@@ -54,7 +53,7 @@ interface APIClient {
 
     @Headers(BuildConfig.API_KEY_HEADER)
     @GET(Constants.URL_RANKING_TEAMS)
-    suspend fun getCurrentRankingTeams(
+    suspend fun getRankingTeams(
         @Query("season") season: String
     ): Response<RankingTeamResponse>
 

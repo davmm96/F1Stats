@@ -8,6 +8,8 @@
     <color name="light_grey">#fafafa</color>
     <color name="dark_red">#DA0000</color>
     <color name="dark_blue">#020224</color>
+    <color name="colorRoundedBackground">#e3e3e3</color>
+
     <color name="color_RedBull">#3670C2</color>
     <color name="color_McLaren">#FA7D1B</color>
     <color name="color_Ferrari">#FD123A</color>

@@ -1,6 +1,5 @@
 package com.david.f1stats.ui.ranking.drivers
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,7 +18,7 @@ class RankingDriversAdapter (private val listener: RankingItemListener) : Recycl
 
     private val items = ArrayList<RankingDriver>()
 
-    @SuppressLint("NotifyDataSetChanged")
+
     fun setItems(items: ArrayList<RankingDriver>) {
         this.items.clear()
         this.items.addAll(items)
@@ -35,43 +34,44 @@ class RankingDriversAdapter (private val listener: RankingItemListener) : Recycl
 
     override fun onBindViewHolder(holder: RankingViewHolder, position: Int) = holder.bind(items[position])
 
-    inner class RankingViewHolder(private val itemBinding: ItemRankingDriverBinding, private val listener: RankingItemListener) :
+    inner class RankingViewHolder(
+        private val itemBinding: ItemRankingDriverBinding,
+        private val listener: RankingItemListener) :
         RecyclerView.ViewHolder(itemBinding.root),
         View.OnClickListener {
 
         private lateinit var rankingDriver: RankingDriver
+        private val context = itemBinding.root.context
 
-        init {
-            itemBinding.root.setOnClickListener(this)
-        }
+        init {itemBinding.root.setOnClickListener(this)}
 
         fun bind(item: RankingDriver) {
             this.rankingDriver = item
-
-            if(item.position == 1) {
-                itemBinding.root.setCardBackgroundColor(itemBinding.root.context.getColor(R.color.dark_grey))
-                itemBinding.tvName.setTextColor(itemBinding.root.context.getColor(R.color.white))
-                itemBinding.tvTeam.setTextColor(itemBinding.root.context.getColor(R.color.white))
-                itemBinding.tvPosition.setTextColor(itemBinding.root.context.getColor(R.color.white))
-                itemBinding.ivArrow.setImageResource(R.drawable.arrow_right_white)
-                itemBinding.tvName.textSize = FIRST_POSITION_SIZE
-            }
-            else {
-                itemBinding.root.setCardBackgroundColor(itemBinding.root.context.getColor(R.color.white))
-                itemBinding.tvName.setTextColor(itemBinding.root.context.getColor(R.color.black))
-                itemBinding.tvTeam.setTextColor(itemBinding.root.context.getColor(R.color.dark_grey))
-                itemBinding.tvPosition.setTextColor(itemBinding.root.context.getColor(R.color.black))
-                itemBinding.ivArrow.setImageResource(R.drawable.arrow_right)
-                itemBinding.tvName.textSize = 14f
-            }
-
+            setStylingBasedOnPosition(item)
             itemBinding.tvName.text = item.name
             itemBinding.tvTeam.text = item.team
             itemBinding.tvPoints.text = item.points
             itemBinding.tvPosition.text = item.position.toString()
-            itemBinding.verticalSeparator.setBackgroundColor(itemBinding.root.context.getColor(
-                getColor(item.idTeam)
-            ))
+            itemBinding.verticalSeparator.setBackgroundColor(context.getColor(getColor(item.idTeam)))
+        }
+
+        private fun setStylingBasedOnPosition(item: RankingDriver) {
+            if(item.position == 1) {
+                itemBinding.root.setCardBackgroundColor(context.getColor(R.color.dark_grey))
+                itemBinding.tvName.setTextColor(context.getColor(R.color.white))
+                itemBinding.tvTeam.setTextColor(context.getColor(R.color.white))
+                itemBinding.tvPosition.setTextColor(context.getColor(R.color.white))
+                itemBinding.ivArrow.setImageResource(R.drawable.arrow_right_white)
+                itemBinding.tvName.textSize = FIRST_POSITION_SIZE
+            }
+            else {
+                itemBinding.root.setCardBackgroundColor(context.getColor(R.color.white))
+                itemBinding.tvName.setTextColor(context.getColor(R.color.black))
+                itemBinding.tvTeam.setTextColor(context.getColor(R.color.dark_grey))
+                itemBinding.tvPosition.setTextColor(context.getColor(R.color.black))
+                itemBinding.ivArrow.setImageResource(R.drawable.arrow_right)
+                itemBinding.tvName.textSize = 14f
+            }
         }
 
         override fun onClick(v: View?) {

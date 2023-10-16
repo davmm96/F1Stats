@@ -11,7 +11,9 @@ class FavoriteRaceRepository @Inject constructor(
     private val favoriteRaceMapper: FavoriteRaceMapper,
 ) {
     suspend  fun getFavoriteRaces(): List<FavoriteRace> {
-        return raceDao.getAllFavoriteRaces().sortedWith(compareByDescending<FavoriteRace> { it.season }.thenBy { it.competition })
+        return raceDao.getAllFavoriteRaces()
+            .sortedWith(compareByDescending<FavoriteRace> { it.season }
+                .thenBy { it.competition })
     }
 
     suspend fun getAllFavoriteRacesIds(): List<Int> {
