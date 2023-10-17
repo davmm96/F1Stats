@@ -56,4 +56,21 @@
     <!--CardView Race-->
     <dimen name="race_layout_marginStart">10dp</dimen>
     <dimen name="race_layout_width">50dp</dimen>
+
+    <!--Item season-->
+    <dimen name="text_season_size">16sp</dimen>
+
+    <!--Ranking -->
+    <dimen name="vertical_separator_width">4dp</dimen>
+    <dimen name="margin_separator_driver">10dp</dimen>
+    <dimen name="ranking_race_margin_bottom">5dp</dimen>
+    <dimen name="ranking_race_padding">8dp</dimen>
+
+    <dimen name="ranking_margin_bottom">5dp</dimen>
+    <dimen name="ranking_title_marginStart">20dp</dimen>
+    <dimen name="ranking_title_marginEnd">15dp</dimen>
+    <dimen name="ranking_title_textSize">14sp</dimen>
+    <dimen name="ranking_subtitle_marginStart">20dp</dimen>
+    <dimen name="ranking_points_marginEnd">8dp</dimen>
+
 </resources>

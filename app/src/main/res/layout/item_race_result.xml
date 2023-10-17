@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:layout_marginBottom="5dp"
-    android:padding="8dp">
+    android:layout_marginBottom="@dimen/ranking_race_margin_bottom"
+    android:padding="@dimen/ranking_race_padding">
     <TextView
         android:id="@+id/tvPos"
         android:layout_width="0dp"
@@ -22,9 +22,9 @@
         android:orientation="horizontal">
         <View
             android:id="@+id/verticalSeparator"
-            android:layout_width="4dp"
             android:layout_height="match_parent"
-            android:background="@color/grey"/>
+            android:layout_width="@dimen/vertical_separator_width"
+            style="@style/verticalSeparator"/>
         <TextView
             android:id="@+id/tvDriver"
             android:layout_width="wrap_content"
@@ -33,10 +33,9 @@
             android:layout_gravity="center_vertical"
             android:textColor="@color/black"
             android:textStyle="bold"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="@dimen/margin_separator_driver"
             tools:text="VER"/>
     </LinearLayout>
-
     <TextView
         android:id="@+id/tvTime"
         android:layout_width="0dp"

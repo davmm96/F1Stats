@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="5dp"
+    android:layout_marginBottom="@dimen/ranking_margin_bottom"
     android:theme="@style/cardView">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -22,9 +22,9 @@
             tools:text="1" />
         <View
             android:id="@+id/verticalSeparator"
-            android:layout_width="4dp"
+            android:layout_width="@dimen/vertical_separator_width"
             android:layout_height="0dp"
-            android:background="@color/grey"
+            style="@style/verticalSeparator"
             app:layout_constraintLeft_toRightOf="@id/tvPosition"
             app:layout_constraintRight_toLeftOf="@id/tvName"
             app:layout_constraintTop_toTopOf="parent"
@@ -33,30 +33,30 @@
             android:id="@+id/tvName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="15dp"
-            android:textSize="14sp"
-            android:theme="@style/cardViewTitle"
+            style = "@style/rankingTitle"
             app:layout_constraintEnd_toStartOf="@+id/tvPoints"
             app:layout_constraintStart_toEndOf="@+id/tvPosition"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:maxLines="2"
-            android:ellipsize="end"
+            tools:text="Max Verstappen" />
+        <TextView
+            android:id="@+id/tvTeam"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@+id/tvPoints"
+            app:layout_constraintStart_toEndOf="@+id/tvPosition"
+            app:layout_constraintTop_toBottomOf="@+id/tvName"
+            style = "@style/rankingSubtitle"
             tools:text="Red Bull" />
         <TextView
             android:id="@+id/tvPoints"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
             android:background="@drawable/rounded_grey_background"
             android:gravity="center_vertical"
-            android:textColor="@color/black"
-            android:textSize="11sp"
-            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/ivArrow"
             app:layout_constraintTop_toTopOf="parent"
+            style = "@style/rankingPoints"
             tools:text="400 pts" />
         <ImageView
             android:id="@+id/ivArrow"

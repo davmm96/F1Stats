@@ -5,7 +5,7 @@ import com.david.f1stats.domain.model.RankingTeam
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.david.f1stats.R
-import com.david.f1stats.databinding.ItemRankingTeamBinding
+import com.david.f1stats.databinding.ItemRankingBinding
 import com.david.f1stats.utils.Constants.FIRST_POSITION_SIZE
 import com.david.f1stats.utils.getColor
 
@@ -23,7 +23,7 @@ class RankingTeamsAdapter(private val listener: RankingItemListener) : RecyclerV
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RankingViewHolder {
-        val binding: ItemRankingTeamBinding = ItemRankingTeamBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding: ItemRankingBinding = ItemRankingBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return RankingViewHolder(binding, listener)
     }
 
@@ -32,11 +32,12 @@ class RankingTeamsAdapter(private val listener: RankingItemListener) : RecyclerV
     override fun onBindViewHolder(holder: RankingViewHolder, position: Int) = holder.bind(items[position])
 
     inner class RankingViewHolder(
-        private val itemBinding: ItemRankingTeamBinding,
+        private val itemBinding: ItemRankingBinding,
         private val listener: RankingItemListener)
         :RecyclerView.ViewHolder(itemBinding.root){
 
         init {
+            itemBinding.tvTeam.visibility = ViewGroup.GONE
             itemBinding.root.setOnClickListener {
                 val currentItem = items[adapterPosition]
                 listener.onClickedRankingTeam(currentItem.idTeam)

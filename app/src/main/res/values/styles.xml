@@ -46,4 +46,37 @@
         <item name="android:textSize">@dimen/text_weekend_size</item>
         <item name="android:textColor">@color/black</item>
     </style>
+
+    <!--Item season-->
+    <style name="itemSeason" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">@dimen/text_season_size</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <!--Ranking -->
+    <style name="verticalSeparator">
+        <item name="android:background">@color/grey</item>
+    </style>
+
+    <style name="rankingTitle" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">@dimen/ranking_title_textSize</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:layout_marginStart">@dimen/ranking_title_marginStart</item>
+        <item name="android:layout_marginEnd">@dimen/ranking_title_marginEnd</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="rankingSubtitle" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">@dimen/min_text_size</item>
+        <item name="android:layout_marginStart">@dimen/ranking_subtitle_marginStart</item>
+    </style>
+
+    <style name="rankingPoints" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">@dimen/min_text_size</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:layout_marginEnd">@dimen/ranking_points_marginEnd</item>
+    </style>
 </resources>
