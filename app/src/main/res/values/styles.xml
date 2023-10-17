@@ -79,4 +79,41 @@
         <item name="android:textColor">@color/black</item>
         <item name="android:layout_marginEnd">@dimen/ranking_points_marginEnd</item>
     </style>
+
+    <style name="appIcon">
+        <item name="android:layout_marginVertical">10dp</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:layout_marginEnd">@dimen/ranking_points_marginEnd</item>
+    </style>
+
+    <style name="emptyText" parent="Widget.AppCompat.TextView">
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginVertical">10dp</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="emptyText.Title" parent="Widget.AppCompat.TextView">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_marginVertical">10dp</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="calendarTitle" parent="Widget.AppCompat.TextView">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:titleMarginTop">5dp</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="raceResultHeaderText" parent="Widget.AppCompat.TextView">
+        <item name="android:gravity">center</item>¡
+        <item name="android:textColor">@color/whiteAlways</item>
+        <item name="android:textStyle">bold</item>¡
+    </style>
+
+
 </resources>

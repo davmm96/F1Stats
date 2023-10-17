@@ -11,8 +11,8 @@
 
     <ImageView
         android:id="@+id/ivNoRaces"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="@dimen/empty_image_width"
+        android:layout_height="@dimen/empty_image_height"
         app:layout_constraintBottom_toTopOf="@id/tvNoRaces"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -28,12 +28,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:gravity="center"
         android:text="@string/season_completed_title"
-        android:layout_marginVertical="10dp"
-        android:visibility="gone"
-        android:textSize="18sp"
+        style="@style/emptyText.Title"
         tools:text="Season completed"/>
+
     <TextView
         android:id="@+id/tvNoRacesSubtitle"
         android:layout_width="wrap_content"
@@ -41,10 +39,8 @@
         app:layout_constraintTop_toBottomOf="@id/tvNoRaces"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:gravity="center"
-        android:layout_marginVertical="10dp"
         android:text="@string/season_completed_subtitle"
-        android:visibility="gone"
+        style="@style/emptyText"
         tools:text="Stay tuned for more GPs coming soon"/>
 
     <TextView
@@ -54,19 +50,15 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="5dp"
-        android:textSize="20sp"
-        android:textColor="@color/black"
-        android:textStyle="bold"
         android:text="@string/races_calendar_title"
-        android:visibility="gone" />
+        style="@style/calendarTitle" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvRaces"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="10dp"
-        android:paddingTop="8dp"
+        android:layout_marginTop="@dimen/empty_layout_margin_top"
+        android:paddingTop="@dimen/empty_layout_padding_top"
         app:layout_constraintTop_toBottomOf="@id/calendarTitle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

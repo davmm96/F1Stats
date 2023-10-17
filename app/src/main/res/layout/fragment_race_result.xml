@@ -11,43 +11,35 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:background="@color/dark_blue"
-        android:padding="8dp"
-        android:layout_marginBottom="5dp">
+        android:padding="@dimen/race_result_padding"
+        android:layout_marginBottom="@dimen/race_result_margin_bottom">
         <TextView
             android:id="@+id/tvPos"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center"
-            android:textColor="@color/whiteAlways"
-            android:textStyle="bold"
+            style="@style/raceResultHeaderText"
             android:text="@string/pos_label"/>
         <TextView
             android:id="@+id/tvDriver"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center"
-            android:textColor="@color/whiteAlways"
-            android:textStyle="bold"
+            style="@style/raceResultHeaderText"
             android:text="@string/driver_label"/>
         <TextView
             android:id="@+id/tvTime"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:gravity="center"
-            android:textColor="@color/whiteAlways"
-            android:textStyle="bold"
+            style="@style/raceResultHeaderText"
             android:text="@string/time_label"/>
         <TextView
             android:id="@+id/tvPoints"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center"
-            android:textColor="@color/whiteAlways"
-            android:textStyle="bold"
+            style="@style/raceResultHeaderText"
             android:text="@string/points_label"/>
     </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
