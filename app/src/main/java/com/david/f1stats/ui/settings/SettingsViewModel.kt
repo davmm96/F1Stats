@@ -20,7 +20,7 @@ class SettingsViewModel @Inject constructor(
     private val getSeasonsUseCase: GetSeasonsUseCase
 ) : ViewModel() {
 
-    private val _isMusicPlaying = MutableLiveData(preferencesManager.musicState)
+    private val _isMusicPlaying = MutableLiveData(preferencesManager.musicActivated)
     private val _seasonList = MutableLiveData<List<Season>?>()
 
     fun onCreate(){
@@ -34,7 +34,7 @@ class SettingsViewModel @Inject constructor(
 
     fun toggleMusic(shouldPlay: Boolean) {
         _isMusicPlaying.value = shouldPlay
-        preferencesManager.musicState = shouldPlay
+        preferencesManager.musicActivated = shouldPlay
         if (shouldPlay) {
             musicManager.playMusic()
         } else {

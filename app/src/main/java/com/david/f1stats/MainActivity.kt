@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initMusic() {
-        if (preferencesManager.musicState) {
+        if (preferencesManager.musicActivated) {
             musicManager.playMusic()
         }
     }

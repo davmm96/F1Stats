@@ -15,7 +15,7 @@ class PreferencesHelper @Inject constructor(private val sharedPreferences: Share
         private const val DEFAULT_THEME_MODE = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
     }
 
-    var musicState: Boolean
+    var musicActivated: Boolean
         get() = sharedPreferences.getBoolean(MUSIC_STATE_KEY, DEFAULT_MUSIC_STATE)
         set(isPlaying) = sharedPreferences.edit().putBoolean(MUSIC_STATE_KEY, isPlaying).apply()
 
