@@ -5,18 +5,20 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.david.f1stats.ui.ranking.drivers.RankingDriversFragment
 import com.david.f1stats.ui.ranking.raceResult.RankingRacesFragment
 import com.david.f1stats.ui.ranking.teams.RankingTeamsFragment
-import com.david.f1stats.utils.Constants
 
 class RankingTabsAdapter (fragment: Fragment) : FragmentStateAdapter(fragment) {
 
-    override fun getItemCount(): Int = Constants.NUM_TABS_RANKING
+    enum class Tab {
+        DRIVERS, TEAMS, RACE_RESULTS
+    }
+
+    override fun getItemCount(): Int = Tab.values().size
 
     override fun createFragment(position: Int): Fragment {
-        return when (position) {
-            0 -> RankingDriversFragment()
-            1 -> RankingTeamsFragment()
-            2 -> RankingRacesFragment()
-            else -> throw IllegalArgumentException("Invalid position")
+        return when (Tab.values()[position]){
+            Tab.DRIVERS -> RankingDriversFragment()
+            Tab.TEAMS -> RankingTeamsFragment()
+            Tab.RACE_RESULTS -> RankingRacesFragment()
         }
     }
 }

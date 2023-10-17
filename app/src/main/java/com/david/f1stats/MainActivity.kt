@@ -1,9 +1,11 @@
 package com.david.f1stats
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.findNavController
@@ -13,6 +15,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.david.f1stats.databinding.ActivityMainBinding
+import com.david.f1stats.ui.SharedViewModel
 import com.david.f1stats.ui.settings.SettingsActivity
 import com.david.f1stats.utils.MusicHelper
 import com.david.f1stats.utils.PreferencesHelper
@@ -25,6 +28,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var appToolbarConfiguration: AppBarConfiguration
+    private val sharedViewModel: SharedViewModel by viewModels()
 
     @Inject
     lateinit var preferencesManager: PreferencesHelper
@@ -62,6 +66,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("StringFormatInvalid")
     private fun initNavigation() {
         setSupportActionBar(binding.toolbar)
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment
@@ -72,9 +77,24 @@ class MainActivity : AppCompatActivity() {
 
         appToolbarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appToolbarConfiguration)
+
         setupActionBarWithNavController(navController, appBarConfiguration)
 
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.navigation_ranking -> {
+                    val season = sharedViewModel.selectedSeason.value ?: ""
+                    supportActionBar?.title = getString(R.string.title_dashboard, season)
+                }
+                R.id.navigation_races -> {
+                    val season = sharedViewModel.selectedSeason.value ?: ""
+                    supportActionBar?.title = getString(R.string.title_home, season)
+                }
+            }
+        }
+
         binding.navView.setupWithNavController(navController)
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

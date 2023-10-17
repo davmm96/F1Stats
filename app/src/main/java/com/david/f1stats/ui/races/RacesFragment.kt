@@ -33,8 +33,6 @@ class RacesFragment : Fragment(), RacesAdapter.RaceItemListener {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentRacesBinding.inflate(inflater, container, false)
-        updateActionBarTitle()
-
         return binding.root
     }
 
@@ -52,14 +50,10 @@ class RacesFragment : Fragment(), RacesAdapter.RaceItemListener {
     }
 
     @SuppressLint("StringFormatInvalid")
-    private fun updateActionBarTitle() {
-        val title = getString(R.string.title_home, sharedViewModel.selectedSeason.value.toString())
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = title
-    }
-
     private fun observeSelectedSeason() {
         sharedViewModel.selectedSeason.observe(viewLifecycleOwner) {
-            updateActionBarTitle()
+            val title = getString(R.string.title_home, sharedViewModel.selectedSeason.value.toString())
+            (requireActivity() as AppCompatActivity).supportActionBar?.title = title
             racesViewModel.fetchRaces()
         }
     }
