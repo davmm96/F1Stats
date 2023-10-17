@@ -4,10 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.appcompat.widget.Toolbar
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -37,38 +35,46 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val themeMode = preferencesManager.themeMode
-        AppCompatDelegate.setDefaultNightMode(themeMode)
-
-        val shouldPlayMusic = preferencesManager.musicState
-        if (shouldPlayMusic) {
-            musicManager.playMusic()
-        }
-
-        val season = preferencesManager.selectedSeason
-        if (season.isNullOrEmpty()) {
-            preferencesManager.selectedSeason = Calendar.getInstance().get(Calendar.YEAR).toString()
-        }
+        initTheme()
+        initMusic()
+        initDefaultSeason()
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val navView: BottomNavigationView = binding.navView
-        val toolbar: Toolbar = binding.toolbar
-        val navHostFragment = supportFragmentManager
-            .findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment
+        initNavigation()
+    }
+
+    private fun initTheme() {
+        AppCompatDelegate.setDefaultNightMode(preferencesManager.themeMode)
+    }
+
+    private fun initMusic() {
+        if (preferencesManager.musicState) {
+            musicManager.playMusic()
+        }
+    }
+
+    private fun initDefaultSeason() {
+        val season = preferencesManager.selectedSeason
+        if (season.isNullOrEmpty()) {
+            preferencesManager.selectedSeason = Calendar.getInstance().get(Calendar.YEAR).toString()
+        }
+    }
+
+    private fun initNavigation() {
+        setSupportActionBar(binding.toolbar)
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment
         val navController = navHostFragment.navController
         val appBarConfiguration = AppBarConfiguration(
             setOf(R.id.navigation_races, R.id.navigation_ranking, R.id.navigation_circuits, R.id.navigation_favorites)
         )
 
-        setSupportActionBar(toolbar)
-
         appToolbarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appToolbarConfiguration)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
-        navView.setupWithNavController(navController)
+        binding.navView.setupWithNavController(navController)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -78,18 +84,16 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
-        return navController.navigateUp(appToolbarConfiguration)
-                || super.onSupportNavigateUp()
+        return navController.navigateUp(appToolbarConfiguration) || super.onSupportNavigateUp()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
+        return when (item.itemId) {
             R.id.action_settings -> {
-                val intent = Intent(this, SettingsActivity::class.java)
-                startActivity(intent)
-                return true
+                startActivity(Intent(this, SettingsActivity::class.java))
+                true
             }
-            else -> return super.onOptionsItemSelected(item)
+            else -> super.onOptionsItemSelected(item)
         }
     }
 }
