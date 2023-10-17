@@ -16,25 +16,23 @@ class CircuitsViewModel @Inject constructor(
     private val getCircuitsUseCase: GetCircuitsUseCase
 ): ViewModel() {
 
-    private val _circuitsDriverModel = MutableLiveData<List<Circuit>?>()
+    private val _circuits = MutableLiveData<List<Circuit>?>()
+    val circuitsList: LiveData<List<Circuit>?> = _circuits
+
     private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> = _isLoading
 
     fun onCreate(){
         viewModelScope.launch {
             _isLoading.postValue(true)
-            val result = getCircuitsUseCase()
-
-            if (result != null) {
-                if(result.isNotEmpty()){
-                    _circuitsDriverModel.postValue(result)
-                    _isLoading.postValue(false)
-                } else {
-                    Log.d("TAG", "Error")
-                }
+            try {
+                val circuits = getCircuitsUseCase()
+                _circuits.value = circuits
+            } catch (exception: Exception) {
+                Log.e("TAG", "Error fetching circuits", exception)
+            } finally {
+                _isLoading.value = false
             }
         }
     }
-
-    val circuitsList: LiveData<List<Circuit>?> = _circuitsDriverModel
-    val isLoading: LiveData<Boolean> = _isLoading
 }

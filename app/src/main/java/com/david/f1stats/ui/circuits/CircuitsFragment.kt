@@ -27,39 +27,42 @@ class CircuitsFragment : Fragment(), CircuitsAdapter.CircuitItemListener {
 
     private var _binding: FragmentCircuitsBinding? = null
     private val binding get() = _binding!!
-    private lateinit var adapter: CircuitsAdapter
     private val circuitViewModel: CircuitsViewModel by viewModels()
-
+    private val adapter = CircuitsAdapter(this)
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         _binding = FragmentCircuitsBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
-        circuitViewModel.onCreate()
-
-        return root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupRecyclerView()
+        initRecyclerView()
+        initObservers()
 
-        circuitViewModel.circuitsList.observe(viewLifecycleOwner) {
-            it?.let { it1 -> ArrayList(it1) }?.let { it2 -> adapter.setItems(it2) }
+        circuitViewModel.onCreate()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun initObservers(){
+        circuitViewModel.circuitsList.observe(viewLifecycleOwner) { listCircuits ->
+            listCircuits?.let { circuits -> ArrayList(circuits) }?.let { circuitsArrayList -> adapter.setItems(circuitsArrayList) }
         }
 
-        circuitViewModel.isLoading.observe(viewLifecycleOwner){
-            binding.progressBar.isVisible = it
+        circuitViewModel.isLoading.observe(viewLifecycleOwner){ isLoading ->
+            binding.progressBar.isVisible = isLoading
         }
     }
 
-    private fun setupRecyclerView() {
-        adapter = CircuitsAdapter(this)
+    private fun initRecyclerView() {
         binding.rvCircuits.layoutManager = LinearLayoutManager(requireContext())
         binding.rvCircuits.adapter = adapter
     }
@@ -71,10 +74,5 @@ class CircuitsFragment : Fragment(), CircuitsAdapter.CircuitItemListener {
         else{
             Toast.makeText(this.context, imageUrl, Toast.LENGTH_SHORT).show()
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }
