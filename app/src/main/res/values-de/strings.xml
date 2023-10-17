@@ -72,4 +72,5 @@
     <string name="icon_no_races">Abgeschlossene Saison-Symbol</string>
     <string name="season_completed_title">Saison abgeschlossen</string>
     <string name="season_completed_subtitle">Bleiben Sie dran für weitere kommende GPs</string>
+    <string name="close_button_label">X</string>
 </resources>
