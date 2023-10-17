@@ -94,4 +94,9 @@
     <dimen name="race_result_padding">8dp</dimen>
     <dimen name="race_result_margin_bottom">5dp</dimen>
 
+    <!-- Driver and Team detail -->
+    <dimen name="detail_margin_top">30dp</dimen>
+    <dimen name="detail_info_margin_vertical">20dp</dimen>
+    <dimen name="detail_textSizeWC">14sp</dimen>
+
 </resources>

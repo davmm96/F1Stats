@@ -24,7 +24,7 @@
     <string name="wins_label">Victoires</string>
     <string name="races_label">Courses</string>
     <string name="total_points_label">Points totaux</string>
-    <string name="driverContentDescription">TODO</string>
+    <string name="driverContentDescription">Driver image</string>
     <string name="driver_label">PILOTE</string>
     <string name="close_button">Fermer</string>
     <string name="add_to_favorite_list">Ajouter à la liste des favoris</string>

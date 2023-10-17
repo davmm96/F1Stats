@@ -13,14 +13,13 @@
             android:id="@+id/rlHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="@dimen/detail_margin_top"
             android:orientation="horizontal">
             <ImageView
                 android:id="@+id/ivTeamImage"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_alignParentEnd="true"
-                android:contentDescription="@string/driverContentDescription" />
+                style="@style/rankingDetailHeaderImage"
+                android:contentDescription = "@string/driverContentDescription"
+                android:layout_alignParentEnd="true"/>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -31,11 +30,8 @@
                     android:id="@+id/tvTeamName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:textSize="24sp"
-                    android:textColor="@color/black"
-                    tools:text="Scuderia Ferrari"
-                    android:maxLines="2" />
+                    style="@style/rankingDetailHeaderText"
+                    tools:text="Scuderia Ferrari" />
                 <TextView
                     android:id="@+id/tvTeamCountry"
                     android:layout_width="wrap_content"
@@ -51,19 +47,15 @@
             android:layout_marginVertical="20dp">
             <ImageView
                 android:id="@+id/ivWC"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:src="@drawable/cup"
-                android:contentDescription="@string/icon_wc"/>
+                style="@style/rankingDetailImageWC"
+                android:contentDescription = "@string/icon_wc"
+                android:src="@drawable/cup"/>
             <TextView
                 android:id="@+id/tvWC"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@+id/ivWC"
-                android:layout_marginStart="20dp"
-                android:textSize="40sp"
-                android:textColor="@color/black"
-                android:textStyle="bold"
+                style="@style/rankingDetailTextInfo.WC"
                 tools:text="16"/>
             <TextView
                 android:id="@+id/tvWCLabel"
@@ -71,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignStart="@id/tvWC"
                 android:layout_below="@+id/tvWC"
-                android:textSize="14sp"
+                android:textSize="@dimen/detail_textSizeWC"
                 android:text="@string/world_championships_label"
                 tools:text="World Championships"/>
             <ImageView
@@ -92,9 +84,7 @@
                 android:layout_below="@+id/ivWC"
                 android:layout_toEndOf="@+id/ivWins"
                 android:layout_marginStart="20dp"
-                android:textSize="20sp"
-                android:textColor="@color/black"
-                android:textStyle="bold"
+                style="@style/rankingDetailTextInfo"
                 tools:text="244"/>
             <TextView
                 android:id="@+id/tvWinsLabel"
@@ -103,7 +93,7 @@
                 android:layout_below="@+id/tvWins"
                 android:layout_alignStart="@id/tvWins"
                 android:layout_marginEnd="50dp"
-                android:textSize="11sp"
+                android:textSize="@dimen/min_text_size"
                 android:text="@string/wins_label"
                 tools:text="Wins"/>
             <LinearLayout
@@ -129,9 +119,7 @@
                         android:id="@+id/tvPolePositions"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="20sp"
-                        android:textColor="@color/black"
-                        android:textStyle="bold"
+                        style="@style/rankingDetailTextInfo"
                         android:layout_gravity="end"
                         tools:text="247"/>
                     <TextView
@@ -141,7 +129,7 @@
                         tools:text="Pole positions"
                         android:text="@string/pole_positions_label"
                         android:layout_gravity="end"
-                        android:textSize="11sp" />
+                        android:textSize="@dimen/min_text_size" />
                 </LinearLayout>
             </LinearLayout>
             <ImageView
@@ -160,10 +148,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/podiumLayout"
                 android:layout_alignStart="@id/tvWinsLabel"
-                android:textSize="20sp"
                 android:layout_marginTop="50dp"
-                android:textColor="@color/black"
-                android:textStyle="bold"
+                style="@style/rankingDetailTextInfo"
                 tools:text="247"/>
             <TextView
                 android:id="@+id/tvFastestLapsLabel"
@@ -172,7 +158,7 @@
                 android:layout_below="@+id/tvFastestLaps"
                 android:layout_alignStart="@id/tvWinsLabel"
                 android:text="@string/fastest_laps_label"
-                android:textSize="11sp"
+                android:textSize="@dimen/min_text_size"
                 tools:text="Fastest Laps"/>
             <LinearLayout
                 android:id="@+id/firstSeasonLayout"
@@ -187,9 +173,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
-                    android:textSize="20sp"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
+                    style="@style/rankingDetailTextInfo"
                     tools:text="1950"/>
                 <TextView
                     android:id="@+id/tvFirstSeasonLabel"
