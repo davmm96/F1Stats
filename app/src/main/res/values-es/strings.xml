@@ -25,7 +25,7 @@
     <string name="races_label">Carreras</string>
     <string name="total_points_label">Puntos totales</string>
     <string name="driverContentDescription">Imagen del piloto</string>
-    <string name="driver_label">PILOTO</string>
+    <string name="driver_label">PIL</string>
     <string name="close_button">Cerrar</string>
     <string name="add_to_favorite_list">Añadir a la lista de favoritos</string>
     <string name="music_label">Música</string>
@@ -40,7 +40,7 @@
     <string name="fastest_laps_label">Vueltas rápidas</string>
     <string name="pos_label">POS</string>
     <string name="time_label">TIEMPO</string>
-    <string name="points_label">PUNTOS</string>
+    <string name="points_label">PTS</string>
     <string name="circuit_length_label">Longitud del circuito</string>
     <string name="laps_laps">Vueltas</string>
     <string name="first_grand_prix_laps">Primer Gran Premio</string>
