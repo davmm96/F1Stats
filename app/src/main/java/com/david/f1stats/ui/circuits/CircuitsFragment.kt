@@ -43,8 +43,6 @@ class CircuitsFragment : Fragment(), CircuitsAdapter.CircuitItemListener {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
         initObservers()
-
-        circuitViewModel.onCreate()
     }
 
     override fun onDestroyView() {

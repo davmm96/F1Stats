@@ -19,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class FavoritesFragment : Fragment(), FavoritesAdapter.FavoriteItemListener, FavoritesAdapter.FavoriteNavListener {
     private var _binding: FragmentFavoritesBinding? = null
     private val binding get() = _binding!!
-    private lateinit var adapter: FavoritesAdapter
+    private val adapter: FavoritesAdapter = FavoritesAdapter(this, this)
     private val favoriteRacesViewModel: FavoritesViewModel by viewModels()
 
     override fun onCreateView(
@@ -27,19 +27,33 @@ class FavoritesFragment : Fragment(), FavoritesAdapter.FavoriteItemListener, Fav
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         _binding = FragmentFavoritesBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-        favoriteRacesViewModel.onCreate()
-
-        return root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupRecyclerView()
+        initRecyclerView()
+        initObservers()
+    }
 
-        favoriteRacesViewModel.favoriteRaceList.observe(viewLifecycleOwner) { list->
+    override fun onResume() {
+        super.onResume()
+        favoriteRacesViewModel.fetchAllFavoriteRaces()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun initRecyclerView() {
+        binding.rvRaces.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvRaces.adapter = adapter
+    }
+
+    private fun initObservers() {
+        favoriteRacesViewModel.favoriteRaces.observe(viewLifecycleOwner) { list->
             list?.let { it1 -> ArrayList(it1) }?.let { it2 -> adapter.setItems(it2) }
             if(list.isNullOrEmpty()){
                 binding.tvNoFavorites.isVisible = adapter.itemCount == 0
@@ -63,12 +77,6 @@ class FavoritesFragment : Fragment(), FavoritesAdapter.FavoriteItemListener, Fav
         }
     }
 
-    private fun setupRecyclerView() {
-        adapter = FavoritesAdapter(this, this)
-        binding.rvRaces.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvRaces.adapter = adapter
-    }
-
     override fun removeFavorite(idRace: Int) {
         favoriteRacesViewModel.deleteFavorite(idRace)
     }
@@ -77,10 +85,5 @@ class FavoritesFragment : Fragment(), FavoritesAdapter.FavoriteItemListener, Fav
             R.id.action_navigation_favorites_to_raceResultFragment,
             bundleOf("id" to idRace, "country" to country)
         )
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

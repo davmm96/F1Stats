@@ -1,5 +1,6 @@
 package com.david.f1stats.ui.favorites
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -17,33 +18,44 @@ class FavoritesViewModel @Inject constructor(
     private val deleteFavoriteUseCase: DeleteFavoriteUseCase
 ): ViewModel() {
 
-    private val _favoriteRaceModel = MutableLiveData<List<FavoriteRace>?>()
-    private val _isLoading = MutableLiveData<Boolean>()
-    private val _isDeleted = MutableLiveData<Boolean>()
+    private val _favoriteRaces = MutableLiveData<List<FavoriteRace>?>()
+    val favoriteRaces: LiveData<List<FavoriteRace>?> = _favoriteRaces
 
-    fun onCreate() {
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> = _isLoading
+
+    private val _isDeleted = MutableLiveData<Boolean>()
+    val isDeleted: LiveData<Boolean> = _isDeleted
+
+    init {
         fetchAllFavoriteRaces()
     }
 
-    private fun fetchAllFavoriteRaces() {
+    fun fetchAllFavoriteRaces() {
         viewModelScope.launch {
-            _isLoading.postValue(true)
-            val result = getAllFavoriteRacesUseCase()
-            _favoriteRaceModel.postValue(result)
-            _isLoading.postValue(false)
-            _isDeleted.postValue(false)
+            _isLoading.value = true
+            try {
+                val result = getAllFavoriteRacesUseCase()
+                _favoriteRaces.value = result
+            } catch (exception: Exception) {
+                Log.e("TAG", "Error fetching favorites", exception)
+            } finally {
+                _isLoading.value = false
+                _isDeleted.value = false
+            }
         }
     }
 
     fun deleteFavorite(idRace: Int) {
         viewModelScope.launch {
-            deleteFavoriteUseCase(idRace)
-            _isDeleted.postValue(true)
-            fetchAllFavoriteRaces()
+            try {
+                deleteFavoriteUseCase(idRace)
+                _isDeleted.value = true
+                fetchAllFavoriteRaces()
+
+            } catch (exception: Exception) {
+                Log.e("TAG", "Error deleting favorite", exception)
+            }
         }
     }
-
-    val favoriteRaceList: LiveData<List<FavoriteRace>?> = _favoriteRaceModel
-    val isLoading: LiveData<Boolean> = _isLoading
-    val isDeleted: LiveData<Boolean> = _isDeleted
 }

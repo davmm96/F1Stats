@@ -22,7 +22,7 @@ class CircuitsViewModel @Inject constructor(
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-    fun onCreate(){
+    init {
         viewModelScope.launch {
             _isLoading.postValue(true)
             try {
