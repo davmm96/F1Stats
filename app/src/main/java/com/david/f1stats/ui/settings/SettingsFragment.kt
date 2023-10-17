@@ -34,6 +34,9 @@ class SettingsFragment : Fragment() {
     @Inject
     lateinit var picasso: Picasso
 
+    @Inject
+    lateinit var dialogHelper: DialogHelper
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -43,7 +46,7 @@ class SettingsFragment : Fragment() {
 
         settingsViewModel.onCreate()
 
-        when (preferencesHelper.getThemeMode()) {
+        when (preferencesHelper.themeMode) {
             AppCompatDelegate.MODE_NIGHT_NO -> binding.lightMode.isChecked = true
             AppCompatDelegate.MODE_NIGHT_YES -> binding.darkMode.isChecked = true
             AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM -> binding.defaultMode.isChecked = true
@@ -56,7 +59,7 @@ class SettingsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         seasonsAdapter = SeasonsAdapter(requireContext(), mutableListOf()) { selectedSeason ->
-            preferencesHelper.setSelectedSeason(selectedSeason.season)
+            preferencesHelper.selectedSeason = selectedSeason.season
         }
         binding.yearSpinner.adapter = seasonsAdapter
 
@@ -65,7 +68,7 @@ class SettingsFragment : Fragment() {
                 seasonsAdapter.setItems(it)
 
                 // Set the default value for the spinner after populating the adapter
-                val selectedSeason = preferencesHelper.getSelectedSeason() ?: Calendar.getInstance().get(Calendar.YEAR).toString()
+                val selectedSeason = preferencesHelper.selectedSeason ?: Calendar.getInstance().get(Calendar.YEAR).toString()
                 val position = seasonsAdapter.getPosition(Season(selectedSeason))
                 if (position != -1) {
                     binding.yearSpinner.setSelection(position)
@@ -74,13 +77,13 @@ class SettingsFragment : Fragment() {
         }
 
         binding.ivAppIcon.setOnClickListener {
-            DialogHelper.showLocalImageDialog(requireActivity(), picasso, R.drawable.appicon_alpha)
+            dialogHelper.showLocalImageDialog(requireActivity(), picasso, R.drawable.appicon_alpha)
         }
 
         binding.yearSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View, pos: Int, id: Long) {
                 val season = parent.getItemAtPosition(pos) as Season
-                preferencesHelper.setSelectedSeason(season.season)
+                preferencesHelper.selectedSeason = season.season
                 sharedViewModel.updateSelectedSeason(season.season)
             }
 

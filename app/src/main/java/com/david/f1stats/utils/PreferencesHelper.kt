@@ -11,29 +11,19 @@ class PreferencesHelper @Inject constructor(private val sharedPreferences: Share
         private const val THEME_MODE_KEY = "theme_mode_key"
         private const val MUSIC_STATE_KEY = "music_state_key"
         private const val SELECTED_SEASON_KEY = "selected_season_key"
+        private const val DEFAULT_MUSIC_STATE = false
+        private const val DEFAULT_THEME_MODE = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
     }
 
-    fun saveMusicState(isPlaying: Boolean) {
-        sharedPreferences.edit().putBoolean(MUSIC_STATE_KEY, isPlaying).apply()
-    }
+    var musicState: Boolean
+        get() = sharedPreferences.getBoolean(MUSIC_STATE_KEY, DEFAULT_MUSIC_STATE)
+        set(isPlaying) = sharedPreferences.edit().putBoolean(MUSIC_STATE_KEY, isPlaying).apply()
 
-    fun getMusicState(): Boolean {
-        return sharedPreferences.getBoolean(MUSIC_STATE_KEY, false)
-    }
+    var themeMode: Int
+        get() = sharedPreferences.getInt(THEME_MODE_KEY, DEFAULT_THEME_MODE)
+        set(mode) = sharedPreferences.edit().putInt(THEME_MODE_KEY, mode).apply()
 
-    fun saveThemeMode(mode: Int) {
-        sharedPreferences.edit().putInt(THEME_MODE_KEY, mode).apply()
-    }
-
-    fun getThemeMode(): Int {
-        return sharedPreferences.getInt(THEME_MODE_KEY, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-    }
-
-    fun setSelectedSeason(season: String) {
-        sharedPreferences.edit().putString(SELECTED_SEASON_KEY, season).apply()
-    }
-
-    fun getSelectedSeason(): String? {
-        return sharedPreferences.getString(SELECTED_SEASON_KEY, null)
-    }
+    var selectedSeason: String?
+        get() = sharedPreferences.getString(SELECTED_SEASON_KEY, null)
+        set(season) = sharedPreferences.edit().putString(SELECTED_SEASON_KEY, season).apply()
 }

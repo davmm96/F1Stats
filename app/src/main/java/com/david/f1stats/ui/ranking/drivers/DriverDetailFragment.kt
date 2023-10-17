@@ -19,6 +19,9 @@ class DriverDetailFragment : Fragment() {
     @Inject
     lateinit var picasso: Picasso
 
+    @Inject
+    lateinit var dialogHelper: DialogHelper
+
     private var _binding: FragmentDriverDetailBinding? = null
     private val binding get() = _binding!!
     private val driverDetailViewModel: DriverDetailViewModel by viewModels()
@@ -56,7 +59,7 @@ class DriverDetailFragment : Fragment() {
     private fun setupImageClickListener(view: View, imageUrl: String?) {
         view.setOnClickListener {
             if (imageUrl != null && imageUrl != Constants.IMAGE_NOT_FOUND) {
-                DialogHelper.showImageDialog(requireActivity(), picasso, imageUrl)
+                dialogHelper.showImageDialog(requireActivity(), picasso, imageUrl)
             }
         }
     }

@@ -7,18 +7,26 @@ import android.view.WindowManager
 import androidx.fragment.app.FragmentActivity
 import com.david.f1stats.databinding.DialogImageFullscreenBinding
 import com.squareup.picasso.Picasso
+import javax.inject.Inject
 
-object DialogHelper {
+class DialogHelper @Inject constructor() {
 
     fun showImageDialog(activity: FragmentActivity, picasso: Picasso, imageUrl: String) {
-        showDialog(activity, picasso, imageUrl)
+        showDialog(activity) {
+            picasso.load(imageUrl).into(it.fullscreenImageView)
+        }
     }
 
     fun showLocalImageDialog(activity: FragmentActivity, picasso: Picasso, imageResId: Int) {
-        showDialog(activity, picasso, imageResId)
+        showDialog(activity) {
+            picasso.load(imageResId).into(it.fullscreenImageView)
+        }
     }
 
-    private fun showDialog(activity: FragmentActivity, picasso: Picasso, imageSource: Any) {
+    private fun showDialog(
+        activity: FragmentActivity,
+        loadImage: (DialogImageFullscreenBinding) -> Unit
+    ) {
         val dialog = Dialog(activity)
 
         val binding = DialogImageFullscreenBinding.inflate(activity.layoutInflater)
@@ -34,10 +42,7 @@ object DialogHelper {
         dialog.window?.attributes = layoutParams
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#BF000000")))
 
-        when (imageSource) {
-            is String -> picasso.load(imageSource).into(binding.fullscreenImageView)
-            is Int -> picasso.load(imageSource).into(binding.fullscreenImageView)
-        }
+        loadImage(binding)
 
         binding.closeButton.setOnClickListener {
             dialog.dismiss()

@@ -37,17 +37,17 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val themeMode = preferencesManager.getThemeMode()
+        val themeMode = preferencesManager.themeMode
         AppCompatDelegate.setDefaultNightMode(themeMode)
 
-        val shouldPlayMusic = preferencesManager.getMusicState()
+        val shouldPlayMusic = preferencesManager.musicState
         if (shouldPlayMusic) {
             musicManager.playMusic()
         }
 
-        val season = preferencesManager.getSelectedSeason()
+        val season = preferencesManager.selectedSeason
         if (season.isNullOrEmpty()) {
-            preferencesManager.setSelectedSeason(Calendar.getInstance().get(Calendar.YEAR).toString())
+            preferencesManager.selectedSeason = Calendar.getInstance().get(Calendar.YEAR).toString()
         }
 
         binding = ActivityMainBinding.inflate(layoutInflater)

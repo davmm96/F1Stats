@@ -1,6 +1,5 @@
 package com.david.f1stats.ui.raceDetail
 
-import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -15,31 +14,30 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RaceDetailViewModel @Inject constructor(
-    private val getRaceDetailsUseCase: GetRaceDetailsUseCase,
-    private val calendarHelper: CalendarHelper
+    private val getRaceDetailsUseCase: GetRaceDetailsUseCase
 ) : ViewModel() {
 
     private val _raceListModel = MutableLiveData<List<RaceDetail>?>()
     private val _raceInfoModel = MutableLiveData<RaceDetail>()
+    private val _addToCalendarEvent = MutableLiveData<CalendarHelper.CalendarEvent>()
 
     fun start(id: Int) {
         viewModelScope.launch {
             val result = getRaceDetailsUseCase.invoke(id)
-            if (result != null) {
-                if(result.isNotEmpty()){
-                    _raceListModel.postValue(result)
-                    _raceInfoModel.postValue(result.first())
-                } else {
-                    Log.d("TAG", "Error")
-                }
+            if(result.isNotEmpty()){
+                _raceListModel.postValue(result)
+                _raceInfoModel.postValue(result.first())
+            } else {
+                Log.d("TAG", "Error")
             }
         }
     }
 
-    fun onAddToCalendarRequested(context: Context, title: String, description: String, location:String, startMillis: Long) {
-        calendarHelper.addToCalendar(context, title, description, location, startMillis)
+    fun onAddToCalendarRequested(event: CalendarHelper.CalendarEvent) {
+        _addToCalendarEvent.value = event
     }
 
     val raceList: LiveData<List<RaceDetail>?> = _raceListModel
     val raceInfo: LiveData<RaceDetail> = _raceInfoModel
+    val addToCalendarEvent: LiveData<CalendarHelper.CalendarEvent> = _addToCalendarEvent
 }

@@ -19,6 +19,9 @@ class TeamDetailFragment : Fragment() {
     @Inject
     lateinit var picasso: Picasso
 
+    @Inject
+    lateinit var dialogHelper: DialogHelper
+
     private var _binding: FragmentTeamDetailBinding? = null
     private val binding get() = _binding!!
     private val teamDetailViewModel: TeamDetailViewModel by viewModels()
@@ -52,7 +55,7 @@ class TeamDetailFragment : Fragment() {
         binding.ivTeamImage.setOnClickListener {
             val imageUrl = teamDetailViewModel.teamInfo.value?.image
             if (imageUrl != null && imageUrl != Constants.IMAGE_NOT_FOUND) {
-                DialogHelper.showImageDialog(requireActivity(), picasso, imageUrl)
+                dialogHelper.showImageDialog(requireActivity(), picasso, imageUrl)
             }
         }
     }

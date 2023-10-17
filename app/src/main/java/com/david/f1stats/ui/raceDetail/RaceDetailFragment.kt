@@ -8,7 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.david.f1stats.databinding.FragmentRaceDetailBinding
+import com.david.f1stats.utils.CalendarHelper
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class RaceDetailFragment : Fragment(), RaceWeekendAdapter.CalendarListener {
@@ -17,6 +19,9 @@ class RaceDetailFragment : Fragment(), RaceWeekendAdapter.CalendarListener {
     private val binding get() = _binding!!
     private lateinit var adapter: RaceWeekendAdapter
     private val raceDetailViewModel: RaceDetailViewModel by viewModels()
+
+    @Inject
+    lateinit var calendarHelper: CalendarHelper
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,6 +47,12 @@ class RaceDetailFragment : Fragment(), RaceWeekendAdapter.CalendarListener {
         raceDetailViewModel.raceList.observe(viewLifecycleOwner) {
             it?.let { it1 -> ArrayList(it1) }?.let { it2 -> adapter.setItems(it2) }
         }
+
+        raceDetailViewModel.addToCalendarEvent.observe(viewLifecycleOwner) { event ->
+            event?.let {
+                calendarHelper.addToCalendar(requireContext(), it)
+            }
+        }
     }
 
     private fun setupRecyclerView() {
@@ -51,7 +62,13 @@ class RaceDetailFragment : Fragment(), RaceWeekendAdapter.CalendarListener {
     }
 
     override fun onCalendarClicked(title: String, dateCalendar: Long) {
-        raceDetailViewModel.onAddToCalendarRequested(requireContext(), title, binding.nameRace.text.toString(), binding.circuitRace.text.toString(), dateCalendar)
+        val event = CalendarHelper.CalendarEvent(
+            title = title,
+            description = binding.nameRace.text.toString(),
+            location = binding.circuitRace.text.toString(),
+            startMillis = dateCalendar
+        )
+        raceDetailViewModel.onAddToCalendarRequested(event)
     }
 
     override fun onDestroyView() {

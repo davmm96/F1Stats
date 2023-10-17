@@ -27,6 +27,6 @@ class RankingService @Inject constructor(
     }
 
     private fun getSelectedSeasonOrDefault(): String {
-        return preferencesHelper.getSelectedSeason() ?: Calendar.getInstance().get(Calendar.YEAR).toString()
+        return preferencesHelper.selectedSeason ?: Calendar.getInstance().get(Calendar.YEAR).toString()
     }
 }

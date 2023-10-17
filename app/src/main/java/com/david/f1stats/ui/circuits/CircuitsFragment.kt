@@ -22,6 +22,9 @@ class CircuitsFragment : Fragment(), CircuitsAdapter.CircuitItemListener {
     @Inject
     lateinit var picasso: Picasso
 
+    @Inject
+    lateinit var dialogHelper: DialogHelper
+
     private var _binding: FragmentCircuitsBinding? = null
     private val binding get() = _binding!!
     private lateinit var adapter: CircuitsAdapter
@@ -63,7 +66,7 @@ class CircuitsFragment : Fragment(), CircuitsAdapter.CircuitItemListener {
 
     override fun onClickedCircuit(imageUrl: String) {
         if(imageUrl != Constants.IMAGE_NOT_FOUND){
-            DialogHelper.showImageDialog(requireActivity(), picasso, imageUrl)
+            dialogHelper.showImageDialog(requireActivity(), picasso, imageUrl)
         }
         else{
             Toast.makeText(this.context, imageUrl, Toast.LENGTH_SHORT).show()
