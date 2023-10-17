@@ -59,8 +59,8 @@ class RankingRacesFragment : Fragment(),
     }
 
     private fun initRecyclerView() {
-        binding.rvRanking.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvRanking.adapter = adapter
+        binding.baseRankingLayout.rvRanking.layoutManager = LinearLayoutManager(requireContext())
+        binding.baseRankingLayout.rvRanking.adapter = adapter
     }
 
     private fun initObservers() {
@@ -77,7 +77,7 @@ class RankingRacesFragment : Fragment(),
         }
 
         racesViewModel.isLoading.observe(viewLifecycleOwner){ isLoading ->
-            binding.progressBar.isVisible = isLoading
+            binding.baseRankingLayout.progressBar.isVisible = isLoading
         }
     }
 

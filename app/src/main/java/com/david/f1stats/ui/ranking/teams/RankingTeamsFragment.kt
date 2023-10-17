@@ -54,8 +54,8 @@ class RankingTeamsFragment : Fragment(), RankingTeamsAdapter.RankingItemListener
     }
 
     private fun initRecyclerView() {
-        binding.rvRanking.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvRanking.adapter = adapter
+        binding.baseRankingLayout.rvRanking.layoutManager = LinearLayoutManager(requireContext())
+        binding.baseRankingLayout.rvRanking.adapter = adapter
     }
 
     private fun initObservers(){
@@ -64,7 +64,7 @@ class RankingTeamsFragment : Fragment(), RankingTeamsAdapter.RankingItemListener
         }
 
         rankingTeamViewModel.isLoading.observe(viewLifecycleOwner){
-            binding.progressBar.isVisible = it
+            binding.baseRankingLayout.progressBar.isVisible = it
         }
     }
 
