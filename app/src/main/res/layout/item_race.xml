@@ -35,6 +35,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@id/race_date_linear"
-                layout="@layout/item_base_race_layout"/>
+                layout="@layout/item_base_race"/>
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
