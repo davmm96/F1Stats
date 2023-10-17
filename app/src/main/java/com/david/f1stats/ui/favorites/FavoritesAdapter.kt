@@ -51,16 +51,16 @@ class FavoritesAdapter (
                 favListener.removeFavorite(race.id)
             }
 
-            itemBinding.ivRightArrow.setOnClickListener {
+            itemBinding.baseRaceLayout.ivRightArrow.setOnClickListener {
                 navigationListener.onNavClicked(race.id, race.country)
             }
         }
 
         fun bind(item: FavoriteRace) {
             this.race = item
-            itemBinding.raceName.text = item.competition
-            itemBinding.raceCountry.text = item.country
-            itemBinding.raceSeason.text = item.season
+            itemBinding.baseRaceLayout.raceCountry.text = item.country
+            itemBinding.baseRaceLayout.raceCompetition.text = item.competition
+            itemBinding.baseRaceLayout.raceLapsSeason.text = item.season
         }
     }
 }

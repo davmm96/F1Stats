@@ -10,6 +10,9 @@
     <dimen name="subtitle_text_size">16sp</dimen>
     <dimen name="subtitle_text_margin_bottom">20dp</dimen>
 
+    <!--Smallest text-->
+    <dimen name="min_text_size">11sp</dimen>
+
     <!--Constraint-->
     <dimen name="constraint_padding_hor">15dp</dimen>
     <dimen name="constraint_padding_ver">12dp</dimen>
@@ -42,4 +45,15 @@
     <!--CloseButton Dialog-->
     <dimen name="close_button_dialog_width">70dp</dimen>
     <dimen name="close_button_dialog_textSize">30sp</dimen>
+
+    <!--CardView Item Circuit-->
+    <dimen name="item_circuit_CV_margin_bottom">20dp</dimen>
+    <dimen name="item_circuit_padding">15dp</dimen>
+    <dimen name="item_circuit_margin_bottom">15dp</dimen>
+    <dimen name="item_circuit_button_padding">5dp</dimen>
+    <dimen name="item_circuit_info_textSize">13sp</dimen>
+
+    <!--CardView Race-->
+    <dimen name="race_layout_marginStart">10dp</dimen>
+    <dimen name="race_layout_width">50dp</dimen>
 </resources>

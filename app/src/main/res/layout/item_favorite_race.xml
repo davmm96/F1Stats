@@ -1,63 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:theme="@style/cardView"
     android:layout_marginBottom="@dimen/cardView_margin_bottom">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="@dimen/cardView_padding">
+        android:layout_height="wrap_content">
         <LinearLayout
             android:id="@+id/race_date_linear"
-            android:layout_width="50dp"
+            android:layout_width="@dimen/race_layout_width"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/race_layout_marginStart"
             android:orientation="vertical"
-            android:layout_centerVertical="true">
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true">
             <ImageView
                 android:id="@+id/ivFavorite"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:src="@drawable/icon_favorites"
                 android:layout_gravity="center_horizontal"
+                android:src="@drawable/icon_favorites"
                 android:contentDescription="@string/add_to_favorite_list" />
         </LinearLayout>
-        <TextView
-            android:id="@+id/race_country"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/cardView_info_margin_bottom"
-            android:layout_marginStart="@dimen/cardView_title_margin_start"
-            android:layout_toEndOf="@id/race_date_linear"
-            android:theme="@style/cardViewTitle"
-            tools:text="Abu Dhabi"
-            tools:ignore="RelativeOverlap" />
-        <TextView
-            android:id="@+id/race_name"
+        <include
+            android:id="@+id/base_race_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/race_country"
-            android:layout_alignStart="@id/race_country"
-            android:layout_marginBottom="@dimen/cardView_info_margin_bottom"
-            android:theme="@style/cardViewText"
-            tools:text="Abu Dhabi Grand Prix"/>
-        <TextView
-            android:id="@+id/race_season"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/race_name"
-            android:layout_alignStart="@id/race_country"
-            android:theme="@style/cardViewText"
-            tools:text="2022"/>
-        <ImageView
-            android:id="@+id/ivRightArrow"
-            android:layout_width="@dimen/cardView_arrow"
-            android:layout_height="@dimen/cardView_arrow"
-            android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true"
-            android:src="@drawable/arrow_right"
-            android:contentDescription="@string/card_arrow_content_description" />
+            android:layout_toEndOf="@id/race_date_linear"
+            layout="@layout/item_base_race_layout"/>
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

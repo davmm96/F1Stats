@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.david.f1stats.R
-import com.david.f1stats.databinding.ItemRankingRaceBinding
+import com.david.f1stats.databinding.ItemFavoriteRaceBinding
 import com.david.f1stats.domain.model.Race
 
 class RankingRacesAdapter (
@@ -37,7 +37,7 @@ class RankingRacesAdapter (
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RankingRacesViewHolder {
-        val binding: ItemRankingRaceBinding = ItemRankingRaceBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding: ItemFavoriteRaceBinding = ItemFavoriteRaceBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return RankingRacesViewHolder(binding, favListener, navigationListener)
     }
 
@@ -46,7 +46,7 @@ class RankingRacesAdapter (
     override fun onBindViewHolder(holder: RankingRacesViewHolder, position: Int) = holder.bind(items[position])
 
     inner class RankingRacesViewHolder(
-        private val itemBinding: ItemRankingRaceBinding,
+        private val itemBinding: ItemFavoriteRaceBinding,
         private val favListener: RankingRacesFavListener,
         private val navigationListener: RankingRacesNavListener
     ) : RecyclerView.ViewHolder(itemBinding.root) {
@@ -56,7 +56,7 @@ class RankingRacesAdapter (
                 favListener.onFavClicked(getCurrentItem())
             }
 
-            itemBinding.ivRightArrow.setOnClickListener {
+            itemBinding.baseRaceLayout.ivRightArrow.setOnClickListener {
                 val currentItem = getCurrentItem()
                 navigationListener.onNavClicked(currentItem.idRace, currentItem.country)
             }
@@ -64,9 +64,9 @@ class RankingRacesAdapter (
 
         fun bind(item: Race) {
             itemBinding.apply {
-                raceName.text = item.competition
-                raceCountry.text = item.country
-                raceLaps.text = item.laps
+                baseRaceLayout.raceCountry.text = item.country
+                baseRaceLayout.raceCompetition.text = item.competition
+                baseRaceLayout.raceLapsSeason.text = item.laps
                 ivFavorite.setImageResource(setFavoriteIcon(item))
             }
         }

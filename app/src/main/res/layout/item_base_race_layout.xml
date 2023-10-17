@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="@dimen/cardView_padding">
+
+    <TextView
+        android:id="@+id/raceCountry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/cardView_info_margin_bottom"
+        android:theme="@style/cardViewTitle"
+        tools:text="Abu Dhabi" />
+
+    <TextView
+        android:id="@+id/raceCompetition"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/raceCountry"
+        android:layout_marginBottom="@dimen/cardView_info_margin_bottom"
+        android:theme="@style/cardViewText"
+        tools:text="Abu Dhabi Grand Prix"/>
+
+    <TextView
+        android:id="@+id/raceLaps_Season"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/raceCompetition"
+        android:layout_marginBottom="@dimen/cardView_info_margin_bottom"
+        android:theme="@style/cardViewText"
+        tools:text="55 laps"/>
+
+    <ImageView
+        android:id="@+id/ivRightArrow"
+        android:layout_width="@dimen/cardView_arrow"
+        android:layout_height="@dimen/cardView_arrow"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/arrow_right"
+        android:contentDescription="@string/card_arrow_content_description" />
+
+</RelativeLayout>
