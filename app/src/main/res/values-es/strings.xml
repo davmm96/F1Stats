@@ -68,7 +68,7 @@
     <string name="icon_races">Icono carreras</string>
     <string name="icon_fast_lap">Icono vuelta rápida</string>
     <string name="icon_first_season">Icono primera temporada</string>
-    <string name="races_calendar_title">Next GPs</string>
+    <string name="races_calendar_title">Próximos Grandes Premios</string>
     <string name="icon_no_races">Icono temporada completada</string>
     <string name="season_completed_title">Season completed</string>
     <string name="season_completed_subtitle">Stay tuned for more GPs coming soon</string>
