@@ -17,18 +17,25 @@ class RaceDetailViewModel @Inject constructor(
     private val getRaceDetailsUseCase: GetRaceDetailsUseCase
 ) : ViewModel() {
 
-    private val _raceListModel = MutableLiveData<List<RaceDetail>?>()
-    private val _raceInfoModel = MutableLiveData<RaceDetail>()
-    private val _addToCalendarEvent = MutableLiveData<CalendarHelper.CalendarEvent>()
+    private val _raceList = MutableLiveData<List<RaceDetail>?>()
+    val raceList: LiveData<List<RaceDetail>?> = _raceList
 
-    fun start(id: Int) {
+    private val _raceInfo = MutableLiveData<RaceDetail>()
+    val raceInfo: LiveData<RaceDetail> = _raceInfo
+
+    private val _addToCalendarEvent = MutableLiveData<CalendarHelper.CalendarEvent>()
+    val addToCalendarEvent: LiveData<CalendarHelper.CalendarEvent> = _addToCalendarEvent
+
+    fun loadData(id: Int) {
         viewModelScope.launch {
-            val result = getRaceDetailsUseCase.invoke(id)
-            if(result.isNotEmpty()){
-                _raceListModel.postValue(result)
-                _raceInfoModel.postValue(result.first())
-            } else {
-                Log.d("TAG", "Error")
+            try {
+                val result = getRaceDetailsUseCase(id)
+                if(result.isNotEmpty()){
+                    _raceList.value = result
+                    _raceInfo.value = result.first()
+                }
+            } catch (exception: Exception) {
+                Log.e("TAG", "Error fetching data", exception)
             }
         }
     }
@@ -36,8 +43,4 @@ class RaceDetailViewModel @Inject constructor(
     fun onAddToCalendarRequested(event: CalendarHelper.CalendarEvent) {
         _addToCalendarEvent.value = event
     }
-
-    val raceList: LiveData<List<RaceDetail>?> = _raceListModel
-    val raceInfo: LiveData<RaceDetail> = _raceInfoModel
-    val addToCalendarEvent: LiveData<CalendarHelper.CalendarEvent> = _addToCalendarEvent
 }

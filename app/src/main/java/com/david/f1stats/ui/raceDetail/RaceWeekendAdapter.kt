@@ -1,6 +1,5 @@
 package com.david.f1stats.ui.raceDetail
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +9,9 @@ import com.david.f1stats.domain.model.RaceDetail
 import com.david.f1stats.domain.model.StatusRaceEnum
 import com.david.f1stats.domain.model.TypeRaceEnum
 
-class RaceWeekendAdapter (private val listener: CalendarListener) : RecyclerView.Adapter<RaceWeekendAdapter.RaceWeekendViewHolder>() {
+class RaceWeekendAdapter (
+    private val listener: CalendarListener)
+    : RecyclerView.Adapter<RaceWeekendAdapter.RaceWeekendViewHolder>() {
 
     interface CalendarListener {
         fun onCalendarClicked(title:String, dateCalendar: Long)
@@ -18,15 +19,17 @@ class RaceWeekendAdapter (private val listener: CalendarListener) : RecyclerView
 
     private val items = ArrayList<RaceDetail>()
 
-    @SuppressLint("NotifyDataSetChanged")
     fun setItems(items: ArrayList<RaceDetail>) {
         this.items.clear()
         this.items.addAll(items)
-        notifyDataSetChanged()
+        notifyItemRangeChanged(0, items.size)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RaceWeekendViewHolder {
-        val binding: ItemRaceWeekendBinding = ItemRaceWeekendBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding: ItemRaceWeekendBinding = ItemRaceWeekendBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false)
         return RaceWeekendViewHolder(binding, listener)
     }
 
@@ -34,29 +37,30 @@ class RaceWeekendAdapter (private val listener: CalendarListener) : RecyclerView
 
     override fun onBindViewHolder(holder: RaceWeekendViewHolder, position: Int) = holder.bind(items[position])
 
-    inner class RaceWeekendViewHolder(private val itemBinding: ItemRaceWeekendBinding, private val listener: CalendarListener) :
-        RecyclerView.ViewHolder(itemBinding.root),
-        View.OnClickListener {
-            private lateinit var race: RaceDetail
+    inner class RaceWeekendViewHolder(
+        private val itemBinding: ItemRaceWeekendBinding,
+        private val listener: CalendarListener)
+        :RecyclerView.ViewHolder(itemBinding.root) {
 
-            init {
-                itemBinding.raceWeekendAddToCalendar.setOnClickListener(this)
+        init {
+            itemBinding.raceWeekendAddToCalendar.setOnClickListener {
+                val currentItem = items[adapterPosition]
+                val title = currentItem.type.getString(itemBinding.root.context)
+
+                listener.onCalendarClicked(title,currentItem.dateCalendar)
             }
+        }
 
-            fun bind(item: RaceDetail) {
-                this.race = item
-
-                if(item.type == TypeRaceEnum.NONE || item.status != StatusRaceEnum.SCHEDULED)
-                    itemBinding.root.visibility = View.GONE
-
-                itemBinding.raceWeekendText.text = item.type.getString(itemBinding.root.context)
-                itemBinding.raceWeekendDay.text = item.day
-                itemBinding.raceWeekendMonth.text = item.month
-                itemBinding.raceWeekendHour.text = item.hour
+        fun bind(item: RaceDetail) {
+            itemBinding.apply {
+                if (item.type == TypeRaceEnum.NONE || item.status != StatusRaceEnum.SCHEDULED) {
+                    root.visibility = View.GONE
+                }
+                raceWeekendText.text = item.type.getString(root.context)
+                raceWeekendDay.text = item.day
+                raceWeekendMonth.text = item.month
+                raceWeekendHour.text = item.hour
             }
-
-            override fun onClick(v: View?) {
-                listener.onCalendarClicked(race.type.getString(itemBinding.root.context), race.dateCalendar)
-            }
+        }
     }
 }

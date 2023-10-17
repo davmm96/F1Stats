@@ -19,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class FavoritesFragment : Fragment(), FavoritesAdapter.FavoriteItemListener, FavoritesAdapter.FavoriteNavListener {
     private var _binding: FragmentFavoritesBinding? = null
     private val binding get() = _binding!!
-    private val adapter: FavoritesAdapter = FavoritesAdapter(this, this)
+    private val adapter: FavoritesAdapter by lazy { FavoritesAdapter(this, this) }
     private val favoriteRacesViewModel: FavoritesViewModel by viewModels()
 
     override fun onCreateView(
@@ -54,7 +54,7 @@ class FavoritesFragment : Fragment(), FavoritesAdapter.FavoriteItemListener, Fav
 
     private fun initObservers() {
         favoriteRacesViewModel.favoriteRaces.observe(viewLifecycleOwner) { list->
-            list?.let { it1 -> ArrayList(it1) }?.let { it2 -> adapter.setItems(it2) }
+            list?.let { adapter.setItems(ArrayList(it)) }
             if(list.isNullOrEmpty()){
                 binding.tvNoFavorites.isVisible = adapter.itemCount == 0
                 binding.tvNoFavoriteSubtitle.isVisible = adapter.itemCount == 0

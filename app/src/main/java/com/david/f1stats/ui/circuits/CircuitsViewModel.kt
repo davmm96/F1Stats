@@ -23,8 +23,12 @@ class CircuitsViewModel @Inject constructor(
     val isLoading: LiveData<Boolean> = _isLoading
 
     init {
+        fetchCircuits()
+    }
+
+    private fun fetchCircuits() {
         viewModelScope.launch {
-            _isLoading.postValue(true)
+            _isLoading.value = true
             try {
                 val circuits = getCircuitsUseCase()
                 _circuits.value = circuits

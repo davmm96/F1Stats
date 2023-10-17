@@ -28,7 +28,7 @@ class CircuitsFragment : Fragment(), CircuitsAdapter.CircuitItemListener {
     private var _binding: FragmentCircuitsBinding? = null
     private val binding get() = _binding!!
     private val circuitViewModel: CircuitsViewModel by viewModels()
-    private val adapter = CircuitsAdapter(this)
+    private val adapter by lazy { CircuitsAdapter(this) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,7 +52,7 @@ class CircuitsFragment : Fragment(), CircuitsAdapter.CircuitItemListener {
 
     private fun initObservers(){
         circuitViewModel.circuitsList.observe(viewLifecycleOwner) { listCircuits ->
-            listCircuits?.let { circuits -> ArrayList(circuits) }?.let { circuitsArrayList -> adapter.setItems(circuitsArrayList) }
+            listCircuits?.let { adapter.setItems(ArrayList(it)) }
         }
 
         circuitViewModel.isLoading.observe(viewLifecycleOwner){ isLoading ->

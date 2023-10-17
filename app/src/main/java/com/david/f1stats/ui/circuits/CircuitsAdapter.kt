@@ -8,7 +8,8 @@ import com.david.f1stats.databinding.ItemCircuitBinding
 import com.david.f1stats.databinding.ItemCircuitInfoBinding
 import com.david.f1stats.domain.model.Circuit
 
-class CircuitsAdapter (private val listener: CircuitItemListener)
+class CircuitsAdapter (
+    private val listener: CircuitItemListener)
     : RecyclerView.Adapter<CircuitsAdapter.CircuitViewHolder>() {
 
     interface CircuitItemListener {
@@ -32,7 +33,9 @@ class CircuitsAdapter (private val listener: CircuitItemListener)
 
     override fun onBindViewHolder(holder: CircuitViewHolder, position: Int) = holder.bind(items[position])
 
-    inner class CircuitViewHolder(private val itemBinding: ItemCircuitBinding, private val listener: CircuitItemListener) :
+    inner class CircuitViewHolder(
+        private val itemBinding: ItemCircuitBinding,
+        private val listener: CircuitItemListener) :
         RecyclerView.ViewHolder(itemBinding.root){
 
         init {

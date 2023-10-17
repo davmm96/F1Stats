@@ -1,8 +1,6 @@
 package com.david.f1stats.ui.races
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.david.f1stats.databinding.ItemRaceBinding
@@ -17,11 +15,10 @@ class RacesAdapter (private val listener: RaceItemListener) : RecyclerView.Adapt
 
     private val items = ArrayList<Race>()
 
-    @SuppressLint("NotifyDataSetChanged")
     fun setItems(items: ArrayList<Race>) {
         this.items.clear()
         this.items.addAll(items)
-        notifyDataSetChanged()
+        notifyItemRangeChanged(0, items.size)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RacesViewHolder {
@@ -34,26 +31,23 @@ class RacesAdapter (private val listener: RaceItemListener) : RecyclerView.Adapt
     override fun onBindViewHolder(holder: RacesViewHolder, position: Int) = holder.bind(items[position])
 
     inner class RacesViewHolder(private val itemBinding: ItemRaceBinding, private val listener: RaceItemListener) :
-        RecyclerView.ViewHolder(itemBinding.root),
-        View.OnClickListener {
-
-        private lateinit var race: Race
+        RecyclerView.ViewHolder(itemBinding.root){
 
         init {
-            itemBinding.root.setOnClickListener(this)
+            itemBinding.root.setOnClickListener{
+                val currentItem = items[adapterPosition]
+                listener.onClickedRace(currentItem.idCompetition, currentItem.country, currentItem.idRace)
+            }
         }
 
         fun bind(item: Race) {
-            this.race = item
-            itemBinding.raceName.text = item.competition
-            itemBinding.raceCountry.text = item.country
-            itemBinding.raceLaps.text = item.laps
-            itemBinding.raceDateDay.text = item.dayInterval
-            itemBinding.raceDateMonth.text = item.month
-        }
-
-        override fun onClick(v: View?) {
-            listener.onClickedRace(race.idCompetition, race.country, race.idRace)
+            itemBinding.apply {
+                raceName.text = item.competition
+                raceCountry.text = item.country
+                raceLaps.text = item.laps
+                raceDateDay.text = item.dayInterval
+                raceDateMonth.text = item.month
+            }
         }
     }
 }

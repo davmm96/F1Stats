@@ -1,5 +1,6 @@
 package com.david.f1stats.ui.races
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -16,30 +17,37 @@ class RacesViewModel @Inject constructor(
 ): ViewModel() {
 
     private val _isSeasonCompleted = MutableLiveData<Boolean>()
-    private val _raceModel = MutableLiveData<List<Race>?>()
+    val isSeasonCompleted: LiveData<Boolean> = _isSeasonCompleted
+
+    private val _raceList = MutableLiveData<List<Race>?>()
+    val raceList: LiveData<List<Race>?> = _raceList
+
     private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> = _isLoading
 
-    fun onCreate(){
+    init {
+        fetchRaces()
+    }
+
+    fun fetchRaces() {
         viewModelScope.launch {
-            _isLoading.postValue(true)
-            val result = getRacesUseCase()
-
-            if (result != null) {
+            _isLoading.value = true
+            try {
+                val result = getRacesUseCase()
                 if(result.isNotEmpty()){
-                    _raceModel.postValue(result)
-                    _isLoading.postValue(false)
-                    _isSeasonCompleted.postValue(false)
-                } else {
-                    _raceModel.postValue(emptyList())
-                    _isLoading.postValue(false)
-                    _isSeasonCompleted.postValue(true)
+                    _raceList.value = result
+                    _isSeasonCompleted.value = false
                 }
+                else {
+                    _raceList.value = emptyList()
+                    _isSeasonCompleted.value = true
+                }
+            } catch (exception: Exception) {
+                Log.e("TAG", "Error fetching data", exception)
+            }
+            finally {
+                _isLoading.value = false
             }
         }
     }
-
-    val raceList: LiveData<List<Race>?> = _raceModel
-    val isLoading: LiveData<Boolean> = _isLoading
-    val isSeasonCompleted: LiveData<Boolean> = _isSeasonCompleted
 }
-

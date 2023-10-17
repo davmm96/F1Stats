@@ -23,76 +23,79 @@ class RacesFragment : Fragment(), RacesAdapter.RaceItemListener {
 
     private var _binding: FragmentRacesBinding? = null
     private val binding get() = _binding!!
-    private lateinit var adapter: RacesAdapter
+    private val adapter: RacesAdapter by lazy { RacesAdapter(this) }
     private val racesViewModel: RacesViewModel by viewModels()
     private val sharedViewModel: SharedViewModel by activityViewModels()
 
-    @SuppressLint("StringFormatInvalid")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         _binding = FragmentRacesBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = getString(R.string.title_home, sharedViewModel.selectedSeason.value.toString())
-        racesViewModel.onCreate()
+        updateActionBarTitle()
 
-        return root
+        return binding.root
     }
 
-    @SuppressLint("StringFormatInvalid")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        observeSelectedSeason()
+        initRecyclerView()
+        initObservers()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    @SuppressLint("StringFormatInvalid")
+    private fun updateActionBarTitle() {
+        val title = getString(R.string.title_home, sharedViewModel.selectedSeason.value.toString())
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = title
+    }
+
+    private fun observeSelectedSeason() {
         sharedViewModel.selectedSeason.observe(viewLifecycleOwner) {
-            (requireActivity() as AppCompatActivity).supportActionBar?.title = getString(R.string.title_home, sharedViewModel.selectedSeason.value.toString())
-            racesViewModel.onCreate()
+            updateActionBarTitle()
+            racesViewModel.fetchRaces()
         }
+    }
 
-        setupRecyclerView()
-
+    private fun initObservers(){
         racesViewModel.raceList.observe(viewLifecycleOwner) { races ->
-            races?.let {
-                if (it.isEmpty()) {
-                    binding.rvRaces.isVisible = false
-                    binding.calendarTitle.isVisible = false
-                } else {
-                    binding.rvRaces.isVisible = true
-                    binding.calendarTitle.isVisible = true
-                    adapter.setItems(ArrayList(it))
-                }
+            val hasRaces = races?.isNotEmpty() == true
+            binding.apply {
+                rvRaces.isVisible = hasRaces
+                calendarTitle.isVisible = hasRaces
+                if (hasRaces) races?.let { adapter.setItems(ArrayList(it)) }
             }
         }
 
-        racesViewModel.isLoading.observe(viewLifecycleOwner){
-            binding.progressBar.isVisible = it
+        racesViewModel.isLoading.observe(viewLifecycleOwner){ isLoading ->
+            binding.progressBar.isVisible = isLoading
         }
 
         racesViewModel.isSeasonCompleted.observe(viewLifecycleOwner) { isCompleted ->
-            binding.tvNoRaces.isVisible = isCompleted
-            binding.tvNoRacesSubtitle.isVisible = isCompleted
-            binding.ivNoRaces.isVisible = isCompleted
+            binding.apply {
+                tvNoRaces.isVisible = isCompleted
+                tvNoRacesSubtitle.isVisible = isCompleted
+                ivNoRaces.isVisible = isCompleted
+            }
         }
     }
 
-    private fun setupRecyclerView() {
-        adapter = RacesAdapter(this)
+    private fun initRecyclerView() {
         binding.rvRaces.layoutManager = LinearLayoutManager(requireContext())
         binding.rvRaces.adapter = adapter
     }
-
 
     override fun onClickedRace(idCompetition: Int, country: String, idRace: Int) {
         findNavController().navigate(
             R.id.action_navigation_races_to_raceDetailFragment,
             bundleOf("id" to idCompetition, "country" to country)
         )
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

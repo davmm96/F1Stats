@@ -15,13 +15,13 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class RaceDetailFragment : Fragment(), RaceWeekendAdapter.CalendarListener {
 
-    private var _binding: FragmentRaceDetailBinding? = null
-    private val binding get() = _binding!!
-    private lateinit var adapter: RaceWeekendAdapter
-    private val raceDetailViewModel: RaceDetailViewModel by viewModels()
-
     @Inject
     lateinit var calendarHelper: CalendarHelper
+
+    private var _binding: FragmentRaceDetailBinding? = null
+    private val binding get() = _binding!!
+    private val adapter: RaceWeekendAdapter by lazy { RaceWeekendAdapter(this) }
+    private val raceDetailViewModel: RaceDetailViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,31 +34,38 @@ class RaceDetailFragment : Fragment(), RaceWeekendAdapter.CalendarListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        arguments?.getInt("id")?.let { raceDetailViewModel.start(it) }
+        arguments?.getInt("id")?.let { raceDetailViewModel.loadData(it) }
 
-        raceDetailViewModel.raceInfo.observe(viewLifecycleOwner) {
-            binding.nameRace.text = it.competition
-            binding.circuitRace.text = it.circuit
-            binding.lapsRace.text = it.laps
+        initRecyclerView()
+        initObservers()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun initRecyclerView() {
+        binding.rvRaceWeekend.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvRaceWeekend.adapter = adapter
+    }
+
+    private fun initObservers(){
+        raceDetailViewModel.raceInfo.observe(viewLifecycleOwner) { raceDetail ->
+            binding.apply {
+                nameRace.text = raceDetail.competition
+                circuitRace.text = raceDetail.circuit
+                lapsRace.text = raceDetail.laps
+            }
         }
 
-        setupRecyclerView()
-
-        raceDetailViewModel.raceList.observe(viewLifecycleOwner) {
-            it?.let { it1 -> ArrayList(it1) }?.let { it2 -> adapter.setItems(it2) }
+        raceDetailViewModel.raceList.observe(viewLifecycleOwner) { raceList ->
+            raceList?.let { adapter.setItems(ArrayList(it)) }
         }
 
         raceDetailViewModel.addToCalendarEvent.observe(viewLifecycleOwner) { event ->
-            event?.let {
-                calendarHelper.addToCalendar(requireContext(), it)
-            }
+            event?.let { calendarHelper.addToCalendar(requireContext(), it) }
         }
-    }
-
-    private fun setupRecyclerView() {
-        adapter = RaceWeekendAdapter(this)
-        binding.rvRaceWeekend.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvRaceWeekend.adapter = adapter
     }
 
     override fun onCalendarClicked(title: String, dateCalendar: Long) {
@@ -69,10 +76,5 @@ class RaceDetailFragment : Fragment(), RaceWeekendAdapter.CalendarListener {
             startMillis = dateCalendar
         )
         raceDetailViewModel.onAddToCalendarRequested(event)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }
