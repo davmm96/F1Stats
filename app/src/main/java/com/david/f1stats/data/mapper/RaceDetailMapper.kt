@@ -12,28 +12,31 @@ import com.david.f1stats.utils.formatDate
 import javax.inject.Inject
 
 class RaceDetailMapper @Inject constructor(): IMapper<List<RaceData>?, List<RaceDetail>?> {
-    override fun fromMap(from: List<RaceData>?): List<RaceDetail>? {
-        return from?.mapNotNull { raceData ->
-            val typeRace = getRaceType(raceData.type)
-            val raceStatus = getRaceStatus(raceData.status)
 
-            if (raceStatus == StatusRaceEnum.SCHEDULED && typeRace != TypeRaceEnum.NONE) {
-                RaceDetail(
-                    circuit = raceData.circuit.name,
-                    competition = raceData.competition.name,
-                    day = formatDate(raceData.date, FORMAT_DAY),
-                    month = formatDate(raceData.date, FORMAT_MONTH).replaceFirstChar { it.uppercaseChar() },
-                    hour = formatDate(raceData.date, FORMAT_HOUR),
-                    country = raceData.competition.location.country,
-                    id = raceData.competition.id,
-                    laps = raceData.laps.total.toString() + " laps",
-                    type = typeRace,
-                    dateCalendar = dateToMillis(raceData.date),
-                    status = raceStatus,
-                )
-            } else {
-                null
-            }
+    override fun fromMap(from: List<RaceData>?): List<RaceDetail>? {
+        return from?.mapNotNull { it.toRaceDetail() }
+    }
+
+    private fun RaceData.toRaceDetail(): RaceDetail? {
+        val typeRace = getRaceType(type)
+        val raceStatus = getRaceStatus(status)
+
+        return if (raceStatus == StatusRaceEnum.SCHEDULED && typeRace != TypeRaceEnum.NONE) {
+            RaceDetail(
+                circuit = circuit.name,
+                competition = competition.name,
+                day = formatDate(date, FORMAT_DAY),
+                month = formatDate(date, FORMAT_MONTH).replaceFirstChar { it.uppercaseChar() },
+                hour = formatDate(date, FORMAT_HOUR),
+                country = competition.location.country,
+                id = competition.id,
+                laps = "${laps.total} laps",
+                type = typeRace,
+                dateCalendar = dateToMillis(date),
+                status = raceStatus,
+            )
+        } else {
+            null
         }
     }
 

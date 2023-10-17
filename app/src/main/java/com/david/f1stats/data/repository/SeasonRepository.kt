@@ -9,8 +9,8 @@ class SeasonRepository @Inject constructor(
     private val api: SeasonService,
     private val seasonMapper: SeasonMapper,
 ){
-    suspend fun getSeasons(): List<Season>?{
+    suspend fun getSeasons(): List<Season>{
         val response = api.getSeasons()
-        return seasonMapper.fromMap(response)
+        return seasonMapper.fromMap(response) ?: emptyList()
     }
 }

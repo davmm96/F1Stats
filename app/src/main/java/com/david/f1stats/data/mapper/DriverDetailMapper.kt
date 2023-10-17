@@ -14,20 +14,16 @@ class DriverDetailMapper @Inject constructor(): IMapper<DriverDetailData, Driver
             points = from.career_points,
             image = from.image,
             country = from.country.name?: "Not found",
-            number = "#" + from.number.toString(),
+            number = "#${from.number}",
             gpEntered = from.grands_prix_entered.toString(),
             worldChampionships = from.world_championships.toString(),
             podiums = from.podiums.toString(),
-            wins = getWins(from.highest_race_finish),
-            teamImage = from.teams[0].team.logo
+            wins = from.highest_race_finish.wins(),
+            teamImage = from.teams.firstOrNull()?.team?.logo ?: "Team logo not found"
         )
     }
 
-    private fun getWins(highestRaceFinish: DriverDetailHighestRaceFinishData): String{
-        return if(highestRaceFinish.position == 1) {
-            highestRaceFinish.number.toString()
-        } else {
-            "0"
-        }
+    private fun DriverDetailHighestRaceFinishData.wins(): String {
+        return if (position == 1) number.toString() else "0"
     }
 }

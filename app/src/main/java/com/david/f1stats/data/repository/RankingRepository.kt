@@ -13,13 +13,13 @@ class RankingRepository @Inject constructor(
     private val rankingTeamMapper: RankingTeamMapper
 ) {
 
-    suspend fun getRankingDriver(): List<RankingDriver>?{
+    suspend fun getRankingDriver(): List<RankingDriver>{
         val response = api.getDriversRanking()
-        return rankingDriverMapper.fromMap(response)
+        return rankingDriverMapper.fromMap(response) ?: emptyList()
     }
 
-    suspend fun getRankingTeam(): List<RankingTeam>?{
+    suspend fun getRankingTeam(): List<RankingTeam>{
         val response = api.getTeamsRanking()
-        return rankingTeamMapper.fromMap(response)
+        return rankingTeamMapper.fromMap(response) ?: emptyList()
     }
 }

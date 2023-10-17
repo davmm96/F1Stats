@@ -58,3 +58,11 @@ fun getColor(teamId: Int): Int{
         else -> R.color.white
     }
 }
+
+fun Float.formatPoints(): String {
+    return if (this.rem(1) == 0.0f) {
+        this.toInt().toString()
+    } else {
+        this.toString()
+    }
+}

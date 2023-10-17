@@ -9,7 +9,7 @@ class DriverService @Inject constructor(private val api:APIClient){
     suspend fun getDriverDetail(id: Int): DriverDetailData{
         return withContext(Dispatchers.IO) {
             val response = api.getDriverDetail(id)
-            response.body()?.response?.get(0) ?: DriverDetailData()
+            response.body()?.response?.firstOrNull() ?: DriverDetailData()
         }
     }
 }

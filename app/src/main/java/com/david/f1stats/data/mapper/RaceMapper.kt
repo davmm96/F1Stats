@@ -8,18 +8,19 @@ import com.david.f1stats.utils.formatIntervalDate
 import javax.inject.Inject
 
 class RaceMapper @Inject constructor(): IMapper<List<RaceData>?, List<Race>?> {
+
     override fun fromMap(from: List<RaceData>?): List<Race>? {
-        return from?.map { raceData ->
-            Race(
-                competition = raceData.competition.name,
-                dayInterval = formatIntervalDate(raceData.date, 2),
-                month = formatDate(raceData.date, FORMAT_MONTH).replaceFirstChar  { it.uppercaseChar() },
-                country = raceData.competition.location.country,
-                idCompetition = raceData.competition.id,
-                idRace = raceData.id,
-                laps = raceData.laps.total.toString() + " laps",
-                season = raceData.season.toString()
-            )
-        }
+        return from?.map { it.toRace() }
     }
+
+    private fun RaceData.toRace() = Race(
+        competition = competition.name,
+        dayInterval = formatIntervalDate(date, 2),
+        month = formatDate(date, FORMAT_MONTH).replaceFirstChar { it.uppercaseChar() },
+        country = competition.location.country,
+        idCompetition = competition.id,
+        idRace = id,
+        laps = "${laps.total} laps",
+        season = season.toString()
+    )
 }

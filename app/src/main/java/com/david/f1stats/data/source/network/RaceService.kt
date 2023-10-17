@@ -12,21 +12,21 @@ class RaceService @Inject constructor(private val api:APIClient, private val pre
 
     suspend fun getRaces():List<RaceData>{
         return withContext(Dispatchers.IO) {
-            val response = api.getNextRaces(preferencesHelper.getSelectedSeason() ?: Calendar.getInstance().get(Calendar.YEAR).toString())
+            val response = api.getNextRaces(getSelectedSeasonOrDefault())
             response.body()?.response ?: emptyList()
         }
     }
 
     suspend fun getRaceDetails(id: Int):List<RaceData>{
         return withContext(Dispatchers.IO) {
-            val response = api.getRaceDetails(id, preferencesHelper.getSelectedSeason() ?: Calendar.getInstance().get(Calendar.YEAR).toString())
+            val response = api.getRaceDetails(id, getSelectedSeasonOrDefault())
             response.body()?.response ?: emptyList()
         }
     }
 
     suspend fun getCompletedRaces():List<RaceData>{
         return withContext(Dispatchers.IO) {
-            val response = api.getCompletedRaces(preferencesHelper.getSelectedSeason() ?: Calendar.getInstance().get(Calendar.YEAR).toString())
+            val response = api.getCompletedRaces(getSelectedSeasonOrDefault())
             response.body()?.response ?: emptyList()
         }
     }
@@ -36,5 +36,9 @@ class RaceService @Inject constructor(private val api:APIClient, private val pre
             val response = api.getRaceResult(id)
             response.body()?.response ?: emptyList()
         }
+    }
+
+    private fun getSelectedSeasonOrDefault(): String {
+        return preferencesHelper.getSelectedSeason() ?: Calendar.getInstance().get(Calendar.YEAR).toString()
     }
 }

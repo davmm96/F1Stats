@@ -14,17 +14,19 @@ class RankingService @Inject constructor(
 
     suspend fun getDriversRanking():List<RankingDriverData>{
         return withContext(Dispatchers.IO) {
-            val season = preferencesHelper.getSelectedSeason() ?: Calendar.getInstance().get(Calendar.YEAR).toString()
-            val response = api.getRankingDrivers(season)
+            val response = api.getRankingDrivers(getSelectedSeasonOrDefault())
             response.body()?.response ?: emptyList()
         }
     }
 
     suspend fun getTeamsRanking():List<RankingTeamData>{
         return withContext(Dispatchers.IO) {
-            val season = preferencesHelper.getSelectedSeason() ?: Calendar.getInstance().get(Calendar.YEAR).toString()
-            val response = api.getRankingTeams(season)
+            val response = api.getRankingTeams(getSelectedSeasonOrDefault())
             response.body()?.response ?: emptyList()
         }
+    }
+
+    private fun getSelectedSeasonOrDefault(): String {
+        return preferencesHelper.getSelectedSeason() ?: Calendar.getInstance().get(Calendar.YEAR).toString()
     }
 }

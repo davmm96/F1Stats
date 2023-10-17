@@ -1,6 +1,5 @@
 package com.david.f1stats.data.source.network
 
-import com.david.f1stats.BuildConfig
 import com.david.f1stats.data.model.circuit.CircuitResponse
 import com.david.f1stats.data.model.driverDetail.DriverDetailResponse
 import retrofit2.http.GET
@@ -13,69 +12,72 @@ import com.david.f1stats.data.model.season.SeasonResponse
 import com.david.f1stats.data.model.teamDetail.TeamDetailResponse
 import com.david.f1stats.utils.Constants
 import retrofit2.Response
-import retrofit2.http.Headers
 
 interface APIClient {
-    @Headers(BuildConfig.API_KEY_HEADER)
-    @GET(Constants.URL_RACES)
+
+    companion object {
+        const val URL_RACES = "races"
+        const val URL_RANKING_DRIVERS = "rankings/drivers"
+        const val URL_RANKING_TEAMS = "rankings/teams"
+        const val URL_DRIVERS = "drivers"
+        const val URL_TEAMS = "teams"
+        const val URL_RACE_RESULT = "rankings/races"
+        const val URL_CIRCUITS = "circuits"
+        const val URL_SEASONS = "seasons"
+        const val QUERY_PARAM_TYPE_RACE = "race"
+        const val QUERY_PARAM_NUM_GP = 23
+    }
+
+    @GET(URL_RACES)
     suspend fun getNextRaces(
         @Query("season") season: String,
-        @Query("type") type: String = Constants.TYPE_RACE_QUERY_PARAM,
-        @Query("next") last: Int = Constants.NUM_GP_SEASON,
+        @Query("type") type: String = QUERY_PARAM_TYPE_RACE,
+        @Query("next") last: Int = QUERY_PARAM_NUM_GP,
         @Query("timezone") timezone: String = Constants.TIMEZONE
     ): Response<RaceResponse>
 
-    @Headers(BuildConfig.API_KEY_HEADER)
-    @GET(Constants.URL_RACES)
+    @GET(URL_RACES)
     suspend fun getRaceDetails(
         @Query("competition") competition: Int,
         @Query("season") season: String,
         @Query("timezone") timezone: String = Constants.TIMEZONE
     ): Response<RaceResponse>
 
-    @Headers(BuildConfig.API_KEY_HEADER)
-    @GET(Constants.URL_RACES)
+    @GET(URL_RACES)
     suspend fun getCompletedRaces(
         @Query("season") season: String,
-        @Query("type") type: String = Constants.TYPE_RACE_QUERY_PARAM,
-        @Query("last") last: Int = Constants.NUM_GP_SEASON
+        @Query("type") type: String = QUERY_PARAM_TYPE_RACE,
+        @Query("last") last: Int = QUERY_PARAM_NUM_GP
     ): Response<RaceResponse>
 
-    @Headers(BuildConfig.API_KEY_HEADER)
-    @GET(Constants.URL_RANKING_DRIVERS)
+    @GET(URL_RANKING_DRIVERS)
     suspend fun getRankingDrivers(
         @Query("season") season: String
     ): Response<RankingDriverResponse>
 
-    @Headers(BuildConfig.API_KEY_HEADER)
-    @GET(Constants.URL_CIRCUITS)
+    @GET(URL_CIRCUITS)
     suspend fun getCircuits(): Response<CircuitResponse>
 
-    @Headers(BuildConfig.API_KEY_HEADER)
-    @GET(Constants.URL_RANKING_TEAMS)
+    @GET(URL_RANKING_TEAMS)
     suspend fun getRankingTeams(
         @Query("season") season: String
     ): Response<RankingTeamResponse>
 
-    @Headers(BuildConfig.API_KEY_HEADER)
-    @GET(Constants.URL_DRIVERS)
+    @GET(URL_DRIVERS)
     suspend fun getDriverDetail(
         @Query("id") id: Int
     ): Response<DriverDetailResponse>
 
-    @Headers(BuildConfig.API_KEY_HEADER)
-    @GET(Constants.URL_TEAMS)
+    @GET(URL_TEAMS)
     suspend fun getTeamDetail(
         @Query("id") id: Int
     ): Response<TeamDetailResponse>
 
-    @Headers(BuildConfig.API_KEY_HEADER)
-    @GET(Constants.URL_RACE_RESULT)
+    @GET(URL_RACE_RESULT)
     suspend fun getRaceResult(
         @Query("race") idRace: Int
     ): Response<RaceResultResponse>
 
-    @Headers(BuildConfig.API_KEY_HEADER)
-    @GET(Constants.URL_SEASONS)
+    @GET(URL_SEASONS)
     suspend fun getSeasons(): Response<SeasonResponse>
 }

@@ -6,6 +6,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -15,12 +16,20 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
-    private val interceptor : HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
+    private val loggingInterceptor : HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY
     }
 
+    private val headerInterceptor = Interceptor { chain ->
+        val request = chain.request().newBuilder()
+            .addHeader("x-apisports-key", BuildConfig.API_KEY)
+            .build()
+        chain.proceed(request)
+    }
+
     private val client : OkHttpClient = OkHttpClient.Builder().apply {
-        addInterceptor(interceptor)
+        addInterceptor(loggingInterceptor)
+        addInterceptor(headerInterceptor)
     }.build()
 
     @Singleton

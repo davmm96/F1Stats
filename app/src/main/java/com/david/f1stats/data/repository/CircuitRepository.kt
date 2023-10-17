@@ -9,8 +9,8 @@ class CircuitRepository @Inject constructor(
     private val api: CircuitService,
     private val circuitMapper: CircuitMapper,
 ){
-    suspend fun getCircuits(): List<Circuit>?{
+    suspend fun getCircuits(): List<Circuit>{
         val response = api.getCircuits()
-        return circuitMapper.fromMap(response)
+        return circuitMapper.fromMap(response) ?: emptyList()
     }
 }

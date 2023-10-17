@@ -6,18 +6,18 @@ import javax.inject.Inject
 
 class CircuitMapper @Inject constructor(): IMapper<List<CircuitData>?, List<Circuit>?> {
     override fun fromMap(from: List<CircuitData>?): List<Circuit>? {
-        return from?.map { circuitData ->
-            Circuit(
-                id = circuitData.id ?: 0,
-                name = circuitData.name ?: "Circuit name not found",
-                country = circuitData.competition?.location?.country ?: "Country not found",
-                length = circuitData.length ?: "Length not found",
-                laps = circuitData.laps.toString(),
-                firstGP = circuitData.first_grand_prix.toString(),
-                lapRecordTime = circuitData.lap_record?.time ?: "Lap record time not found",
-                lapRecordDriver = circuitData.lap_record?.driver ?: "Lap record driver not found",
-                imageURL = circuitData.image ?: "Image not found"
-            )
-        }?.sortedBy { it.name }
+        return from?.map { it.toCircuit() }?.sortedBy { it.name }
     }
+
+    private fun CircuitData.toCircuit() = Circuit(
+        id = id ?: 0,
+        name = name ?: "Circuit name not found",
+        country = competition?.location?.country ?: "Country not found",
+        length = length ?: "Length not found",
+        laps = laps.toString(),
+        firstGP = first_grand_prix.toString(),
+        lapRecordTime = lap_record?.time ?: "Lap record time not found",
+        lapRecordDriver = lap_record?.driver ?: "Lap record driver not found",
+        imageURL = image ?: "Image not found"
+    )
 }

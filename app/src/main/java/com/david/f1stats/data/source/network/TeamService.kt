@@ -9,7 +9,7 @@ class TeamService @Inject constructor(private val api:APIClient){
     suspend fun getTeamDetail(id: Int): TeamDetailData {
         return withContext(Dispatchers.IO) {
             val response = api.getTeamDetail(id)
-            response.body()?.response?.get(0) ?: TeamDetailData()
+            response.body()?.response?.firstOrNull() ?: TeamDetailData()
         }
     }
 }

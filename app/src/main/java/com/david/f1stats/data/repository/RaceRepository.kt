@@ -15,23 +15,23 @@ class RaceRepository @Inject constructor(
     private val raceDetailMapper: RaceDetailMapper,
     private val raceResultMapper: RaceResultMapper
 ) {
-    suspend fun getRaces(): List<Race>?{
+    suspend fun getRaces(): List<Race>{
         val response = api.getRaces()
-        return raceMapper.fromMap(response)
+        return raceMapper.fromMap(response) ?: emptyList()
     }
 
-    suspend fun getRaceDetails(id: Int): List<RaceDetail>? {
+    suspend fun getRaceDetails(id: Int): List<RaceDetail> {
         val response = api.getRaceDetails(id)
-        return raceDetailMapper.fromMap(response)
+        return raceDetailMapper.fromMap(response) ?: emptyList()
     }
 
-    suspend fun getCompletedRaces(): List<Race>? {
+    suspend fun getCompletedRaces(): List<Race> {
         val response = api.getCompletedRaces()
-        return raceMapper.fromMap(response)
+        return raceMapper.fromMap(response) ?: emptyList()
     }
 
-    suspend fun getRaceResult(id: Int): List<RaceResult>? {
+    suspend fun getRaceResult(id: Int): List<RaceResult> {
         val response = api.getRaceResult(id)
-        return raceResultMapper.fromMap(response)
+        return raceResultMapper.fromMap(response) ?: emptyList()
     }
 }

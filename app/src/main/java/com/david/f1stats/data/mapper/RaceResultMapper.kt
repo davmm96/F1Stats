@@ -5,17 +5,18 @@ import com.david.f1stats.domain.model.RaceResult
 import javax.inject.Inject
 
 class RaceResultMapper @Inject constructor(): IMapper<List<RaceResultData>?, List<RaceResult>?> {
+
     override fun fromMap(from: List<RaceResultData>?): List<RaceResult>? {
-        return from?.map { raceResultData ->
-            RaceResult(
-                position = raceResultData.position.toString(),
-                driverAbbr = getAbbr(raceResultData.driver.abbr ?: "NF", raceResultData.driver.name),
-                time = raceResultData.time?: "0",
-                points = getPoints(raceResultData.position).toString(),
-                idTeam = raceResultData.team.id
-            )
-        }
+        return from?.map { it.toRaceResult() }
     }
+
+    private fun RaceResultData.toRaceResult() = RaceResult(
+        position = position.toString(),
+        driverAbbr = getAbbr(driver.abbr ?: "NF", driver.name),
+        time = time ?: "0",
+        points = getPoints(position).toString(),
+        idTeam = team.id
+    )
 
     private fun getPoints(position: Int): Int {
         return when (position) {
