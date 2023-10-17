@@ -5,10 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.david.f1stats.domain.DeleteFavoriteUseCase
-import com.david.f1stats.domain.GetAllFavoriteRacesIdsUseCase
-import com.david.f1stats.domain.GetRaceCompletedUseCase
-import com.david.f1stats.domain.InsertFavoriteRaceUseCase
+import com.david.f1stats.domain.useCases.DeleteFavoriteUseCase
+import com.david.f1stats.domain.useCases.GetAllFavoriteRacesIdsUseCase
+import com.david.f1stats.domain.useCases.GetRaceCompletedUseCase
+import com.david.f1stats.domain.useCases.InsertFavoriteRaceUseCase
 import com.david.f1stats.domain.model.Race
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

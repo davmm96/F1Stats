@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.david.f1stats.domain.GetCircuitsUseCase
+import com.david.f1stats.domain.useCases.GetCircuitsUseCase
 import com.david.f1stats.domain.model.Circuit
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

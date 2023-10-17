@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.david.f1stats.domain.GetRaceResultUseCase
+import com.david.f1stats.domain.useCases.GetRaceResultUseCase
 import com.david.f1stats.domain.model.RaceResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
