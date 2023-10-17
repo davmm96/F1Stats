@@ -16,48 +16,21 @@ class SeasonsAdapter(
 ) : ArrayAdapter<Season>(context, R.layout.item_season, seasons) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        val viewHolder: SeasonViewHolder
-        val view: View
-
-        if (convertView == null) {
-            view = LayoutInflater.from(context).inflate(R.layout.item_season, parent, false)
-            viewHolder = SeasonViewHolder(view)
-            view.tag = viewHolder
-        } else {
-            view = convertView
-            viewHolder = view.tag as SeasonViewHolder
+        return createView(position, convertView, parent).apply {
+            setOnClickListener { getItem(position)?.let(itemClickListener) }
         }
-
-        val season = getItem(position)
-        viewHolder.tvSeason.text = season?.season
-
-        // Set click listener
-        view.setOnClickListener {
-            season?.let { itemClickListener(it) }
-        }
-
-        return view
     }
 
     override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
-        val viewHolder: SeasonViewHolder
-        val view: View
-
-        if (convertView == null) {
-            view = LayoutInflater.from(context).inflate(R.layout.item_season, parent, false)
-            viewHolder = SeasonViewHolder(view)
-            view.tag = viewHolder
-        } else {
-            view = convertView
-            viewHolder = view.tag as SeasonViewHolder
-        }
-
-        val season = getItem(position)
-        viewHolder.tvSeason.text = season?.season
-
-        return view
+        return createView(position, convertView, parent)
     }
 
+    private fun createView(position: Int, convertView: View?, parent: ViewGroup): View {
+        val view = convertView ?: LayoutInflater.from(context).inflate(R.layout.item_season, parent, false)
+        val viewHolder = view.tag as? SeasonViewHolder ?: SeasonViewHolder(view).also { view.tag = it }
+        viewHolder.tvSeason.text = getItem(position)?.season
+        return view
+    }
 
     private class SeasonViewHolder(view: View) {
         val tvSeason: TextView = view.findViewById(R.id.tvSeason)
@@ -69,5 +42,3 @@ class SeasonsAdapter(
         notifyDataSetChanged()
     }
 }
-
-

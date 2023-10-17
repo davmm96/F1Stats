@@ -3,7 +3,6 @@ package com.david.f1stats.ui.settings
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import com.david.f1stats.R
 import com.david.f1stats.databinding.ActivitySettingsBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -18,10 +17,7 @@ class SettingsActivity : AppCompatActivity() {
         binding = ActivitySettingsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val toolbar: Toolbar = binding.settingsToolbar
-        setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        setTitle(R.string.settings)
+        setupToolbar()
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
@@ -30,13 +26,21 @@ class SettingsActivity : AppCompatActivity() {
         }
     }
 
+    private fun setupToolbar(){
+        setSupportActionBar(binding.settingsToolbar)
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            setTitle(R.string.settings)
+        }
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
+        return when (item.itemId) {
             android.R.id.home -> {
                 finish()
-                return true
+                true
             }
+            else -> super.onOptionsItemSelected(item)
         }
-        return super.onOptionsItemSelected(item)
     }
 }

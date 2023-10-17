@@ -22,11 +22,6 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class SettingsFragment : Fragment() {
-    private var _binding: FragmentSettingsBinding? = null
-    private val binding get() = _binding!!
-    private val settingsViewModel: SettingsViewModel by viewModels()
-    private val sharedViewModel: SharedViewModel by activityViewModels()
-    private lateinit var seasonsAdapter: SeasonsAdapter
 
     @Inject
     lateinit var preferencesHelper: PreferencesHelper
@@ -37,37 +32,54 @@ class SettingsFragment : Fragment() {
     @Inject
     lateinit var dialogHelper: DialogHelper
 
+    private var _binding: FragmentSettingsBinding? = null
+    private val binding get() = _binding!!
+    private lateinit var seasonsAdapter: SeasonsAdapter
+    private val settingsViewModel: SettingsViewModel by viewModels()
+    private val sharedViewModel: SharedViewModel by activityViewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
-
-        settingsViewModel.onCreate()
-
-        when (preferencesHelper.themeMode) {
-            AppCompatDelegate.MODE_NIGHT_NO -> binding.lightMode.isChecked = true
-            AppCompatDelegate.MODE_NIGHT_YES -> binding.darkMode.isChecked = true
-            AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM -> binding.defaultMode.isChecked = true
-        }
-
+        setTheme()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initSeasonsAdapter()
+        initObservers()
+        initUIEvents()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun setTheme(){
+        when (preferencesHelper.themeMode) {
+            AppCompatDelegate.MODE_NIGHT_NO -> binding.lightMode.isChecked = true
+            AppCompatDelegate.MODE_NIGHT_YES -> binding.darkMode.isChecked = true
+            AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM -> binding.defaultMode.isChecked = true
+        }
+    }
+
+    private fun initSeasonsAdapter(){
         seasonsAdapter = SeasonsAdapter(requireContext(), mutableListOf()) { selectedSeason ->
             preferencesHelper.selectedSeason = selectedSeason.season
         }
         binding.yearSpinner.adapter = seasonsAdapter
+    }
 
+    private fun initObservers(){
         settingsViewModel.seasonList.observe(viewLifecycleOwner) { seasons ->
             seasons?.let {
                 seasonsAdapter.setItems(it)
-
-                // Set the default value for the spinner after populating the adapter
                 val selectedSeason = preferencesHelper.selectedSeason ?: Calendar.getInstance().get(Calendar.YEAR).toString()
                 val position = seasonsAdapter.getPosition(Season(selectedSeason))
                 if (position != -1) {
@@ -75,41 +87,36 @@ class SettingsFragment : Fragment() {
                 }
             }
         }
-
-        binding.ivAppIcon.setOnClickListener {
-            dialogHelper.showLocalImageDialog(requireActivity(), picasso, R.drawable.appicon_alpha)
-        }
-
-        binding.yearSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View, pos: Int, id: Long) {
-                val season = parent.getItemAtPosition(pos) as Season
-                preferencesHelper.selectedSeason = season.season
-                sharedViewModel.updateSelectedSeason(season.season)
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>) {
-                // Do nothing here
-            }
-        }
-
-        binding.musicSwitch.isChecked = settingsViewModel.isMusicPlaying.value ?: false
-
-        binding.musicSwitch.setOnCheckedChangeListener { _, isChecked ->
-            settingsViewModel.toggleMusic(isChecked)
-        }
-
-        binding.themeRadioGroup.setOnCheckedChangeListener { _, checkedId ->
-            when (checkedId) {
-                R.id.lightMode -> settingsViewModel.setThemeMode(AppCompatDelegate.MODE_NIGHT_NO)
-                R.id.darkMode -> settingsViewModel.setThemeMode(AppCompatDelegate.MODE_NIGHT_YES)
-                R.id.defaultMode -> settingsViewModel.setThemeMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-            }
-        }
     }
 
+    private fun initUIEvents(){
+        binding.apply {
+            ivAppIcon.setOnClickListener {
+                dialogHelper.showLocalImageDialog(requireActivity(), picasso, R.drawable.appicon_alpha)
+            }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+            yearSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>, view: View, pos: Int, id: Long) {
+                    val season = parent.getItemAtPosition(pos) as Season
+                    preferencesHelper.selectedSeason = season.season
+                    sharedViewModel.updateSelectedSeason(season.season)
+                }
+                override fun onNothingSelected(parent: AdapterView<*>) {}
+            }
+
+            musicSwitch.isChecked = settingsViewModel.isMusicPlaying.value ?: false
+
+            musicSwitch.setOnCheckedChangeListener { _, isChecked ->
+                settingsViewModel.toggleMusic(isChecked)
+            }
+
+            themeRadioGroup.setOnCheckedChangeListener { _, checkedId ->
+                when (checkedId) {
+                    R.id.lightMode -> settingsViewModel.setThemeMode(AppCompatDelegate.MODE_NIGHT_NO)
+                    R.id.darkMode -> settingsViewModel.setThemeMode(AppCompatDelegate.MODE_NIGHT_YES)
+                    R.id.defaultMode -> settingsViewModel.setThemeMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+                }
+            }
+        }
     }
 }
