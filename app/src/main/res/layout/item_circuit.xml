@@ -5,13 +5,11 @@
     android:layout_marginBottom="20dp"
     android:padding="15dp"
     android:theme="@style/cardView">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="15dp"
         android:orientation="vertical">
-
         <TextView
             android:id="@+id/tvName"
             android:layout_width="wrap_content"
@@ -19,7 +17,6 @@
             android:layout_marginBottom="@dimen/cardView_info_margin_bottom"
             android:theme="@style/cardViewTitle"
             tools:text="Albert Park Circuit" />
-
         <TextView
             android:id="@+id/tvCountry"
             android:layout_width="match_parent"
@@ -27,8 +24,6 @@
             android:layout_marginBottom="15dp"
             android:theme="@style/cardViewText"
             tools:text="Australia" />
-
-        <!-- Row Container for Circuit Length, Laps, and First Grand Prix -->
         <LinearLayout
             android:id="@+id/rowContainer"
             android:layout_width="match_parent"
@@ -36,16 +31,12 @@
             android:layout_marginBottom="15dp"
             android:orientation="horizontal"
             android:baselineAligned="false">
-
-            <!-- Each section is represented in a similar manner -->
             <include layout="@layout/item_circuit_info"
                 android:id="@+id/circuitLengthSection"
                 tools:ignore="ContentDescription" />
-
             <include layout="@layout/item_circuit_info"
                 android:id="@+id/lapsSection"
                 tools:ignore="ContentDescription" />
-
             <include layout="@layout/item_circuit_info"
                 android:id="@+id/firstGPSection"
                 tools:ignore="ContentDescription" />
@@ -62,7 +53,6 @@
                 android:layout_marginBottom="15dp"
                 android:orientation="vertical"
                 android:baselineAligned="false">
-                <!-- Lap Record Section -->
                 <TextView
                     android:id="@+id/tvLapRecordLabel"
                     android:layout_width="wrap_content"
@@ -70,7 +60,6 @@
                     android:textSize="11sp"
                     android:text="@string/lap_record_label"
                     tools:text="Lap record" />
-
                 <TextView
                     android:id="@+id/tvLapRecordTime"
                     android:layout_width="match_parent"
@@ -80,7 +69,6 @@
                     android:textStyle="bold"
                     android:theme="@style/cardViewText"
                     tools:text="1.31.447" />
-
                 <TextView
                     android:id="@+id/tvLapRecordDriver"
                     android:layout_width="match_parent"
@@ -91,6 +79,7 @@
             </LinearLayout>
             <Button
                 android:id="@+id/btnAction"
+                android:textColor="@color/whiteAlways"
                 android:padding="5dp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
