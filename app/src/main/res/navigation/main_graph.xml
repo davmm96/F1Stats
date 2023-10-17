@@ -57,7 +57,7 @@
 
     <fragment
         android:id="@+id/raceDetailFragment"
-        android:name="com.david.f1stats.ui.raceDetail.RaceDetailFragment"
+        android:name="com.david.f1stats.ui.races.raceDetail.RaceDetailFragment"
         android:label="{country}"
         tools:layout="@layout/fragment_race_detail" >
         <argument
@@ -86,7 +86,7 @@
 
     <fragment
         android:id="@+id/driverDetailFragment"
-        android:name="com.david.f1stats.ui.ranking.drivers.DriverDetailFragment"
+        android:name="com.david.f1stats.ui.ranking.drivers.driverDetail.DriverDetailFragment"
         android:label=""
         tools:layout="@layout/fragment_driver_detail">
         <argument
@@ -95,7 +95,7 @@
     </fragment>
     <fragment
         android:id="@+id/teamDetailFragment"
-        android:name="com.david.f1stats.ui.ranking.teams.TeamDetailFragment"
+        android:name="com.david.f1stats.ui.ranking.teams.teamDetail.TeamDetailFragment"
         android:label=""
         tools:layout="@layout/fragment_team_detail" >
         <argument
@@ -104,7 +104,7 @@
     </fragment>
     <fragment
         android:id="@+id/raceResultFragment"
-        android:name="com.david.f1stats.ui.ranking.raceResult.RaceResultFragment"
+        android:name="com.david.f1stats.ui.ranking.raceResult.raceResultDetail.RaceResultFragment"
         android:label="{country}"
         tools:layout="@layout/fragment_race_result" >
         <argument

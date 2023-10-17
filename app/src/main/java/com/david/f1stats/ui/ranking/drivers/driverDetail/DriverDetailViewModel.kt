@@ -1,6 +1,7 @@
-package com.david.f1stats.ui.ranking.drivers
+package com.david.f1stats.ui.ranking.drivers.driverDetail
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -15,19 +16,20 @@ class DriverDetailViewModel @Inject constructor(
     private val getDriverDetailUseCase: GetDriverDetailUseCase
 ) : ViewModel() {
 
-    private val _driverInfoModel = MutableLiveData<DriverDetail>()
+    private val _driverInfo = MutableLiveData<DriverDetail>()
+    val driverInfo: LiveData<DriverDetail> = _driverInfo
 
-    fun start(id: Int) {
+    fun fetchDriverDetail(id: Int) {
         viewModelScope.launch {
-            val result = getDriverDetailUseCase.invoke(id)
-
-            if(result.name.isNotEmpty()){
-                _driverInfoModel.postValue(result)
-            } else {
-                Log.d("TAG", "Error")
+            try {
+                val result = getDriverDetailUseCase(id)
+                if(result.name.isNotEmpty()) {
+                    _driverInfo.value = result
+                }
+            }
+            catch (exception: Exception) {
+                Log.e("TAG", "Error fetching data", exception)
             }
         }
     }
-
-    val driverInfo: MutableLiveData<DriverDetail> = _driverInfoModel
 }

@@ -1,8 +1,6 @@
-package com.david.f1stats.ui.ranking.raceResult
+package com.david.f1stats.ui.ranking.raceResult.raceResultDetail
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.david.f1stats.databinding.ItemRaceResultBinding
@@ -13,11 +11,10 @@ class RaceResultAdapter : RecyclerView.Adapter<RaceResultAdapter.RaceResultViewH
 
     private val items = ArrayList<RaceResult>()
 
-    @SuppressLint("NotifyDataSetChanged")
     fun setItems(items: ArrayList<RaceResult>) {
         this.items.clear()
         this.items.addAll(items)
-        notifyDataSetChanged()
+        notifyItemRangeChanged(0, items.size)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RaceResultViewHolder {
@@ -29,22 +26,18 @@ class RaceResultAdapter : RecyclerView.Adapter<RaceResultAdapter.RaceResultViewH
 
     override fun onBindViewHolder(holder: RaceResultViewHolder, position: Int) = holder.bind(items[position])
 
-    inner class RaceResultViewHolder(private val itemBinding: ItemRaceResultBinding) :
-        RecyclerView.ViewHolder(itemBinding.root),
-        View.OnClickListener {
-        private lateinit var race: RaceResult
+    inner class RaceResultViewHolder(
+        private val itemBinding: ItemRaceResultBinding)
+        :RecyclerView.ViewHolder(itemBinding.root){
 
         fun bind(item: RaceResult) {
-            this.race = item
-            itemBinding.tvPos.text = item.position
-            itemBinding.tvDriver.text = item.driverAbbr
-            itemBinding.tvTime.text = item.time
-            itemBinding.tvPoints.text = item.points
-            itemBinding.verticalSeparator.setBackgroundColor(itemBinding.root.context.getColor(
-                getColor(item.idTeam)
-            ))
+            itemBinding.apply {
+                tvPos.text = item.position
+                tvDriver.text = item.driverAbbr
+                tvTime.text = item.time
+                tvPoints.text = item.points
+                verticalSeparator.setBackgroundColor(root.context.getColor(getColor(item.idTeam)))
+            }
         }
-
-        override fun onClick(p0: View?) {}
     }
 }

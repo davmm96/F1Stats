@@ -21,7 +21,7 @@ class RankingDriversFragment : Fragment(), RankingDriversAdapter.RankingItemList
 
     private var _binding: FragmentRankingDriversBinding? = null
     private val binding get() = _binding!!
-    private lateinit var adapter: RankingDriversAdapter
+    private val adapter: RankingDriversAdapter by lazy { RankingDriversAdapter(this) }
     private val rankingDriverViewModel: RankingDriversViewModel by viewModels()
     private val sharedViewModel: SharedViewModel by activityViewModels()
 
@@ -30,37 +30,44 @@ class RankingDriversFragment : Fragment(), RankingDriversAdapter.RankingItemList
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         _binding = FragmentRankingDriversBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
-        rankingDriverViewModel.onCreate()
-
-        return root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        observeSelectedSeason()
+        initRecyclerView()
+        initObservers()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun observeSelectedSeason() {
         sharedViewModel.selectedSeason.observe(viewLifecycleOwner) {
-            rankingDriverViewModel.onCreate()
+            rankingDriverViewModel.fetchRankingDrivers()
         }
+    }
 
-        setupRecyclerView()
+    private fun initRecyclerView() {
+        binding.rvRanking.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvRanking.adapter = adapter
+    }
 
-        rankingDriverViewModel.rankingDriverList.observe(viewLifecycleOwner) {
-            it?.let { it1 -> ArrayList(it1) }?.let { it2 -> adapter.setItems(it2) }
+    private fun initObservers(){
+        rankingDriverViewModel.rankingDriverList.observe(viewLifecycleOwner) {rankingDrivers ->
+            rankingDrivers?.let {
+                adapter.setItems(ArrayList(it))
+            }
         }
 
         rankingDriverViewModel.isLoading.observe(viewLifecycleOwner){
             binding.progressBar.isVisible = it
         }
-    }
-
-    private fun setupRecyclerView() {
-        adapter = RankingDriversAdapter(this)
-        binding.rvRanking.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvRanking.adapter = adapter
     }
 
     override fun onClickedDriver(driverId: Int) {
@@ -69,10 +76,4 @@ class RankingDriversFragment : Fragment(), RankingDriversAdapter.RankingItemList
             bundleOf("id" to driverId)
         )
     }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
 }

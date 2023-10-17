@@ -1,4 +1,4 @@
-package com.david.f1stats.ui.ranking.raceResult
+package com.david.f1stats.ui.ranking.raceResult.raceResultDetail
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -15,19 +15,9 @@ class RaceResultFragment : Fragment() {
 
     private var _binding: FragmentRaceResultBinding? = null
     private val binding get() = _binding!!
-    private lateinit var adapter: RaceResultAdapter
+    private val adapter: RaceResultAdapter by lazy { RaceResultAdapter() }
     private val raceResultViewModel: RaceResultViewModel by viewModels()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        arguments?.getInt("id")?.let { raceResultViewModel.start(it) }
-
-        setupRecyclerView()
-
-        raceResultViewModel.raceResult.observe(viewLifecycleOwner) {
-            it?.let { it1 -> ArrayList(it1) }?.let { it2 -> adapter.setItems(it2) }
-        }
-    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -37,9 +27,22 @@ class RaceResultFragment : Fragment() {
         return binding.root
     }
 
-    private fun setupRecyclerView() {
-        adapter = RaceResultAdapter()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        arguments?.getInt("id")?.let { raceResultViewModel.fetchRaceResult(it) }
+
+        initRecyclerView()
+        initObservers()
+    }
+
+    private fun initRecyclerView() {
         binding.rvResults.layoutManager = LinearLayoutManager(requireContext())
         binding.rvResults.adapter = adapter
+    }
+
+    private fun initObservers() {
+        raceResultViewModel.raceResult.observe(viewLifecycleOwner) { raceResultList ->
+            raceResultList?.let { adapter.setItems(ArrayList(it)) }
+        }
     }
 }

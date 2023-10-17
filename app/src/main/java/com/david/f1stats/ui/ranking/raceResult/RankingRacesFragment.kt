@@ -25,7 +25,7 @@ class RankingRacesFragment : Fragment(),
 
     private var _binding: FragmentRankingRacesBinding? = null
     private val binding get() = _binding!!
-    private lateinit var adapter: RankingRacesAdapter
+    private val adapter: RankingRacesAdapter by lazy { RankingRacesAdapter(this, this, emptyList()) }
     private val racesViewModel: RankingRacesViewModel by viewModels()
     private val sharedViewModel: SharedViewModel by activityViewModels()
 
@@ -36,41 +36,50 @@ class RankingRacesFragment : Fragment(),
     ): View {
 
         _binding = FragmentRankingRacesBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
-        racesViewModel.onCreate()
-
-        return root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        observeSelectedSeason()
+        initRecyclerView()
+        initObservers()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun observeSelectedSeason() {
         sharedViewModel.selectedSeason.observe(viewLifecycleOwner) {
-            racesViewModel.onCreate()
-        }
-
-        setupRecyclerView()
-
-        racesViewModel.racesCompletedList.observe(viewLifecycleOwner) {
-            it?.let { it1 -> ArrayList(it1) }?.let { it2 -> adapter.setItems(it2) }
-        }
-
-        racesViewModel.favoriteRacesIds.observe(viewLifecycleOwner) {
-            it?.let { it1 -> ArrayList(it1) }?.let { it2 -> adapter.updateFavoriteRaces(it2) }
-        }
-
-        racesViewModel.isLoading.observe(viewLifecycleOwner){
-            binding.progressBar.isVisible = it
+            racesViewModel.getRacesCompleted()
         }
     }
 
-    private fun setupRecyclerView() {
-        adapter = RankingRacesAdapter(this, this, emptyList())
+    private fun initRecyclerView() {
         binding.rvRanking.layoutManager = LinearLayoutManager(requireContext())
         binding.rvRanking.adapter = adapter
     }
 
+    private fun initObservers() {
+        racesViewModel.racesCompletedList.observe(viewLifecycleOwner) { racesCompleted ->
+            racesCompleted?.let {
+                adapter.setItems(ArrayList(it))
+            }
+        }
+
+        racesViewModel.favoriteRacesIds.observe(viewLifecycleOwner) { favoriteRaceIds ->
+            favoriteRaceIds?.let {
+               adapter.updateFavoriteRaces(ArrayList(it))
+            }
+        }
+
+        racesViewModel.isLoading.observe(viewLifecycleOwner){ isLoading ->
+            binding.progressBar.isVisible = isLoading
+        }
+    }
 
     override fun onNavClicked(idRace: Int, country: String) {
         findNavController().navigate(
@@ -87,10 +96,5 @@ class RankingRacesFragment : Fragment(),
             racesViewModel.addRaceToFavorites(race)
             Toast.makeText(context, getString(R.string.favorite_added), Toast.LENGTH_SHORT).show()
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

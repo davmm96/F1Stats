@@ -1,4 +1,4 @@
-package com.david.f1stats.ui.raceDetail
+package com.david.f1stats.ui.races.raceDetail
 
 import android.os.Bundle
 import android.view.LayoutInflater

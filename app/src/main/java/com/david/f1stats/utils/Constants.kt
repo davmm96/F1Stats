@@ -8,6 +8,7 @@ object Constants {
     const val FORMAT_HOUR = "HH:mm"
     const val TIMEZONE = "Europe/Madrid"
     const val FIRST_POSITION_SIZE = 18f
+    const val DEFAULT_POSITION_SIZE = 14f
     const val IMAGE_NOT_FOUND = "Image not found"
 
     val TEAM_COLOR_MAP = mapOf(

@@ -22,27 +22,32 @@ class RankingRacesViewModel @Inject constructor(
     private val deleteFavoriteUseCase: DeleteFavoriteUseCase,
 ): ViewModel() {
 
-    private val _racesCompletedListModel = MutableLiveData<List<Race>?>()
-    private val _favoriteRacesIds = MutableLiveData<List<Int>?>()
-    private val _isLoading = MutableLiveData<Boolean>()
+    private val _racesCompletedList = MutableLiveData<List<Race>>()
+    val racesCompletedList: LiveData<List<Race>> = _racesCompletedList
 
-    fun onCreate() {
-        getRaceCompleted()
+    private val _favoriteRacesIds = MutableLiveData<List<Int>>()
+    val favoriteRacesIds: LiveData<List<Int>> = _favoriteRacesIds
+
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> = _isLoading
+
+    init {
+        getRacesCompleted()
         getFavoriteRacesIds()
     }
 
-    private fun getRaceCompleted(){
+    fun getRacesCompleted(){
         viewModelScope.launch {
-            _isLoading.postValue(true)
-            val result = getRaceCompletedUseCase()
-
-            if (result != null) {
-                if (result.isNotEmpty()) {
-                    _racesCompletedListModel.postValue(result)
-                    _isLoading.postValue(false)
-                } else {
-                    Log.d("TAG", "Error")
-                }
+            _isLoading.value = true
+            try {
+                val result = getRaceCompletedUseCase()
+                _racesCompletedList.value = result.ifEmpty { emptyList() }
+            }
+            catch (e: Exception){
+                Log.d("TAG", "Error fetching data")
+            }
+            finally {
+                _isLoading.value = false
             }
         }
     }
@@ -50,28 +55,21 @@ class RankingRacesViewModel @Inject constructor(
     private fun getFavoriteRacesIds(){
         viewModelScope.launch {
             val result = getAllFavoriteRaceIdsUseCase()
-            if(result.isNotEmpty())
-                _favoriteRacesIds.postValue(result)
-            else
-                _favoriteRacesIds.postValue(emptyList())
+            _favoriteRacesIds.value = result.ifEmpty { emptyList() }
         }
     }
 
     fun addRaceToFavorites(race: Race) {
         viewModelScope.launch {
-            insertFavoriteRaceUseCase.invoke(race)
+            insertFavoriteRaceUseCase(race)
             getFavoriteRacesIds()
         }
     }
 
     fun removeRaceFromFavorites(idRace: Int){
         viewModelScope.launch {
-            deleteFavoriteUseCase.invoke(idRace)
+            deleteFavoriteUseCase(idRace)
             getFavoriteRacesIds()
         }
     }
-
-    val favoriteRacesIds: LiveData<List<Int>?> = _favoriteRacesIds
-    val racesCompletedList: LiveData<List<Race>?> = _racesCompletedListModel
-    val isLoading: LiveData<Boolean> = _isLoading
 }

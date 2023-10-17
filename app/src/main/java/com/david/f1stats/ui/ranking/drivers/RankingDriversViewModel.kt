@@ -16,25 +16,29 @@ class RankingDriversViewModel @Inject constructor(
     private val getRankingDriverUseCase: GetRankingDriverUseCase
 ): ViewModel() {
 
-    private val _rankingDriverListModel = MutableLiveData<List<RankingDriver>?>()
+    private val _rankingDriverList = MutableLiveData<List<RankingDriver>>()
+    val rankingDriverList: LiveData<List<RankingDriver>> = _rankingDriverList
+
     private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> = _isLoading
 
-    fun onCreate(){
+    init {
+        fetchRankingDrivers()
+    }
+
+    fun fetchRankingDrivers(){
         viewModelScope.launch {
-            _isLoading.postValue(true)
-            val result = getRankingDriverUseCase()
-
-            if (result != null) {
-                if(result.isNotEmpty()){
-                    _rankingDriverListModel.postValue(result)
-                    _isLoading.postValue(false)
-                } else {
-                    Log.d("TAG", "Error")
-                }
+            _isLoading.value = true
+            try {
+                val result = getRankingDriverUseCase()
+                _rankingDriverList.value = result.ifEmpty { emptyList() }
+            }
+            catch (exception: Exception) {
+                Log.e("TAG", "Error fetching data", exception)
+            }
+            finally {
+                _isLoading.value = false
             }
         }
     }
-
-    val rankingDriverList: LiveData<List<RankingDriver>?> = _rankingDriverListModel
-    val isLoading: LiveData<Boolean> = _isLoading
 }

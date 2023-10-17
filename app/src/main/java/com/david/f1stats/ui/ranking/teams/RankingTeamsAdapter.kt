@@ -1,10 +1,8 @@
 package com.david.f1stats.ui.ranking.teams
 
-import android.annotation.SuppressLint
 import androidx.recyclerview.widget.RecyclerView
 import com.david.f1stats.domain.model.RankingTeam
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import com.david.f1stats.R
 import com.david.f1stats.databinding.ItemRankingTeamBinding
@@ -18,11 +16,10 @@ class RankingTeamsAdapter(private val listener: RankingItemListener) : RecyclerV
 
     private val items = ArrayList<RankingTeam>()
 
-    @SuppressLint("NotifyDataSetChanged")
     fun setItems(items: ArrayList<RankingTeam>) {
         this.items.clear()
         this.items.addAll(items)
-        notifyDataSetChanged()
+        notifyItemRangeChanged(0, items.size)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RankingViewHolder {
@@ -34,44 +31,54 @@ class RankingTeamsAdapter(private val listener: RankingItemListener) : RecyclerV
 
     override fun onBindViewHolder(holder: RankingViewHolder, position: Int) = holder.bind(items[position])
 
-    inner class RankingViewHolder(private val itemBinding: ItemRankingTeamBinding, private val listener: RankingItemListener) :
-        RecyclerView.ViewHolder(itemBinding.root),
-        View.OnClickListener {
-
-        private lateinit var rankingTeam: RankingTeam
+    inner class RankingViewHolder(
+        private val itemBinding: ItemRankingTeamBinding,
+        private val listener: RankingItemListener)
+        :RecyclerView.ViewHolder(itemBinding.root){
 
         init {
-            itemBinding.root.setOnClickListener(this)
+            itemBinding.root.setOnClickListener {
+                val currentItem = items[adapterPosition]
+                listener.onClickedRankingTeam(currentItem.idTeam)
+            }
         }
 
         fun bind(item: RankingTeam) {
-            this.rankingTeam = item
-
-            if(item.position == 1) {
-                itemBinding.root.setCardBackgroundColor(itemBinding.root.context.getColor(R.color.dark_grey))
-                itemBinding.tvName.setTextColor(itemBinding.root.context.getColor(R.color.white))
-                itemBinding.tvPosition.setTextColor(itemBinding.root.context.getColor(R.color.white))
-                itemBinding.ivArrow.setImageResource(R.drawable.arrow_right_white)
-                itemBinding.tvName.textSize = FIRST_POSITION_SIZE
+            itemBinding.apply {
+                setStyle(item)
+                tvName.text = item.name
+                tvPoints.text = item.points
+                tvPosition.text = item.position.toString()
+                verticalSeparator.setBackgroundColor(root.context.getColor(getColor(item.idTeam)))
             }
-            else {
-                itemBinding.root.setCardBackgroundColor(itemBinding.root.context.getColor(R.color.white))
-                itemBinding.tvName.setTextColor(itemBinding.root.context.getColor(R.color.black))
-                itemBinding.tvPosition.setTextColor(itemBinding.root.context.getColor(R.color.black))
-                itemBinding.ivArrow.setImageResource(R.drawable.arrow_right)
-                itemBinding.tvName.textSize = 14f
-            }
-
-            itemBinding.tvName.text = item.name
-            itemBinding.tvPoints.text = item.points
-            itemBinding.tvPosition.text = item.position.toString()
-            itemBinding.verticalSeparator.setBackgroundColor(itemBinding.root.context.getColor(
-                getColor(item.idTeam)
-            ))
         }
 
-        override fun onClick(v: View?) {
-            listener.onClickedRankingTeam(rankingTeam.idTeam)
+        private fun setStyle(item: RankingTeam) {
+            if (item.position == 1) {
+                setFirstPositionStyle()
+            } else {
+                setDefaultPositionStyle()
+            }
+        }
+
+        private fun setFirstPositionStyle() {
+            itemBinding.apply {
+                root.setCardBackgroundColor(itemBinding.root.context.getColor(R.color.dark_grey))
+                tvName.setTextColor(itemBinding.root.context.getColor(R.color.white))
+                tvPosition.setTextColor(itemBinding.root.context.getColor(R.color.white))
+                ivArrow.setImageResource(R.drawable.arrow_right_white)
+                tvName.textSize = FIRST_POSITION_SIZE
+            }
+        }
+
+        private fun setDefaultPositionStyle() {
+            itemBinding.apply {
+                root.setCardBackgroundColor(itemBinding.root.context.getColor(R.color.white))
+                tvName.setTextColor(itemBinding.root.context.getColor(R.color.black))
+                tvPosition.setTextColor(itemBinding.root.context.getColor(R.color.black))
+                ivArrow.setImageResource(R.drawable.arrow_right)
+                tvName.textSize = 14f
+            }
         }
     }
 }

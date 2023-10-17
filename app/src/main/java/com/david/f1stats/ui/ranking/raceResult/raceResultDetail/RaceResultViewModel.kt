@@ -1,4 +1,4 @@
-package com.david.f1stats.ui.ranking.raceResult
+package com.david.f1stats.ui.ranking.raceResult.raceResultDetail
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -16,21 +16,20 @@ class RaceResultViewModel @Inject constructor(
     private val getRaceResultUseCase: GetRaceResultUseCase
 ) : ViewModel() {
 
-    private val _raceResultModel = MutableLiveData<List<RaceResult>?>()
+    private val _raceResult = MutableLiveData<List<RaceResult>>()
+    val raceResult: LiveData<List<RaceResult>> = _raceResult
 
-    fun start(id: Int) {
+    fun fetchRaceResult(id: Int) {
         viewModelScope.launch {
-            val result = getRaceResultUseCase.invoke(id)
-
-            if (result != null) {
-                if(result.isNotEmpty()){
-                    _raceResultModel.postValue(result)
-                } else {
-                    Log.d("TAG", "Error")
+            try {
+                val result = getRaceResultUseCase(id)
+                if(result.isNotEmpty()) {
+                    _raceResult.value = result
                 }
+            }
+            catch (exception: Exception) {
+                Log.e("TAG", "Error fetching data", exception)
             }
         }
     }
-
-    val raceResult: LiveData<List<RaceResult>?> = _raceResultModel
 }

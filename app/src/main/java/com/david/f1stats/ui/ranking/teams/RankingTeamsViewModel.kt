@@ -15,25 +15,30 @@ import javax.inject.Inject
 class RankingTeamsViewModel@Inject constructor(
     private val getRankingTeamUseCase: GetRankingTeamUseCase
 ): ViewModel() {
-    private val _rankingTeamListModel = MutableLiveData<List<RankingTeam>?>()
+
+    private val _rankingTeamList = MutableLiveData<List<RankingTeam>>()
+    val rankingTeamList: LiveData<List<RankingTeam>?> = _rankingTeamList
+
     private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> = _isLoading
 
-    fun onCreate(){
+    init {
+        fetchRankingTeams()
+    }
+
+    fun fetchRankingTeams(){
         viewModelScope.launch {
-            _isLoading.postValue(true)
-            val result = getRankingTeamUseCase()
-
-            if (result != null) {
-                if(result.isNotEmpty()){
-                    _rankingTeamListModel.postValue(result)
-                    _isLoading.postValue(false)
-                } else {
-                    Log.d("TAG", "Error")
-                }
+            _isLoading.value = true
+            try {
+                val result = getRankingTeamUseCase()
+                _rankingTeamList.value = result.ifEmpty { emptyList() }
+            }
+            catch (exception: Exception) {
+                Log.e("TAG", "Error fetching data", exception)
+            }
+            finally {
+                _isLoading.value = false
             }
         }
     }
-
-    val rankingTeamList: LiveData<List<RankingTeam>?> = _rankingTeamListModel
-    val isLoading: LiveData<Boolean> = _isLoading
 }

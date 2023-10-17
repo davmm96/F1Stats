@@ -1,10 +1,11 @@
-package com.david.f1stats.ui.ranking.teams
+package com.david.f1stats.ui.ranking.teams.teamDetail
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.viewModels
 import com.david.f1stats.databinding.FragmentTeamDetailBinding
 import com.david.f1stats.utils.Constants
@@ -37,27 +38,42 @@ class TeamDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        arguments?.getInt("id")?.let { teamDetailViewModel.start(it) }
+        arguments?.getInt("id")?.let { teamDetailViewModel.fetchTeamDetail(it) }
 
-        teamDetailViewModel.teamInfo.observe(viewLifecycleOwner) {
-            binding.tvTeamName.text = it.name
-            binding.tvTeamCountry.text = it.location
-            binding.tvWC.text = it.worldChampionships
-            binding.tvFirstSeason.text = it.firstSeason
-            binding.tvWins.text = it.wins
-            binding.tvPolePositions.text = it.polePositions
-            binding.tvFastestLaps.text = it.fastestLaps
-            picasso
-                .load(it.image)
-                .into(binding.ivTeamImage)
+        initObservers()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun initObservers(){
+        teamDetailViewModel.teamInfo.observe(viewLifecycleOwner) { team ->
+            binding.apply {
+                tvTeamName.text = team.name
+                tvTeamCountry.text = team.location
+                tvWC.text = team.worldChampionships
+                tvFirstSeason.text = team.firstSeason
+                tvWins.text = team.wins
+                tvPolePositions.text = team.polePositions
+                tvFastestLaps.text = team.fastestLaps
+
+                loadImage(ivTeamImage, team.image)
+            }
         }
+    }
 
-        binding.ivTeamImage.setOnClickListener {
-            val imageUrl = teamDetailViewModel.teamInfo.value?.image
+    private fun loadImage(view: ImageView, imageUrl: String?) {
+        picasso.load(imageUrl).into(view)
+        setupImageClickListener(view, imageUrl)
+    }
+
+    private fun setupImageClickListener(view: View, imageUrl: String?) {
+        view.setOnClickListener {
             if (imageUrl != null && imageUrl != Constants.IMAGE_NOT_FOUND) {
                 dialogHelper.showImageDialog(requireActivity(), picasso, imageUrl)
             }
         }
     }
-
 }

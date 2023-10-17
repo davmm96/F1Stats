@@ -1,6 +1,7 @@
-package com.david.f1stats.ui.ranking.teams
+package com.david.f1stats.ui.ranking.teams.teamDetail
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -15,19 +16,20 @@ class TeamDetailViewModel @Inject constructor(
     private val getTeamDetailUseCase: GetTeamDetailUseCase
 ) : ViewModel() {
 
-    private val _teamInfoModel = MutableLiveData<TeamDetail>()
+    private val _teamInfo = MutableLiveData<TeamDetail>()
+    val teamInfo: LiveData<TeamDetail> = _teamInfo
 
-    fun start(id: Int) {
+    fun fetchTeamDetail(id: Int) {
         viewModelScope.launch {
-            val result = getTeamDetailUseCase.invoke(id)
-
-            if(result.name.isNotEmpty()){
-                _teamInfoModel.postValue(result)
-            } else {
-                Log.d("TAG", "Error")
+            try {
+                val result = getTeamDetailUseCase(id)
+                if(result.name.isNotEmpty()) {
+                    _teamInfo.value = result
+                }
+            }
+            catch (exception: Exception) {
+                Log.e("TAG", "Error fetching data", exception)
             }
         }
     }
-
-    val teamInfo: MutableLiveData<TeamDetail> = _teamInfoModel
 }

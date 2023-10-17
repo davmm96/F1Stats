@@ -21,7 +21,7 @@ class RankingTeamsFragment : Fragment(), RankingTeamsAdapter.RankingItemListener
 
     private var _binding: FragmentRankingTeamsBinding? = null
     private val binding get() = _binding!!
-    private lateinit var adapter: RankingTeamsAdapter
+    private val adapter: RankingTeamsAdapter by lazy { RankingTeamsAdapter(this) }
     private val rankingTeamViewModel: RankingTeamsViewModel by viewModels()
     private val sharedViewModel: SharedViewModel by activityViewModels()
 
@@ -30,37 +30,42 @@ class RankingTeamsFragment : Fragment(), RankingTeamsAdapter.RankingItemListener
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         _binding = FragmentRankingTeamsBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
-        rankingTeamViewModel.onCreate()
-
-        return root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        observeSelectedSeason()
+        initRecyclerView()
+        initObservers()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun observeSelectedSeason() {
         sharedViewModel.selectedSeason.observe(viewLifecycleOwner) {
-            rankingTeamViewModel.onCreate()
+            rankingTeamViewModel.fetchRankingTeams()
         }
+    }
 
-        setupRecyclerView()
+    private fun initRecyclerView() {
+        binding.rvRanking.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvRanking.adapter = adapter
+    }
 
-        rankingTeamViewModel.rankingTeamList.observe(viewLifecycleOwner) {
-            it?.let { it1 -> ArrayList(it1) }?.let { it2 -> adapter.setItems(it2) }
+    private fun initObservers(){
+        rankingTeamViewModel.rankingTeamList.observe(viewLifecycleOwner) {rankingTeams ->
+            rankingTeams?.let { adapter.setItems(ArrayList(it)) }
         }
 
         rankingTeamViewModel.isLoading.observe(viewLifecycleOwner){
             binding.progressBar.isVisible = it
         }
-    }
-
-    private fun setupRecyclerView() {
-        adapter = RankingTeamsAdapter(this)
-        binding.rvRanking.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvRanking.adapter = adapter
     }
 
     override fun onClickedRankingTeam(rankingTeamId: Int) {
@@ -69,10 +74,4 @@ class RankingTeamsFragment : Fragment(), RankingTeamsAdapter.RankingItemListener
             bundleOf("id" to rankingTeamId)
         )
     }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
 }

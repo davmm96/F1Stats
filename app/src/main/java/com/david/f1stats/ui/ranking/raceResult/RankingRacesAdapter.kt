@@ -24,11 +24,10 @@ class RankingRacesAdapter (
 
     private val items = ArrayList<Race>()
 
-    @SuppressLint("NotifyDataSetChanged")
     fun setItems(items: ArrayList<Race>) {
         this.items.clear()
         this.items.addAll(items)
-        notifyDataSetChanged()
+        notifyItemRangeChanged(0, items.size)
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -52,28 +51,35 @@ class RankingRacesAdapter (
         private val navigationListener: RankingRacesNavListener
     ) : RecyclerView.ViewHolder(itemBinding.root) {
 
-        private lateinit var race: Race
-
         init {
             itemBinding.ivFavorite.setOnClickListener {
-                favListener.onFavClicked(race)
+                favListener.onFavClicked(getCurrentItem())
             }
 
             itemBinding.ivRightArrow.setOnClickListener {
-                navigationListener.onNavClicked(race.idRace, race.country)
+                val currentItem = getCurrentItem()
+                navigationListener.onNavClicked(currentItem.idRace, currentItem.country)
             }
         }
 
         fun bind(item: Race) {
-            this.race = item
-            itemBinding.raceName.text = item.competition
-            itemBinding.raceCountry.text = item.country
-            itemBinding.raceLaps.text = item.laps
+            itemBinding.apply {
+                raceName.text = item.competition
+                raceCountry.text = item.country
+                raceLaps.text = item.laps
+                ivFavorite.setImageResource(setFavoriteIcon(item))
+            }
+        }
 
-            if (favoriteRaces.contains(race.idRace)) {
-                itemBinding.ivFavorite.setImageResource(R.drawable.icon_favorites)
+        private fun getCurrentItem(): Race {
+            return items[adapterPosition]
+        }
+
+        private fun setFavoriteIcon(item: Race): Int {
+            return if (favoriteRaces.contains(item.idRace)) {
+                R.drawable.icon_favorites
             } else {
-                itemBinding.ivFavorite.setImageResource(R.drawable.icon_favorites_off)
+                R.drawable.icon_favorites_off
             }
         }
     }

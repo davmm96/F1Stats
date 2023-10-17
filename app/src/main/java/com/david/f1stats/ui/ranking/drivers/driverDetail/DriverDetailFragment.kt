@@ -1,10 +1,11 @@
-package com.david.f1stats.ui.ranking.drivers
+package com.david.f1stats.ui.ranking.drivers.driverDetail
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.viewModels
 import com.david.f1stats.databinding.FragmentDriverDetailBinding
 import com.david.f1stats.utils.Constants
@@ -37,23 +38,37 @@ class DriverDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        arguments?.getInt("id")?.let { driverDetailViewModel.start(it) }
+        arguments?.getInt("id")?.let { driverDetailViewModel.fetchDriverDetail(it) }
 
+        initObservers()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun initObservers(){
         driverDetailViewModel.driverInfo.observe(viewLifecycleOwner) { driver ->
-            binding.tvDriverName.text = driver.name
-            binding.tvDriverNumber.text = driver.number
-            binding.tvDriverCountry.text = driver.country
-            binding.tvWC.text = driver.worldChampionships
-            binding.tvPodiums.text = driver.podiums
-            binding.tvRaces.text = driver.gpEntered
-            binding.tvWins.text = driver.wins
-            binding.tvPoints.text = driver.points
-            picasso.load(driver.image).into(binding.ivDriverImage)
-            picasso.load(driver.teamImage).into(binding.ivActualTeam)
+            binding.apply {
+                tvDriverName.text = driver.name
+                tvDriverNumber.text = driver.number
+                tvDriverCountry.text = driver.country
+                tvWC.text = driver.worldChampionships
+                tvPodiums.text = driver.podiums
+                tvRaces.text = driver.gpEntered
+                tvWins.text = driver.wins
+                tvPoints.text = driver.points
 
-            setupImageClickListener(binding.ivDriverImage, driver.image)
-            setupImageClickListener(binding.ivActualTeam, driver.teamImage)
+                loadImage(ivDriverImage, driver.image)
+                loadImage(ivActualTeam, driver.teamImage)
+            }
         }
+    }
+
+    private fun loadImage(view: ImageView, imageUrl: String?) {
+        picasso.load(imageUrl).into(view)
+        setupImageClickListener(view, imageUrl)
     }
 
     private fun setupImageClickListener(view: View, imageUrl: String?) {

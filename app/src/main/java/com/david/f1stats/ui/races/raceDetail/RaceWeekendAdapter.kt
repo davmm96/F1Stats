@@ -1,4 +1,4 @@
-package com.david.f1stats.ui.raceDetail
+package com.david.f1stats.ui.races.raceDetail
 
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +10,8 @@ import com.david.f1stats.domain.model.StatusRaceEnum
 import com.david.f1stats.domain.model.TypeRaceEnum
 
 class RaceWeekendAdapter (
-    private val listener: CalendarListener)
+    private val listener: CalendarListener
+)
     : RecyclerView.Adapter<RaceWeekendAdapter.RaceWeekendViewHolder>() {
 
     interface CalendarListener {
@@ -39,7 +40,8 @@ class RaceWeekendAdapter (
 
     inner class RaceWeekendViewHolder(
         private val itemBinding: ItemRaceWeekendBinding,
-        private val listener: CalendarListener)
+        private val listener: CalendarListener
+    )
         :RecyclerView.ViewHolder(itemBinding.root) {
 
         init {
