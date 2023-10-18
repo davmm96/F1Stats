@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.david.f1stats.R
 import com.david.f1stats.databinding.ItemRankingBinding
+import com.david.f1stats.utils.Constants.DEFAULT_POSITION_SIZE
 import com.david.f1stats.utils.Constants.FIRST_POSITION_SIZE
 import com.david.f1stats.utils.getColor
 
@@ -78,7 +79,7 @@ class RankingTeamsAdapter(private val listener: RankingItemListener) : RecyclerV
                 tvName.setTextColor(itemBinding.root.context.getColor(R.color.black))
                 tvPosition.setTextColor(itemBinding.root.context.getColor(R.color.black))
                 ivArrow.setImageResource(R.drawable.arrow_right)
-                tvName.textSize = 14f
+                tvName.textSize = DEFAULT_POSITION_SIZE
             }
         }
     }

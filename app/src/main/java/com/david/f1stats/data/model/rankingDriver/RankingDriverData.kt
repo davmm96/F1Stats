@@ -8,4 +8,4 @@ data class RankingDriverData(
     val season: Int,
     val team: RankingDriverTeamData,
     val wins: Int
-) 
+)
