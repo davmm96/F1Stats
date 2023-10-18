@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.david.f1stats.databinding.FragmentTeamDetailBinding
 import com.david.f1stats.utils.Constants
@@ -51,15 +52,23 @@ class TeamDetailFragment : Fragment() {
     private fun initObservers(){
         teamDetailViewModel.teamInfo.observe(viewLifecycleOwner) { team ->
             binding.apply {
-                tvTeamName.text = team.name
-                tvTeamCountry.text = team.location
-                tvWC.text = team.worldChampionships
-                tvFirstSeason.text = team.firstSeason
-                tvWins.text = team.wins
-                tvPolePositions.text = team.polePositions
-                tvFastestLaps.text = team.fastestLaps
+                if (team != null) {
+                    tvTeamName.text = team.name
+                    tvTeamCountry.text = team.location
+                    tvWC.text = team.worldChampionships
+                    tvFirstSeason.text = team.firstSeason
+                    tvWins.text = team.wins
+                    tvPolePositions.text = team.polePositions
+                    tvFastestLaps.text = team.fastestLaps
+                    loadImage(ivTeamImage, team.image)
+                }
+            }
+        }
 
-                loadImage(ivTeamImage, team.image)
+        teamDetailViewModel.errorMessage.observe(viewLifecycleOwner) { errorMessage ->
+            errorMessage?.let {
+                Toast.makeText(context, it, Toast.LENGTH_LONG).show()
+                teamDetailViewModel.clearErrorMessage()
             }
         }
     }

@@ -79,6 +79,13 @@ class RankingRacesFragment : Fragment(),
         racesViewModel.isLoading.observe(viewLifecycleOwner){ isLoading ->
             binding.baseRankingLayout.progressBar.isVisible = isLoading
         }
+
+        racesViewModel.errorMessage.observe(viewLifecycleOwner) { errorMessage ->
+            errorMessage?.let {
+                Toast.makeText(context, it, Toast.LENGTH_LONG).show()
+                racesViewModel.clearErrorMessage()
+            }
+        }
     }
 
     override fun onNavClicked(idRace: Int, country: String) {

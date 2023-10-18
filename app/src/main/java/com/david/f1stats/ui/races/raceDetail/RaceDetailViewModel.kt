@@ -1,6 +1,5 @@
 package com.david.f1stats.ui.races.raceDetail
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,6 +10,7 @@ import com.david.f1stats.utils.CalendarHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import com.david.f1stats.data.model.base.Result
 
 @HiltViewModel
 class RaceDetailViewModel @Inject constructor(
@@ -26,21 +26,33 @@ class RaceDetailViewModel @Inject constructor(
     private val _addToCalendarEvent = MutableLiveData<CalendarHelper.CalendarEvent>()
     val addToCalendarEvent: LiveData<CalendarHelper.CalendarEvent> = _addToCalendarEvent
 
+    private val _errorMessage = MutableLiveData<String?>()
+    val errorMessage: LiveData<String?> = _errorMessage
+
     fun loadData(id: Int) {
         viewModelScope.launch {
-            try {
-                val result = getRaceDetailsUseCase(id)
-                if(result.isNotEmpty()){
-                    _raceList.value = result
-                    _raceInfo.value = result.first()
+            when (val result = getRaceDetailsUseCase(id)) {
+                is Result.Success -> {
+                    if(result.data.isNotEmpty()){
+                        _raceList.value = result.data
+                        _raceInfo.value = result.data.first()
+                    }
+                    else {
+                        _raceList.value = emptyList()
+                    }
                 }
-            } catch (exception: Exception) {
-                Log.e("TAG", "Error fetching data", exception)
+                is Result.Error -> {
+                    _errorMessage.value = "Error fetching races"
+                }
             }
         }
     }
 
     fun onAddToCalendarRequested(event: CalendarHelper.CalendarEvent) {
         _addToCalendarEvent.value = event
+    }
+
+    fun clearErrorMessage() {
+        _errorMessage.value = null
     }
 }

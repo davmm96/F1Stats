@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
@@ -77,6 +78,13 @@ class RacesFragment : Fragment(), RacesAdapter.RaceItemListener {
                 tvNoRaces.isVisible = isCompleted
                 tvNoRacesSubtitle.isVisible = isCompleted
                 ivNoRaces.isVisible = isCompleted
+            }
+        }
+
+        racesViewModel.errorMessage.observe(viewLifecycleOwner) { errorMessage ->
+            errorMessage?.let {
+                Toast.makeText(context, it, Toast.LENGTH_LONG).show()
+                racesViewModel.clearErrorMessage()
             }
         }
     }

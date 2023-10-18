@@ -1,6 +1,5 @@
 package com.david.f1stats.ui.races
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,6 +9,7 @@ import com.david.f1stats.domain.model.Race
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import com.david.f1stats.data.model.base.Result
 
 @HiltViewModel
 class RacesViewModel @Inject constructor(
@@ -25,6 +25,9 @@ class RacesViewModel @Inject constructor(
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
+    private val _errorMessage = MutableLiveData<String?>()
+    val errorMessage: LiveData<String?> = _errorMessage
+
     init {
         fetchRaces()
     }
@@ -32,22 +35,27 @@ class RacesViewModel @Inject constructor(
     fun fetchRaces() {
         viewModelScope.launch {
             _isLoading.value = true
-            try {
-                val result = getRacesUseCase()
-                if(result.isNotEmpty()){
-                    _raceList.value = result
-                    _isSeasonCompleted.value = false
+            when (val result = getRacesUseCase()) {
+                is Result.Success -> {
+                    _isLoading.value = false
+                    if(result.data.isNotEmpty()){
+                        _raceList.value = result.data
+                        _isSeasonCompleted.value = false
+                    }
+                    else {
+                        _raceList.value = emptyList()
+                        _isSeasonCompleted.value = true
+                    }
                 }
-                else {
-                    _raceList.value = emptyList()
-                    _isSeasonCompleted.value = true
+                is Result.Error -> {
+                    _isLoading.value = false
+                    _errorMessage.value = "Error fetching races"
                 }
-            } catch (exception: Exception) {
-                Log.e("TAG", "Error fetching data", exception)
-            }
-            finally {
-                _isLoading.value = false
             }
         }
+    }
+
+    fun clearErrorMessage() {
+        _errorMessage.value = null
     }
 }

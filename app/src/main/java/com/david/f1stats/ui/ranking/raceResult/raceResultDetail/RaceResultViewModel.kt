@@ -1,6 +1,5 @@
 package com.david.f1stats.ui.ranking.raceResult.raceResultDetail
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,6 +9,7 @@ import com.david.f1stats.domain.model.RaceResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import com.david.f1stats.data.model.base.Result
 
 @HiltViewModel
 class RaceResultViewModel @Inject constructor(
@@ -19,17 +19,23 @@ class RaceResultViewModel @Inject constructor(
     private val _raceResult = MutableLiveData<List<RaceResult>>()
     val raceResult: LiveData<List<RaceResult>> = _raceResult
 
+    private val _errorMessage = MutableLiveData<String?>()
+    val errorMessage: LiveData<String?> = _errorMessage
+
     fun fetchRaceResult(id: Int) {
         viewModelScope.launch {
-            try {
-                val result = getRaceResultUseCase(id)
-                if(result.isNotEmpty()) {
-                    _raceResult.value = result
+            when (val result = getRaceResultUseCase(id)) {
+                is Result.Success -> {
+                    _raceResult.value = result.data.ifEmpty { emptyList() }
+                }
+                is Result.Error -> {
+                    _errorMessage.value = "Error fetching race results"
                 }
             }
-            catch (exception: Exception) {
-                Log.e("TAG", "Error fetching data", exception)
-            }
         }
+    }
+
+    fun clearErrorMessage() {
+        _errorMessage.value = null
     }
 }

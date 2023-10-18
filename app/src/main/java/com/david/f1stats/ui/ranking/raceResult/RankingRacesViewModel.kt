@@ -1,6 +1,5 @@
 package com.david.f1stats.ui.ranking.raceResult
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,6 +12,7 @@ import com.david.f1stats.domain.model.Race
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import com.david.f1stats.data.model.base.Result
 
 @HiltViewModel
 class RankingRacesViewModel @Inject constructor(
@@ -31,6 +31,9 @@ class RankingRacesViewModel @Inject constructor(
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
+    private val _errorMessage = MutableLiveData<String?>()
+    val errorMessage: LiveData<String?> = _errorMessage
+
     init {
         getRacesCompleted()
         getFavoriteRacesIds()
@@ -39,15 +42,15 @@ class RankingRacesViewModel @Inject constructor(
     fun getRacesCompleted(){
         viewModelScope.launch {
             _isLoading.value = true
-            try {
-                val result = getRaceCompletedUseCase()
-                _racesCompletedList.value = result.ifEmpty { emptyList() }
-            }
-            catch (e: Exception){
-                Log.d("TAG", "Error fetching data")
-            }
-            finally {
-                _isLoading.value = false
+            when (val result = getRaceCompletedUseCase()) {
+                is Result.Success -> {
+                    _isLoading.value = false
+                    _racesCompletedList.value = result.data.ifEmpty { emptyList() }
+                }
+                is Result.Error -> {
+                    _isLoading.value = false
+                    _errorMessage.value = "Error fetching races"
+                }
             }
         }
     }
@@ -71,5 +74,9 @@ class RankingRacesViewModel @Inject constructor(
             deleteFavoriteUseCase(idRace)
             getFavoriteRacesIds()
         }
+    }
+
+    fun clearErrorMessage() {
+        _errorMessage.value = null
     }
 }

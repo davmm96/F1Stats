@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -65,6 +66,13 @@ class RaceDetailFragment : Fragment(), RaceWeekendAdapter.CalendarListener {
 
         raceDetailViewModel.addToCalendarEvent.observe(viewLifecycleOwner) { event ->
             event?.let { calendarHelper.addToCalendar(requireContext(), it) }
+        }
+
+        raceDetailViewModel.errorMessage.observe(viewLifecycleOwner) { errorMessage ->
+            errorMessage?.let {
+                Toast.makeText(context, it, Toast.LENGTH_LONG).show()
+                raceDetailViewModel.clearErrorMessage()
+            }
         }
     }
 
