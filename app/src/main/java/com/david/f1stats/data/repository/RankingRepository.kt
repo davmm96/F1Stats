@@ -8,18 +8,18 @@ import com.david.f1stats.domain.model.RankingTeam
 import javax.inject.Inject
 
 class RankingRepository @Inject constructor(
-    private val api: RankingService,
+    private val rankingService: RankingService,
     private val rankingDriverMapper: RankingDriverMapper,
     private val rankingTeamMapper: RankingTeamMapper
 ) {
 
     suspend fun getRankingDriver(): List<RankingDriver>{
-        val response = api.getDriversRanking()
+        val response = rankingService.getDriversRanking()
         return rankingDriverMapper.fromMap(response) ?: emptyList()
     }
 
     suspend fun getRankingTeam(): List<RankingTeam>{
-        val response = api.getTeamsRanking()
+        val response = rankingService.getTeamsRanking()
         return rankingTeamMapper.fromMap(response) ?: emptyList()
     }
 }

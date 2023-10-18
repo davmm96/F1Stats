@@ -6,11 +6,11 @@ import com.david.f1stats.domain.model.Season
 import javax.inject.Inject
 
 class SeasonRepository @Inject constructor(
-    private val api: SeasonService,
+    private val seasonService: SeasonService,
     private val seasonMapper: SeasonMapper,
 ){
     suspend fun getSeasons(): List<Season>{
-        val response = api.getSeasons()
+        val response = seasonService.getSeasons()
         return seasonMapper.fromMap(response) ?: emptyList()
     }
 }

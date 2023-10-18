@@ -6,11 +6,11 @@ import com.david.f1stats.domain.model.Circuit
 import javax.inject.Inject
 
 class CircuitRepository @Inject constructor(
-    private val api: CircuitService,
+    private val circuitService: CircuitService,
     private val circuitMapper: CircuitMapper,
 ){
     suspend fun getCircuits(): List<Circuit>{
-        val response = api.getCircuits()
+        val response = circuitService.getCircuits()
         return circuitMapper.fromMap(response) ?: emptyList()
     }
 }

@@ -10,28 +10,28 @@ import com.david.f1stats.domain.model.RaceResult
 import javax.inject.Inject
 
 class RaceRepository @Inject constructor(
-    private val api: RaceService,
+    private val raceService: RaceService,
     private val raceMapper: RaceMapper,
     private val raceDetailMapper: RaceDetailMapper,
     private val raceResultMapper: RaceResultMapper
 ) {
     suspend fun getRaces(): List<Race>{
-        val response = api.getRaces()
+        val response = raceService.getRaces()
         return raceMapper.fromMap(response) ?: emptyList()
     }
 
     suspend fun getRaceDetails(id: Int): List<RaceDetail> {
-        val response = api.getRaceDetails(id)
+        val response = raceService.getRaceDetails(id)
         return raceDetailMapper.fromMap(response) ?: emptyList()
     }
 
     suspend fun getCompletedRaces(): List<Race> {
-        val response = api.getCompletedRaces()
+        val response = raceService.getCompletedRaces()
         return raceMapper.fromMap(response) ?: emptyList()
     }
 
     suspend fun getRaceResult(id: Int): List<RaceResult> {
-        val response = api.getRaceResult(id)
+        val response = raceService.getRaceResult(id)
         return raceResultMapper.fromMap(response) ?: emptyList()
     }
 }

@@ -6,11 +6,11 @@ import com.david.f1stats.domain.model.DriverDetail
 import javax.inject.Inject
 
 class DriverRepository @Inject constructor(
-    private val api: DriverService,
+    private val driverService: DriverService,
     private val driverDetailMapper: DriverDetailMapper,
 ){
     suspend fun getDriverDetail(id: Int): DriverDetail {
-        val response = api.getDriverDetail(id)
+        val response = driverService.getDriverDetail(id)
         return driverDetailMapper.fromMap(response)
     }
 }

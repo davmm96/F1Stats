@@ -8,6 +8,7 @@ class SeasonManager @Inject constructor(
     private val preferencesHelper: PreferencesHelper
 ){
     private val _currentSeason = MutableLiveData<String>()
+    val currentSeason: LiveData<String> get() = _currentSeason
 
     init {
         _currentSeason.value = preferencesHelper.selectedSeason
@@ -17,6 +18,4 @@ class SeasonManager @Inject constructor(
         preferencesHelper.selectedSeason = season
         _currentSeason.value = season
     }
-
-    val currentSeason: LiveData<String> get() = _currentSeason
 }
