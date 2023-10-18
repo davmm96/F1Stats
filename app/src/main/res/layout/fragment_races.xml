@@ -51,6 +51,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:text="@string/races_calendar_title"
+        android:accessibilityHeading="true"
         style="@style/calendarTitle" />
 
     <androidx.recyclerview.widget.RecyclerView

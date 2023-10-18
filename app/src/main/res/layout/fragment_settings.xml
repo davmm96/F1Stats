@@ -56,7 +56,8 @@
             android:id="@+id/yearSpinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/settings_margin_bottom_select"/>
+            android:layout_marginBottom="@dimen/settings_margin_bottom_select"
+            android:contentDescription="@string/select_season_spinner"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

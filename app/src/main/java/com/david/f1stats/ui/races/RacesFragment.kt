@@ -52,7 +52,7 @@ class RacesFragment : Fragment(), RacesAdapter.RaceItemListener {
     @SuppressLint("StringFormatInvalid")
     private fun observeSelectedSeason() {
         sharedViewModel.selectedSeason.observe(viewLifecycleOwner) {
-            val title = getString(R.string.title_home, sharedViewModel.selectedSeason.value.toString())
+            val title = getString(R.string.title_calendar, sharedViewModel.selectedSeason.value.toString())
             (requireActivity() as AppCompatActivity).supportActionBar?.title = title
             racesViewModel.fetchRaces()
         }

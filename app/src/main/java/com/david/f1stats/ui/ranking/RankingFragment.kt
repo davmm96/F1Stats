@@ -45,7 +45,7 @@ class RankingFragment : Fragment(){
     @SuppressLint("StringFormatInvalid")
     private fun observeSelectedSeason() {
         sharedViewModel.selectedSeason.observe(viewLifecycleOwner) { season ->
-            val title = getString(R.string.title_dashboard, season)
+            val title = getString(R.string.title_ranking, season)
             (requireActivity() as AppCompatActivity).supportActionBar?.title = title
         }
     }

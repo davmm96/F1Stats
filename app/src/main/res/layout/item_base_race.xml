@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/cardView_info_margin_bottom"
         android:theme="@style/cardViewTitle"
-        tools:text="Abu Dhabi" />
+        tools:text="Abu Dhabi"/>
 
     <TextView
         android:id="@+id/raceCompetition"
@@ -40,6 +40,8 @@
         android:layout_centerVertical="true"
         android:layout_alignParentEnd="true"
         android:src="@drawable/arrow_right"
-        android:contentDescription="@string/card_arrow_content_description" />
+        android:contentDescription="@string/card_arrow_content_description"
+        android:screenReaderFocusable="true"
+        android:focusableInTouchMode="true"/>
 
 </RelativeLayout>

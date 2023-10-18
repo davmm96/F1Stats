@@ -77,18 +77,17 @@ class MainActivity : AppCompatActivity() {
 
         appToolbarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appToolbarConfiguration)
-
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.navigation_ranking -> {
                     val season = sharedViewModel.selectedSeason.value ?: ""
-                    supportActionBar?.title = getString(R.string.title_dashboard, season)
+                    supportActionBar?.title = getString(R.string.title_ranking, season)
                 }
                 R.id.navigation_races -> {
                     val season = sharedViewModel.selectedSeason.value ?: ""
-                    supportActionBar?.title = getString(R.string.title_home, season)
+                    supportActionBar?.title = getString(R.string.title_calendar, season)
                 }
             }
         }

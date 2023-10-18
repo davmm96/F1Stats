@@ -45,6 +45,7 @@
             app:layout_constraintEnd_toStartOf="@+id/tvPoints"
             app:layout_constraintStart_toEndOf="@+id/tvPosition"
             app:layout_constraintTop_toBottomOf="@+id/tvName"
+            android:accessibilityTraversalAfter="@id/tvName"
             style = "@style/rankingSubtitle"
             tools:text="Red Bull" />
         <TextView
@@ -64,6 +65,8 @@
             android:layout_height="@dimen/cardView_arrow"
             android:contentDescription="@string/card_arrow_content_description"
             android:src="@drawable/arrow_right"
+            android:screenReaderFocusable="true"
+            android:focusableInTouchMode="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

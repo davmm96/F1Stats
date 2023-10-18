@@ -6,7 +6,7 @@
     <fragment
         android:id="@+id/navigation_races"
         android:name="com.david.f1stats.ui.races.RacesFragment"
-        android:label="@string/title_home"
+        android:label="@string/title_calendar"
         tools:layout="@layout/fragment_races">
         <action
             android:id="@+id/action_navigation_races_to_raceDetailFragment"
@@ -18,7 +18,7 @@
     <fragment
         android:id="@+id/navigation_ranking"
         android:name="com.david.f1stats.ui.ranking.RankingFragment"
-        android:label="@string/title_dashboard"
+        android:label="@string/title_ranking"
         tools:layout="@layout/fragment_ranking">
         <action
             android:id="@+id/action_navigation_rankingDrivers_to_driverDetailFragment"
@@ -40,7 +40,7 @@
     <fragment
         android:id="@+id/navigation_circuits"
         android:name="com.david.f1stats.ui.circuits.CircuitsFragment"
-        android:label="@string/title_notifications"
+        android:label="@string/title_circuits"
         tools:layout="@layout/fragment_circuits" />
 
     <fragment

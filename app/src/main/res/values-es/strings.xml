@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="title_home">Calendario - %1$s</string>
-    <string name="title_dashboard">Clasificación - %1$s</string>
-    <string name="title_notifications">Circuitos</string>
+    <string name="title_calendar">Calendario - %1$s</string>
+    <string name="title_ranking">Clasificación - %1$s</string>
+    <string name="title_circuits">Circuitos</string>
     <string name="nav_home">Calendario</string>
     <string name="nav_dashboard">Clasificación</string>
     <string name="settings">Opciones</string>
@@ -31,7 +31,7 @@
     <string name="music_label">Música</string>
     <string name="music_label_title">Activar música</string>
     <string name="select_season_label">Seleccionar temporada</string>
-    <string name="card_arrow_content_description">Flecha roja</string>
+    <string name="card_arrow_content_description">Navegar al detalle</string>
     <string name="imageDriver">Imagen del piloto</string>
     <string name="imageTeam">Imagen del equipo</string>
     <string name="sprint">Sprint</string>
@@ -73,4 +73,5 @@
     <string name="season_completed_title">Season completed</string>
     <string name="season_completed_subtitle">Stay tuned for more GPs coming soon</string>
     <string name="close_button_label">X</string>
+    <string name="select_season_spinner">Seleccionar temporada</string>
 </resources>
