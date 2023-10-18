@@ -7,22 +7,39 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.util.Calendar
 import javax.inject.Inject
+import com.david.f1stats.data.model.base.Result
 
 class RankingService @Inject constructor(
     private val api:APIClient,
     private val preferencesHelper: PreferencesHelper){
 
-    suspend fun getDriversRanking():List<RankingDriverData>{
+    suspend fun getDriversRanking(): Result<List<RankingDriverData>>{
         return withContext(Dispatchers.IO) {
-            val response = api.getRankingDrivers(getSelectedSeasonOrDefault())
-            response.body()?.response ?: emptyList()
+            try {
+                val response = api.getRankingDrivers(getSelectedSeasonOrDefault())
+                if(response.isSuccessful)
+                    Result.Success( response.body()?.response ?: emptyList())
+                else
+                    Result.Error(Exception(response.message()))
+            }
+            catch (e: Exception) {
+                Result.Error(e)
+            }
         }
     }
 
-    suspend fun getTeamsRanking():List<RankingTeamData>{
+    suspend fun getTeamsRanking(): Result<List<RankingTeamData>>{
         return withContext(Dispatchers.IO) {
-            val response = api.getRankingTeams(getSelectedSeasonOrDefault())
-            response.body()?.response ?: emptyList()
+            try {
+                val response = api.getRankingTeams(getSelectedSeasonOrDefault())
+                if(response.isSuccessful)
+                    Result.Success( response.body()?.response ?: emptyList())
+                else
+                    Result.Error(Exception(response.message()))
+            }
+            catch (e: Exception) {
+                Result.Error(e)
+            }
         }
     }
 

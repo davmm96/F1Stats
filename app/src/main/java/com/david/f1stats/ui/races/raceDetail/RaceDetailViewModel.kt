@@ -31,19 +31,23 @@ class RaceDetailViewModel @Inject constructor(
 
     fun loadData(id: Int) {
         viewModelScope.launch {
-            when (val result = getRaceDetailsUseCase(id)) {
-                is Result.Success -> {
-                    if(result.data.isNotEmpty()){
-                        _raceList.value = result.data
-                        _raceInfo.value = result.data.first()
+            try {
+                when (val result = getRaceDetailsUseCase(id)) {
+                    is Result.Success -> {
+                        if(result.data.isNotEmpty()){
+                            _raceList.value = result.data
+                            _raceInfo.value = result.data.first()
+                        }
+                        else {
+                            _raceList.value = emptyList()
+                        }
                     }
-                    else {
-                        _raceList.value = emptyList()
+                    is Result.Error -> {
+                        _errorMessage.value =  result.exception.localizedMessage ?: "Error fetching race details"
                     }
                 }
-                is Result.Error -> {
-                    _errorMessage.value = "Error fetching races"
-                }
+            } catch (e: Exception) {
+                _errorMessage.value = e.localizedMessage ?: "Unknown error"
             }
         }
     }

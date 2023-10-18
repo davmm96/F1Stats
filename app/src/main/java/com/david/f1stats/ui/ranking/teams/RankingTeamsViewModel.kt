@@ -1,10 +1,10 @@
 package com.david.f1stats.ui.ranking.teams
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.david.f1stats.data.model.base.Result
 import com.david.f1stats.domain.useCases.GetRankingTeamUseCase
 import com.david.f1stats.domain.model.RankingTeam
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -22,6 +22,9 @@ class RankingTeamsViewModel@Inject constructor(
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
+    private val _errorMessage = MutableLiveData<String?>()
+    val errorMessage: LiveData<String?> = _errorMessage
+
     init {
         fetchRankingTeams()
     }
@@ -30,15 +33,25 @@ class RankingTeamsViewModel@Inject constructor(
         viewModelScope.launch {
             _isLoading.value = true
             try {
-                val result = getRankingTeamUseCase()
-                _rankingTeamList.value = result.ifEmpty { emptyList() }
+                when (val result =  getRankingTeamUseCase()) {
+                    is Result.Success -> {
+                        _rankingTeamList.value = result.data.ifEmpty { emptyList() }
+                    }
+                    is Result.Error -> {
+                        _errorMessage.value =  result.exception.localizedMessage ?: "Error fetching teams ranking"
+                    }
+                }
             }
-            catch (exception: Exception) {
-                Log.e("TAG", "Error fetching data", exception)
+            catch (e: Exception) {
+                _errorMessage.value = e.localizedMessage ?: "Unknown error"
             }
             finally {
                 _isLoading.value = false
             }
         }
+    }
+
+    fun clearErrorMessage() {
+        _errorMessage.value = null
     }
 }

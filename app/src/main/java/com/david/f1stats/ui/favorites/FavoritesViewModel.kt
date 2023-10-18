@@ -1,6 +1,5 @@
 package com.david.f1stats.ui.favorites
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -27,6 +26,9 @@ class FavoritesViewModel @Inject constructor(
     private val _isDeleted = MutableLiveData<Boolean>()
     val isDeleted: LiveData<Boolean> = _isDeleted
 
+    private val _errorMessage = MutableLiveData<String?>()
+    val errorMessage: LiveData<String?> = _errorMessage
+
     init {
         fetchAllFavoriteRaces()
     }
@@ -37,8 +39,8 @@ class FavoritesViewModel @Inject constructor(
             try {
                 val result = getAllFavoriteRacesUseCase()
                 _favoriteRaces.value = result
-            } catch (exception: Exception) {
-                Log.e("TAG", "Error fetching favorites", exception)
+            }  catch (e: Exception) {
+                _errorMessage.value = e.localizedMessage ?: "Unknown error"
             } finally {
                 _isLoading.value = false
                 _isDeleted.value = false
@@ -53,9 +55,13 @@ class FavoritesViewModel @Inject constructor(
                 _isDeleted.value = true
                 fetchAllFavoriteRaces()
 
-            } catch (exception: Exception) {
-                Log.e("TAG", "Error deleting favorite", exception)
+            } catch (e: Exception) {
+                _errorMessage.value = e.localizedMessage ?: "Unknown error"
             }
         }
+    }
+
+    fun clearErrorMessage() {
+        _errorMessage.value = null
     }
 }

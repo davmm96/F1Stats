@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
@@ -65,6 +66,13 @@ class RankingTeamsFragment : Fragment(), RankingTeamsAdapter.RankingItemListener
 
         rankingTeamViewModel.isLoading.observe(viewLifecycleOwner){
             binding.baseRankingLayout.progressBar.isVisible = it
+        }
+
+        rankingTeamViewModel.errorMessage.observe(viewLifecycleOwner) { errorMessage ->
+            errorMessage?.let {
+                Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+                rankingTeamViewModel.clearErrorMessage()
+            }
         }
     }
 

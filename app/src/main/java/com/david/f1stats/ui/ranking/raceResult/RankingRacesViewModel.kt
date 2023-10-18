@@ -42,16 +42,23 @@ class RankingRacesViewModel @Inject constructor(
     fun getRacesCompleted(){
         viewModelScope.launch {
             _isLoading.value = true
-            when (val result = getRaceCompletedUseCase()) {
-                is Result.Success -> {
-                    _isLoading.value = false
-                    _racesCompletedList.value = result.data.ifEmpty { emptyList() }
-                }
-                is Result.Error -> {
-                    _isLoading.value = false
-                    _errorMessage.value = "Error fetching races"
+            try {
+                when (val result = getRaceCompletedUseCase()) {
+                    is Result.Success -> {
+                        _racesCompletedList.value = result.data.ifEmpty { emptyList() }
+                    }
+                    is Result.Error -> {
+                        _errorMessage.value =  result.exception.localizedMessage ?: "Error fetching race results"
+                    }
                 }
             }
+            catch (e: Exception) {
+                _errorMessage.value = e.localizedMessage ?: "Unknown error"
+            }
+            finally {
+                _isLoading.value = false
+            }
+
         }
     }
 

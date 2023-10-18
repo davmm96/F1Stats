@@ -75,6 +75,13 @@ class FavoritesFragment : Fragment(), FavoritesAdapter.FavoriteItemListener, Fav
             if(isDeleted)
                 Toast.makeText(context, getString(R.string.favorite_removed), Toast.LENGTH_SHORT).show()
         }
+
+        favoriteRacesViewModel.errorMessage.observe(viewLifecycleOwner) { errorMessage ->
+            errorMessage?.let {
+                Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+                favoriteRacesViewModel.clearErrorMessage()
+            }
+        }
     }
 
     override fun removeFavorite(idRace: Int) {

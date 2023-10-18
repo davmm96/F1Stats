@@ -1,10 +1,10 @@
 package com.david.f1stats.ui.ranking.drivers.driverDetail
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.david.f1stats.data.model.base.Result
 import com.david.f1stats.domain.useCases.GetDriverDetailUseCase
 import com.david.f1stats.domain.model.DriverDetail
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,20 +16,36 @@ class DriverDetailViewModel @Inject constructor(
     private val getDriverDetailUseCase: GetDriverDetailUseCase
 ) : ViewModel() {
 
-    private val _driverInfo = MutableLiveData<DriverDetail>()
-    val driverInfo: LiveData<DriverDetail> = _driverInfo
+    private val _driverInfo = MutableLiveData<DriverDetail?>()
+    val driverInfo: LiveData<DriverDetail?> = _driverInfo
+
+    private val _errorMessage = MutableLiveData<String?>()
+    val errorMessage: LiveData<String?> = _errorMessage
 
     fun fetchDriverDetail(id: Int) {
         viewModelScope.launch {
             try {
-                val result = getDriverDetailUseCase(id)
-                if(result.name.isNotEmpty()) {
-                    _driverInfo.value = result
+                when ( val result = getDriverDetailUseCase(id)) {
+                    is Result.Success -> {
+                        if(result.data.name.isNotEmpty()) {
+                            _driverInfo.value = result.data
+                        }
+                        else {
+                            _errorMessage.value = "Driver not found"
+                        }
+                    }
+                    is Result.Error -> {
+                        _errorMessage.value =  result.exception.localizedMessage ?: "Error fetching team details"
+                    }
                 }
             }
-            catch (exception: Exception) {
-                Log.e("TAG", "Error fetching data", exception)
+            catch (e: Exception) {
+                _errorMessage.value = e.localizedMessage ?: "Unknown error"
             }
         }
+    }
+
+    fun clearErrorMessage() {
+        _errorMessage.value = null
     }
 }

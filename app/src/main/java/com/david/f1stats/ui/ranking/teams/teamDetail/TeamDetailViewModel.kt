@@ -24,15 +24,23 @@ class TeamDetailViewModel @Inject constructor(
 
     fun fetchTeamDetail(id: Int) {
         viewModelScope.launch {
-            when (val result = getTeamDetailUseCase(id)) {
-                is Result.Success -> {
-                    if(result.data.name.isNotEmpty()) {
-                        _teamInfo.value = result.data
+            try {
+                when (val result = getTeamDetailUseCase(id)) {
+                    is Result.Success -> {
+                        if(result.data.name.isNotEmpty()) {
+                            _teamInfo.value = result.data
+                        }
+                        else {
+                            _errorMessage.value = "Team not found"
+                        }
+                    }
+                    is Result.Error -> {
+                        _errorMessage.value =  result.exception.localizedMessage ?: "Error fetching team details"
                     }
                 }
-                is Result.Error -> {
-                    _errorMessage.value = "Error fetching team details"
-                }
+            }
+            catch (e: Exception) {
+                _errorMessage.value = e.localizedMessage ?: "Unknown error"
             }
         }
     }

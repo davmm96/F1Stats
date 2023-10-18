@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.david.f1stats.databinding.FragmentDriverDetailBinding
 import com.david.f1stats.utils.Constants
@@ -51,17 +52,26 @@ class DriverDetailFragment : Fragment() {
     private fun initObservers(){
         driverDetailViewModel.driverInfo.observe(viewLifecycleOwner) { driver ->
             binding.apply {
-                tvDriverName.text = driver.name
-                tvDriverNumber.text = driver.number
-                tvDriverCountry.text = driver.country
-                tvWC.text = driver.worldChampionships
-                tvPodiums.text = driver.podiums
-                tvRaces.text = driver.gpEntered
-                tvWins.text = driver.wins
-                tvPoints.text = driver.points
+                if(driver != null) {
+                    tvDriverName.text = driver.name
+                    tvDriverNumber.text = driver.number
+                    tvDriverCountry.text = driver.country
+                    tvWC.text = driver.worldChampionships
+                    tvPodiums.text = driver.podiums
+                    tvRaces.text = driver.gpEntered
+                    tvWins.text = driver.wins
+                    tvPoints.text = driver.points
 
-                loadImage(ivDriverImage, driver.image)
-                loadImage(ivActualTeam, driver.teamImage)
+                    loadImage(ivDriverImage, driver.image)
+                    loadImage(ivActualTeam, driver.teamImage)
+                }
+            }
+        }
+
+        driverDetailViewModel.errorMessage.observe(viewLifecycleOwner) { errorMessage ->
+            errorMessage?.let {
+                Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+                driverDetailViewModel.clearErrorMessage()
             }
         }
     }

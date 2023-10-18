@@ -35,23 +35,30 @@ class RacesViewModel @Inject constructor(
     fun fetchRaces() {
         viewModelScope.launch {
             _isLoading.value = true
-            when (val result = getRacesUseCase()) {
-                is Result.Success -> {
-                    _isLoading.value = false
-                    if(result.data.isNotEmpty()){
-                        _raceList.value = result.data
-                        _isSeasonCompleted.value = false
+            try {
+                when (val result = getRacesUseCase()) {
+                    is Result.Success -> {
+                        if(result.data.isNotEmpty()){
+                            _raceList.value = result.data
+                            _isSeasonCompleted.value = false
+                        }
+                        else {
+                            _raceList.value = emptyList()
+                            _isSeasonCompleted.value = true
+                        }
                     }
-                    else {
-                        _raceList.value = emptyList()
-                        _isSeasonCompleted.value = true
+                    is Result.Error -> {
+                        _errorMessage.value =  result.exception.localizedMessage ?: "Error fetching races"
                     }
-                }
-                is Result.Error -> {
-                    _isLoading.value = false
-                    _errorMessage.value = "Error fetching races"
                 }
             }
+            catch (e: Exception) {
+                _errorMessage.value = e.localizedMessage ?: "Unknown error"
+            }
+            finally {
+                _isLoading.value = false
+            }
+
         }
     }
 

@@ -1,10 +1,10 @@
 package com.david.f1stats.ui.ranking.drivers
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.david.f1stats.data.model.base.Result
 import com.david.f1stats.domain.useCases.GetRankingDriverUseCase
 import com.david.f1stats.domain.model.RankingDriver
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -22,6 +22,9 @@ class RankingDriversViewModel @Inject constructor(
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
+    private val _errorMessage = MutableLiveData<String?>()
+    val errorMessage: LiveData<String?> = _errorMessage
+
     init {
         fetchRankingDrivers()
     }
@@ -30,15 +33,23 @@ class RankingDriversViewModel @Inject constructor(
         viewModelScope.launch {
             _isLoading.value = true
             try {
-                val result = getRankingDriverUseCase()
-                _rankingDriverList.value = result.ifEmpty { emptyList() }
-            }
-            catch (exception: Exception) {
-                Log.e("TAG", "Error fetching data", exception)
-            }
-            finally {
+                when (val result = getRankingDriverUseCase()) {
+                    is Result.Success -> {
+                        _rankingDriverList.value = result.data.ifEmpty { emptyList() }
+                    }
+                    is Result.Error -> {
+                        _errorMessage.value =  result.exception.localizedMessage ?: "Error fetching drivers ranking"
+                    }
+                }
+            } catch (e: Exception) {
+                _errorMessage.value = e.localizedMessage ?: "Unknown error"
+            } finally {
                 _isLoading.value = false
             }
         }
+    }
+
+    fun clearErrorMessage() {
+        _errorMessage.value = null
     }
 }

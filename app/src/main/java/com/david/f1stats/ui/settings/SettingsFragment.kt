@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -85,6 +86,13 @@ class SettingsFragment : Fragment() {
                 if (position != -1) {
                     binding.yearSpinner.setSelection(position)
                 }
+            }
+        }
+
+        settingsViewModel.errorMessage.observe(viewLifecycleOwner) { errorMessage ->
+            errorMessage?.let {
+                Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+                settingsViewModel.clearErrorMessage()
             }
         }
     }

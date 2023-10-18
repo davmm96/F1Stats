@@ -58,6 +58,13 @@ class CircuitsFragment : Fragment(), CircuitsAdapter.CircuitItemListener {
         circuitViewModel.isLoading.observe(viewLifecycleOwner){ isLoading ->
             binding.progressBar.isVisible = isLoading
         }
+
+        circuitViewModel.errorMessage.observe(viewLifecycleOwner) { errorMessage ->
+            errorMessage?.let {
+                Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+                circuitViewModel.clearErrorMessage()
+            }
+        }
     }
 
     private fun initRecyclerView() {

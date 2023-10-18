@@ -24,13 +24,18 @@ class RaceResultViewModel @Inject constructor(
 
     fun fetchRaceResult(id: Int) {
         viewModelScope.launch {
-            when (val result = getRaceResultUseCase(id)) {
-                is Result.Success -> {
-                    _raceResult.value = result.data.ifEmpty { emptyList() }
+            try {
+                when (val result = getRaceResultUseCase(id)) {
+                    is Result.Success -> {
+                        _raceResult.value = result.data.ifEmpty { emptyList() }
+                    }
+                    is Result.Error -> {
+                        _errorMessage.value =  result.exception.localizedMessage ?: "Error fetching race result details"
+                    }
                 }
-                is Result.Error -> {
-                    _errorMessage.value = "Error fetching race results"
-                }
+            }
+            catch (e: Exception) {
+                _errorMessage.value = e.localizedMessage ?: "Unknown error"
             }
         }
     }

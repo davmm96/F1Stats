@@ -6,6 +6,7 @@ import com.david.f1stats.data.source.network.RankingService
 import com.david.f1stats.domain.model.RankingDriver
 import com.david.f1stats.domain.model.RankingTeam
 import javax.inject.Inject
+import com.david.f1stats.data.model.base.Result
 
 class RankingRepository @Inject constructor(
     private val rankingService: RankingService,
@@ -13,13 +14,25 @@ class RankingRepository @Inject constructor(
     private val rankingTeamMapper: RankingTeamMapper
 ) {
 
-    suspend fun getRankingDriver(): List<RankingDriver>{
-        val response = rankingService.getDriversRanking()
-        return rankingDriverMapper.fromMap(response) ?: emptyList()
+    suspend fun getRankingDriver(): Result<List<RankingDriver>>{
+        return when (val response = rankingService.getDriversRanking()) {
+            is Result.Success -> {
+                Result.Success(rankingDriverMapper.fromMap(response.data) ?: emptyList())
+            }
+            is Result.Error -> {
+                response
+            }
+        }
     }
 
-    suspend fun getRankingTeam(): List<RankingTeam>{
-        val response = rankingService.getTeamsRanking()
-        return rankingTeamMapper.fromMap(response) ?: emptyList()
+    suspend fun getRankingTeam(): Result<List<RankingTeam>>{
+        return when (val response = rankingService.getTeamsRanking()) {
+            is Result.Success -> {
+                Result.Success(rankingTeamMapper.fromMap(response.data) ?: emptyList())
+            }
+            is Result.Error -> {
+                response
+            }
+        }
     }
 }
