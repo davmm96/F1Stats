@@ -74,5 +74,5 @@
     <string name="season_completed_title">Season completed</string>
     <string name="season_completed_subtitle">Stay tuned for more GPs coming soon</string>
     <string name="close_button_label">X</string>
-    <string name="select_season_spinner">Seleccionar temporada</string>
+    <string name="select_season_spinner">Choose a season</string>
 </resources>

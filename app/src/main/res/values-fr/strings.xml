@@ -15,7 +15,7 @@
     <string name="race_weekend">Week-end de course</string>
     <string name="title_favorites">Favoris</string>
     <string name="ranking_drivers">Pilotes</string>
-    <string name="ranking_teams">Constructeurs</string>
+    <string name="ranking_teams">Équipes</string>
     <string name="ranking_races">Résultats de course</string>
     <string name="favorites_todo">Favoris</string>
     <string name="add_to_calendar">Ajouter au calendrier</string>
@@ -73,5 +73,5 @@
     <string name="season_completed_title">Saison terminée</string>
     <string name="season_completed_subtitle">Restez à l\'écoute pour plus de GPs à venir</string>
     <string name="close_button_label">X</string>
-    <string name="select_season_spinner">Seleccionar temporada</string>
+    <string name="select_season_spinner">Sélectionner la saison</string>
 </resources>

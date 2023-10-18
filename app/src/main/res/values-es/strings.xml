@@ -16,7 +16,7 @@
     <string name="ranking_drivers">Pilotos</string>
     <string name="ranking_teams">Equipos</string>
     <string name="ranking_races">Carreras</string>
-    <string name="favorites_todo">Favorites</string>
+    <string name="favorites_todo">Favoritos</string>
     <string name="sprint_shootout">Clasificación Sprint</string>
     <string name="add_to_calendar">Añadir al calendario del dispositivo</string>
     <string name="world_championships_label">Campeonatos mundiales</string>
@@ -25,7 +25,7 @@
     <string name="races_label">Carreras</string>
     <string name="total_points_label">Puntos totales</string>
     <string name="driverContentDescription">Imagen del piloto</string>
-    <string name="driver_label">PIL</string>
+    <string name="driver_label">PILOTO</string>
     <string name="close_button">Cerrar</string>
     <string name="add_to_favorite_list">Añadir a la lista de favoritos</string>
     <string name="music_label">Música</string>

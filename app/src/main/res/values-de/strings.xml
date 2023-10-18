@@ -3,7 +3,7 @@
     <string name="title_calendar">Kalender - %1$s</string>
     <string name="title_ranking">Rangliste - %1$s</string>
     <string name="title_circuits">Rennstrecken</string>
-    <string name="nav_home">Kalender</string>
+    <string name="nav_home">Rennkalender</string>
     <string name="nav_dashboard">Rangliste</string>
     <string name="settings">Einstellungen</string>
     <string name="race">Rennen</string>
@@ -15,7 +15,7 @@
     <string name="race_weekend">Rennwochenende</string>
     <string name="title_favorites">Favoriten</string>
     <string name="ranking_drivers">Fahrer</string>
-    <string name="ranking_teams">Konstrukteure</string>
+    <string name="ranking_teams">Teams</string>
     <string name="ranking_races">Rennresultate</string>
     <string name="favorites_todo">Favoriten</string>
     <string name="add_to_calendar">Zum Kalender hinzufügen</string>
@@ -31,7 +31,7 @@
     <string name="music_label">Musik</string>
     <string name="music_label_title">Musik abspielen</string>
     <string name="select_season_label">Saison auswählen</string>
-    <string name="card_arrow_content_description">Siehe Detail</string>
+    <string name="card_arrow_content_description">Detail ansehen</string>
     <string name="imageDriver">Bild des Fahrers</string>
     <string name="imageTeam">Bild des Teams</string>
     <string name="sprint">Sprint</string>
@@ -40,13 +40,13 @@
     <string name="fastest_laps_label">Schnellste Runden</string>
     <string name="pos_label">POS</string>
     <string name="time_label">ZEIT</string>
-    <string name="points_label">PUNKTE</string>
+    <string name="points_label">PKT</string>
     <string name="circuit_length_label">Streckenlänge</string>
     <string name="laps_laps">Runden</string>
     <string name="first_grand_prix_laps">Erster Grand Prix</string>
     <string name="lap_record_label">Rundenrekord</string>
     <string name="photo_content_desc">Foto</string>
-    <string name="no_favorites">Noch keine Favoriten</string>
+    <string name="no_favorites">Keine Favoriten</string>
     <string name="favorite_added">Rennen zur Favoritenliste hinzugefügt</string>
     <string name="favorite_removed">Rennen von der Favoritenliste entfernt</string>
     <string name="dark_mode_label">Dunkelmodus</string>
@@ -60,7 +60,7 @@
     <string name="noFavorites_subtitle">Sie können sie von den Qualifikationsrennen hinzufügen</string>
     <string name="map_text">Karte</string>
     <string name="driver_actual_team_label">Aktuelles Team</string>
-    <string name="icon_wc">Symbol Weltmeisterschaften</string>
+    <string name="icon_wc">Weltmeisterschaften Logo</string>
     <string name="icon_wins">Siege-Symbol</string>
     <string name="icon_podiums">Podium-Symbol</string>
     <string name="icon_points">Punkte-Symbol</string>
@@ -73,5 +73,5 @@
     <string name="season_completed_title">Saison abgeschlossen</string>
     <string name="season_completed_subtitle">Bleiben Sie dran für weitere kommende GPs</string>
     <string name="close_button_label">X</string>
-    <string name="select_season_spinner">Seleccionar temporada</string>
+    <string name="select_season_spinner">Saison auswählen</string>
 </resources>
