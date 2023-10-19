@@ -6,22 +6,25 @@ import com.david.f1stats.domain.model.DriverDetail
 import javax.inject.Inject
 
 class DriverDetailMapper @Inject constructor(): IMapper<DriverDetailData, DriverDetail> {
+
     override fun fromMap(from: DriverDetailData): DriverDetail {
-        return DriverDetail(
-            name = from.name,
-            nationality = from.nationality,
-            birthdate = from.birthdate,
-            points = from.career_points,
-            image = from.image,
-            country = from.country.name?: "",
-            number = "#${from.number}",
-            gpEntered = from.grands_prix_entered.toString(),
-            worldChampionships = from.world_championships.toString(),
-            podiums = from.podiums.toString(),
-            wins = from.highest_race_finish.wins(),
-            teamImage = from.teams.firstOrNull()?.team?.logo ?: ""
-        )
+        return from.toDriverDetail()
     }
+
+    private fun DriverDetailData.toDriverDetail() = DriverDetail(
+        name = name,
+        nationality = nationality ?: "",
+        birthdate = birthdate ?: "",
+        points = career_points ?: "No data",
+        image = image ?: "",
+        country = country?.name?: "",
+        number = "#${number}",
+        gpEntered = grands_prix_entered?.toString() ?: "No data",
+        worldChampionships = world_championships?.toString() ?: "No data",
+        podiums = podiums?.toString() ?: "No data",
+        wins = highest_race_finish?.wins() ?: "No data",
+        teamImage = teams.firstOrNull()?.team?.logo ?: ""
+    )
 
     private fun DriverDetailHighestRaceFinishData.wins(): String {
         return if (position == 1) number.toString() else "0"

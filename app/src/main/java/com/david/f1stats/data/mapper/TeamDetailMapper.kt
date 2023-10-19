@@ -12,14 +12,14 @@ class TeamDetailMapper @Inject constructor(): IMapper<TeamDetailData, TeamDetail
     }
 
     private fun TeamDetailData.toTeamDetail() = TeamDetail(
-        name = name ?: "Name not found",
-        location = base ?: "Country not found",
-        image = logo ?: "Image not found",
-        firstSeason = first_team_entry ?: "Data not found",
-        worldChampionships = world_championships.toString(),
-        wins = highest_race_finish?.getWins() ?: "0",
-        polePositions = pole_positions.toString(),
-        fastestLaps = fastest_laps ?: "Data not found"
+        name = name ?: "No data",
+        location = base ?: "",
+        image = logo ?: "",
+        firstSeason = first_team_entry ?: "No data",
+        worldChampionships = world_championships?.toString() ?: "No data",
+        wins = highest_race_finish?.getWins() ?: "No data",
+        polePositions = pole_positions?.toString() ?: "No data",
+        fastestLaps = fastest_laps ?: "No data"
     )
 
     private fun TeamDetailHighestRaceFinishData.getWins(): String {
