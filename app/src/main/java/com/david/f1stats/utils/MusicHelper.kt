@@ -8,7 +8,9 @@ import javax.inject.Inject
 
 class MusicHelper @Inject constructor(@ApplicationContext private val context: Context) {
 
-    private val mediaPlayer: MediaPlayer = MediaPlayer.create(context, R.raw.f1theme)
+    private val mediaPlayer: MediaPlayer = MediaPlayer
+        .create(context, R.raw.f1theme)
+        .apply { isLooping = true }
 
     fun playMusic() {
         if (!mediaPlayer.isPlaying) {

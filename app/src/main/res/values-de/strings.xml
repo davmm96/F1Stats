@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="title_calendar">Kalender - %1$s</string>
+    <string name="title_calendar">Rennkalender - %1$s</string>
     <string name="title_ranking">Rangliste - %1$s</string>
     <string name="title_circuits">Rennstrecken</string>
     <string name="nav_home">Rennkalender</string>

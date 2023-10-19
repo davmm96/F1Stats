@@ -13,13 +13,13 @@ class DriverDetailMapper @Inject constructor(): IMapper<DriverDetailData, Driver
             birthdate = from.birthdate,
             points = from.career_points,
             image = from.image,
-            country = from.country.name?: "Not found",
+            country = from.country.name?: "",
             number = "#${from.number}",
             gpEntered = from.grands_prix_entered.toString(),
             worldChampionships = from.world_championships.toString(),
             podiums = from.podiums.toString(),
             wins = from.highest_race_finish.wins(),
-            teamImage = from.teams.firstOrNull()?.team?.logo ?: "Team logo not found"
+            teamImage = from.teams.firstOrNull()?.team?.logo ?: ""
         )
     }
 
