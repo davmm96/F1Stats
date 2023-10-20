@@ -14,7 +14,7 @@ import javax.inject.Inject
 class RaceDetailMapper @Inject constructor(): IMapper<List<RaceData>?, List<RaceDetail>?> {
 
     override fun fromMap(from: List<RaceData>?): List<RaceDetail>? {
-        return from?.mapNotNull { it.toRaceDetail() }
+        return from?.mapNotNull { it.toRaceDetail() }?.sortedBy { it.dateCalendar }?.reversed()
     }
 
     private fun RaceData.toRaceDetail(): RaceDetail? {
