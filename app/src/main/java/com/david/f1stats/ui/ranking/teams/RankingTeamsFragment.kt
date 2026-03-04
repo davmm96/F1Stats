@@ -1,13 +1,13 @@
 package com.david.f1stats.ui.ranking.teams
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -18,7 +18,7 @@ import com.david.f1stats.ui.SharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class RankingTeamsFragment : Fragment(), RankingTeamsAdapter.RankingItemListener{
+class RankingTeamsFragment : Fragment(), RankingTeamsAdapter.RankingItemListener {
 
     private var _binding: FragmentRankingTeamsBinding? = null
     private val binding get() = _binding!!
@@ -59,12 +59,12 @@ class RankingTeamsFragment : Fragment(), RankingTeamsAdapter.RankingItemListener
         binding.baseRankingLayout.rvRanking.adapter = adapter
     }
 
-    private fun initObservers(){
-        rankingTeamViewModel.rankingTeamList.observe(viewLifecycleOwner) {rankingTeams ->
+    private fun initObservers() {
+        rankingTeamViewModel.rankingTeamList.observe(viewLifecycleOwner) { rankingTeams ->
             rankingTeams?.let { adapter.setItems(ArrayList(it)) }
         }
 
-        rankingTeamViewModel.isLoading.observe(viewLifecycleOwner){
+        rankingTeamViewModel.isLoading.observe(viewLifecycleOwner) {
             binding.baseRankingLayout.progressBar.isVisible = it
         }
 

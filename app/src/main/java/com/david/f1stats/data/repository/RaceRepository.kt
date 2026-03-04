@@ -3,11 +3,11 @@ package com.david.f1stats.data.repository
 import com.david.f1stats.data.mapper.RaceDetailMapper
 import com.david.f1stats.data.mapper.RaceMapper
 import com.david.f1stats.data.mapper.RaceResultMapper
+import com.david.f1stats.data.model.base.Result
 import com.david.f1stats.data.source.network.RaceService
 import com.david.f1stats.domain.model.Race
 import com.david.f1stats.domain.model.RaceDetail
 import com.david.f1stats.domain.model.RaceResult
-import com.david.f1stats.data.model.base.Result
 import javax.inject.Inject
 
 class RaceRepository @Inject constructor(
@@ -16,11 +16,12 @@ class RaceRepository @Inject constructor(
     private val raceDetailMapper: RaceDetailMapper,
     private val raceResultMapper: RaceResultMapper
 ) {
-    suspend fun getRaces(): Result<List<Race>>{
+    suspend fun getRaces(): Result<List<Race>> {
         return when (val response = raceService.getRaces()) {
             is Result.Success -> {
                 Result.Success(raceMapper.fromMap(response.data) ?: emptyList())
             }
+
             is Result.Error -> {
                 response
             }
@@ -32,6 +33,7 @@ class RaceRepository @Inject constructor(
             is Result.Success -> {
                 Result.Success(raceDetailMapper.fromMap(response.data) ?: emptyList())
             }
+
             is Result.Error -> {
                 response
             }
@@ -43,6 +45,7 @@ class RaceRepository @Inject constructor(
             is Result.Success -> {
                 Result.Success(raceMapper.fromMap(response.data) ?: emptyList())
             }
+
             is Result.Error -> {
                 response
             }
@@ -54,6 +57,7 @@ class RaceRepository @Inject constructor(
             is Result.Success -> {
                 Result.Success(raceResultMapper.fromMap(response.data) ?: emptyList())
             }
+
             is Result.Error -> {
                 response
             }

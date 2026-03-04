@@ -2,8 +2,8 @@ package com.david.f1stats.di
 
 import android.content.Context
 import androidx.room.Room
-import com.david.f1stats.data.source.local.RaceDao
 import com.david.f1stats.data.source.local.AppDatabase
+import com.david.f1stats.data.source.local.RaceDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,8 +23,8 @@ object DatabaseModule {
             AppDatabase::class.java,
             "app_database"
         )
-        .fallbackToDestructiveMigration()
-        .build()
+            .fallbackToDestructiveMigration()
+            .build()
     }
 
     @Provides

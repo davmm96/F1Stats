@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.david.f1stats.data.model.base.Result
-import com.david.f1stats.domain.useCases.GetRankingDriverUseCase
 import com.david.f1stats.domain.model.RankingDriver
+import com.david.f1stats.domain.useCases.GetRankingDriverUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -14,7 +14,7 @@ import javax.inject.Inject
 @HiltViewModel
 class RankingDriversViewModel @Inject constructor(
     private val getRankingDriverUseCase: GetRankingDriverUseCase
-): ViewModel() {
+) : ViewModel() {
 
     private val _rankingDriverList = MutableLiveData<List<RankingDriver>>()
     val rankingDriverList: LiveData<List<RankingDriver>> = _rankingDriverList
@@ -29,7 +29,7 @@ class RankingDriversViewModel @Inject constructor(
         fetchRankingDrivers()
     }
 
-    fun fetchRankingDrivers(){
+    fun fetchRankingDrivers() {
         viewModelScope.launch {
             _isLoading.value = true
             try {
@@ -37,8 +37,10 @@ class RankingDriversViewModel @Inject constructor(
                     is Result.Success -> {
                         _rankingDriverList.value = result.data.ifEmpty { emptyList() }
                     }
+
                     is Result.Error -> {
-                        _errorMessage.value =  result.exception.localizedMessage ?: "Error fetching drivers ranking"
+                        _errorMessage.value =
+                            result.exception.localizedMessage ?: "Error fetching drivers ranking"
                     }
                 }
             } catch (e: Exception) {

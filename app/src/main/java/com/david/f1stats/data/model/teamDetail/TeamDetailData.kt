@@ -5,15 +5,15 @@ data class TeamDetailData(
     val chassis: String? = "",
     val director: String? = "",
     val engine: String? = "",
-    val fastest_laps: String? = "",
-    val first_team_entry: String? = "",
-    val highest_race_finish: TeamDetailHighestRaceFinishData? = TeamDetailHighestRaceFinishData(number = 0, position = 0),
+    val fastestLaps: String? = "",
+    val firstTeamEntry: String? = "",
+    val highestRaceFinish: TeamDetailHighestRaceFinishData? = TeamDetailHighestRaceFinishData(number = 0, position = 0),
     val id: Int? = 0,
     val logo: String? = "",
     val name: String? = "",
-    val pole_positions: Int? = 0,
+    val polePositions: Int? = 0,
     val president: String? = "",
-    val technical_manager: String? = "",
+    val technicalManager: String? = "",
     val tyres: String? = "",
-    val world_championships: Int? = 0
+    val worldChampionships: Int? = 0
 )

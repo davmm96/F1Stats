@@ -7,7 +7,8 @@ import com.david.f1stats.databinding.ItemRaceBinding
 import com.david.f1stats.domain.model.Race
 
 
-class RacesAdapter (private val listener: RaceItemListener) : RecyclerView.Adapter<RacesAdapter.RacesViewHolder>() {
+class RacesAdapter(private val listener: RaceItemListener) :
+    RecyclerView.Adapter<RacesAdapter.RacesViewHolder>() {
 
     interface RaceItemListener {
         fun onClickedRace(idCompetition: Int, country: String, idRace: Int)
@@ -22,21 +23,30 @@ class RacesAdapter (private val listener: RaceItemListener) : RecyclerView.Adapt
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RacesViewHolder {
-        val binding: ItemRaceBinding = ItemRaceBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding: ItemRaceBinding =
+            ItemRaceBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return RacesViewHolder(binding, listener)
     }
 
     override fun getItemCount(): Int = items.size
 
-    override fun onBindViewHolder(holder: RacesViewHolder, position: Int) = holder.bind(items[position])
+    override fun onBindViewHolder(holder: RacesViewHolder, position: Int) =
+        holder.bind(items[position])
 
-    inner class RacesViewHolder(private val itemBinding: ItemRaceBinding, private val listener: RaceItemListener) :
-        RecyclerView.ViewHolder(itemBinding.root){
+    inner class RacesViewHolder(
+        private val itemBinding: ItemRaceBinding,
+        private val listener: RaceItemListener
+    ) :
+        RecyclerView.ViewHolder(itemBinding.root) {
 
         init {
-            itemBinding.root.setOnClickListener{
-                val currentItem = items[adapterPosition]
-                listener.onClickedRace(currentItem.idCompetition, currentItem.country, currentItem.idRace)
+            itemBinding.root.setOnClickListener {
+                val currentItem = items[getBindingAdapterPosition()]
+                listener.onClickedRace(
+                    currentItem.idCompetition,
+                    currentItem.country,
+                    currentItem.idRace
+                )
             }
         }
 

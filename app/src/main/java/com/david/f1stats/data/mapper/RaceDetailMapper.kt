@@ -11,7 +11,7 @@ import com.david.f1stats.utils.dateToMillis
 import com.david.f1stats.utils.formatDate
 import javax.inject.Inject
 
-class RaceDetailMapper @Inject constructor(): IMapper<List<RaceData>?, List<RaceDetail>?> {
+class RaceDetailMapper @Inject constructor() : IMapper<List<RaceData>?, List<RaceDetail>?> {
 
     override fun fromMap(from: List<RaceData>?): List<RaceDetail>? {
         return from?.mapNotNull { it.toRaceDetail() }?.sortedBy { it.dateCalendar }?.reversed()
@@ -40,7 +40,7 @@ class RaceDetailMapper @Inject constructor(): IMapper<List<RaceData>?, List<Race
         }
     }
 
-    private fun getRaceType(typeRace: String): TypeRaceEnum{
+    private fun getRaceType(typeRace: String): TypeRaceEnum {
         val type: TypeRaceEnum = when (typeRace) {
             "Race" -> TypeRaceEnum.RACE
             "1st Qualifying" -> TypeRaceEnum.QUALY
@@ -56,7 +56,7 @@ class RaceDetailMapper @Inject constructor(): IMapper<List<RaceData>?, List<Race
         return type
     }
 
-    private fun getRaceStatus(raceStatus: String): StatusRaceEnum{
+    private fun getRaceStatus(raceStatus: String): StatusRaceEnum {
         val status: StatusRaceEnum = when (raceStatus) {
             "Live" -> StatusRaceEnum.LIVE
             "Finished" -> StatusRaceEnum.COMPLETED

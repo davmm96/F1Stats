@@ -62,7 +62,7 @@ class SettingsFragment : Fragment() {
         _binding = null
     }
 
-    private fun setTheme(){
+    private fun setTheme() {
         when (preferencesHelper.themeMode) {
             AppCompatDelegate.MODE_NIGHT_NO -> binding.lightMode.isChecked = true
             AppCompatDelegate.MODE_NIGHT_YES -> binding.darkMode.isChecked = true
@@ -70,18 +70,20 @@ class SettingsFragment : Fragment() {
         }
     }
 
-    private fun initSeasonsAdapter(){
+    private fun initSeasonsAdapter() {
         seasonsAdapter = SeasonsAdapter(requireContext(), mutableListOf()) { selectedSeason ->
             preferencesHelper.selectedSeason = selectedSeason.season
         }
         binding.yearSpinner.adapter = seasonsAdapter
     }
 
-    private fun initObservers(){
+    private fun initObservers() {
         settingsViewModel.seasonList.observe(viewLifecycleOwner) { seasons ->
             seasons?.let {
                 seasonsAdapter.setItems(it)
-                val selectedSeason = preferencesHelper.selectedSeason ?: Calendar.getInstance().get(Calendar.YEAR).toString()
+                val selectedSeason =
+                    preferencesHelper.selectedSeason ?: Calendar.getInstance().get(Calendar.YEAR)
+                        .toString()
                 val position = seasonsAdapter.getPosition(Season(selectedSeason))
                 if (position != -1) {
                     binding.yearSpinner.setSelection(position)
@@ -97,18 +99,28 @@ class SettingsFragment : Fragment() {
         }
     }
 
-    private fun initUIEvents(){
+    private fun initUIEvents() {
         binding.apply {
             ivAppIcon.setOnClickListener {
-                dialogHelper.showLocalImageDialog(requireActivity(), picasso, R.drawable.appicon_alpha)
+                dialogHelper.showLocalImageDialog(
+                    requireActivity(),
+                    picasso,
+                    R.drawable.appicon_alpha
+                )
             }
 
             yearSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(parent: AdapterView<*>, view: View, pos: Int, id: Long) {
+                override fun onItemSelected(
+                    parent: AdapterView<*>,
+                    view: View,
+                    pos: Int,
+                    id: Long
+                ) {
                     val season = parent.getItemAtPosition(pos) as Season
                     preferencesHelper.selectedSeason = season.season
                     sharedViewModel.updateSelectedSeason(season.season)
                 }
+
                 override fun onNothingSelected(parent: AdapterView<*>) {}
             }
 

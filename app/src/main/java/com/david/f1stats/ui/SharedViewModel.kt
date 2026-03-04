@@ -8,8 +8,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SharedViewModel @Inject constructor
-    (private val seasonManager: SeasonManager)
-    : ViewModel() {
+    (private val seasonManager: SeasonManager) : ViewModel() {
 
     val selectedSeason: LiveData<String> = seasonManager.currentSeason
 

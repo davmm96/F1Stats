@@ -5,7 +5,8 @@ import com.david.f1stats.domain.model.RankingDriver
 import com.david.f1stats.utils.formatPoints
 import javax.inject.Inject
 
-class RankingDriverMapper @Inject constructor(): IMapper<List<RankingDriverData>?, List<RankingDriver>?> {
+class RankingDriverMapper @Inject constructor() :
+    IMapper<List<RankingDriverData>?, List<RankingDriver>?> {
 
     override fun fromMap(from: List<RankingDriverData>?): List<RankingDriver>? {
         return from?.map { it.toRankingDriver() }

@@ -2,8 +2,6 @@ package com.david.f1stats.data.source.network
 
 import com.david.f1stats.data.model.circuit.CircuitResponse
 import com.david.f1stats.data.model.driverDetail.DriverDetailResponse
-import retrofit2.http.GET
-import retrofit2.http.Query
 import com.david.f1stats.data.model.race.RaceResponse
 import com.david.f1stats.data.model.raceResult.RaceResultResponse
 import com.david.f1stats.data.model.rankingDriver.RankingDriverResponse
@@ -12,6 +10,8 @@ import com.david.f1stats.data.model.season.SeasonResponse
 import com.david.f1stats.data.model.teamDetail.TeamDetailResponse
 import com.david.f1stats.utils.Constants
 import retrofit2.Response
+import retrofit2.http.GET
+import retrofit2.http.Query
 
 interface APIClient {
 

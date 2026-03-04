@@ -26,7 +26,7 @@ class SettingsActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupToolbar(){
+    private fun setupToolbar() {
         setSupportActionBar(binding.settingsToolbar)
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
@@ -40,6 +40,7 @@ class SettingsActivity : AppCompatActivity() {
                 finish()
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }

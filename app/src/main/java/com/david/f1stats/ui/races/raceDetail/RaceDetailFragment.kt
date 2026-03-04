@@ -51,7 +51,7 @@ class RaceDetailFragment : Fragment(), RaceWeekendAdapter.CalendarListener {
         binding.rvRaceWeekend.adapter = adapter
     }
 
-    private fun initObservers(){
+    private fun initObservers() {
         raceDetailViewModel.raceInfo.observe(viewLifecycleOwner) { raceDetail ->
             binding.apply {
                 nameRace.text = raceDetail.competition

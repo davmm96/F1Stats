@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.david.f1stats.data.model.base.Result
-import com.david.f1stats.domain.useCases.GetDriverDetailUseCase
 import com.david.f1stats.domain.model.DriverDetail
+import com.david.f1stats.domain.useCases.GetDriverDetailUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -25,21 +25,21 @@ class DriverDetailViewModel @Inject constructor(
     fun fetchDriverDetail(id: Int) {
         viewModelScope.launch {
             try {
-                when ( val result = getDriverDetailUseCase(id)) {
+                when (val result = getDriverDetailUseCase(id)) {
                     is Result.Success -> {
-                        if(result.data.name.isNotEmpty()) {
+                        if (result.data.name.isNotEmpty()) {
                             _driverInfo.value = result.data
-                        }
-                        else {
+                        } else {
                             _errorMessage.value = "Driver not found"
                         }
                     }
+
                     is Result.Error -> {
-                        _errorMessage.value =  result.exception.localizedMessage ?: "Error fetching team details"
+                        _errorMessage.value =
+                            result.exception.localizedMessage ?: "Error fetching team details"
                     }
                 }
-            }
-            catch (e: Exception) {
+            } catch (e: Exception) {
                 _errorMessage.value = e.localizedMessage ?: "Unknown error"
             }
         }

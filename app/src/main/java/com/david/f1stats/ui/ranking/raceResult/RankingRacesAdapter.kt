@@ -8,11 +8,11 @@ import com.david.f1stats.R
 import com.david.f1stats.databinding.ItemFavoriteRaceBinding
 import com.david.f1stats.domain.model.Race
 
-class RankingRacesAdapter (
+class RankingRacesAdapter(
     private val favListener: RankingRacesFavListener,
     private val navigationListener: RankingRacesNavListener,
-    private var favoriteRaces: List<Int>)
-    : RecyclerView.Adapter<RankingRacesAdapter.RankingRacesViewHolder>() {
+    private var favoriteRaces: List<Int>
+) : RecyclerView.Adapter<RankingRacesAdapter.RankingRacesViewHolder>() {
 
     interface RankingRacesFavListener {
         fun onFavClicked(race: Race)
@@ -37,13 +37,15 @@ class RankingRacesAdapter (
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RankingRacesViewHolder {
-        val binding: ItemFavoriteRaceBinding = ItemFavoriteRaceBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding: ItemFavoriteRaceBinding =
+            ItemFavoriteRaceBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return RankingRacesViewHolder(binding, favListener, navigationListener)
     }
 
     override fun getItemCount(): Int = items.size
 
-    override fun onBindViewHolder(holder: RankingRacesViewHolder, position: Int) = holder.bind(items[position])
+    override fun onBindViewHolder(holder: RankingRacesViewHolder, position: Int) =
+        holder.bind(items[position])
 
     inner class RankingRacesViewHolder(
         private val itemBinding: ItemFavoriteRaceBinding,
@@ -72,7 +74,7 @@ class RankingRacesAdapter (
         }
 
         private fun getCurrentItem(): Race {
-            return items[adapterPosition]
+            return items[getBindingAdapterPosition()]
         }
 
         private fun setFavoriteIcon(item: Race): Int {

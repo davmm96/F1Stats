@@ -9,13 +9,12 @@ import com.david.f1stats.domain.model.RaceDetail
 import com.david.f1stats.domain.model.StatusRaceEnum
 import com.david.f1stats.domain.model.TypeRaceEnum
 
-class RaceWeekendAdapter (
+class RaceWeekendAdapter(
     private val listener: CalendarListener
-)
-    : RecyclerView.Adapter<RaceWeekendAdapter.RaceWeekendViewHolder>() {
+) : RecyclerView.Adapter<RaceWeekendAdapter.RaceWeekendViewHolder>() {
 
     interface CalendarListener {
-        fun onCalendarClicked(title:String, dateCalendar: Long)
+        fun onCalendarClicked(title: String, dateCalendar: Long)
     }
 
     private val items = ArrayList<RaceDetail>()
@@ -30,26 +29,27 @@ class RaceWeekendAdapter (
         val binding: ItemRaceWeekendBinding = ItemRaceWeekendBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
-            false)
+            false
+        )
         return RaceWeekendViewHolder(binding, listener)
     }
 
     override fun getItemCount(): Int = items.size
 
-    override fun onBindViewHolder(holder: RaceWeekendViewHolder, position: Int) = holder.bind(items[position])
+    override fun onBindViewHolder(holder: RaceWeekendViewHolder, position: Int) =
+        holder.bind(items[position])
 
     inner class RaceWeekendViewHolder(
         private val itemBinding: ItemRaceWeekendBinding,
         private val listener: CalendarListener
-    )
-        :RecyclerView.ViewHolder(itemBinding.root) {
+    ) : RecyclerView.ViewHolder(itemBinding.root) {
 
         init {
             itemBinding.raceWeekendAddToCalendar.setOnClickListener {
                 val currentItem = items[adapterPosition]
                 val title = currentItem.type.getString(itemBinding.root.context)
 
-                listener.onCalendarClicked(title,currentItem.dateCalendar)
+                listener.onCalendarClicked(title, currentItem.dateCalendar)
             }
         }
 

@@ -28,7 +28,7 @@ fun dateToMillis(date: String): Long {
     return instant.toEpochMilli()
 }
 
-private fun setOffset(dateTime: OffsetDateTime): OffsetDateTime{
+private fun setOffset(dateTime: OffsetDateTime): OffsetDateTime {
     return dateTime.plusHours(dateTime.offset.totalSeconds.toLong() / 3600)
 }
 

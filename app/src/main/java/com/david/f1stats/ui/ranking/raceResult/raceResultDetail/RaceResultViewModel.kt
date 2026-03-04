@@ -4,12 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.david.f1stats.domain.useCases.GetRaceResultUseCase
+import com.david.f1stats.data.model.base.Result
 import com.david.f1stats.domain.model.RaceResult
+import com.david.f1stats.domain.useCases.GetRaceResultUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import com.david.f1stats.data.model.base.Result
 
 @HiltViewModel
 class RaceResultViewModel @Inject constructor(
@@ -29,12 +29,13 @@ class RaceResultViewModel @Inject constructor(
                     is Result.Success -> {
                         _raceResult.value = result.data.ifEmpty { emptyList() }
                     }
+
                     is Result.Error -> {
-                        _errorMessage.value =  result.exception.localizedMessage ?: "Error fetching race result details"
+                        _errorMessage.value = result.exception.localizedMessage
+                            ?: "Error fetching race result details"
                     }
                 }
-            }
-            catch (e: Exception) {
+            } catch (e: Exception) {
                 _errorMessage.value = e.localizedMessage ?: "Unknown error"
             }
         }

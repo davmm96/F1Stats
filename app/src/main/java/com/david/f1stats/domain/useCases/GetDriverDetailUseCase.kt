@@ -6,6 +6,7 @@ import com.david.f1stats.domain.model.DriverDetail
 import javax.inject.Inject
 
 class GetDriverDetailUseCase @Inject constructor(
-    private val repository: DriverRepository) {
+    private val repository: DriverRepository
+) {
     suspend operator fun invoke(id: Int): Result<DriverDetail> = repository.getDriverDetail(id)
 }

@@ -10,7 +10,8 @@ import com.david.f1stats.utils.Constants.DEFAULT_POSITION_SIZE
 import com.david.f1stats.utils.Constants.FIRST_POSITION_SIZE
 import com.david.f1stats.utils.getColor
 
-class RankingDriversAdapter (private val listener: RankingItemListener) : RecyclerView.Adapter<RankingDriversAdapter.RankingViewHolder>() {
+class RankingDriversAdapter(private val listener: RankingItemListener) :
+    RecyclerView.Adapter<RankingDriversAdapter.RankingViewHolder>() {
 
     interface RankingItemListener {
         fun onClickedDriver(driverId: Int)
@@ -26,24 +27,27 @@ class RankingDriversAdapter (private val listener: RankingItemListener) : Recycl
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RankingViewHolder {
-        val binding: ItemRankingBinding = ItemRankingBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding: ItemRankingBinding =
+            ItemRankingBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return RankingViewHolder(binding, listener)
     }
 
     override fun getItemCount(): Int = items.size
 
-    override fun onBindViewHolder(holder: RankingViewHolder, position: Int) = holder.bind(items[position])
+    override fun onBindViewHolder(holder: RankingViewHolder, position: Int) =
+        holder.bind(items[position])
 
     inner class RankingViewHolder(
         private val itemBinding: ItemRankingBinding,
-        private val listener: RankingItemListener) :
+        private val listener: RankingItemListener
+    ) :
         RecyclerView.ViewHolder(itemBinding.root) {
 
         private val context = itemBinding.root.context
 
         init {
             itemBinding.root.setOnClickListener {
-                val currentItem = items[adapterPosition]
+                val currentItem = items[getBindingAdapterPosition()]
                 listener.onClickedDriver(currentItem.idDriver)
             }
         }

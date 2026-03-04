@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.david.f1stats.data.model.base.Result
-import com.david.f1stats.domain.useCases.GetCircuitsUseCase
 import com.david.f1stats.domain.model.Circuit
+import com.david.f1stats.domain.useCases.GetCircuitsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -14,7 +14,7 @@ import javax.inject.Inject
 @HiltViewModel
 class CircuitsViewModel @Inject constructor(
     private val getCircuitsUseCase: GetCircuitsUseCase
-): ViewModel() {
+) : ViewModel() {
 
     private val _circuits = MutableLiveData<List<Circuit>>()
     val circuitsList: LiveData<List<Circuit>> = _circuits
@@ -37,8 +37,10 @@ class CircuitsViewModel @Inject constructor(
                     is Result.Success -> {
                         _circuits.value = result.data.ifEmpty { emptyList() }
                     }
+
                     is Result.Error -> {
-                        _errorMessage.value =  result.exception.localizedMessage ?: "Error fetching team details"
+                        _errorMessage.value =
+                            result.exception.localizedMessage ?: "Error fetching team details"
                     }
                 }
             } catch (e: Exception) {

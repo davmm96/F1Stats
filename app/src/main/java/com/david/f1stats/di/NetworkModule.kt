@@ -16,7 +16,7 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
-    private val loggingInterceptor : HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
+    private val loggingInterceptor: HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY
     }
 
@@ -27,14 +27,14 @@ object NetworkModule {
         chain.proceed(request)
     }
 
-    private val client : OkHttpClient = OkHttpClient.Builder().apply {
+    private val client: OkHttpClient = OkHttpClient.Builder().apply {
         addInterceptor(loggingInterceptor)
         addInterceptor(headerInterceptor)
     }.build()
 
     @Singleton
     @Provides
-    fun provideRetrofit():Retrofit{
+    fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
             .baseUrl(BuildConfig.API_BASE)
             .addConverterFactory(GsonConverterFactory.create())
@@ -44,7 +44,7 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideRaceApiClient(retrofit: Retrofit):APIClient{
+    fun provideRaceApiClient(retrofit: Retrofit): APIClient {
         return retrofit.create(APIClient::class.java)
     }
 }

@@ -50,12 +50,12 @@ class CircuitsFragment : Fragment(), CircuitsAdapter.CircuitItemListener {
         _binding = null
     }
 
-    private fun initObservers(){
+    private fun initObservers() {
         circuitViewModel.circuitsList.observe(viewLifecycleOwner) { listCircuits ->
             listCircuits?.let { adapter.setItems(ArrayList(it)) }
         }
 
-        circuitViewModel.isLoading.observe(viewLifecycleOwner){ isLoading ->
+        circuitViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             binding.progressBar.isVisible = isLoading
         }
 
@@ -73,10 +73,9 @@ class CircuitsFragment : Fragment(), CircuitsAdapter.CircuitItemListener {
     }
 
     override fun onClickedCircuit(imageUrl: String) {
-        if(imageUrl != Constants.IMAGE_NOT_FOUND){
+        if (imageUrl != Constants.IMAGE_NOT_FOUND) {
             dialogHelper.showImageDialog(requireActivity(), picasso, imageUrl)
-        }
-        else{
+        } else {
             Toast.makeText(this.context, imageUrl, Toast.LENGTH_SHORT).show()
         }
     }

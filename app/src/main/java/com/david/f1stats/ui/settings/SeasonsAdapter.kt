@@ -26,8 +26,10 @@ class SeasonsAdapter(
     }
 
     private fun createView(position: Int, convertView: View?, parent: ViewGroup): View {
-        val view = convertView ?: LayoutInflater.from(context).inflate(R.layout.item_season, parent, false)
-        val viewHolder = view.tag as? SeasonViewHolder ?: SeasonViewHolder(view).also { view.tag = it }
+        val view =
+            convertView ?: LayoutInflater.from(context).inflate(R.layout.item_season, parent, false)
+        val viewHolder =
+            view.tag as? SeasonViewHolder ?: SeasonViewHolder(view).also { view.tag = it }
         viewHolder.tvSeason.text = getItem(position)?.season
         return view
     }

@@ -1,13 +1,13 @@
 package com.david.f1stats.ui.ranking.raceResult
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -25,7 +25,13 @@ class RankingRacesFragment : Fragment(),
 
     private var _binding: FragmentRankingRacesBinding? = null
     private val binding get() = _binding!!
-    private val adapter: RankingRacesAdapter by lazy { RankingRacesAdapter(this, this, emptyList()) }
+    private val adapter: RankingRacesAdapter by lazy {
+        RankingRacesAdapter(
+            this,
+            this,
+            emptyList()
+        )
+    }
     private val racesViewModel: RankingRacesViewModel by viewModels()
     private val sharedViewModel: SharedViewModel by activityViewModels()
 
@@ -72,11 +78,11 @@ class RankingRacesFragment : Fragment(),
 
         racesViewModel.favoriteRacesIds.observe(viewLifecycleOwner) { favoriteRaceIds ->
             favoriteRaceIds?.let {
-               adapter.updateFavoriteRaces(ArrayList(it))
+                adapter.updateFavoriteRaces(ArrayList(it))
             }
         }
 
-        racesViewModel.isLoading.observe(viewLifecycleOwner){ isLoading ->
+        racesViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             binding.baseRankingLayout.progressBar.isVisible = isLoading
         }
 

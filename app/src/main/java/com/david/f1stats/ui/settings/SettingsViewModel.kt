@@ -2,12 +2,12 @@ package com.david.f1stats.ui.settings
 
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.david.f1stats.data.model.base.Result
-import com.david.f1stats.domain.useCases.GetSeasonsUseCase
 import com.david.f1stats.domain.model.Season
+import com.david.f1stats.domain.useCases.GetSeasonsUseCase
 import com.david.f1stats.utils.MusicHelper
 import com.david.f1stats.utils.PreferencesHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -34,15 +34,17 @@ class SettingsViewModel @Inject constructor(
         fetchSeasons()
     }
 
-    private fun fetchSeasons(){
+    private fun fetchSeasons() {
         viewModelScope.launch {
             try {
                 when (val result = getSeasonsUseCase()) {
                     is Result.Success -> {
                         _seasonList.value = result.data.ifEmpty { emptyList() }
                     }
+
                     is Result.Error -> {
-                        _errorMessage.value =  result.exception.localizedMessage ?: "Error fetching seasons"
+                        _errorMessage.value =
+                            result.exception.localizedMessage ?: "Error fetching seasons"
                     }
                 }
             } catch (e: Exception) {

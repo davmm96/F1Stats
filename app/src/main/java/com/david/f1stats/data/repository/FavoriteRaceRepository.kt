@@ -10,7 +10,7 @@ class FavoriteRaceRepository @Inject constructor(
     private val raceDao: RaceDao,
     private val favoriteRaceMapper: FavoriteRaceMapper,
 ) {
-    suspend  fun getFavoriteRaces(): List<FavoriteRace> {
+    suspend fun getFavoriteRaces(): List<FavoriteRace> {
         return raceDao.getAllFavoriteRaces()
             .sortedWith(compareByDescending<FavoriteRace> { it.season }
                 .thenBy { it.competition })
@@ -18,10 +18,6 @@ class FavoriteRaceRepository @Inject constructor(
 
     suspend fun getAllFavoriteRacesIds(): List<Int> {
         return raceDao.getAllFavoriteRaceIds()
-    }
-
-    suspend  fun getFavoriteRaceById(id: Int): FavoriteRace? {
-        return raceDao.getFavoriteRaceById(id)
     }
 
     suspend fun insertFavoriteRace(race: Race) {

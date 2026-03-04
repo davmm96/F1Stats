@@ -4,12 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.david.f1stats.domain.useCases.GetTeamDetailUseCase
+import com.david.f1stats.data.model.base.Result
 import com.david.f1stats.domain.model.TeamDetail
+import com.david.f1stats.domain.useCases.GetTeamDetailUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import com.david.f1stats.data.model.base.Result
 
 @HiltViewModel
 class TeamDetailViewModel @Inject constructor(
@@ -27,19 +27,19 @@ class TeamDetailViewModel @Inject constructor(
             try {
                 when (val result = getTeamDetailUseCase(id)) {
                     is Result.Success -> {
-                        if(result.data.name.isNotEmpty()) {
+                        if (result.data.name.isNotEmpty()) {
                             _teamInfo.value = result.data
-                        }
-                        else {
+                        } else {
                             _errorMessage.value = "Team not found"
                         }
                     }
+
                     is Result.Error -> {
-                        _errorMessage.value =  result.exception.localizedMessage ?: "Error fetching team details"
+                        _errorMessage.value =
+                            result.exception.localizedMessage ?: "Error fetching team details"
                     }
                 }
-            }
-            catch (e: Exception) {
+            } catch (e: Exception) {
                 _errorMessage.value = e.localizedMessage ?: "Unknown error"
             }
         }

@@ -1,16 +1,17 @@
 package com.david.f1stats.ui.ranking.teams
 
-import androidx.recyclerview.widget.RecyclerView
-import com.david.f1stats.domain.model.RankingTeam
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.david.f1stats.R
 import com.david.f1stats.databinding.ItemRankingBinding
+import com.david.f1stats.domain.model.RankingTeam
 import com.david.f1stats.utils.Constants.DEFAULT_POSITION_SIZE
 import com.david.f1stats.utils.Constants.FIRST_POSITION_SIZE
 import com.david.f1stats.utils.getColor
 
-class RankingTeamsAdapter(private val listener: RankingItemListener) : RecyclerView.Adapter<RankingTeamsAdapter.RankingViewHolder>()  {
+class RankingTeamsAdapter(private val listener: RankingItemListener) :
+    RecyclerView.Adapter<RankingTeamsAdapter.RankingViewHolder>() {
     interface RankingItemListener {
         fun onClickedRankingTeam(rankingTeamId: Int)
     }
@@ -24,23 +25,25 @@ class RankingTeamsAdapter(private val listener: RankingItemListener) : RecyclerV
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RankingViewHolder {
-        val binding: ItemRankingBinding = ItemRankingBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding: ItemRankingBinding =
+            ItemRankingBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return RankingViewHolder(binding, listener)
     }
 
     override fun getItemCount(): Int = items.size
 
-    override fun onBindViewHolder(holder: RankingViewHolder, position: Int) = holder.bind(items[position])
+    override fun onBindViewHolder(holder: RankingViewHolder, position: Int) =
+        holder.bind(items[position])
 
     inner class RankingViewHolder(
         private val itemBinding: ItemRankingBinding,
-        private val listener: RankingItemListener)
-        :RecyclerView.ViewHolder(itemBinding.root){
+        private val listener: RankingItemListener
+    ) : RecyclerView.ViewHolder(itemBinding.root) {
 
         init {
             itemBinding.tvTeam.visibility = ViewGroup.GONE
             itemBinding.root.setOnClickListener {
-                val currentItem = items[adapterPosition]
+                val currentItem = items[getBindingAdapterPosition()]
                 listener.onClickedRankingTeam(currentItem.idTeam)
             }
         }

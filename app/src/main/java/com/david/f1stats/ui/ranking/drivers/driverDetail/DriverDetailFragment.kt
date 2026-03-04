@@ -1,12 +1,12 @@
 package com.david.f1stats.ui.ranking.drivers.driverDetail
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.david.f1stats.databinding.FragmentDriverDetailBinding
 import com.david.f1stats.utils.Constants
@@ -49,10 +49,10 @@ class DriverDetailFragment : Fragment() {
         _binding = null
     }
 
-    private fun initObservers(){
+    private fun initObservers() {
         driverDetailViewModel.driverInfo.observe(viewLifecycleOwner) { driver ->
             binding.apply {
-                if(driver != null) {
+                if (driver != null) {
                     tvDriverName.text = driver.name
                     tvDriverNumber.text = driver.number
                     tvDriverCountry.text = driver.country

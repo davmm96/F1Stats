@@ -6,7 +6,7 @@ import javax.inject.Inject
 
 class SeasonManager @Inject constructor(
     private val preferencesHelper: PreferencesHelper
-){
+) {
     private val _currentSeason = MutableLiveData<String>()
     val currentSeason: LiveData<String> get() = _currentSeason
 

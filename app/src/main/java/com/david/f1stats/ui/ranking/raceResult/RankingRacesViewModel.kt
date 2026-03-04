@@ -4,15 +4,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.david.f1stats.data.model.base.Result
+import com.david.f1stats.domain.model.Race
 import com.david.f1stats.domain.useCases.DeleteFavoriteUseCase
 import com.david.f1stats.domain.useCases.GetAllFavoriteRacesIdsUseCase
 import com.david.f1stats.domain.useCases.GetRaceCompletedUseCase
 import com.david.f1stats.domain.useCases.InsertFavoriteRaceUseCase
-import com.david.f1stats.domain.model.Race
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import com.david.f1stats.data.model.base.Result
 
 @HiltViewModel
 class RankingRacesViewModel @Inject constructor(
@@ -20,7 +20,7 @@ class RankingRacesViewModel @Inject constructor(
     private val getAllFavoriteRaceIdsUseCase: GetAllFavoriteRacesIdsUseCase,
     private val insertFavoriteRaceUseCase: InsertFavoriteRaceUseCase,
     private val deleteFavoriteUseCase: DeleteFavoriteUseCase,
-): ViewModel() {
+) : ViewModel() {
 
     private val _racesCompletedList = MutableLiveData<List<Race>>()
     val racesCompletedList: LiveData<List<Race>> = _racesCompletedList
@@ -39,7 +39,7 @@ class RankingRacesViewModel @Inject constructor(
         getFavoriteRacesIds()
     }
 
-    fun getRacesCompleted(){
+    fun getRacesCompleted() {
         viewModelScope.launch {
             _isLoading.value = true
             try {
@@ -47,22 +47,22 @@ class RankingRacesViewModel @Inject constructor(
                     is Result.Success -> {
                         _racesCompletedList.value = result.data.ifEmpty { emptyList() }
                     }
+
                     is Result.Error -> {
-                        _errorMessage.value =  result.exception.localizedMessage ?: "Error fetching race results"
+                        _errorMessage.value =
+                            result.exception.localizedMessage ?: "Error fetching race results"
                     }
                 }
-            }
-            catch (e: Exception) {
+            } catch (e: Exception) {
                 _errorMessage.value = e.localizedMessage ?: "Unknown error"
-            }
-            finally {
+            } finally {
                 _isLoading.value = false
             }
 
         }
     }
 
-    private fun getFavoriteRacesIds(){
+    private fun getFavoriteRacesIds() {
         viewModelScope.launch {
             val result = getAllFavoriteRaceIdsUseCase()
             _favoriteRacesIds.value = result.ifEmpty { emptyList() }
@@ -76,7 +76,7 @@ class RankingRacesViewModel @Inject constructor(
         }
     }
 
-    fun removeRaceFromFavorites(idRace: Int){
+    fun removeRaceFromFavorites(idRace: Int) {
         viewModelScope.launch {
             deleteFavoriteUseCase(idRace)
             getFavoriteRacesIds()

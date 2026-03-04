@@ -53,23 +53,24 @@ class RacesFragment : Fragment(), RacesAdapter.RaceItemListener {
     @SuppressLint("StringFormatInvalid")
     private fun observeSelectedSeason() {
         sharedViewModel.selectedSeason.observe(viewLifecycleOwner) {
-            val title = getString(R.string.title_calendar, sharedViewModel.selectedSeason.value.toString())
+            val title =
+                getString(R.string.title_calendar, sharedViewModel.selectedSeason.value.toString())
             (requireActivity() as AppCompatActivity).supportActionBar?.title = title
             racesViewModel.fetchRaces()
         }
     }
 
-    private fun initObservers(){
+    private fun initObservers() {
         racesViewModel.raceList.observe(viewLifecycleOwner) { races ->
             val hasRaces = races?.isNotEmpty() == true
             binding.apply {
                 rvRaces.isVisible = hasRaces
                 calendarTitle.isVisible = hasRaces
-                if (hasRaces) races?.let { adapter.setItems(ArrayList(it)) }
+                if (hasRaces) races.let { adapter.setItems(ArrayList(it)) }
             }
         }
 
-        racesViewModel.isLoading.observe(viewLifecycleOwner){ isLoading ->
+        racesViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             binding.progressBar.isVisible = isLoading
         }
 

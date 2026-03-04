@@ -7,7 +7,7 @@ import com.david.f1stats.utils.formatDate
 import com.david.f1stats.utils.formatIntervalDate
 import javax.inject.Inject
 
-class RaceMapper @Inject constructor(): IMapper<List<RaceData>?, List<Race>?> {
+class RaceMapper @Inject constructor() : IMapper<List<RaceData>?, List<Race>?> {
 
     override fun fromMap(from: List<RaceData>?): List<Race>? {
         return from?.map { it.toRace() }

@@ -4,17 +4,17 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.david.f1stats.domain.useCases.GetRacesUseCase
+import com.david.f1stats.data.model.base.Result
 import com.david.f1stats.domain.model.Race
+import com.david.f1stats.domain.useCases.GetRacesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import com.david.f1stats.data.model.base.Result
 
 @HiltViewModel
 class RacesViewModel @Inject constructor(
     private val getRacesUseCase: GetRacesUseCase
-): ViewModel() {
+) : ViewModel() {
 
     private val _isSeasonCompleted = MutableLiveData<Boolean>()
     val isSeasonCompleted: LiveData<Boolean> = _isSeasonCompleted
@@ -38,24 +38,23 @@ class RacesViewModel @Inject constructor(
             try {
                 when (val result = getRacesUseCase()) {
                     is Result.Success -> {
-                        if(result.data.isNotEmpty()){
+                        if (result.data.isNotEmpty()) {
                             _raceList.value = result.data
                             _isSeasonCompleted.value = false
-                        }
-                        else {
+                        } else {
                             _raceList.value = emptyList()
                             _isSeasonCompleted.value = true
                         }
                     }
+
                     is Result.Error -> {
-                        _errorMessage.value =  result.exception.localizedMessage ?: "Error fetching races"
+                        _errorMessage.value =
+                            result.exception.localizedMessage ?: "Error fetching races"
                     }
                 }
-            }
-            catch (e: Exception) {
+            } catch (e: Exception) {
                 _errorMessage.value = e.localizedMessage ?: "Unknown error"
-            }
-            finally {
+            } finally {
                 _isLoading.value = false
             }
 

@@ -1,13 +1,13 @@
 package com.david.f1stats.ui.ranking.drivers
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -18,7 +18,7 @@ import com.david.f1stats.ui.SharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class RankingDriversFragment : Fragment(), RankingDriversAdapter.RankingItemListener{
+class RankingDriversFragment : Fragment(), RankingDriversAdapter.RankingItemListener {
 
     private var _binding: FragmentRankingDriversBinding? = null
     private val binding get() = _binding!!
@@ -59,14 +59,14 @@ class RankingDriversFragment : Fragment(), RankingDriversAdapter.RankingItemList
         binding.baseRankingLayout.rvRanking.adapter = adapter
     }
 
-    private fun initObservers(){
-        rankingDriverViewModel.rankingDriverList.observe(viewLifecycleOwner) {rankingDrivers ->
+    private fun initObservers() {
+        rankingDriverViewModel.rankingDriverList.observe(viewLifecycleOwner) { rankingDrivers ->
             rankingDrivers?.let {
                 adapter.setItems(ArrayList(it))
             }
         }
 
-        rankingDriverViewModel.isLoading.observe(viewLifecycleOwner){
+        rankingDriverViewModel.isLoading.observe(viewLifecycleOwner) {
             binding.baseRankingLayout.progressBar.isVisible = it
         }
 

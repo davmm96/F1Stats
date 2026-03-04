@@ -5,7 +5,8 @@ import com.david.f1stats.domain.model.RankingTeam
 import com.david.f1stats.utils.formatPoints
 import javax.inject.Inject
 
-class RankingTeamMapper @Inject constructor(): IMapper<List<RankingTeamData>?, List<RankingTeam>?> {
+class RankingTeamMapper @Inject constructor() :
+    IMapper<List<RankingTeamData>?, List<RankingTeam>?> {
 
     override fun fromMap(from: List<RankingTeamData>?): List<RankingTeam>? {
         return from?.map { it.toRankingTeam() }

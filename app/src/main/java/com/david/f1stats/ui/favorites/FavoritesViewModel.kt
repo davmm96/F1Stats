@@ -15,7 +15,7 @@ import javax.inject.Inject
 class FavoritesViewModel @Inject constructor(
     private val getAllFavoriteRacesUseCase: GetAllFavoriteRacesUseCase,
     private val deleteFavoriteUseCase: DeleteFavoriteUseCase
-): ViewModel() {
+) : ViewModel() {
 
     private val _favoriteRaces = MutableLiveData<List<FavoriteRace>?>()
     val favoriteRaces: LiveData<List<FavoriteRace>?> = _favoriteRaces
@@ -39,7 +39,7 @@ class FavoritesViewModel @Inject constructor(
             try {
                 val result = getAllFavoriteRacesUseCase()
                 _favoriteRaces.value = result
-            }  catch (e: Exception) {
+            } catch (e: Exception) {
                 _errorMessage.value = e.localizedMessage ?: "Unknown error"
             } finally {
                 _isLoading.value = false

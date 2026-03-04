@@ -69,10 +69,16 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("StringFormatInvalid")
     private fun initNavigation() {
         setSupportActionBar(binding.toolbar)
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment
         val navController = navHostFragment.navController
         val appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.navigation_races, R.id.navigation_ranking, R.id.navigation_circuits, R.id.navigation_favorites)
+            setOf(
+                R.id.navigation_races,
+                R.id.navigation_ranking,
+                R.id.navigation_circuits,
+                R.id.navigation_favorites
+            )
         )
 
         appToolbarConfiguration = AppBarConfiguration(navController.graph)
@@ -85,6 +91,7 @@ class MainActivity : AppCompatActivity() {
                     val season = sharedViewModel.selectedSeason.value ?: ""
                     supportActionBar?.title = getString(R.string.title_ranking, season)
                 }
+
                 R.id.navigation_races -> {
                     val season = sharedViewModel.selectedSeason.value ?: ""
                     supportActionBar?.title = getString(R.string.title_calendar, season)
@@ -112,6 +119,7 @@ class MainActivity : AppCompatActivity() {
                 startActivity(Intent(this, SettingsActivity::class.java))
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }

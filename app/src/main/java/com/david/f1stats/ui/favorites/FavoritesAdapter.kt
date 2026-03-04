@@ -7,10 +7,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.david.f1stats.data.model.favoriteRace.FavoriteRace
 import com.david.f1stats.databinding.ItemFavoriteRaceBinding
 
-class FavoritesAdapter (
+class FavoritesAdapter(
     private val favListener: FavoriteItemListener,
-    private val navListener: FavoriteNavListener)
-    : RecyclerView.Adapter<FavoritesAdapter.FavoritesViewHolder>() {
+    private val navListener: FavoriteNavListener
+) : RecyclerView.Adapter<FavoritesAdapter.FavoritesViewHolder>() {
 
     interface FavoriteItemListener {
         fun removeFavorite(idRace: Int)
@@ -30,19 +30,22 @@ class FavoritesAdapter (
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoritesViewHolder {
-        val binding: ItemFavoriteRaceBinding = ItemFavoriteRaceBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding: ItemFavoriteRaceBinding =
+            ItemFavoriteRaceBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return FavoritesViewHolder(binding, favListener, navListener)
     }
 
     override fun getItemCount(): Int = items.size
 
-    override fun onBindViewHolder(holder: FavoritesViewHolder, position: Int) = holder.bind(items[position])
+    override fun onBindViewHolder(holder: FavoritesViewHolder, position: Int) =
+        holder.bind(items[position])
 
     inner class FavoritesViewHolder(
         private val itemBinding: ItemFavoriteRaceBinding,
         private val favListener: FavoriteItemListener,
-        private val navigationListener: FavoriteNavListener):
-        RecyclerView.ViewHolder(itemBinding.root){
+        private val navigationListener: FavoriteNavListener
+    ) :
+        RecyclerView.ViewHolder(itemBinding.root) {
 
         private lateinit var race: FavoriteRace
 

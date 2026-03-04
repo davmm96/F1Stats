@@ -6,6 +6,7 @@ import com.david.f1stats.domain.model.Season
 import javax.inject.Inject
 
 class GetSeasonsUseCase @Inject constructor(
-    private val repository: SeasonRepository) {
+    private val repository: SeasonRepository
+) {
     suspend operator fun invoke(): Result<List<Season>> = repository.getSeasons()
 }

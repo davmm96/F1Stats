@@ -6,7 +6,7 @@ import android.provider.CalendarContract
 import com.david.f1stats.utils.Constants.TIMEZONE
 import javax.inject.Inject
 
-class CalendarHelper @Inject constructor()  {
+class CalendarHelper @Inject constructor() {
 
     data class CalendarEvent(
         val title: String,

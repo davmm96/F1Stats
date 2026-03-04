@@ -5,7 +5,7 @@ import com.david.f1stats.data.model.teamDetail.TeamDetailHighestRaceFinishData
 import com.david.f1stats.domain.model.TeamDetail
 import javax.inject.Inject
 
-class TeamDetailMapper @Inject constructor(): IMapper<TeamDetailData, TeamDetail> {
+class TeamDetailMapper @Inject constructor() : IMapper<TeamDetailData, TeamDetail> {
 
     override fun fromMap(from: TeamDetailData): TeamDetail {
         return from.toTeamDetail()
@@ -15,11 +15,11 @@ class TeamDetailMapper @Inject constructor(): IMapper<TeamDetailData, TeamDetail
         name = name ?: "No data",
         location = base ?: "",
         image = logo ?: "",
-        firstSeason = first_team_entry ?: "No data",
-        worldChampionships = world_championships?.toString() ?: "No data",
-        wins = highest_race_finish?.getWins() ?: "No data",
-        polePositions = pole_positions?.toString() ?: "No data",
-        fastestLaps = fastest_laps ?: "No data"
+        firstSeason = firstTeamEntry ?: "No data",
+        worldChampionships = worldChampionships?.toString() ?: "No data",
+        wins = highestRaceFinish?.getWins() ?: "No data",
+        polePositions = polePositions?.toString() ?: "No data",
+        fastestLaps = fastestLaps ?: "No data"
     )
 
     private fun TeamDetailHighestRaceFinishData.getWins(): String {

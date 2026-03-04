@@ -8,9 +8,9 @@ import com.david.f1stats.databinding.ItemCircuitBinding
 import com.david.f1stats.databinding.ItemCircuitInfoBinding
 import com.david.f1stats.domain.model.Circuit
 
-class CircuitsAdapter (
-    private val listener: CircuitItemListener)
-    : RecyclerView.Adapter<CircuitsAdapter.CircuitViewHolder>() {
+class CircuitsAdapter(
+    private val listener: CircuitItemListener
+) : RecyclerView.Adapter<CircuitsAdapter.CircuitViewHolder>() {
 
     interface CircuitItemListener {
         fun onClickedCircuit(imageUrl: String)
@@ -25,22 +25,25 @@ class CircuitsAdapter (
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CircuitViewHolder {
-        val binding: ItemCircuitBinding = ItemCircuitBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding: ItemCircuitBinding =
+            ItemCircuitBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return CircuitViewHolder(binding, listener)
     }
 
     override fun getItemCount(): Int = items.size
 
-    override fun onBindViewHolder(holder: CircuitViewHolder, position: Int) = holder.bind(items[position])
+    override fun onBindViewHolder(holder: CircuitViewHolder, position: Int) =
+        holder.bind(items[position])
 
     inner class CircuitViewHolder(
         private val itemBinding: ItemCircuitBinding,
-        private val listener: CircuitItemListener) :
-        RecyclerView.ViewHolder(itemBinding.root){
+        private val listener: CircuitItemListener
+    ) :
+        RecyclerView.ViewHolder(itemBinding.root) {
 
         init {
             itemBinding.btnAction.setOnClickListener {
-                val circuit = items[adapterPosition]
+                val circuit = items[getBindingAdapterPosition()]
                 listener.onClickedCircuit(circuit.imageURL)
             }
         }
@@ -50,9 +53,17 @@ class CircuitsAdapter (
                 tvName.text = item.name
                 tvCountry.text = item.country
 
-                setSectionData(circuitLengthSection, root.context.getString(R.string.circuit_length_label), item.length)
+                setSectionData(
+                    circuitLengthSection,
+                    root.context.getString(R.string.circuit_length_label),
+                    item.length
+                )
                 setSectionData(lapsSection, root.context.getString(R.string.laps_laps), item.laps)
-                setSectionData(firstGPSection, root.context.getString(R.string.first_grand_prix_laps), item.firstGP)
+                setSectionData(
+                    firstGPSection,
+                    root.context.getString(R.string.first_grand_prix_laps),
+                    item.firstGP
+                )
 
                 tvLapRecordTime.text = item.lapRecordTime
                 tvLapRecordDriver.text = item.lapRecordDriver

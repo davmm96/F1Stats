@@ -6,6 +6,7 @@ import com.david.f1stats.domain.model.RankingTeam
 import javax.inject.Inject
 
 class GetRankingTeamUseCase @Inject constructor(
-    private val repository: RankingRepository) {
+    private val repository: RankingRepository
+) {
     suspend operator fun invoke(): Result<List<RankingTeam>> = repository.getRankingTeam()
 }

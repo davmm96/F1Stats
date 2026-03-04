@@ -5,7 +5,7 @@ data class RaceData(
     val competition: RaceCompetitionData,
     val date: String,
     val distance: String,
-    val fastest_lap: RaceFastestLapData,
+    val fastestLap: RaceFastestLapData,
     val id: Int,
     val laps: RaceLapsData,
     val season: Int,

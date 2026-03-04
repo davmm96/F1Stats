@@ -5,7 +5,7 @@ import com.david.f1stats.data.model.driverDetail.DriverDetailHighestRaceFinishDa
 import com.david.f1stats.domain.model.DriverDetail
 import javax.inject.Inject
 
-class DriverDetailMapper @Inject constructor(): IMapper<DriverDetailData, DriverDetail> {
+class DriverDetailMapper @Inject constructor() : IMapper<DriverDetailData, DriverDetail> {
 
     override fun fromMap(from: DriverDetailData): DriverDetail {
         return from.toDriverDetail()
@@ -15,14 +15,14 @@ class DriverDetailMapper @Inject constructor(): IMapper<DriverDetailData, Driver
         name = name,
         nationality = nationality ?: "",
         birthdate = birthdate ?: "",
-        points = career_points ?: "No data",
+        points = careerPoints ?: "No data",
         image = image ?: "",
-        country = country?.name?: "",
+        country = country?.name ?: "",
         number = "#${number}",
-        gpEntered = grands_prix_entered?.toString() ?: "No data",
-        worldChampionships = world_championships?.toString() ?: "No data",
+        gpEntered = grandsPrixEntered?.toString() ?: "No data",
+        worldChampionships = worldChampionships?.toString() ?: "No data",
         podiums = podiums?.toString() ?: "No data",
-        wins = highest_race_finish?.wins() ?: "No data",
+        wins = highestRaceFinish?.wins() ?: "No data",
         teamImage = teams.firstOrNull()?.team?.logo ?: ""
     )
 

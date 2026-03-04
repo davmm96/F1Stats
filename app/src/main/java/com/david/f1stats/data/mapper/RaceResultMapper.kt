@@ -1,12 +1,10 @@
 package com.david.f1stats.data.mapper
 
-import com.david.f1stats.R
 import com.david.f1stats.data.model.raceResult.RaceResultData
 import com.david.f1stats.domain.model.RaceResult
-import com.david.f1stats.utils.Constants
 import javax.inject.Inject
 
-class RaceResultMapper @Inject constructor(): IMapper<List<RaceResultData>?, List<RaceResult>?> {
+class RaceResultMapper @Inject constructor() : IMapper<List<RaceResultData>?, List<RaceResult>?> {
 
     companion object {
         val POINTS_MAP = mapOf(
@@ -47,7 +45,7 @@ class RaceResultMapper @Inject constructor(): IMapper<List<RaceResultData>?, Lis
     }
 
     private fun getAbbr(abbr: String, name: String): String {
-        return if(abbr != NOT_FOUND_ABBR)
+        return if (abbr != NOT_FOUND_ABBR)
             abbr
         else
             when (name) {

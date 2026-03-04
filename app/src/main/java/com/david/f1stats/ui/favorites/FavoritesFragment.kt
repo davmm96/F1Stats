@@ -1,13 +1,13 @@
 package com.david.f1stats.ui.favorites
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,7 +16,8 @@ import com.david.f1stats.databinding.FragmentFavoritesBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class FavoritesFragment : Fragment(), FavoritesAdapter.FavoriteItemListener, FavoritesAdapter.FavoriteNavListener {
+class FavoritesFragment : Fragment(), FavoritesAdapter.FavoriteItemListener,
+    FavoritesAdapter.FavoriteNavListener {
     private var _binding: FragmentFavoritesBinding? = null
     private val binding get() = _binding!!
     private val adapter: FavoritesAdapter by lazy { FavoritesAdapter(this, this) }
@@ -53,27 +54,27 @@ class FavoritesFragment : Fragment(), FavoritesAdapter.FavoriteItemListener, Fav
     }
 
     private fun initObservers() {
-        favoriteRacesViewModel.favoriteRaces.observe(viewLifecycleOwner) { list->
+        favoriteRacesViewModel.favoriteRaces.observe(viewLifecycleOwner) { list ->
             list?.let { adapter.setItems(ArrayList(it)) }
-            if(list.isNullOrEmpty()){
+            if (list.isNullOrEmpty()) {
                 binding.tvNoFavorites.isVisible = adapter.itemCount == 0
                 binding.tvNoFavoriteSubtitle.isVisible = adapter.itemCount == 0
                 binding.ivNoFavorites.isVisible = adapter.itemCount == 0
-            }
-            else{
+            } else {
                 binding.tvNoFavorites.isVisible = false
                 binding.tvNoFavoriteSubtitle.isVisible = false
                 binding.ivNoFavorites.isVisible = false
             }
         }
 
-        favoriteRacesViewModel.isLoading.observe(viewLifecycleOwner){
+        favoriteRacesViewModel.isLoading.observe(viewLifecycleOwner) {
             binding.progressBar.isVisible = it
         }
 
         favoriteRacesViewModel.isDeleted.observe(viewLifecycleOwner) { isDeleted ->
-            if(isDeleted)
-                Toast.makeText(context, getString(R.string.favorite_removed), Toast.LENGTH_SHORT).show()
+            if (isDeleted)
+                Toast.makeText(context, getString(R.string.favorite_removed), Toast.LENGTH_SHORT)
+                    .show()
         }
 
         favoriteRacesViewModel.errorMessage.observe(viewLifecycleOwner) { errorMessage ->
@@ -87,6 +88,7 @@ class FavoritesFragment : Fragment(), FavoritesAdapter.FavoriteItemListener, Fav
     override fun removeFavorite(idRace: Int) {
         favoriteRacesViewModel.deleteFavorite(idRace)
     }
+
     override fun onNavClicked(idRace: Int, country: String) {
         findNavController().navigate(
             R.id.action_navigation_favorites_to_raceResultFragment,

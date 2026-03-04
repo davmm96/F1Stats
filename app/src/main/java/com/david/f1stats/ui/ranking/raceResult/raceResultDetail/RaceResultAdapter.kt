@@ -18,17 +18,19 @@ class RaceResultAdapter : RecyclerView.Adapter<RaceResultAdapter.RaceResultViewH
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RaceResultViewHolder {
-        val binding: ItemRaceResultBinding = ItemRaceResultBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding: ItemRaceResultBinding =
+            ItemRaceResultBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return RaceResultViewHolder(binding)
     }
 
     override fun getItemCount(): Int = items.size
 
-    override fun onBindViewHolder(holder: RaceResultViewHolder, position: Int) = holder.bind(items[position])
+    override fun onBindViewHolder(holder: RaceResultViewHolder, position: Int) =
+        holder.bind(items[position])
 
-    inner class RaceResultViewHolder(
-        private val itemBinding: ItemRaceResultBinding)
-        :RecyclerView.ViewHolder(itemBinding.root){
+    class RaceResultViewHolder(
+        private val itemBinding: ItemRaceResultBinding
+    ) : RecyclerView.ViewHolder(itemBinding.root) {
 
         fun bind(item: RaceResult) {
             itemBinding.apply {

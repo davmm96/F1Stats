@@ -15,7 +15,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class RankingFragment : Fragment(){
+class RankingFragment : Fragment() {
 
     private var _binding: FragmentRankingBinding? = null
     private val binding get() = _binding!!
