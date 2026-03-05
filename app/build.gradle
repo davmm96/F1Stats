@@ -48,7 +48,6 @@ android {
 }
 
 dependencies {
-    implementation libs.androidx.legacy.support.v4
     implementation libs.androidx.core.ktx
     implementation libs.androidx.appcompat
     implementation libs.material
@@ -79,8 +78,9 @@ dependencies {
     // ViewPager2
     implementation libs.androidx.viewpager2
 
-    // Picasso
-    implementation libs.picasso
+    // Coil
+    implementation libs.coil
+    implementation libs.coil.network.okhttp
 
     // Tests
     testImplementation libs.junit

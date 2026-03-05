@@ -46,7 +46,7 @@ class RaceWeekendAdapter(
 
         init {
             itemBinding.raceWeekendAddToCalendar.setOnClickListener {
-                val currentItem = items[adapterPosition]
+                val currentItem = items[getBindingAdapterPosition()]
                 val title = currentItem.type.getString(itemBinding.root.context)
 
                 listener.onCalendarClicked(title, currentItem.dateCalendar)

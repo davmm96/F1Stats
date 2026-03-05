@@ -5,21 +5,22 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.WindowManager
 import androidx.fragment.app.FragmentActivity
+import coil3.ImageLoader
+import coil3.load
 import com.david.f1stats.databinding.DialogImageFullscreenBinding
-import com.squareup.picasso.Picasso
 import javax.inject.Inject
 
 class DialogHelper @Inject constructor() {
 
-    fun showImageDialog(activity: FragmentActivity, picasso: Picasso, imageUrl: String) {
+    fun showImageDialog(activity: FragmentActivity, imageLoader: ImageLoader, imageUrl: String) {
         showDialog(activity) {
-            picasso.load(imageUrl).into(it.fullscreenImageView)
+            it.fullscreenImageView.load(imageUrl, imageLoader)
         }
     }
 
-    fun showLocalImageDialog(activity: FragmentActivity, picasso: Picasso, imageResId: Int) {
+    fun showLocalImageDialog(activity: FragmentActivity, imageLoader: ImageLoader, imageResId: Int) {
         showDialog(activity) {
-            picasso.load(imageResId).into(it.fullscreenImageView)
+            it.fullscreenImageView.load(imageResId, imageLoader)
         }
     }
 

@@ -9,9 +9,10 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.david.f1stats.databinding.FragmentTeamDetailBinding
+import coil3.ImageLoader
+import coil3.load
 import com.david.f1stats.utils.Constants
 import com.david.f1stats.utils.DialogHelper
-import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -19,7 +20,7 @@ import javax.inject.Inject
 class TeamDetailFragment : Fragment() {
 
     @Inject
-    lateinit var picasso: Picasso
+    lateinit var imageLoader: ImageLoader
 
     @Inject
     lateinit var dialogHelper: DialogHelper
@@ -74,14 +75,14 @@ class TeamDetailFragment : Fragment() {
     }
 
     private fun loadImage(view: ImageView, imageUrl: String?) {
-        picasso.load(imageUrl).into(view)
+        view.load(imageUrl, imageLoader)
         setupImageClickListener(view, imageUrl)
     }
 
     private fun setupImageClickListener(view: View, imageUrl: String?) {
         view.setOnClickListener {
             if (imageUrl != null && imageUrl != Constants.IMAGE_NOT_FOUND) {
-                dialogHelper.showImageDialog(requireActivity(), picasso, imageUrl)
+                dialogHelper.showImageDialog(requireActivity(), imageLoader, imageUrl)
             }
         }
     }

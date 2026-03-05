@@ -10,9 +10,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.david.f1stats.databinding.FragmentCircuitsBinding
+import coil3.ImageLoader
 import com.david.f1stats.utils.Constants
 import com.david.f1stats.utils.DialogHelper
-import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -20,7 +20,7 @@ import javax.inject.Inject
 class CircuitsFragment : Fragment(), CircuitsAdapter.CircuitItemListener {
 
     @Inject
-    lateinit var picasso: Picasso
+    lateinit var imageLoader: ImageLoader
 
     @Inject
     lateinit var dialogHelper: DialogHelper
@@ -74,7 +74,7 @@ class CircuitsFragment : Fragment(), CircuitsAdapter.CircuitItemListener {
 
     override fun onClickedCircuit(imageUrl: String) {
         if (imageUrl != Constants.IMAGE_NOT_FOUND) {
-            dialogHelper.showImageDialog(requireActivity(), picasso, imageUrl)
+            dialogHelper.showImageDialog(requireActivity(), imageLoader, imageUrl)
         } else {
             Toast.makeText(this.context, imageUrl, Toast.LENGTH_SHORT).show()
         }

@@ -14,9 +14,9 @@ import com.david.f1stats.R
 import com.david.f1stats.databinding.FragmentSettingsBinding
 import com.david.f1stats.domain.model.Season
 import com.david.f1stats.ui.SharedViewModel
+import coil3.ImageLoader
 import com.david.f1stats.utils.DialogHelper
 import com.david.f1stats.utils.PreferencesHelper
-import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Calendar
 import javax.inject.Inject
@@ -28,7 +28,7 @@ class SettingsFragment : Fragment() {
     lateinit var preferencesHelper: PreferencesHelper
 
     @Inject
-    lateinit var picasso: Picasso
+    lateinit var imageLoader: ImageLoader
 
     @Inject
     lateinit var dialogHelper: DialogHelper
@@ -104,7 +104,7 @@ class SettingsFragment : Fragment() {
             ivAppIcon.setOnClickListener {
                 dialogHelper.showLocalImageDialog(
                     requireActivity(),
-                    picasso,
+                    imageLoader,
                     R.drawable.appicon_alpha
                 )
             }

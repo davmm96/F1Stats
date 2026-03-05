@@ -1,7 +1,8 @@
 package com.david.f1stats.di
 
 import android.content.Context
-import com.squareup.picasso.Picasso
+import coil3.ImageLoader
+import coil3.network.okhttp.OkHttpNetworkFetcherFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -11,12 +12,15 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object PicassoModule {
+object ImageLoaderModule {
 
     @Provides
     @Singleton
-    fun providePicasso(@ApplicationContext context: Context): Picasso {
-        return Picasso.Builder(context)
+    fun provideImageLoader(@ApplicationContext context: Context): ImageLoader {
+        return ImageLoader.Builder(context)
+            .components {
+                add(OkHttpNetworkFetcherFactory())
+            }
             .build()
     }
 }
