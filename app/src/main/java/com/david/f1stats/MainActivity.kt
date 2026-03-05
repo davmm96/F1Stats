@@ -1,25 +1,24 @@
 package com.david.f1stats
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.isVisible
+import androidx.core.view.updatePadding
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.updatePadding
 import com.david.f1stats.databinding.ActivityMainBinding
 import com.david.f1stats.ui.SharedViewModel
-import com.david.f1stats.ui.settings.SettingsActivity
 import com.david.f1stats.utils.MusicHelper
 import com.david.f1stats.utils.PreferencesHelper
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,6 +31,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var appToolbarConfiguration: AppBarConfiguration
     private val sharedViewModel: SharedViewModel by viewModels()
+    private var showSettingsMenu = true
 
     @Inject
     lateinit var preferencesManager: PreferencesHelper
@@ -96,12 +96,21 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
+            val isMainTab = destination.id in setOf(
+                R.id.navigation_races,
+                R.id.navigation_ranking,
+                R.id.navigation_circuits,
+                R.id.navigation_favorites
+            )
+            showSettingsMenu = isMainTab
+            invalidateOptionsMenu()
+
+            binding.navView.isVisible = destination.id != R.id.navigation_settings
             when (destination.id) {
                 R.id.navigation_ranking -> {
                     val season = sharedViewModel.selectedSeason.value ?: ""
                     supportActionBar?.title = getString(R.string.title_ranking, season)
                 }
-
                 R.id.navigation_races -> {
                     val season = sharedViewModel.selectedSeason.value ?: ""
                     supportActionBar?.title = getString(R.string.title_calendar, season)
@@ -110,12 +119,16 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.navView.setupWithNavController(navController)
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.action_bar_menu, menu)
         return true
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu): Boolean {
+        menu.findItem(R.id.action_settings)?.isVisible = showSettingsMenu
+        return super.onPrepareOptionsMenu(menu)
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -126,10 +139,10 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_settings -> {
-                startActivity(Intent(this, SettingsActivity::class.java))
+                findNavController(R.id.nav_host_fragment_activity_main)
+                    .navigate(R.id.action_global_settings)
                 true
             }
-
             else -> super.onOptionsItemSelected(item)
         }
     }

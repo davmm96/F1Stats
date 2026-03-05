@@ -2,7 +2,12 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_graph"
     app:startDestination="@id/navigation_races">
+
+    <action
+        android:id="@+id/action_global_settings"
+        app:destination="@id/navigation_settings" />
     <fragment
         android:id="@+id/navigation_races"
         android:name="com.david.f1stats.ui.races.RacesFragment"
@@ -114,4 +119,10 @@
             android:name="country"
             app:argType="string" />
     </fragment>
+
+    <fragment
+        android:id="@+id/navigation_settings"
+        android:name="com.david.f1stats.ui.settings.SettingsFragment"
+        android:label="@string/settings"
+        tools:layout="@layout/fragment_settings" />
 </navigation>
