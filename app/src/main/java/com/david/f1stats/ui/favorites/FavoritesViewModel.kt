@@ -3,6 +3,7 @@ package com.david.f1stats.ui.favorites
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.david.f1stats.data.model.favoriteRace.FavoriteRace
 import com.david.f1stats.domain.useCases.DeleteFavoriteUseCase
@@ -17,11 +18,7 @@ class FavoritesViewModel @Inject constructor(
     private val deleteFavoriteUseCase: DeleteFavoriteUseCase
 ) : ViewModel() {
 
-    private val _favoriteRaces = MutableLiveData<List<FavoriteRace>?>()
-    val favoriteRaces: LiveData<List<FavoriteRace>?> = _favoriteRaces
-
-    private val _isLoading = MutableLiveData<Boolean>()
-    val isLoading: LiveData<Boolean> = _isLoading
+    val favoriteRaces: LiveData<List<FavoriteRace>> = getAllFavoriteRacesUseCase().asLiveData()
 
     private val _isDeleted = MutableLiveData<Boolean>()
     val isDeleted: LiveData<Boolean> = _isDeleted
@@ -29,36 +26,19 @@ class FavoritesViewModel @Inject constructor(
     private val _errorMessage = MutableLiveData<String?>()
     val errorMessage: LiveData<String?> = _errorMessage
 
-    init {
-        fetchAllFavoriteRaces()
-    }
-
-    fun fetchAllFavoriteRaces() {
-        viewModelScope.launch {
-            _isLoading.value = true
-            try {
-                val result = getAllFavoriteRacesUseCase()
-                _favoriteRaces.value = result
-            } catch (e: Exception) {
-                _errorMessage.value = e.localizedMessage ?: "Unknown error"
-            } finally {
-                _isLoading.value = false
-                _isDeleted.value = false
-            }
-        }
-    }
-
     fun deleteFavorite(idRace: Int) {
         viewModelScope.launch {
             try {
                 deleteFavoriteUseCase(idRace)
                 _isDeleted.value = true
-                fetchAllFavoriteRaces()
-
             } catch (e: Exception) {
                 _errorMessage.value = e.localizedMessage ?: "Unknown error"
             }
         }
+    }
+
+    fun clearIsDeleted() {
+        _isDeleted.value = false
     }
 
     fun clearErrorMessage() {

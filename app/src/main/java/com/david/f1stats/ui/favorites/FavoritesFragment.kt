@@ -38,11 +38,6 @@ class FavoritesFragment : Fragment(), FavoritesAdapter.FavoriteItemListener,
         initObservers()
     }
 
-    override fun onResume() {
-        super.onResume()
-        favoriteRacesViewModel.fetchAllFavoriteRaces()
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -55,26 +50,19 @@ class FavoritesFragment : Fragment(), FavoritesAdapter.FavoriteItemListener,
 
     private fun initObservers() {
         favoriteRacesViewModel.favoriteRaces.observe(viewLifecycleOwner) { list ->
-            list?.let { adapter.setItems(ArrayList(it)) }
-            if (list.isNullOrEmpty()) {
-                binding.tvNoFavorites.isVisible = adapter.itemCount == 0
-                binding.tvNoFavoriteSubtitle.isVisible = adapter.itemCount == 0
-                binding.ivNoFavorites.isVisible = adapter.itemCount == 0
-            } else {
-                binding.tvNoFavorites.isVisible = false
-                binding.tvNoFavoriteSubtitle.isVisible = false
-                binding.ivNoFavorites.isVisible = false
-            }
-        }
-
-        favoriteRacesViewModel.isLoading.observe(viewLifecycleOwner) {
-            binding.progressBar.isVisible = it
+            adapter.setItems(ArrayList(list))
+            val empty = list.isEmpty()
+            binding.tvNoFavorites.isVisible = empty
+            binding.tvNoFavoriteSubtitle.isVisible = empty
+            binding.ivNoFavorites.isVisible = empty
         }
 
         favoriteRacesViewModel.isDeleted.observe(viewLifecycleOwner) { isDeleted ->
-            if (isDeleted)
+            if (isDeleted) {
                 Toast.makeText(context, getString(R.string.favorite_removed), Toast.LENGTH_SHORT)
                     .show()
+                favoriteRacesViewModel.clearIsDeleted()
+            }
         }
 
         favoriteRacesViewModel.errorMessage.observe(viewLifecycleOwner) { errorMessage ->

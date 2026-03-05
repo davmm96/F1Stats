@@ -4,16 +4,19 @@ import com.david.f1stats.data.mapper.FavoriteRaceMapper
 import com.david.f1stats.data.model.favoriteRace.FavoriteRace
 import com.david.f1stats.data.source.local.RaceDao
 import com.david.f1stats.domain.model.Race
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class FavoriteRaceRepository @Inject constructor(
     private val raceDao: RaceDao,
     private val favoriteRaceMapper: FavoriteRaceMapper,
 ) {
-    suspend fun getFavoriteRaces(): List<FavoriteRace> {
-        return raceDao.getAllFavoriteRaces()
-            .sortedWith(compareByDescending<FavoriteRace> { it.season }
+    fun getFavoriteRaces(): Flow<List<FavoriteRace>> {
+        return raceDao.getAllFavoriteRaces().map { list ->
+            list.sortedWith(compareByDescending<FavoriteRace> { it.season }
                 .thenBy { it.competition })
+        }
     }
 
     suspend fun getAllFavoriteRacesIds(): List<Int> {
