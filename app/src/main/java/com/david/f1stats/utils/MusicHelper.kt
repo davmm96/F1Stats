@@ -6,7 +6,7 @@ import com.david.f1stats.R
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
-class MusicHelper @Inject constructor(@ApplicationContext private val context: Context) {
+class MusicHelper @Inject constructor(@param:ApplicationContext private val context: Context) {
 
     private val mediaPlayer: MediaPlayer = MediaPlayer
         .create(context, R.raw.f1theme)
