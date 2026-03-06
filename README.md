@@ -1,7 +1,11 @@
+<div align="center">
+  <img src="app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp" width="192" alt="F1Stats icon"/>
+
 # F1Stats
 
 A native Android application for Formula 1 enthusiasts — browse race calendars, driver and team
 standings, circuit information, and save your favourite races for quick access.
+</div>
 
 Built with modern Android development practices: Clean Architecture, MVVM, Kotlin Coroutines, Hilt,
 Room, and Jetpack Navigation.
