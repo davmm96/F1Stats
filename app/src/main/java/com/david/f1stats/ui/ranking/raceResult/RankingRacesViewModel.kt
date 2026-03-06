@@ -32,6 +32,10 @@ class RankingRacesViewModel(
     private val _errorMessage = MutableStateFlow<String?>(null)
     val errorMessage: StateFlow<String?> = _errorMessage.asStateFlow()
 
+    // true = added, false = removed, null = consumed
+    private val _favoriteMessage = MutableStateFlow<Boolean?>(null)
+    val favoriteMessage: StateFlow<Boolean?> = _favoriteMessage.asStateFlow()
+
     init {
         getRacesCompleted()
         getFavoriteRacesIds()
@@ -67,6 +71,7 @@ class RankingRacesViewModel(
         viewModelScope.launch {
             insertFavoriteRaceUseCase(race)
             getFavoriteRacesIds()
+            _favoriteMessage.value = true
         }
     }
 
@@ -74,7 +79,12 @@ class RankingRacesViewModel(
         viewModelScope.launch {
             deleteFavoriteUseCase(idRace)
             getFavoriteRacesIds()
+            _favoriteMessage.value = false
         }
+    }
+
+    fun clearFavoriteMessage() {
+        _favoriteMessage.value = null
     }
 
     fun clearErrorMessage() {

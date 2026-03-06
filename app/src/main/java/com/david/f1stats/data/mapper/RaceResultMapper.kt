@@ -34,7 +34,7 @@ class RaceResultMapper : IMapper<List<RaceResultData>?, List<RaceResult>?> {
     private fun RaceResultData.toRaceResult() = RaceResult(
         position = position.toString(),
         driverAbbr = getAbbr(driver.abbr ?: "NF", driver.name),
-        time = time ?: "0",
+        time = time ?: gap ?: "-",
         points = getPoints(position).toString(),
         idTeam = team.id
     )

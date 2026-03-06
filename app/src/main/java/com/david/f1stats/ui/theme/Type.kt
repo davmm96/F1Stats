@@ -38,6 +38,12 @@ val F1Typography = Typography(
         fontSize = 16.sp,
         lineHeight = 22.sp
     ),
+    titleSmall = TextStyle(
+        fontFamily = F1FontFamily,
+        fontWeight = FontWeight.Normal,
+        fontSize = 14.sp,
+        lineHeight = 20.sp
+    ),
     bodyLarge = TextStyle(
         fontFamily = F1FontFamily,
         fontWeight = FontWeight.Normal,

@@ -22,6 +22,9 @@ class SettingsViewModel(
     private val _isMusicPlaying = MutableStateFlow(preferencesManager.musicActivated)
     val isMusicPlaying: StateFlow<Boolean> = _isMusicPlaying.asStateFlow()
 
+    private val _themeMode = MutableStateFlow(preferencesManager.themeMode)
+    val themeMode: StateFlow<Int> = _themeMode.asStateFlow()
+
     private val _seasonList = MutableStateFlow<List<Season>>(emptyList())
     val seasonList: StateFlow<List<Season>> = _seasonList.asStateFlow()
 
@@ -59,6 +62,7 @@ class SettingsViewModel(
     fun setThemeMode(mode: Int) {
         AppCompatDelegate.setDefaultNightMode(mode)
         preferencesManager.themeMode = mode
+        _themeMode.value = mode
     }
 
     fun clearErrorMessage() {

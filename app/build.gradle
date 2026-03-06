@@ -2,7 +2,6 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
-    alias(libs.plugins.navigation.safeargs.kotlin)
 }
 
 android {
@@ -34,7 +33,7 @@ android {
     }
 
     buildFeatures {
-        viewBinding true
+        viewBinding true   // kept for DialogHelper (dialog_image_fullscreen.xml)
         buildConfig true
         compose true
     }
@@ -44,12 +43,9 @@ dependencies {
     implementation libs.androidx.core.ktx
     implementation libs.androidx.appcompat
     implementation libs.material
-    implementation libs.androidx.constraintlayout
-    implementation libs.androidx.lifecycle.livedata.ktx
     implementation libs.androidx.lifecycle.viewmodel.ktx
     implementation libs.lifecycle.runtime.compose
-    implementation libs.androidx.navigation.fragment.ktx
-    implementation libs.androidx.navigation.ui.ktx
+    implementation libs.navigation.compose
 
     // Room
     implementation libs.androidx.room.runtime
@@ -68,9 +64,6 @@ dependencies {
     // Koin
     implementation libs.koin.android
     implementation libs.koin.androidx.compose
-
-    // ViewPager2
-    implementation libs.androidx.viewpager2
 
     // Coil
     implementation libs.coil

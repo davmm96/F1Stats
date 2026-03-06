@@ -17,11 +17,15 @@ class RaceResultViewModel(
     private val _raceResult = MutableStateFlow<List<RaceResult>>(emptyList())
     val raceResult: StateFlow<List<RaceResult>> = _raceResult.asStateFlow()
 
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
+
     private val _errorMessage = MutableStateFlow<String?>(null)
     val errorMessage: StateFlow<String?> = _errorMessage.asStateFlow()
 
     fun fetchRaceResult(id: Int) {
         viewModelScope.launch {
+            _isLoading.value = true
             try {
                 when (val result = getRaceResultUseCase(id)) {
                     is Result.Success -> _raceResult.value = result.data.ifEmpty { emptyList() }
@@ -30,6 +34,8 @@ class RaceResultViewModel(
                 }
             } catch (e: Exception) {
                 _errorMessage.value = e.localizedMessage ?: "Unknown error"
+            } finally {
+                _isLoading.value = false
             }
         }
     }

@@ -17,11 +17,15 @@ class TeamDetailViewModel(
     private val _teamInfo = MutableStateFlow<TeamDetail?>(null)
     val teamInfo: StateFlow<TeamDetail?> = _teamInfo.asStateFlow()
 
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
+
     private val _errorMessage = MutableStateFlow<String?>(null)
     val errorMessage: StateFlow<String?> = _errorMessage.asStateFlow()
 
     fun fetchTeamDetail(id: Int) {
         viewModelScope.launch {
+            _isLoading.value = true
             try {
                 when (val result = getTeamDetailUseCase(id)) {
                     is Result.Success -> {
@@ -36,6 +40,8 @@ class TeamDetailViewModel(
                 }
             } catch (e: Exception) {
                 _errorMessage.value = e.localizedMessage ?: "Unknown error"
+            } finally {
+                _isLoading.value = false
             }
         }
     }
