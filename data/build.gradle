@@ -10,6 +10,7 @@ android {
     defaultConfig {
         minSdk 30
         consumerProguardFiles 'consumer-rules.pro'
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     compileOptions {
@@ -37,4 +38,16 @@ dependencies {
 
     // AppCompat (PreferencesHelper uses AppCompatDelegate)
     implementation libs.androidx.appcompat
+
+    // Unit tests
+    testImplementation libs.junit
+    testImplementation libs.mockk
+    testImplementation libs.kotlinx.coroutines.test
+    testImplementation libs.turbine
+
+    // Instrumented tests
+    androidTestImplementation libs.androidx.test.ext.junit
+    androidTestImplementation libs.androidx.room.testing
+    androidTestImplementation libs.kotlinx.coroutines.test
+    androidTestImplementation libs.turbine
 }
