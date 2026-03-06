@@ -7,28 +7,25 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.david.f1stats.databinding.FragmentCircuitsBinding
 import coil3.ImageLoader
+import com.david.f1stats.databinding.FragmentCircuitsBinding
 import com.david.f1stats.utils.Constants
 import com.david.f1stats.utils.DialogHelper
-import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
+import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-@AndroidEntryPoint
 class CircuitsFragment : Fragment(), CircuitsAdapter.CircuitItemListener {
 
-    @Inject
-    lateinit var imageLoader: ImageLoader
-
-    @Inject
-    lateinit var dialogHelper: DialogHelper
+    private val imageLoader: ImageLoader by inject()
+    private val dialogHelper: DialogHelper by inject()
+    private val circuitViewModel: CircuitsViewModel by viewModel()
+    private val adapter by lazy { CircuitsAdapter(this) }
 
     private var _binding: FragmentCircuitsBinding? = null
     private val binding get() = _binding!!
-    private val circuitViewModel: CircuitsViewModel by viewModels()
-    private val adapter by lazy { CircuitsAdapter(this) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,26 +47,30 @@ class CircuitsFragment : Fragment(), CircuitsAdapter.CircuitItemListener {
         _binding = null
     }
 
-    private fun initObservers() {
-        circuitViewModel.circuitsList.observe(viewLifecycleOwner) { listCircuits ->
-            listCircuits?.let { adapter.setItems(ArrayList(it)) }
-        }
-
-        circuitViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
-            binding.progressBar.isVisible = isLoading
-        }
-
-        circuitViewModel.errorMessage.observe(viewLifecycleOwner) { errorMessage ->
-            errorMessage?.let {
-                Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
-                circuitViewModel.clearErrorMessage()
-            }
-        }
-    }
-
     private fun initRecyclerView() {
         binding.rvCircuits.layoutManager = LinearLayoutManager(requireContext())
         binding.rvCircuits.adapter = adapter
+    }
+
+    private fun initObservers() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            circuitViewModel.circuitsList.collect { listCircuits ->
+                adapter.setItems(ArrayList(listCircuits))
+            }
+        }
+        viewLifecycleOwner.lifecycleScope.launch {
+            circuitViewModel.isLoading.collect { isLoading ->
+                binding.progressBar.isVisible = isLoading
+            }
+        }
+        viewLifecycleOwner.lifecycleScope.launch {
+            circuitViewModel.errorMessage.collect { errorMessage ->
+                errorMessage?.let {
+                    Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+                    circuitViewModel.clearErrorMessage()
+                }
+            }
+        }
     }
 
     override fun onClickedCircuit(imageUrl: String) {

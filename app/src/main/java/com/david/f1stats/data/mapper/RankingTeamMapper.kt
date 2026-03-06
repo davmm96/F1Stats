@@ -3,9 +3,8 @@ package com.david.f1stats.data.mapper
 import com.david.f1stats.data.model.rankingTeam.RankingTeamData
 import com.david.f1stats.domain.model.RankingTeam
 import com.david.f1stats.utils.formatPoints
-import javax.inject.Inject
 
-class RankingTeamMapper @Inject constructor() :
+class RankingTeamMapper :
     IMapper<List<RankingTeamData>?, List<RankingTeam>?> {
 
     override fun fromMap(from: List<RankingTeamData>?): List<RankingTeam>? {

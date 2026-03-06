@@ -1,32 +1,30 @@
 package com.david.f1stats.ui.races
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.david.f1stats.data.model.base.Result
 import com.david.f1stats.domain.model.Race
 import com.david.f1stats.domain.useCases.GetRacesUseCase
-import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class RacesViewModel @Inject constructor(
+class RacesViewModel(
     private val getRacesUseCase: GetRacesUseCase
 ) : ViewModel() {
 
-    private val _isSeasonCompleted = MutableLiveData<Boolean>()
-    val isSeasonCompleted: LiveData<Boolean> = _isSeasonCompleted
+    private val _isSeasonCompleted = MutableStateFlow(false)
+    val isSeasonCompleted: StateFlow<Boolean> = _isSeasonCompleted.asStateFlow()
 
-    private val _raceList = MutableLiveData<List<Race>?>()
-    val raceList: LiveData<List<Race>?> = _raceList
+    private val _raceList = MutableStateFlow<List<Race>?>(null)
+    val raceList: StateFlow<List<Race>?> = _raceList.asStateFlow()
 
-    private val _isLoading = MutableLiveData<Boolean>()
-    val isLoading: LiveData<Boolean> = _isLoading
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
 
-    private val _errorMessage = MutableLiveData<String?>()
-    val errorMessage: LiveData<String?> = _errorMessage
+    private val _errorMessage = MutableStateFlow<String?>(null)
+    val errorMessage: StateFlow<String?> = _errorMessage.asStateFlow()
 
     init {
         fetchRaces()
@@ -46,18 +44,14 @@ class RacesViewModel @Inject constructor(
                             _isSeasonCompleted.value = true
                         }
                     }
-
-                    is Result.Error -> {
-                        _errorMessage.value =
-                            result.exception.localizedMessage ?: "Error fetching races"
-                    }
+                    is Result.Error -> _errorMessage.value =
+                        result.exception.localizedMessage ?: "Error fetching races"
                 }
             } catch (e: Exception) {
                 _errorMessage.value = e.localizedMessage ?: "Unknown error"
             } finally {
                 _isLoading.value = false
             }
-
         }
     }
 

@@ -8,36 +8,31 @@ import android.widget.AdapterView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import coil3.ImageLoader
 import com.david.f1stats.R
 import com.david.f1stats.databinding.FragmentSettingsBinding
 import com.david.f1stats.domain.model.Season
 import com.david.f1stats.ui.SharedViewModel
-import coil3.ImageLoader
 import com.david.f1stats.utils.DialogHelper
 import com.david.f1stats.utils.PreferencesHelper
-import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.Calendar
-import javax.inject.Inject
 
-@AndroidEntryPoint
 class SettingsFragment : Fragment() {
 
-    @Inject
-    lateinit var preferencesHelper: PreferencesHelper
-
-    @Inject
-    lateinit var imageLoader: ImageLoader
-
-    @Inject
-    lateinit var dialogHelper: DialogHelper
+    private val preferencesHelper: PreferencesHelper by inject()
+    private val imageLoader: ImageLoader by inject()
+    private val dialogHelper: DialogHelper by inject()
+    private val settingsViewModel: SettingsViewModel by viewModel()
+    private val sharedViewModel: SharedViewModel by activityViewModel()
 
     private var _binding: FragmentSettingsBinding? = null
     private val binding get() = _binding!!
     private lateinit var seasonsAdapter: SeasonsAdapter
-    private val settingsViewModel: SettingsViewModel by viewModels()
-    private val sharedViewModel: SharedViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,7 +46,6 @@ class SettingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initSeasonsAdapter()
         initObservers()
         initUIEvents()
@@ -78,9 +72,9 @@ class SettingsFragment : Fragment() {
     }
 
     private fun initObservers() {
-        settingsViewModel.seasonList.observe(viewLifecycleOwner) { seasons ->
-            seasons?.let {
-                seasonsAdapter.setItems(it)
+        viewLifecycleOwner.lifecycleScope.launch {
+            settingsViewModel.seasonList.collect { seasons ->
+                seasonsAdapter.setItems(seasons)
                 val selectedSeason =
                     preferencesHelper.selectedSeason ?: Calendar.getInstance().get(Calendar.YEAR)
                         .toString()
@@ -90,11 +84,12 @@ class SettingsFragment : Fragment() {
                 }
             }
         }
-
-        settingsViewModel.errorMessage.observe(viewLifecycleOwner) { errorMessage ->
-            errorMessage?.let {
-                Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
-                settingsViewModel.clearErrorMessage()
+        viewLifecycleOwner.lifecycleScope.launch {
+            settingsViewModel.errorMessage.collect { errorMessage ->
+                errorMessage?.let {
+                    Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+                    settingsViewModel.clearErrorMessage()
+                }
             }
         }
     }
@@ -124,7 +119,7 @@ class SettingsFragment : Fragment() {
                 override fun onNothingSelected(parent: AdapterView<*>) {}
             }
 
-            musicSwitch.isChecked = settingsViewModel.isMusicPlaying.value ?: false
+            musicSwitch.isChecked = settingsViewModel.isMusicPlaying.value
 
             musicSwitch.setOnCheckedChangeListener { _, isChecked ->
                 settingsViewModel.toggleMusic(isChecked)

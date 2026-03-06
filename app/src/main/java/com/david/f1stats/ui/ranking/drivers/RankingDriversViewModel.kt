@@ -1,29 +1,27 @@
 package com.david.f1stats.ui.ranking.drivers
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.david.f1stats.data.model.base.Result
 import com.david.f1stats.domain.model.RankingDriver
 import com.david.f1stats.domain.useCases.GetRankingDriverUseCase
-import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class RankingDriversViewModel @Inject constructor(
+class RankingDriversViewModel(
     private val getRankingDriverUseCase: GetRankingDriverUseCase
 ) : ViewModel() {
 
-    private val _rankingDriverList = MutableLiveData<List<RankingDriver>>()
-    val rankingDriverList: LiveData<List<RankingDriver>> = _rankingDriverList
+    private val _rankingDriverList = MutableStateFlow<List<RankingDriver>>(emptyList())
+    val rankingDriverList: StateFlow<List<RankingDriver>> = _rankingDriverList.asStateFlow()
 
-    private val _isLoading = MutableLiveData<Boolean>()
-    val isLoading: LiveData<Boolean> = _isLoading
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
 
-    private val _errorMessage = MutableLiveData<String?>()
-    val errorMessage: LiveData<String?> = _errorMessage
+    private val _errorMessage = MutableStateFlow<String?>(null)
+    val errorMessage: StateFlow<String?> = _errorMessage.asStateFlow()
 
     init {
         fetchRankingDrivers()
@@ -34,14 +32,11 @@ class RankingDriversViewModel @Inject constructor(
             _isLoading.value = true
             try {
                 when (val result = getRankingDriverUseCase()) {
-                    is Result.Success -> {
-                        _rankingDriverList.value = result.data.ifEmpty { emptyList() }
-                    }
+                    is Result.Success -> _rankingDriverList.value =
+                        result.data.ifEmpty { emptyList() }
 
-                    is Result.Error -> {
-                        _errorMessage.value =
-                            result.exception.localizedMessage ?: "Error fetching drivers ranking"
-                    }
+                    is Result.Error -> _errorMessage.value =
+                        result.exception.localizedMessage ?: "Error fetching drivers ranking"
                 }
             } catch (e: Exception) {
                 _errorMessage.value = e.localizedMessage ?: "Unknown error"

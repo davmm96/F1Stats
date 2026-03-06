@@ -8,23 +8,24 @@ import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.david.f1stats.R
 import com.david.f1stats.databinding.FragmentRankingTeamsBinding
 import com.david.f1stats.ui.SharedViewModel
-import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-@AndroidEntryPoint
 class RankingTeamsFragment : Fragment(), RankingTeamsAdapter.RankingItemListener {
+
+    private val rankingTeamViewModel: RankingTeamsViewModel by viewModel()
+    private val sharedViewModel: SharedViewModel by activityViewModel()
+    private val adapter: RankingTeamsAdapter by lazy { RankingTeamsAdapter(this) }
 
     private var _binding: FragmentRankingTeamsBinding? = null
     private val binding get() = _binding!!
-    private val adapter: RankingTeamsAdapter by lazy { RankingTeamsAdapter(this) }
-    private val rankingTeamViewModel: RankingTeamsViewModel by viewModels()
-    private val sharedViewModel: SharedViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,7 +38,6 @@ class RankingTeamsFragment : Fragment(), RankingTeamsAdapter.RankingItemListener
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         observeSelectedSeason()
         initRecyclerView()
         initObservers()
@@ -49,8 +49,10 @@ class RankingTeamsFragment : Fragment(), RankingTeamsAdapter.RankingItemListener
     }
 
     private fun observeSelectedSeason() {
-        sharedViewModel.selectedSeason.observe(viewLifecycleOwner) {
-            rankingTeamViewModel.fetchRankingTeams()
+        viewLifecycleOwner.lifecycleScope.launch {
+            sharedViewModel.selectedSeason.collect {
+                rankingTeamViewModel.fetchRankingTeams()
+            }
         }
     }
 
@@ -60,18 +62,22 @@ class RankingTeamsFragment : Fragment(), RankingTeamsAdapter.RankingItemListener
     }
 
     private fun initObservers() {
-        rankingTeamViewModel.rankingTeamList.observe(viewLifecycleOwner) { rankingTeams ->
-            rankingTeams?.let { adapter.setItems(ArrayList(it)) }
+        viewLifecycleOwner.lifecycleScope.launch {
+            rankingTeamViewModel.rankingTeamList.collect { rankingTeams ->
+                adapter.setItems(ArrayList(rankingTeams))
+            }
         }
-
-        rankingTeamViewModel.isLoading.observe(viewLifecycleOwner) {
-            binding.baseRankingLayout.progressBar.isVisible = it
+        viewLifecycleOwner.lifecycleScope.launch {
+            rankingTeamViewModel.isLoading.collect { isLoading ->
+                binding.baseRankingLayout.progressBar.isVisible = isLoading
+            }
         }
-
-        rankingTeamViewModel.errorMessage.observe(viewLifecycleOwner) { errorMessage ->
-            errorMessage?.let {
-                Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
-                rankingTeamViewModel.clearErrorMessage()
+        viewLifecycleOwner.lifecycleScope.launch {
+            rankingTeamViewModel.errorMessage.collect { errorMessage ->
+                errorMessage?.let {
+                    Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+                    rankingTeamViewModel.clearErrorMessage()
+                }
             }
         }
     }

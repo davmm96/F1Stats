@@ -6,9 +6,8 @@ import com.david.f1stats.data.model.base.Result
 import com.david.f1stats.data.source.network.RankingService
 import com.david.f1stats.domain.model.RankingDriver
 import com.david.f1stats.domain.model.RankingTeam
-import javax.inject.Inject
 
-class RankingRepository @Inject constructor(
+class RankingRepository constructor(
     private val rankingService: RankingService,
     private val rankingDriverMapper: RankingDriverMapper,
     private val rankingTeamMapper: RankingTeamMapper

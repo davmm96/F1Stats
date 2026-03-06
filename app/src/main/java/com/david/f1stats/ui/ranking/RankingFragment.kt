@@ -7,19 +7,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import com.david.f1stats.R
 import com.david.f1stats.databinding.FragmentRankingBinding
 import com.david.f1stats.ui.SharedViewModel
 import com.google.android.material.tabs.TabLayoutMediator
-import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
-@AndroidEntryPoint
 class RankingFragment : Fragment() {
+
+    private val sharedViewModel: SharedViewModel by activityViewModel()
 
     private var _binding: FragmentRankingBinding? = null
     private val binding get() = _binding!!
-    private val sharedViewModel: SharedViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,7 +33,6 @@ class RankingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         observeSelectedSeason()
         initViewPager()
     }
@@ -44,9 +44,11 @@ class RankingFragment : Fragment() {
 
     @SuppressLint("StringFormatInvalid")
     private fun observeSelectedSeason() {
-        sharedViewModel.selectedSeason.observe(viewLifecycleOwner) { season ->
-            val title = getString(R.string.title_ranking, season)
-            (requireActivity() as AppCompatActivity).supportActionBar?.title = title
+        viewLifecycleOwner.lifecycleScope.launch {
+            sharedViewModel.selectedSeason.collect { season ->
+                val title = getString(R.string.title_ranking, season)
+                (requireActivity() as AppCompatActivity).supportActionBar?.title = title
+            }
         }
     }
 

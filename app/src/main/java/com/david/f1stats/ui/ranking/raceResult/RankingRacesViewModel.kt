@@ -1,7 +1,5 @@
 package com.david.f1stats.ui.ranking.raceResult
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.david.f1stats.data.model.base.Result
@@ -10,29 +8,29 @@ import com.david.f1stats.domain.useCases.DeleteFavoriteUseCase
 import com.david.f1stats.domain.useCases.GetAllFavoriteRacesIdsUseCase
 import com.david.f1stats.domain.useCases.GetRaceCompletedUseCase
 import com.david.f1stats.domain.useCases.InsertFavoriteRaceUseCase
-import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class RankingRacesViewModel @Inject constructor(
+class RankingRacesViewModel(
     private val getRaceCompletedUseCase: GetRaceCompletedUseCase,
     private val getAllFavoriteRaceIdsUseCase: GetAllFavoriteRacesIdsUseCase,
     private val insertFavoriteRaceUseCase: InsertFavoriteRaceUseCase,
     private val deleteFavoriteUseCase: DeleteFavoriteUseCase,
 ) : ViewModel() {
 
-    private val _racesCompletedList = MutableLiveData<List<Race>>()
-    val racesCompletedList: LiveData<List<Race>> = _racesCompletedList
+    private val _racesCompletedList = MutableStateFlow<List<Race>>(emptyList())
+    val racesCompletedList: StateFlow<List<Race>> = _racesCompletedList.asStateFlow()
 
-    private val _favoriteRacesIds = MutableLiveData<List<Int>>()
-    val favoriteRacesIds: LiveData<List<Int>> = _favoriteRacesIds
+    private val _favoriteRacesIds = MutableStateFlow<List<Int>>(emptyList())
+    val favoriteRacesIds: StateFlow<List<Int>> = _favoriteRacesIds.asStateFlow()
 
-    private val _isLoading = MutableLiveData<Boolean>()
-    val isLoading: LiveData<Boolean> = _isLoading
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
 
-    private val _errorMessage = MutableLiveData<String?>()
-    val errorMessage: LiveData<String?> = _errorMessage
+    private val _errorMessage = MutableStateFlow<String?>(null)
+    val errorMessage: StateFlow<String?> = _errorMessage.asStateFlow()
 
     init {
         getRacesCompleted()
@@ -44,21 +42,17 @@ class RankingRacesViewModel @Inject constructor(
             _isLoading.value = true
             try {
                 when (val result = getRaceCompletedUseCase()) {
-                    is Result.Success -> {
-                        _racesCompletedList.value = result.data.ifEmpty { emptyList() }
-                    }
+                    is Result.Success -> _racesCompletedList.value =
+                        result.data.ifEmpty { emptyList() }
 
-                    is Result.Error -> {
-                        _errorMessage.value =
-                            result.exception.localizedMessage ?: "Error fetching race results"
-                    }
+                    is Result.Error -> _errorMessage.value =
+                        result.exception.localizedMessage ?: "Error fetching race results"
                 }
             } catch (e: Exception) {
                 _errorMessage.value = e.localizedMessage ?: "Unknown error"
             } finally {
                 _isLoading.value = false
             }
-
         }
     }
 

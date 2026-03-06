@@ -4,9 +4,8 @@ import com.david.f1stats.data.mapper.DriverDetailMapper
 import com.david.f1stats.data.model.base.Result
 import com.david.f1stats.data.source.network.DriverService
 import com.david.f1stats.domain.model.DriverDetail
-import javax.inject.Inject
 
-class DriverRepository @Inject constructor(
+class DriverRepository constructor(
     private val driverService: DriverService,
     private val driverDetailMapper: DriverDetailMapper,
 ) {

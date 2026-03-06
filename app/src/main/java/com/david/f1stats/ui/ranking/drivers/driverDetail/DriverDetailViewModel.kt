@@ -1,26 +1,24 @@
 package com.david.f1stats.ui.ranking.drivers.driverDetail
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.david.f1stats.data.model.base.Result
 import com.david.f1stats.domain.model.DriverDetail
 import com.david.f1stats.domain.useCases.GetDriverDetailUseCase
-import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class DriverDetailViewModel @Inject constructor(
+class DriverDetailViewModel(
     private val getDriverDetailUseCase: GetDriverDetailUseCase
 ) : ViewModel() {
 
-    private val _driverInfo = MutableLiveData<DriverDetail?>()
-    val driverInfo: LiveData<DriverDetail?> = _driverInfo
+    private val _driverInfo = MutableStateFlow<DriverDetail?>(null)
+    val driverInfo: StateFlow<DriverDetail?> = _driverInfo.asStateFlow()
 
-    private val _errorMessage = MutableLiveData<String?>()
-    val errorMessage: LiveData<String?> = _errorMessage
+    private val _errorMessage = MutableStateFlow<String?>(null)
+    val errorMessage: StateFlow<String?> = _errorMessage.asStateFlow()
 
     fun fetchDriverDetail(id: Int) {
         viewModelScope.launch {
@@ -33,11 +31,8 @@ class DriverDetailViewModel @Inject constructor(
                             _errorMessage.value = "Driver not found"
                         }
                     }
-
-                    is Result.Error -> {
-                        _errorMessage.value =
-                            result.exception.localizedMessage ?: "Error fetching team details"
-                    }
+                    is Result.Error -> _errorMessage.value =
+                        result.exception.localizedMessage ?: "Error fetching driver details"
                 }
             } catch (e: Exception) {
                 _errorMessage.value = e.localizedMessage ?: "Unknown error"

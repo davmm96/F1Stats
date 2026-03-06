@@ -1,26 +1,21 @@
 package com.david.f1stats.di
 
-import android.content.Context
 import coil3.ImageLoader
 import coil3.network.okhttp.OkHttpNetworkFetcherFactory
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import com.david.f1stats.utils.CalendarHelper
+import com.david.f1stats.utils.DialogHelper
+import org.koin.android.ext.koin.androidContext
+import org.koin.dsl.module
 
-@Module
-@InstallIn(SingletonComponent::class)
-object ImageLoaderModule {
-
-    @Provides
-    @Singleton
-    fun provideImageLoader(@ApplicationContext context: Context): ImageLoader {
-        return ImageLoader.Builder(context)
+val imageLoaderModule = module {
+    single {
+        ImageLoader.Builder(androidContext())
             .components {
                 add(OkHttpNetworkFetcherFactory())
             }
             .build()
     }
+
+    single { DialogHelper() }
+    single { CalendarHelper() }
 }

@@ -2,10 +2,8 @@ package com.david.f1stats.utils
 
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatDelegate
-import javax.inject.Inject
 
-
-class PreferencesHelper @Inject constructor(private val sharedPreferences: SharedPreferences) {
+class PreferencesHelper(private val sharedPreferences: SharedPreferences) {
 
     companion object {
         private const val THEME_MODE_KEY = "theme_mode_key"

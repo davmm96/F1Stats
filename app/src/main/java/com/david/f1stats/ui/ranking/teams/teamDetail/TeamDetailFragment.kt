@@ -7,27 +7,24 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import com.david.f1stats.databinding.FragmentTeamDetailBinding
+import androidx.lifecycle.lifecycleScope
 import coil3.ImageLoader
 import coil3.load
+import com.david.f1stats.databinding.FragmentTeamDetailBinding
 import com.david.f1stats.utils.Constants
 import com.david.f1stats.utils.DialogHelper
-import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
+import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-@AndroidEntryPoint
 class TeamDetailFragment : Fragment() {
 
-    @Inject
-    lateinit var imageLoader: ImageLoader
-
-    @Inject
-    lateinit var dialogHelper: DialogHelper
+    private val imageLoader: ImageLoader by inject()
+    private val dialogHelper: DialogHelper by inject()
+    private val teamDetailViewModel: TeamDetailViewModel by viewModel()
 
     private var _binding: FragmentTeamDetailBinding? = null
     private val binding get() = _binding!!
-    private val teamDetailViewModel: TeamDetailViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,7 +38,6 @@ class TeamDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         arguments?.getInt("id")?.let { teamDetailViewModel.fetchTeamDetail(it) }
-
         initObservers()
     }
 
@@ -51,25 +47,28 @@ class TeamDetailFragment : Fragment() {
     }
 
     private fun initObservers() {
-        teamDetailViewModel.teamInfo.observe(viewLifecycleOwner) { team ->
-            binding.apply {
-                if (team != null) {
-                    tvTeamName.text = team.name
-                    tvTeamCountry.text = team.location
-                    tvWC.text = team.worldChampionships
-                    tvFirstSeason.text = team.firstSeason
-                    tvWins.text = team.wins
-                    tvPolePositions.text = team.polePositions
-                    tvFastestLaps.text = team.fastestLaps
-                    loadImage(ivTeamImage, team.image)
+        viewLifecycleOwner.lifecycleScope.launch {
+            teamDetailViewModel.teamInfo.collect { team ->
+                team?.let {
+                    binding.apply {
+                        tvTeamName.text = it.name
+                        tvTeamCountry.text = it.location
+                        tvWC.text = it.worldChampionships
+                        tvFirstSeason.text = it.firstSeason
+                        tvWins.text = it.wins
+                        tvPolePositions.text = it.polePositions
+                        tvFastestLaps.text = it.fastestLaps
+                        loadImage(ivTeamImage, it.image)
+                    }
                 }
             }
         }
-
-        teamDetailViewModel.errorMessage.observe(viewLifecycleOwner) { errorMessage ->
-            errorMessage?.let {
-                Toast.makeText(context, it, Toast.LENGTH_LONG).show()
-                teamDetailViewModel.clearErrorMessage()
+        viewLifecycleOwner.lifecycleScope.launch {
+            teamDetailViewModel.errorMessage.collect { errorMessage ->
+                errorMessage?.let {
+                    Toast.makeText(context, it, Toast.LENGTH_LONG).show()
+                    teamDetailViewModel.clearErrorMessage()
+                }
             }
         }
     }

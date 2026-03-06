@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
@@ -21,23 +20,19 @@ import com.david.f1stats.databinding.ActivityMainBinding
 import com.david.f1stats.ui.SharedViewModel
 import com.david.f1stats.utils.MusicHelper
 import com.david.f1stats.utils.PreferencesHelper
-import dagger.hilt.android.AndroidEntryPoint
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.Calendar
-import javax.inject.Inject
 
-@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var appToolbarConfiguration: AppBarConfiguration
-    private val sharedViewModel: SharedViewModel by viewModels()
+    private val sharedViewModel: SharedViewModel by viewModel()
     private var showSettingsMenu = true
 
-    @Inject
-    lateinit var preferencesManager: PreferencesHelper
-
-    @Inject
-    lateinit var musicManager: MusicHelper
+    private val preferencesManager: PreferencesHelper by inject()
+    private val musicManager: MusicHelper by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -108,11 +103,11 @@ class MainActivity : AppCompatActivity() {
             binding.navView.isVisible = destination.id != R.id.navigation_settings
             when (destination.id) {
                 R.id.navigation_ranking -> {
-                    val season = sharedViewModel.selectedSeason.value ?: ""
+                    val season = sharedViewModel.selectedSeason.value
                     supportActionBar?.title = getString(R.string.title_ranking, season)
                 }
                 R.id.navigation_races -> {
-                    val season = sharedViewModel.selectedSeason.value ?: ""
+                    val season = sharedViewModel.selectedSeason.value
                     supportActionBar?.title = getString(R.string.title_calendar, season)
                 }
             }

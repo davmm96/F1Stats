@@ -4,9 +4,8 @@ import com.david.f1stats.data.mapper.TeamDetailMapper
 import com.david.f1stats.data.model.base.Result
 import com.david.f1stats.data.source.network.TeamService
 import com.david.f1stats.domain.model.TeamDetail
-import javax.inject.Inject
 
-class TeamRepository @Inject constructor(
+class TeamRepository constructor(
     private val teamService: TeamService,
     private val teamDetailMapper: TeamDetailMapper,
 ) {

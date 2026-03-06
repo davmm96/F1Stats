@@ -7,27 +7,24 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import com.david.f1stats.databinding.FragmentDriverDetailBinding
+import androidx.lifecycle.lifecycleScope
 import coil3.ImageLoader
 import coil3.load
+import com.david.f1stats.databinding.FragmentDriverDetailBinding
 import com.david.f1stats.utils.Constants
 import com.david.f1stats.utils.DialogHelper
-import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
+import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-@AndroidEntryPoint
 class DriverDetailFragment : Fragment() {
 
-    @Inject
-    lateinit var imageLoader: ImageLoader
-
-    @Inject
-    lateinit var dialogHelper: DialogHelper
+    private val imageLoader: ImageLoader by inject()
+    private val dialogHelper: DialogHelper by inject()
+    private val driverDetailViewModel: DriverDetailViewModel by viewModel()
 
     private var _binding: FragmentDriverDetailBinding? = null
     private val binding get() = _binding!!
-    private val driverDetailViewModel: DriverDetailViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,7 +38,6 @@ class DriverDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         arguments?.getInt("id")?.let { driverDetailViewModel.fetchDriverDetail(it) }
-
         initObservers()
     }
 
@@ -51,28 +47,30 @@ class DriverDetailFragment : Fragment() {
     }
 
     private fun initObservers() {
-        driverDetailViewModel.driverInfo.observe(viewLifecycleOwner) { driver ->
-            binding.apply {
-                if (driver != null) {
-                    tvDriverName.text = driver.name
-                    tvDriverNumber.text = driver.number
-                    tvDriverCountry.text = driver.country
-                    tvWC.text = driver.worldChampionships
-                    tvPodiums.text = driver.podiums
-                    tvRaces.text = driver.gpEntered
-                    tvWins.text = driver.wins
-                    tvPoints.text = driver.points
-
-                    loadImage(ivDriverImage, driver.image)
-                    loadImage(ivActualTeam, driver.teamImage)
+        viewLifecycleOwner.lifecycleScope.launch {
+            driverDetailViewModel.driverInfo.collect { driver ->
+                driver?.let {
+                    binding.apply {
+                        tvDriverName.text = it.name
+                        tvDriverNumber.text = it.number
+                        tvDriverCountry.text = it.country
+                        tvWC.text = it.worldChampionships
+                        tvPodiums.text = it.podiums
+                        tvRaces.text = it.gpEntered
+                        tvWins.text = it.wins
+                        tvPoints.text = it.points
+                        loadImage(ivDriverImage, it.image)
+                        loadImage(ivActualTeam, it.teamImage)
+                    }
                 }
             }
         }
-
-        driverDetailViewModel.errorMessage.observe(viewLifecycleOwner) { errorMessage ->
-            errorMessage?.let {
-                Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
-                driverDetailViewModel.clearErrorMessage()
+        viewLifecycleOwner.lifecycleScope.launch {
+            driverDetailViewModel.errorMessage.collect { errorMessage ->
+                errorMessage?.let {
+                    Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+                    driverDetailViewModel.clearErrorMessage()
+                }
             }
         }
     }

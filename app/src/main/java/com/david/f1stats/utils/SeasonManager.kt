@@ -1,18 +1,12 @@
 package com.david.f1stats.utils
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import javax.inject.Inject
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 
-class SeasonManager @Inject constructor(
-    private val preferencesHelper: PreferencesHelper
-) {
-    private val _currentSeason = MutableLiveData<String>()
-    val currentSeason: LiveData<String> get() = _currentSeason
-
-    init {
-        _currentSeason.value = preferencesHelper.selectedSeason
-    }
+class SeasonManager(private val preferencesHelper: PreferencesHelper) {
+    private val _currentSeason = MutableStateFlow(preferencesHelper.selectedSeason ?: "")
+    val currentSeason: StateFlow<String> = _currentSeason.asStateFlow()
 
     fun setSelectedSeason(season: String) {
         preferencesHelper.selectedSeason = season

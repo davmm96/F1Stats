@@ -4,9 +4,8 @@ import com.david.f1stats.data.model.base.Result
 import com.david.f1stats.data.model.circuit.CircuitData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
 
-class CircuitService @Inject constructor(private val api: APIClient) {
+class CircuitService constructor(private val api: APIClient) {
     suspend fun getCircuits(): Result<List<CircuitData>> {
         return withContext(Dispatchers.IO) {
             try {

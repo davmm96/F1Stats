@@ -8,46 +8,41 @@ import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.david.f1stats.R
 import com.david.f1stats.databinding.FragmentRankingRacesBinding
 import com.david.f1stats.domain.model.Race
 import com.david.f1stats.ui.SharedViewModel
-import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-@AndroidEntryPoint
 class RankingRacesFragment : Fragment(),
     RankingRacesAdapter.RankingRacesNavListener,
     RankingRacesAdapter.RankingRacesFavListener {
 
+    private val racesViewModel: RankingRacesViewModel by viewModel()
+    private val sharedViewModel: SharedViewModel by activityViewModel()
+    private val adapter: RankingRacesAdapter by lazy {
+        RankingRacesAdapter(this, this, emptyList())
+    }
+
     private var _binding: FragmentRankingRacesBinding? = null
     private val binding get() = _binding!!
-    private val adapter: RankingRacesAdapter by lazy {
-        RankingRacesAdapter(
-            this,
-            this,
-            emptyList()
-        )
-    }
-    private val racesViewModel: RankingRacesViewModel by viewModels()
-    private val sharedViewModel: SharedViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         _binding = FragmentRankingRacesBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         observeSelectedSeason()
         initRecyclerView()
         initObservers()
@@ -59,8 +54,10 @@ class RankingRacesFragment : Fragment(),
     }
 
     private fun observeSelectedSeason() {
-        sharedViewModel.selectedSeason.observe(viewLifecycleOwner) {
-            racesViewModel.getRacesCompleted()
+        viewLifecycleOwner.lifecycleScope.launch {
+            sharedViewModel.selectedSeason.collect {
+                racesViewModel.getRacesCompleted()
+            }
         }
     }
 
@@ -70,26 +67,27 @@ class RankingRacesFragment : Fragment(),
     }
 
     private fun initObservers() {
-        racesViewModel.racesCompletedList.observe(viewLifecycleOwner) { racesCompleted ->
-            racesCompleted?.let {
-                adapter.setItems(ArrayList(it))
+        viewLifecycleOwner.lifecycleScope.launch {
+            racesViewModel.racesCompletedList.collect { racesCompleted ->
+                adapter.setItems(ArrayList(racesCompleted))
             }
         }
-
-        racesViewModel.favoriteRacesIds.observe(viewLifecycleOwner) { favoriteRaceIds ->
-            favoriteRaceIds?.let {
-                adapter.updateFavoriteRaces(ArrayList(it))
+        viewLifecycleOwner.lifecycleScope.launch {
+            racesViewModel.favoriteRacesIds.collect { favoriteRaceIds ->
+                adapter.updateFavoriteRaces(ArrayList(favoriteRaceIds))
             }
         }
-
-        racesViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
-            binding.baseRankingLayout.progressBar.isVisible = isLoading
+        viewLifecycleOwner.lifecycleScope.launch {
+            racesViewModel.isLoading.collect { isLoading ->
+                binding.baseRankingLayout.progressBar.isVisible = isLoading
+            }
         }
-
-        racesViewModel.errorMessage.observe(viewLifecycleOwner) { errorMessage ->
-            errorMessage?.let {
-                Toast.makeText(context, it, Toast.LENGTH_LONG).show()
-                racesViewModel.clearErrorMessage()
+        viewLifecycleOwner.lifecycleScope.launch {
+            racesViewModel.errorMessage.collect { errorMessage ->
+                errorMessage?.let {
+                    Toast.makeText(context, it, Toast.LENGTH_LONG).show()
+                    racesViewModel.clearErrorMessage()
+                }
             }
         }
     }
@@ -102,7 +100,7 @@ class RankingRacesFragment : Fragment(),
     }
 
     override fun onFavClicked(race: Race) {
-        if (racesViewModel.favoriteRacesIds.value?.contains(race.idRace) == true) {
+        if (racesViewModel.favoriteRacesIds.value.contains(race.idRace)) {
             racesViewModel.removeRaceFromFavorites(race.idRace)
             Toast.makeText(context, getString(R.string.favorite_removed), Toast.LENGTH_SHORT).show()
         } else {

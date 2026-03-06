@@ -4,9 +4,8 @@ import com.david.f1stats.data.model.base.Result
 import com.david.f1stats.data.model.driverDetail.DriverDetailData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
 
-class DriverService @Inject constructor(private val api: APIClient) {
+class DriverService constructor(private val api: APIClient) {
     suspend fun getDriverDetail(id: Int): Result<DriverDetailData> {
         return withContext(Dispatchers.IO) {
             try {

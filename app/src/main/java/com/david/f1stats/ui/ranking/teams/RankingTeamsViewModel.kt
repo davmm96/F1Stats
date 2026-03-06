@@ -1,29 +1,27 @@
 package com.david.f1stats.ui.ranking.teams
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.david.f1stats.data.model.base.Result
 import com.david.f1stats.domain.model.RankingTeam
 import com.david.f1stats.domain.useCases.GetRankingTeamUseCase
-import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class RankingTeamsViewModel @Inject constructor(
+class RankingTeamsViewModel(
     private val getRankingTeamUseCase: GetRankingTeamUseCase
 ) : ViewModel() {
 
-    private val _rankingTeamList = MutableLiveData<List<RankingTeam>>()
-    val rankingTeamList: LiveData<List<RankingTeam>?> = _rankingTeamList
+    private val _rankingTeamList = MutableStateFlow<List<RankingTeam>>(emptyList())
+    val rankingTeamList: StateFlow<List<RankingTeam>> = _rankingTeamList.asStateFlow()
 
-    private val _isLoading = MutableLiveData<Boolean>()
-    val isLoading: LiveData<Boolean> = _isLoading
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
 
-    private val _errorMessage = MutableLiveData<String?>()
-    val errorMessage: LiveData<String?> = _errorMessage
+    private val _errorMessage = MutableStateFlow<String?>(null)
+    val errorMessage: StateFlow<String?> = _errorMessage.asStateFlow()
 
     init {
         fetchRankingTeams()
@@ -34,14 +32,11 @@ class RankingTeamsViewModel @Inject constructor(
             _isLoading.value = true
             try {
                 when (val result = getRankingTeamUseCase()) {
-                    is Result.Success -> {
-                        _rankingTeamList.value = result.data.ifEmpty { emptyList() }
-                    }
+                    is Result.Success -> _rankingTeamList.value =
+                        result.data.ifEmpty { emptyList() }
 
-                    is Result.Error -> {
-                        _errorMessage.value =
-                            result.exception.localizedMessage ?: "Error fetching teams ranking"
-                    }
+                    is Result.Error -> _errorMessage.value =
+                        result.exception.localizedMessage ?: "Error fetching teams ranking"
                 }
             } catch (e: Exception) {
                 _errorMessage.value = e.localizedMessage ?: "Unknown error"

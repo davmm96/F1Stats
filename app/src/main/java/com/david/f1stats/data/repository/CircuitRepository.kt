@@ -4,9 +4,8 @@ import com.david.f1stats.data.mapper.CircuitMapper
 import com.david.f1stats.data.model.base.Result
 import com.david.f1stats.data.source.network.CircuitService
 import com.david.f1stats.domain.model.Circuit
-import javax.inject.Inject
 
-class CircuitRepository @Inject constructor(
+class CircuitRepository constructor(
     private val circuitService: CircuitService,
     private val circuitMapper: CircuitMapper,
 ) {

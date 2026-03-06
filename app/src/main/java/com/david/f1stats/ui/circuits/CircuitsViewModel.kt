@@ -1,29 +1,27 @@
 package com.david.f1stats.ui.circuits
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.david.f1stats.data.model.base.Result
 import com.david.f1stats.domain.model.Circuit
 import com.david.f1stats.domain.useCases.GetCircuitsUseCase
-import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class CircuitsViewModel @Inject constructor(
+class CircuitsViewModel(
     private val getCircuitsUseCase: GetCircuitsUseCase
 ) : ViewModel() {
 
-    private val _circuits = MutableLiveData<List<Circuit>>()
-    val circuitsList: LiveData<List<Circuit>> = _circuits
+    private val _circuits = MutableStateFlow<List<Circuit>>(emptyList())
+    val circuitsList: StateFlow<List<Circuit>> = _circuits.asStateFlow()
 
-    private val _isLoading = MutableLiveData<Boolean>()
-    val isLoading: LiveData<Boolean> = _isLoading
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
 
-    private val _errorMessage = MutableLiveData<String?>()
-    val errorMessage: LiveData<String?> = _errorMessage
+    private val _errorMessage = MutableStateFlow<String?>(null)
+    val errorMessage: StateFlow<String?> = _errorMessage.asStateFlow()
 
     init {
         fetchCircuits()
@@ -34,14 +32,9 @@ class CircuitsViewModel @Inject constructor(
             _isLoading.value = true
             try {
                 when (val result = getCircuitsUseCase()) {
-                    is Result.Success -> {
-                        _circuits.value = result.data.ifEmpty { emptyList() }
-                    }
-
-                    is Result.Error -> {
-                        _errorMessage.value =
-                            result.exception.localizedMessage ?: "Error fetching team details"
-                    }
+                    is Result.Success -> _circuits.value = result.data.ifEmpty { emptyList() }
+                    is Result.Error -> _errorMessage.value =
+                        result.exception.localizedMessage ?: "Error fetching circuits"
                 }
             } catch (e: Exception) {
                 _errorMessage.value = e.localizedMessage ?: "Unknown error"

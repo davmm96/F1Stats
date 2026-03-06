@@ -1,33 +1,32 @@
 package com.david.f1stats.ui.races.raceDetail
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.david.f1stats.data.model.base.Result
 import com.david.f1stats.domain.model.RaceDetail
 import com.david.f1stats.domain.useCases.GetRaceDetailsUseCase
 import com.david.f1stats.utils.CalendarHelper
-import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class RaceDetailViewModel @Inject constructor(
+class RaceDetailViewModel(
     private val getRaceDetailsUseCase: GetRaceDetailsUseCase
 ) : ViewModel() {
 
-    private val _raceList = MutableLiveData<List<RaceDetail>?>()
-    val raceList: LiveData<List<RaceDetail>?> = _raceList
+    private val _raceList = MutableStateFlow<List<RaceDetail>?>(null)
+    val raceList: StateFlow<List<RaceDetail>?> = _raceList.asStateFlow()
 
-    private val _raceInfo = MutableLiveData<RaceDetail>()
-    val raceInfo: LiveData<RaceDetail> = _raceInfo
+    private val _raceInfo = MutableStateFlow<RaceDetail?>(null)
+    val raceInfo: StateFlow<RaceDetail?> = _raceInfo.asStateFlow()
 
-    private val _addToCalendarEvent = MutableLiveData<CalendarHelper.CalendarEvent>()
-    val addToCalendarEvent: LiveData<CalendarHelper.CalendarEvent> = _addToCalendarEvent
+    private val _addToCalendarEvent = MutableStateFlow<CalendarHelper.CalendarEvent?>(null)
+    val addToCalendarEvent: StateFlow<CalendarHelper.CalendarEvent?> =
+        _addToCalendarEvent.asStateFlow()
 
-    private val _errorMessage = MutableLiveData<String?>()
-    val errorMessage: LiveData<String?> = _errorMessage
+    private val _errorMessage = MutableStateFlow<String?>(null)
+    val errorMessage: StateFlow<String?> = _errorMessage.asStateFlow()
 
     fun loadData(id: Int) {
         viewModelScope.launch {
@@ -41,11 +40,8 @@ class RaceDetailViewModel @Inject constructor(
                             _raceList.value = emptyList()
                         }
                     }
-
-                    is Result.Error -> {
-                        _errorMessage.value =
-                            result.exception.localizedMessage ?: "Error fetching race details"
-                    }
+                    is Result.Error -> _errorMessage.value =
+                        result.exception.localizedMessage ?: "Error fetching race details"
                 }
             } catch (e: Exception) {
                 _errorMessage.value = e.localizedMessage ?: "Unknown error"

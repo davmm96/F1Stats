@@ -8,23 +8,24 @@ import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.david.f1stats.R
 import com.david.f1stats.databinding.FragmentRankingDriversBinding
 import com.david.f1stats.ui.SharedViewModel
-import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-@AndroidEntryPoint
 class RankingDriversFragment : Fragment(), RankingDriversAdapter.RankingItemListener {
+
+    private val rankingDriverViewModel: RankingDriversViewModel by viewModel()
+    private val sharedViewModel: SharedViewModel by activityViewModel()
+    private val adapter: RankingDriversAdapter by lazy { RankingDriversAdapter(this) }
 
     private var _binding: FragmentRankingDriversBinding? = null
     private val binding get() = _binding!!
-    private val adapter: RankingDriversAdapter by lazy { RankingDriversAdapter(this) }
-    private val rankingDriverViewModel: RankingDriversViewModel by viewModels()
-    private val sharedViewModel: SharedViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,7 +38,6 @@ class RankingDriversFragment : Fragment(), RankingDriversAdapter.RankingItemList
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         observeSelectedSeason()
         initRecyclerView()
         initObservers()
@@ -49,8 +49,10 @@ class RankingDriversFragment : Fragment(), RankingDriversAdapter.RankingItemList
     }
 
     private fun observeSelectedSeason() {
-        sharedViewModel.selectedSeason.observe(viewLifecycleOwner) {
-            rankingDriverViewModel.fetchRankingDrivers()
+        viewLifecycleOwner.lifecycleScope.launch {
+            sharedViewModel.selectedSeason.collect {
+                rankingDriverViewModel.fetchRankingDrivers()
+            }
         }
     }
 
@@ -60,20 +62,22 @@ class RankingDriversFragment : Fragment(), RankingDriversAdapter.RankingItemList
     }
 
     private fun initObservers() {
-        rankingDriverViewModel.rankingDriverList.observe(viewLifecycleOwner) { rankingDrivers ->
-            rankingDrivers?.let {
-                adapter.setItems(ArrayList(it))
+        viewLifecycleOwner.lifecycleScope.launch {
+            rankingDriverViewModel.rankingDriverList.collect { rankingDrivers ->
+                adapter.setItems(ArrayList(rankingDrivers))
             }
         }
-
-        rankingDriverViewModel.isLoading.observe(viewLifecycleOwner) {
-            binding.baseRankingLayout.progressBar.isVisible = it
+        viewLifecycleOwner.lifecycleScope.launch {
+            rankingDriverViewModel.isLoading.collect { isLoading ->
+                binding.baseRankingLayout.progressBar.isVisible = isLoading
+            }
         }
-
-        rankingDriverViewModel.errorMessage.observe(viewLifecycleOwner) { errorMessage ->
-            errorMessage?.let {
-                Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
-                rankingDriverViewModel.clearErrorMessage()
+        viewLifecycleOwner.lifecycleScope.launch {
+            rankingDriverViewModel.errorMessage.collect { errorMessage ->
+                errorMessage?.let {
+                    Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+                    rankingDriverViewModel.clearErrorMessage()
+                }
             }
         }
     }

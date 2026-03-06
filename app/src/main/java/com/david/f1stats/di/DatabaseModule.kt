@@ -1,25 +1,14 @@
 package com.david.f1stats.di
 
-import android.content.Context
 import androidx.room.Room
 import com.david.f1stats.data.source.local.AppDatabase
-import com.david.f1stats.data.source.local.RaceDao
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import org.koin.android.ext.koin.androidContext
+import org.koin.dsl.module
 
-@Module
-@InstallIn(SingletonComponent::class)
-object DatabaseModule {
-
-    @Provides
-    @Singleton
-    fun provideAppDatabase(@ApplicationContext context: Context): AppDatabase {
-        return Room.databaseBuilder(
-            context,
+val databaseModule = module {
+    single<AppDatabase> {
+        Room.databaseBuilder(
+            androidContext(),
             AppDatabase::class.java,
             "app_database"
         )
@@ -27,8 +16,5 @@ object DatabaseModule {
             .build()
     }
 
-    @Provides
-    fun provideRaceDao(database: AppDatabase): RaceDao {
-        return database.raceDao()
-    }
+    single { get<AppDatabase>().raceDao() }
 }

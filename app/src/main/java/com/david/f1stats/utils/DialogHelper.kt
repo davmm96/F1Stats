@@ -8,9 +8,8 @@ import androidx.fragment.app.FragmentActivity
 import coil3.ImageLoader
 import coil3.load
 import com.david.f1stats.databinding.DialogImageFullscreenBinding
-import javax.inject.Inject
 
-class DialogHelper @Inject constructor() {
+class DialogHelper() {
 
     fun showImageDialog(activity: FragmentActivity, imageLoader: ImageLoader, imageUrl: String) {
         showDialog(activity) {

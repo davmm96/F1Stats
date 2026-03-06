@@ -3,9 +3,8 @@ package com.david.f1stats.data.mapper
 import com.david.f1stats.data.model.driverDetail.DriverDetailData
 import com.david.f1stats.data.model.driverDetail.DriverDetailHighestRaceFinishData
 import com.david.f1stats.domain.model.DriverDetail
-import javax.inject.Inject
 
-class DriverDetailMapper @Inject constructor() : IMapper<DriverDetailData, DriverDetail> {
+class DriverDetailMapper : IMapper<DriverDetailData, DriverDetail> {
 
     override fun fromMap(from: DriverDetailData): DriverDetail {
         return from.toDriverDetail()

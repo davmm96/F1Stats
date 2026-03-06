@@ -2,9 +2,8 @@ package com.david.f1stats.data.mapper
 
 import com.david.f1stats.data.model.raceResult.RaceResultData
 import com.david.f1stats.domain.model.RaceResult
-import javax.inject.Inject
 
-class RaceResultMapper @Inject constructor() : IMapper<List<RaceResultData>?, List<RaceResult>?> {
+class RaceResultMapper : IMapper<List<RaceResultData>?, List<RaceResult>?> {
 
     companion object {
         val POINTS_MAP = mapOf(

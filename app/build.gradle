@@ -1,9 +1,7 @@
-import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
-
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
-    alias(libs.plugins.hilt.android)
     alias(libs.plugins.navigation.safeargs.kotlin)
 }
 
@@ -35,15 +33,10 @@ android {
         targetCompatibility JavaVersion.VERSION_17
     }
 
-    kotlin {
-        compilerOptions {
-            languageVersion = KotlinVersion.KOTLIN_2_3
-        }
-    }
-
     buildFeatures {
         viewBinding true
         buildConfig true
+        compose true
     }
 }
 
@@ -54,6 +47,7 @@ dependencies {
     implementation libs.androidx.constraintlayout
     implementation libs.androidx.lifecycle.livedata.ktx
     implementation libs.androidx.lifecycle.viewmodel.ktx
+    implementation libs.lifecycle.runtime.compose
     implementation libs.androidx.navigation.fragment.ktx
     implementation libs.androidx.navigation.ui.ktx
 
@@ -71,9 +65,9 @@ dependencies {
     implementation libs.kotlinx.coroutines.core
     implementation libs.kotlinx.coroutines.android
 
-    // Hilt
-    implementation libs.hilt.android
-    ksp libs.hilt.compiler
+    // Koin
+    implementation libs.koin.android
+    implementation libs.koin.androidx.compose
 
     // ViewPager2
     implementation libs.androidx.viewpager2
@@ -81,6 +75,15 @@ dependencies {
     // Coil
     implementation libs.coil
     implementation libs.coil.network.okhttp
+    implementation libs.coil.compose
+
+    // Compose
+    implementation platform(libs.compose.bom)
+    implementation libs.compose.ui
+    implementation libs.compose.ui.tooling.preview
+    implementation libs.compose.material3
+    implementation libs.activity.compose
+    debugImplementation libs.compose.ui.tooling
 
     // Tests
     testImplementation libs.junit

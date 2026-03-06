@@ -6,9 +6,8 @@ import com.david.f1stats.data.source.local.RaceDao
 import com.david.f1stats.domain.model.Race
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import javax.inject.Inject
 
-class FavoriteRaceRepository @Inject constructor(
+class FavoriteRaceRepository constructor(
     private val raceDao: RaceDao,
     private val favoriteRaceMapper: FavoriteRaceMapper,
 ) {

@@ -8,20 +8,22 @@ import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.david.f1stats.R
 import com.david.f1stats.databinding.FragmentFavoritesBinding
-import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-@AndroidEntryPoint
 class FavoritesFragment : Fragment(), FavoritesAdapter.FavoriteItemListener,
     FavoritesAdapter.FavoriteNavListener {
+
+    private val favoriteRacesViewModel: FavoritesViewModel by viewModel()
+    private val adapter: FavoritesAdapter by lazy { FavoritesAdapter(this, this) }
+
     private var _binding: FragmentFavoritesBinding? = null
     private val binding get() = _binding!!
-    private val adapter: FavoritesAdapter by lazy { FavoritesAdapter(this, this) }
-    private val favoriteRacesViewModel: FavoritesViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,26 +51,33 @@ class FavoritesFragment : Fragment(), FavoritesAdapter.FavoriteItemListener,
     }
 
     private fun initObservers() {
-        favoriteRacesViewModel.favoriteRaces.observe(viewLifecycleOwner) { list ->
-            adapter.setItems(ArrayList(list))
-            val empty = list.isEmpty()
-            binding.tvNoFavorites.isVisible = empty
-            binding.tvNoFavoriteSubtitle.isVisible = empty
-            binding.ivNoFavorites.isVisible = empty
-        }
-
-        favoriteRacesViewModel.isDeleted.observe(viewLifecycleOwner) { isDeleted ->
-            if (isDeleted) {
-                Toast.makeText(context, getString(R.string.favorite_removed), Toast.LENGTH_SHORT)
-                    .show()
-                favoriteRacesViewModel.clearIsDeleted()
+        viewLifecycleOwner.lifecycleScope.launch {
+            favoriteRacesViewModel.favoriteRaces.collect { list ->
+                adapter.setItems(ArrayList(list))
+                val empty = list.isEmpty()
+                binding.tvNoFavorites.isVisible = empty
+                binding.tvNoFavoriteSubtitle.isVisible = empty
+                binding.ivNoFavorites.isVisible = empty
             }
         }
-
-        favoriteRacesViewModel.errorMessage.observe(viewLifecycleOwner) { errorMessage ->
-            errorMessage?.let {
-                Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
-                favoriteRacesViewModel.clearErrorMessage()
+        viewLifecycleOwner.lifecycleScope.launch {
+            favoriteRacesViewModel.isDeleted.collect { isDeleted ->
+                if (isDeleted) {
+                    Toast.makeText(
+                        context,
+                        getString(R.string.favorite_removed),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    favoriteRacesViewModel.clearIsDeleted()
+                }
+            }
+        }
+        viewLifecycleOwner.lifecycleScope.launch {
+            favoriteRacesViewModel.errorMessage.collect { errorMessage ->
+                errorMessage?.let {
+                    Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+                    favoriteRacesViewModel.clearErrorMessage()
+                }
             }
         }
     }

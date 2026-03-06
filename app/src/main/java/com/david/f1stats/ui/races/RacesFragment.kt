@@ -10,23 +10,24 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.david.f1stats.R
 import com.david.f1stats.databinding.FragmentRacesBinding
 import com.david.f1stats.ui.SharedViewModel
-import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-@AndroidEntryPoint
 class RacesFragment : Fragment(), RacesAdapter.RaceItemListener {
+
+    private val racesViewModel: RacesViewModel by viewModel()
+    private val sharedViewModel: SharedViewModel by activityViewModel()
+    private val adapter: RacesAdapter by lazy { RacesAdapter(this) }
 
     private var _binding: FragmentRacesBinding? = null
     private val binding get() = _binding!!
-    private val adapter: RacesAdapter by lazy { RacesAdapter(this) }
-    private val racesViewModel: RacesViewModel by viewModels()
-    private val sharedViewModel: SharedViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,7 +40,6 @@ class RacesFragment : Fragment(), RacesAdapter.RaceItemListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         observeSelectedSeason()
         initRecyclerView()
         initObservers()
@@ -52,40 +52,11 @@ class RacesFragment : Fragment(), RacesAdapter.RaceItemListener {
 
     @SuppressLint("StringFormatInvalid")
     private fun observeSelectedSeason() {
-        sharedViewModel.selectedSeason.observe(viewLifecycleOwner) {
-            val title =
-                getString(R.string.title_calendar, sharedViewModel.selectedSeason.value.toString())
-            (requireActivity() as AppCompatActivity).supportActionBar?.title = title
-            racesViewModel.fetchRaces()
-        }
-    }
-
-    private fun initObservers() {
-        racesViewModel.raceList.observe(viewLifecycleOwner) { races ->
-            val hasRaces = races?.isNotEmpty() == true
-            binding.apply {
-                rvRaces.isVisible = hasRaces
-                calendarTitle.isVisible = hasRaces
-                if (hasRaces) races.let { adapter.setItems(ArrayList(it)) }
-            }
-        }
-
-        racesViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
-            binding.progressBar.isVisible = isLoading
-        }
-
-        racesViewModel.isSeasonCompleted.observe(viewLifecycleOwner) { isCompleted ->
-            binding.apply {
-                tvNoRaces.isVisible = isCompleted
-                tvNoRacesSubtitle.isVisible = isCompleted
-                ivNoRaces.isVisible = isCompleted
-            }
-        }
-
-        racesViewModel.errorMessage.observe(viewLifecycleOwner) { errorMessage ->
-            errorMessage?.let {
-                Toast.makeText(context, it, Toast.LENGTH_LONG).show()
-                racesViewModel.clearErrorMessage()
+        viewLifecycleOwner.lifecycleScope.launch {
+            sharedViewModel.selectedSeason.collect {
+                val title = getString(R.string.title_calendar, sharedViewModel.selectedSeason.value)
+                (requireActivity() as AppCompatActivity).supportActionBar?.title = title
+                racesViewModel.fetchRaces()
             }
         }
     }
@@ -93,6 +64,41 @@ class RacesFragment : Fragment(), RacesAdapter.RaceItemListener {
     private fun initRecyclerView() {
         binding.rvRaces.layoutManager = LinearLayoutManager(requireContext())
         binding.rvRaces.adapter = adapter
+    }
+
+    private fun initObservers() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            racesViewModel.raceList.collect { races ->
+                val hasRaces = races?.isNotEmpty() == true
+                binding.apply {
+                    rvRaces.isVisible = hasRaces
+                    calendarTitle.isVisible = hasRaces
+                    if (hasRaces) races?.also { adapter.setItems(ArrayList(it)) }
+                }
+            }
+        }
+        viewLifecycleOwner.lifecycleScope.launch {
+            racesViewModel.isLoading.collect { isLoading ->
+                binding.progressBar.isVisible = isLoading
+            }
+        }
+        viewLifecycleOwner.lifecycleScope.launch {
+            racesViewModel.isSeasonCompleted.collect { isCompleted ->
+                binding.apply {
+                    tvNoRaces.isVisible = isCompleted
+                    tvNoRacesSubtitle.isVisible = isCompleted
+                    ivNoRaces.isVisible = isCompleted
+                }
+            }
+        }
+        viewLifecycleOwner.lifecycleScope.launch {
+            racesViewModel.errorMessage.collect { errorMessage ->
+                errorMessage?.let {
+                    Toast.makeText(context, it, Toast.LENGTH_LONG).show()
+                    racesViewModel.clearErrorMessage()
+                }
+            }
+        }
     }
 
     override fun onClickedRace(idCompetition: Int, country: String, idRace: Int) {

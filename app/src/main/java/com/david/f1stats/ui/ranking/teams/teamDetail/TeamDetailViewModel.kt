@@ -1,26 +1,24 @@
 package com.david.f1stats.ui.ranking.teams.teamDetail
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.david.f1stats.data.model.base.Result
 import com.david.f1stats.domain.model.TeamDetail
 import com.david.f1stats.domain.useCases.GetTeamDetailUseCase
-import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class TeamDetailViewModel @Inject constructor(
+class TeamDetailViewModel(
     private val getTeamDetailUseCase: GetTeamDetailUseCase
 ) : ViewModel() {
 
-    private val _teamInfo = MutableLiveData<TeamDetail?>()
-    val teamInfo: LiveData<TeamDetail?> = _teamInfo
+    private val _teamInfo = MutableStateFlow<TeamDetail?>(null)
+    val teamInfo: StateFlow<TeamDetail?> = _teamInfo.asStateFlow()
 
-    private val _errorMessage = MutableLiveData<String?>()
-    val errorMessage: LiveData<String?> = _errorMessage
+    private val _errorMessage = MutableStateFlow<String?>(null)
+    val errorMessage: StateFlow<String?> = _errorMessage.asStateFlow()
 
     fun fetchTeamDetail(id: Int) {
         viewModelScope.launch {
@@ -33,11 +31,8 @@ class TeamDetailViewModel @Inject constructor(
                             _errorMessage.value = "Team not found"
                         }
                     }
-
-                    is Result.Error -> {
-                        _errorMessage.value =
-                            result.exception.localizedMessage ?: "Error fetching team details"
-                    }
+                    is Result.Error -> _errorMessage.value =
+                        result.exception.localizedMessage ?: "Error fetching team details"
                 }
             } catch (e: Exception) {
                 _errorMessage.value = e.localizedMessage ?: "Unknown error"

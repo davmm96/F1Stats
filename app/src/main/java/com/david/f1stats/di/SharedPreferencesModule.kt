@@ -1,21 +1,14 @@
 package com.david.f1stats.di
 
 import android.content.Context
-import android.content.SharedPreferences
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import com.david.f1stats.utils.PreferencesHelper
+import org.koin.android.ext.koin.androidContext
+import org.koin.dsl.module
 
-@Module
-@InstallIn(SingletonComponent::class)
-object SharedPreferencesModule {
-
-    @Provides
-    @Singleton
-    fun provideSharedPreferences(@ApplicationContext context: Context): SharedPreferences {
-        return context.getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+val sharedPreferencesModule = module {
+    single {
+        androidContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
     }
+
+    single { PreferencesHelper(get()) }
 }

@@ -8,9 +8,8 @@ import com.david.f1stats.data.source.network.RaceService
 import com.david.f1stats.domain.model.Race
 import com.david.f1stats.domain.model.RaceDetail
 import com.david.f1stats.domain.model.RaceResult
-import javax.inject.Inject
 
-class RaceRepository @Inject constructor(
+class RaceRepository constructor(
     private val raceService: RaceService,
     private val raceMapper: RaceMapper,
     private val raceDetailMapper: RaceDetailMapper,

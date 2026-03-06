@@ -7,9 +7,8 @@ import com.david.f1stats.utils.PreferencesHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.util.Calendar
-import javax.inject.Inject
 
-class RaceService @Inject constructor(
+class RaceService constructor(
     private val api: APIClient,
     private val preferencesHelper: PreferencesHelper
 ) {

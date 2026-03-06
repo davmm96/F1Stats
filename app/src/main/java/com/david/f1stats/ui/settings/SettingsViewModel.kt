@@ -1,8 +1,6 @@
 package com.david.f1stats.ui.settings
 
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.david.f1stats.data.model.base.Result
@@ -10,25 +8,25 @@ import com.david.f1stats.domain.model.Season
 import com.david.f1stats.domain.useCases.GetSeasonsUseCase
 import com.david.f1stats.utils.MusicHelper
 import com.david.f1stats.utils.PreferencesHelper
-import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class SettingsViewModel @Inject constructor(
+class SettingsViewModel(
     private val musicManager: MusicHelper,
     private val preferencesManager: PreferencesHelper,
     private val getSeasonsUseCase: GetSeasonsUseCase
 ) : ViewModel() {
 
-    private val _isMusicPlaying = MutableLiveData(preferencesManager.musicActivated)
-    val isMusicPlaying: LiveData<Boolean> = _isMusicPlaying
+    private val _isMusicPlaying = MutableStateFlow(preferencesManager.musicActivated)
+    val isMusicPlaying: StateFlow<Boolean> = _isMusicPlaying.asStateFlow()
 
-    private val _seasonList = MutableLiveData<List<Season>>()
-    val seasonList: LiveData<List<Season>> = _seasonList
+    private val _seasonList = MutableStateFlow<List<Season>>(emptyList())
+    val seasonList: StateFlow<List<Season>> = _seasonList.asStateFlow()
 
-    private val _errorMessage = MutableLiveData<String?>()
-    val errorMessage: LiveData<String?> = _errorMessage
+    private val _errorMessage = MutableStateFlow<String?>(null)
+    val errorMessage: StateFlow<String?> = _errorMessage.asStateFlow()
 
     init {
         fetchSeasons()
@@ -38,14 +36,9 @@ class SettingsViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 when (val result = getSeasonsUseCase()) {
-                    is Result.Success -> {
-                        _seasonList.value = result.data.ifEmpty { emptyList() }
-                    }
-
-                    is Result.Error -> {
-                        _errorMessage.value =
-                            result.exception.localizedMessage ?: "Error fetching seasons"
-                    }
+                    is Result.Success -> _seasonList.value = result.data.ifEmpty { emptyList() }
+                    is Result.Error -> _errorMessage.value =
+                        result.exception.localizedMessage ?: "Error fetching seasons"
                 }
             } catch (e: Exception) {
                 _errorMessage.value = e.localizedMessage ?: "Unknown error"

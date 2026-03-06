@@ -1,9 +1,8 @@
 package com.david.f1stats.domain.useCases
 
 import com.david.f1stats.data.repository.FavoriteRaceRepository
-import javax.inject.Inject
 
-class DeleteFavoriteUseCase @Inject constructor(
+class DeleteFavoriteUseCase constructor(
     private val repository: FavoriteRaceRepository
 ) {
     suspend operator fun invoke(id: Int) = repository.deleteFavoriteRace(id)

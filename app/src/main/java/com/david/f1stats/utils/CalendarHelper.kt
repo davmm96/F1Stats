@@ -4,9 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.provider.CalendarContract
 import com.david.f1stats.utils.Constants.TIMEZONE
-import javax.inject.Inject
 
-class CalendarHelper @Inject constructor() {
+class CalendarHelper() {
 
     data class CalendarEvent(
         val title: String,

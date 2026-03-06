@@ -9,9 +9,8 @@ import com.david.f1stats.utils.Constants.FORMAT_HOUR
 import com.david.f1stats.utils.Constants.FORMAT_MONTH
 import com.david.f1stats.utils.dateToMillis
 import com.david.f1stats.utils.formatDate
-import javax.inject.Inject
 
-class RaceDetailMapper @Inject constructor() : IMapper<List<RaceData>?, List<RaceDetail>?> {
+class RaceDetailMapper : IMapper<List<RaceData>?, List<RaceDetail>?> {
 
     override fun fromMap(from: List<RaceData>?): List<RaceDetail>? {
         return from?.mapNotNull { it.toRaceDetail() }?.sortedBy { it.dateCalendar }?.reversed()

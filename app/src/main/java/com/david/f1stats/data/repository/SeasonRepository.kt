@@ -4,9 +4,8 @@ import com.david.f1stats.data.mapper.SeasonMapper
 import com.david.f1stats.data.model.base.Result
 import com.david.f1stats.data.source.network.SeasonService
 import com.david.f1stats.domain.model.Season
-import javax.inject.Inject
 
-class SeasonRepository @Inject constructor(
+class SeasonRepository constructor(
     private val seasonService: SeasonService,
     private val seasonMapper: SeasonMapper,
 ) {
