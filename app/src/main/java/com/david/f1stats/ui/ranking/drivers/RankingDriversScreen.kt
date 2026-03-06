@@ -116,7 +116,6 @@ private fun RankingDriverItem(
                 .padding(horizontal = 12.dp, vertical = 10.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Position
             Text(
                 text = driver.position.toString(),
                 fontSize = 14.sp,
@@ -125,7 +124,6 @@ private fun RankingDriverItem(
                 modifier = Modifier.width(28.dp)
             )
 
-            // Team color separator
             Box(
                 modifier = Modifier
                     .width(4.dp)
@@ -133,7 +131,6 @@ private fun RankingDriverItem(
                     .background(colorResource(getColor(driver.idTeam)))
             )
 
-            // Name + team
             Column(
                 modifier = Modifier
                     .weight(1f)
@@ -155,7 +152,6 @@ private fun RankingDriverItem(
                 )
             }
 
-            // Points badge
             Text(
                 text = driver.points,
                 fontSize = 12.sp,
@@ -166,7 +162,6 @@ private fun RankingDriverItem(
                     .padding(horizontal = 8.dp, vertical = 4.dp)
             )
 
-            // Arrow
             Icon(
                 painter = painterResource(arrowRes),
                 contentDescription = null,

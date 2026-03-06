@@ -2,6 +2,7 @@ package com.david.f1stats.ui.navigation
 
 import android.net.Uri
 import androidx.activity.compose.LocalActivity
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -156,10 +157,11 @@ fun F1StatsApp(sharedViewModel: SharedViewModel = koinViewModel()) {
         NavHost(
             navController = navController,
             startDestination = Routes.RACES,
-            modifier = Modifier.padding(innerPadding)
+            modifier = Modifier
+                .padding(innerPadding)
+                .consumeWindowInsets(innerPadding)
         ) {
 
-            // ── Races ──────────────────────────────────────────────────────
             composable(Routes.RACES) {
                 val vm: RacesViewModel = koinViewModel()
                 val races by vm.raceList.collectAsStateWithLifecycle()
@@ -217,7 +219,6 @@ fun F1StatsApp(sharedViewModel: SharedViewModel = koinViewModel()) {
                 )
             }
 
-            // ── Ranking ────────────────────────────────────────────────────
             composable(Routes.RANKING) {
                 RankingScreen(
                     currentSeason = currentSeason,
@@ -302,7 +303,6 @@ fun F1StatsApp(sharedViewModel: SharedViewModel = koinViewModel()) {
                 )
             }
 
-            // ── Circuits ───────────────────────────────────────────────────
             composable(Routes.CIRCUITS) {
                 val vm: CircuitsViewModel = koinViewModel()
                 val circuits by vm.circuitsList.collectAsStateWithLifecycle()
@@ -324,7 +324,6 @@ fun F1StatsApp(sharedViewModel: SharedViewModel = koinViewModel()) {
                 )
             }
 
-            // ── Favorites ──────────────────────────────────────────────────
             composable(Routes.FAVORITES) {
                 val vm: FavoritesViewModel = koinViewModel()
                 val races by vm.favoriteRaces.collectAsStateWithLifecycle()
@@ -343,7 +342,6 @@ fun F1StatsApp(sharedViewModel: SharedViewModel = koinViewModel()) {
                 )
             }
 
-            // ── Settings ───────────────────────────────────────────────────
             composable(Routes.SETTINGS) {
                 val vm: SettingsViewModel = koinViewModel()
                 val imageLoader: ImageLoader = koinInject()

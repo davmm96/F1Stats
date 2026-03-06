@@ -62,7 +62,6 @@ private fun isDnf(result: RaceResult): Boolean {
     if (t.startsWith("+")) return false // normal gap
     if (t.contains(":")) return false   // winner's race time "1:30:26.123"
     if (t.contains("Lap")) return false // lapped cars "+X Lap(s)"
-    // Anything else (engine, accident, collision…) is a retirement
     return t.isNotBlank()
 }
 
@@ -159,14 +158,17 @@ private fun RaceResultRow(result: RaceResult) {
     val badgeColor = positionBadgeColor(result.position)
     val badgeTextColor = positionTextColor(result.position)
 
+    val dnfRowBg = MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.25f)
+    val dnfChipBg = MaterialTheme.colorScheme.errorContainer
+    val dnfTextColor = MaterialTheme.colorScheme.onErrorContainer
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .background(if (dnf) Color(0xFFFFF0F0) else Color.Transparent)
+            .background(if (dnf) dnfRowBg else Color.Transparent)
             .padding(horizontal = 16.dp, vertical = 10.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        // Position badge
         Box(
             modifier = Modifier
                 .weight(1.2f),
@@ -187,7 +189,6 @@ private fun RaceResultRow(result: RaceResult) {
             }
         }
 
-        // Driver (team separator + abbr)
         Row(
             modifier = Modifier.weight(1.2f),
             verticalAlignment = Alignment.CenterVertically
@@ -206,24 +207,22 @@ private fun RaceResultRow(result: RaceResult) {
             )
         }
 
-        // Time
         Text(
             text = result.time,
             fontSize = 11.sp,
             fontWeight = FontWeight.Normal,
-            color = (if (dnf) MaterialTheme.colorScheme.error else Color(0xFF3C3C3C)).copy(alpha = rowAlpha),
+            color = (if (dnf) dnfTextColor else Color(0xFF3C3C3C)).copy(alpha = rowAlpha),
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier
                 .weight(2f)
                 .background(
-                    if (dnf) Color(0xFFFFCDD2) else Color(0xFFE3E3E3),
+                    if (dnf) dnfChipBg else Color(0xFFE3E3E3),
                     RoundedCornerShape(20.dp)
                 )
                 .padding(horizontal = 8.dp, vertical = 4.dp)
         )
 
-        // Points
         Text(
             text = result.points,
             fontSize = 13.sp,

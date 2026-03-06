@@ -159,7 +159,6 @@ private fun RaceItem(
                 .padding(12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Date column
             Column(
                 modifier = Modifier.width(52.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -179,7 +178,6 @@ private fun RaceItem(
                 )
             }
 
-            // Info column
             Column(
                 modifier = Modifier
                     .weight(1f)
@@ -206,7 +204,6 @@ private fun RaceItem(
                 )
             }
 
-            // Arrow
             Icon(
                 painter = painterResource(R.drawable.arrow_right),
                 contentDescription = null,

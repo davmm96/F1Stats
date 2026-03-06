@@ -88,7 +88,6 @@ private fun DriverDetailContent(
             .verticalScroll(rememberScrollState())
             .padding(horizontal = 16.dp)
     ) {
-        // Header
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -129,7 +128,6 @@ private fun DriverDetailContent(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // WC trophy row
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
@@ -154,7 +152,6 @@ private fun DriverDetailContent(
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        // Stats 2×2 grid
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -197,7 +194,6 @@ private fun DriverDetailContent(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Current team
         Text(
             text = stringResource(R.string.driver_actual_team_label),
             fontSize = 14.sp

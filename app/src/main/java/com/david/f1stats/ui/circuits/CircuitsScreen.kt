@@ -103,14 +103,12 @@ private fun CircuitItem(
                 .fillMaxWidth()
                 .padding(15.dp) // item_circuit_padding
         ) {
-            // Name (cardViewTitle: 16sp, bold)
             Text(
                 text = circuit.name,
                 style = MaterialTheme.typography.titleMedium,
                 modifier = Modifier.padding(bottom = 4.dp)
             )
 
-            // Country (cardViewText: 12sp, normal)
             Text(
                 text = circuit.country,
                 style = MaterialTheme.typography.bodyMedium,
@@ -119,7 +117,6 @@ private fun CircuitItem(
                 modifier = Modifier.padding(bottom = 15.dp)
             )
 
-            // Three info sections: length, laps, first GP
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -143,12 +140,10 @@ private fun CircuitItem(
                 )
             }
 
-            // Lap record + Map button
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                // Lap record section (weight 3)
                 Column(modifier = Modifier.weight(3f)) {
                     Text(
                         text = stringResource(R.string.lap_record_label),
@@ -171,7 +166,6 @@ private fun CircuitItem(
                     )
                 }
 
-                // Map button — explicit padding so "Map" fits on one line
                 Button(
                     onClick = onMapClick,
                     modifier = Modifier.weight(1f),

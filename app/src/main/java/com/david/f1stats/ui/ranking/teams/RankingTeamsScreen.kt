@@ -113,7 +113,6 @@ private fun RankingTeamItem(
                 .padding(horizontal = 12.dp, vertical = 10.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Position
             Text(
                 text = team.position.toString(),
                 fontSize = 14.sp,
@@ -122,7 +121,6 @@ private fun RankingTeamItem(
                 modifier = Modifier.width(28.dp)
             )
 
-            // Team color separator
             Box(
                 modifier = Modifier
                     .width(4.dp)
@@ -130,7 +128,6 @@ private fun RankingTeamItem(
                     .background(colorResource(getColor(team.idTeam)))
             )
 
-            // Team name
             Text(
                 text = team.name,
                 fontSize = nameFontSize,
@@ -141,7 +138,6 @@ private fun RankingTeamItem(
                     .padding(horizontal = 10.dp)
             )
 
-            // Points badge
             Text(
                 text = team.points,
                 fontSize = 12.sp,
@@ -152,7 +148,6 @@ private fun RankingTeamItem(
                     .padding(horizontal = 8.dp, vertical = 4.dp)
             )
 
-            // Arrow
             Icon(
                 painter = painterResource(arrowRes),
                 contentDescription = null,

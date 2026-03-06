@@ -82,12 +82,10 @@ fun RaceDetailScreen(
                     .padding(horizontal = 16.dp),
                 verticalArrangement = Arrangement.spacedBy(0.dp)
             ) {
-                // Header
                 item {
                     RaceDetailHeader(raceInfo = raceInfo)
                 }
 
-                // "Race weekend" section label
                 item {
                     Text(
                         text = stringResource(R.string.race_weekend).uppercase(),
@@ -98,7 +96,6 @@ fun RaceDetailScreen(
                     )
                 }
 
-                // Schedule items (only SCHEDULED and non-NONE types)
                 val visibleItems = schedule.filter {
                     it.type != TypeRaceEnum.NONE && it.status == StatusRaceEnum.SCHEDULED
                 }
@@ -177,7 +174,6 @@ private fun RaceWeekendItem(
                 .padding(horizontal = 12.dp, vertical = 12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Date column
             Column(
                 modifier = Modifier.width(44.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -197,7 +193,6 @@ private fun RaceWeekendItem(
                 )
             }
 
-            // Type + hour
             Column(
                 modifier = Modifier
                     .weight(1f)
@@ -216,7 +211,6 @@ private fun RaceWeekendItem(
                 )
             }
 
-            // Calendar button
             Icon(
                 painter = painterResource(R.drawable.icon_calendar),
                 contentDescription = stringResource(R.string.add_to_calendar),

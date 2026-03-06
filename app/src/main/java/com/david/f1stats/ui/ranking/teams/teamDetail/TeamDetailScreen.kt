@@ -88,7 +88,6 @@ private fun TeamDetailContent(
             .verticalScroll(rememberScrollState())
             .padding(horizontal = 16.dp)
     ) {
-        // Header
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -120,7 +119,6 @@ private fun TeamDetailContent(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // WC trophy row
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
@@ -145,7 +143,6 @@ private fun TeamDetailContent(
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        // Stats 2×2
         Row(
             modifier = Modifier
                 .fillMaxWidth()

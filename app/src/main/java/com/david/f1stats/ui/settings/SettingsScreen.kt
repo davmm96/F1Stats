@@ -74,7 +74,7 @@ fun SettingsScreen(
         SeasonPickerDialog(
             seasons = seasons,
             currentSeason = currentSeason,
-            onDismiss = { },
+            onDismiss = { showSeasonDialog = false },
             onSeasonSelected = { season ->
                 onSeasonSelected(season)
             }
@@ -92,7 +92,6 @@ fun SettingsScreen(
                 .padding(innerPadding)
                 .padding(20.dp)
         ) {
-            // ── Appearance ────────────────────────────────────────────────
             SectionHeader(stringResource(R.string.dark_mode_label))
             Spacer(Modifier.height(12.dp))
 
@@ -136,14 +135,13 @@ fun SettingsScreen(
 
             Spacer(Modifier.height(24.dp))
 
-            // ── Season ────────────────────────────────────────────────────
             SectionHeader(stringResource(R.string.select_season_label))
             Spacer(Modifier.height(12.dp))
 
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clickable { },
+                    .clickable { showSeasonDialog = true },
                 elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
                 shape = RoundedCornerShape(10.dp),
                 colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
@@ -179,7 +177,6 @@ fun SettingsScreen(
 
             Spacer(Modifier.height(24.dp))
 
-            // ── Music ─────────────────────────────────────────────────────
             SectionHeader(stringResource(R.string.music_label_title))
             Spacer(Modifier.height(12.dp))
 
@@ -209,7 +206,6 @@ fun SettingsScreen(
 
             Spacer(Modifier.height(24.dp))
 
-            // ── About ─────────────────────────────────────────────────────
             SectionHeader(stringResource(R.string.about_label))
             Spacer(Modifier.height(16.dp))
 
