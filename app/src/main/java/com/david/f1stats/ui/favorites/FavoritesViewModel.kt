@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class FavoritesViewModel(
-    private val getAllFavoriteRacesUseCase: GetAllFavoriteRacesUseCase,
+    getAllFavoriteRacesUseCase: GetAllFavoriteRacesUseCase,
     private val deleteFavoriteUseCase: DeleteFavoriteUseCase
 ) : ViewModel() {
 
