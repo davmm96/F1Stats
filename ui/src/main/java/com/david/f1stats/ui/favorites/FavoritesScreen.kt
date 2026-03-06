@@ -30,10 +30,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.david.f1stats.ui.R
 import com.david.f1stats.domain.model.FavoriteRace
+import com.david.f1stats.ui.R
+import com.david.f1stats.ui.preview.previewFavoriteRaces
+import com.david.f1stats.ui.theme.F1StatsTheme
 
 @Composable
 fun FavoritesScreen(
@@ -181,5 +184,37 @@ private fun FavoritesEmptyState(modifier: Modifier = Modifier) {
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
             )
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun FavoritesScreenPreview() {
+    F1StatsTheme {
+        FavoritesScreen(
+            races = previewFavoriteRaces,
+            isDeleted = false,
+            errorMessage = null,
+            onRemove = {},
+            onNavigate = { _, _ -> },
+            onDeletedConsumed = {},
+            onErrorConsumed = {}
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun FavoritesEmptyPreview() {
+    F1StatsTheme {
+        FavoritesScreen(
+            races = emptyList(),
+            isDeleted = false,
+            errorMessage = null,
+            onRemove = {},
+            onNavigate = { _, _ -> },
+            onDeletedConsumed = {},
+            onErrorConsumed = {}
+        )
     }
 }

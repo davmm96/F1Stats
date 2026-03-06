@@ -56,6 +56,10 @@ dependencies {
     implementation libs.activity.compose
     implementation libs.androidx.appcompat
 
+    // Compose tooling (required in :app for Hot Reload / Live Edit)
+    implementation platform(libs.compose.bom)
+    debugImplementation libs.compose.ui.tooling
+
     // Koin needed for DI module wiring in :app
     implementation libs.koin.android
     implementation libs.koin.androidx.compose

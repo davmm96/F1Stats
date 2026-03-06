@@ -35,10 +35,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.david.f1stats.ui.R
 import com.david.f1stats.domain.model.Race
+import com.david.f1stats.ui.R
+import com.david.f1stats.ui.preview.previewRaces
+import com.david.f1stats.ui.theme.F1StatsTheme
 
 @Composable
 fun RacesScreen(
@@ -211,5 +214,35 @@ private fun RaceItem(
                 tint = Color.Unspecified
             )
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun RacesScreenPreview() {
+    F1StatsTheme {
+        RacesScreen(
+            races = previewRaces,
+            isLoading = false,
+            isSeasonCompleted = false,
+            errorMessage = null,
+            onRaceClick = { _, _ -> },
+            onErrorConsumed = {}
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun RacesScreenLoadingPreview() {
+    F1StatsTheme {
+        RacesScreen(
+            races = null,
+            isLoading = true,
+            isSeasonCompleted = false,
+            errorMessage = null,
+            onRaceClick = { _, _ -> },
+            onErrorConsumed = {}
+        )
     }
 }

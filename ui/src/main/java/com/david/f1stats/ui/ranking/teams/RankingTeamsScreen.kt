@@ -30,12 +30,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.david.f1stats.domain.model.RankingTeam
 import com.david.f1stats.ui.R
+import com.david.f1stats.ui.preview.previewRankingTeams
 import com.david.f1stats.ui.theme.F1DarkBlue
 import com.david.f1stats.ui.theme.F1DarkGrey
+import com.david.f1stats.ui.theme.F1StatsTheme
 import com.david.f1stats.utils.getColor
 
 @Composable
@@ -157,5 +160,19 @@ private fun RankingTeamItem(
                 tint = Color.Unspecified
             )
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun RankingTeamsScreenPreview() {
+    F1StatsTheme {
+        RankingTeamsScreen(
+            teams = previewRankingTeams,
+            isLoading = false,
+            errorMessage = null,
+            onTeamClick = {},
+            onErrorConsumed = {}
+        )
     }
 }

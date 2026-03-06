@@ -32,12 +32,15 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.david.f1stats.ui.R
 import com.david.f1stats.domain.model.RankingDriver
+import com.david.f1stats.ui.R
+import com.david.f1stats.ui.preview.previewRankingDrivers
 import com.david.f1stats.ui.theme.F1DarkBlue
 import com.david.f1stats.ui.theme.F1DarkGrey
+import com.david.f1stats.ui.theme.F1StatsTheme
 import com.david.f1stats.utils.getColor
 
 @Composable
@@ -171,5 +174,19 @@ private fun RankingDriverItem(
                 tint = Color.Unspecified
             )
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun RankingDriversScreenPreview() {
+    F1StatsTheme {
+        RankingDriversScreen(
+            drivers = previewRankingDrivers,
+            isLoading = false,
+            errorMessage = null,
+            onDriverClick = {},
+            onErrorConsumed = {}
+        )
     }
 }

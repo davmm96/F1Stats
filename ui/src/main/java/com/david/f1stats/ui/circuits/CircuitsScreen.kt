@@ -29,10 +29,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.david.f1stats.ui.R
 import com.david.f1stats.domain.model.Circuit
+import com.david.f1stats.ui.R
+import com.david.f1stats.ui.preview.previewCircuits
+import com.david.f1stats.ui.theme.F1StatsTheme
 
 @Composable
 fun CircuitsScreen(
@@ -198,6 +201,20 @@ private fun CircuitInfoSection(
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onSurface,
             style = MaterialTheme.typography.bodyMedium
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun CircuitsScreenPreview() {
+    F1StatsTheme {
+        CircuitsScreen(
+            circuits = previewCircuits,
+            isLoading = false,
+            errorMessage = null,
+            onMapClick = {},
+            onErrorConsumed = {}
         )
     }
 }
