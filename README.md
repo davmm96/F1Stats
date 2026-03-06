@@ -14,9 +14,13 @@ Room, and Jetpack Navigation.
 
 ## Screenshots
 
-| Races         | Rankings      | Circuits      | Favourites    |
-|---------------|---------------|---------------|---------------|
-| _coming soon_ | _coming soon_ | _coming soon_ | _coming soon_ |
+| Calendar                                                        | Standings                                                       | Circuits                                                       |
+|-----------------------------------------------------------------|-----------------------------------------------------------------|----------------------------------------------------------------|
+| <img src="app/src/main/res/drawable/calendar.png" width="200"/> | <img src="app/src/main/res/drawable/standing.png" width="200"/> | <img src="app/src/main/res/drawable/circuit.png" width="200"/> |
+
+| Race Result                                                   | Driver Detail                                                        | Favourites                                                       |
+|---------------------------------------------------------------|----------------------------------------------------------------------|------------------------------------------------------------------|
+| <img src="app/src/main/res/drawable/result.png" width="200"/> | <img src="app/src/main/res/drawable/driver_detail.png" width="200"/> | <img src="app/src/main/res/drawable/favorites.png" width="200"/> |
 
 ---
 
