@@ -54,6 +54,7 @@ Compose**, **Kotlin Coroutines & Flows**, **Koin**, **Room**, and **Compose Navi
 | Async                | Kotlin Coroutines + StateFlow/Flow        |
 | Image Loading        | Coil 3 (Compose integration)              |
 | Code Optimization    | R8 (minification, shrinking, obfuscation) |
+| Testing              | JUnit 4, MockK, Turbine, Coroutines Test  |
 
 ---
 
@@ -143,6 +144,45 @@ The app follows core Android accessibility guidelines:
   `contentDescription`
 - **State descriptions** — Toggle elements (favourite buttons) announce their current state
 - **Touch targets** — Interactive icons wrapped in `IconButton` to guarantee 48dp minimum touch area
+
+---
+
+## Testing
+
+The project includes a comprehensive test suite with **142 unit tests** and **10 integration tests**
+across all four modules:
+
+| Module    | Tests | Coverage                                                                                                                                                                                                                      |
+|-----------|-------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `:domain` | 19    | All 14 use cases — success, error and edge cases                                                                                                                                                                              |
+| `:data`   | 62    | Mappers (null handling, sorting, points calculation, abbreviation resolution), repositories (mapping, delegation, Flow emission), services (success, HTTP errors, exceptions), utilities (date formatting, season management) |
+| `:ui`     | 58    | All 12 ViewModels — state loading, error handling, clear/reset actions, favorites CRUD, music toggle, theme switching                                                                                                         |
+| `:app`    | 3     | Koin DI graph verification — all mappers, repository interfaces and use cases resolve correctly                                                                                                                               |
+
+**Integration tests** (instrumented, requires device/emulator):
+
+- `RaceDaoTest` (10 tests) — Room DAO operations: insert, retrieve, delete, conflict resolution,
+  Flow reactivity
+
+### Test Stack
+
+- **MockK** — Mocking framework for Kotlin (coroutine-aware `coEvery`/`coVerify`)
+- **Turbine** — Flow testing library for asserting emissions
+- **kotlinx-coroutines-test** — `runTest`, `TestDispatcher`, `advanceUntilIdle` for coroutine
+  testing
+- **Koin Test** — DI module verification without Android context
+- **Room Testing** — In-memory database for DAO integration tests
+
+### Running Tests
+
+```sh
+./gradlew test                          # All unit tests (all modules)
+./gradlew :domain:test                  # Domain layer only
+./gradlew :data:test                    # Data layer only
+./gradlew :ui:test                      # UI layer (ViewModels) only
+./gradlew :app:test                     # DI integration tests
+./gradlew :data:connectedAndroidTest    # Room DAO tests (requires device)
+```
 
 ---
 
