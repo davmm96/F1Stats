@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<issues format="6" by="lint 9.1.0" type="baseline" client="gradle" dependencies="false"
+    name="AGP (9.1.0)" variant="fatal" version="9.1.0">
+
+    <issue id="MissingDefaultResource"
+        message="The drawable &quot;arrow_right_white&quot; in drawable-night has no declaration in the base `drawable` folder or in a `drawable-`*density*`dpi` folder; this can lead to crashes when the drawable is queried in a configuration that does not match this qualifier">
+        <location file="src/main/res/drawable-night/arrow_right_white.png" />
+    </issue>
+
+    <issue id="MissingDefaultResource"
+        message="The drawable &quot;arrow_right_white&quot; in drawable-notnight has no declaration in the base `drawable` folder or in a `drawable-`*density*`dpi` folder; this can lead to crashes when the drawable is queried in a configuration that does not match this qualifier">
+        <location file="src/main/res/drawable-notnight/arrow_right_white.png" />
+    </issue>
+
+    <issue id="MissingDefaultResource"
+        message="The drawable &quot;cup&quot; in drawable-night has no declaration in the base `drawable` folder or in a `drawable-`*density*`dpi` folder; this can lead to crashes when the drawable is queried in a configuration that does not match this qualifier">
+        <location file="src/main/res/drawable-night/cup.png" />
+    </issue>
+
+    <issue id="MissingDefaultResource"
+        message="The drawable &quot;cup&quot; in drawable-notnight has no declaration in the base `drawable` folder or in a `drawable-`*density*`dpi` folder; this can lead to crashes when the drawable is queried in a configuration that does not match this qualifier">
+        <location file="src/main/res/drawable-notnight/cup.png" />
+    </issue>
+
+    <issue id="MissingDefaultResource"
+        message="The drawable &quot;driver&quot; in drawable-night has no declaration in the base `drawable` folder or in a `drawable-`*density*`dpi` folder; this can lead to crashes when the drawable is queried in a configuration that does not match this qualifier">
+        <location file="src/main/res/drawable-night/driver.png" />
+    </issue>
+
+    <issue id="MissingDefaultResource"
+        message="The drawable &quot;driver&quot; in drawable-notnight has no declaration in the base `drawable` folder or in a `drawable-`*density*`dpi` folder; this can lead to crashes when the drawable is queried in a configuration that does not match this qualifier">
+        <location file="src/main/res/drawable-notnight/driver.png" />
+    </issue>
+
+    <issue id="MissingDefaultResource"
+        message="The drawable &quot;podium&quot; in drawable-night has no declaration in the base `drawable` folder or in a `drawable-`*density*`dpi` folder; this can lead to crashes when the drawable is queried in a configuration that does not match this qualifier">
+        <location file="src/main/res/drawable-night/podium.png" />
+    </issue>
+
+    <issue id="MissingDefaultResource"
+        message="The drawable &quot;podium&quot; in drawable-notnight has no declaration in the base `drawable` folder or in a `drawable-`*density*`dpi` folder; this can lead to crashes when the drawable is queried in a configuration that does not match this qualifier">
+        <location file="src/main/res/drawable-notnight/podium.png" />
+    </issue>
+
+    <issue id="MissingDefaultResource"
+        message="The drawable &quot;race&quot; in drawable-night has no declaration in the base `drawable` folder or in a `drawable-`*density*`dpi` folder; this can lead to crashes when the drawable is queried in a configuration that does not match this qualifier">
+        <location file="src/main/res/drawable-night/race.png" />
+    </issue>
+
+    <issue id="MissingDefaultResource"
+        message="The drawable &quot;race&quot; in drawable-notnight has no declaration in the base `drawable` folder or in a `drawable-`*density*`dpi` folder; this can lead to crashes when the drawable is queried in a configuration that does not match this qualifier">
+        <location file="src/main/res/drawable-notnight/race.png" />
+    </issue>
+
+    <issue id="MissingDefaultResource"
+        message="The drawable &quot;time&quot; in drawable-night has no declaration in the base `drawable` folder or in a `drawable-`*density*`dpi` folder; this can lead to crashes when the drawable is queried in a configuration that does not match this qualifier">
+        <location file="src/main/res/drawable-night/time.png" />
+    </issue>
+
+    <issue id="MissingDefaultResource"
+        message="The drawable &quot;time&quot; in drawable-notnight has no declaration in the base `drawable` folder or in a `drawable-`*density*`dpi` folder; this can lead to crashes when the drawable is queried in a configuration that does not match this qualifier">
+        <location file="src/main/res/drawable-notnight/time.png" />
+    </issue>
+
+    <issue id="MissingDefaultResource"
+        message="The drawable &quot;winner&quot; in drawable-night has no declaration in the base `drawable` folder or in a `drawable-`*density*`dpi` folder; this can lead to crashes when the drawable is queried in a configuration that does not match this qualifier">
+        <location file="src/main/res/drawable-night/winner.png" />
+    </issue>
+
+    <issue id="MissingDefaultResource"
+        message="The drawable &quot;winner&quot; in drawable-notnight has no declaration in the base `drawable` folder or in a `drawable-`*density*`dpi` folder; this can lead to crashes when the drawable is queried in a configuration that does not match this qualifier">
+        <location file="src/main/res/drawable-notnight/winner.png" />
+    </issue>
+
+</issues>
