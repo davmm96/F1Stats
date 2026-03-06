@@ -1,0 +1,39 @@
+plugins {
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.ksp)
+}
+
+android {
+    namespace 'com.david.f1stats.data'
+    compileSdk 36
+
+    defaultConfig {
+        minSdk 30
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+dependencies {
+    api project(':domain')
+
+    // Room (api so :app's DI modules can reference Room types)
+    api libs.androidx.room.runtime
+    api libs.androidx.room.ktx
+    ksp libs.androidx.room.compiler
+
+    // Retrofit + OkHttp (api so :app's NetworkModule can reference these types)
+    api libs.retrofit
+    api libs.retrofit.converter.gson
+    api libs.okhttp.logging.interceptor
+
+    // Coroutines
+    implementation libs.kotlinx.coroutines.core
+    implementation libs.kotlinx.coroutines.android
+
+    // AppCompat (PreferencesHelper uses AppCompatDelegate)
+    implementation libs.androidx.appcompat
+}

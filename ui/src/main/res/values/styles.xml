@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Toolbar-->
+    <style name="toolbar" parent="Theme.MaterialComponents">
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:textColorSecondary">@android:color/white</item>
+        <item name="android:background">@color/red</item>
+    </style>
+
+    <!--Title-->
+    <style name="titleText" parent="Widget.AppCompat.TextView">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/title_text_size</item>
+    </style>
+
+    <style name="titleText.red">
+        <item name="android:textColor">@color/red</item>
+    </style>
+
+    <style name="titleText.black">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <!--Subtitle-->
+    <style name="subtitleText" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">@dimen/subtitle_text_size</item>
+    </style>
+
+    <!--CardView-->
+    <style name="cardView" parent="CardView">
+        <item name="cardCornerRadius">6dp</item>
+    </style>
+
+    <style name="cardViewText" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">@dimen/cardView_textLeft</item>
+    </style>
+
+    <style name="cardViewText.bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="cardViewTitle" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">@dimen/cardView_textTitle</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <!--Race Detail RaceWeekend-->
+    <style name="raceWeekend" parent="Widget.AppCompat.TextView">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/text_weekend_size</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <!--Item season-->
+    <style name="itemSeason" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">@dimen/text_season_size</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <!--Ranking -->
+    <style name="verticalSeparator">
+        <item name="android:background">@color/grey</item>
+    </style>
+
+    <style name="rankingTitle" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">@dimen/ranking_title_textSize</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:layout_marginStart">@dimen/ranking_title_marginStart</item>
+        <item name="android:layout_marginEnd">@dimen/ranking_title_marginEnd</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="rankingSubtitle" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">@dimen/min_text_size</item>
+        <item name="android:layout_marginStart">@dimen/ranking_subtitle_marginStart</item>
+    </style>
+
+    <style name="rankingPoints" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">@dimen/min_text_size</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:layout_marginEnd">@dimen/ranking_points_marginEnd</item>
+    </style>
+
+    <style name="appIcon">
+        <item name="android:layout_marginVertical">10dp</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:layout_marginEnd">@dimen/ranking_points_marginEnd</item>
+    </style>
+
+    <style name="emptyText" parent="Widget.AppCompat.TextView">
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginVertical">10dp</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="emptyText.Title" parent="Widget.AppCompat.TextView">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_marginVertical">10dp</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="calendarTitle" parent="Widget.AppCompat.TextView">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:titleMarginTop">5dp</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="raceResultHeaderText" parent="Widget.AppCompat.TextView">
+        <item name="android:gravity">center</item>¡
+        <item name="android:textColor">@color/whiteAlways</item>
+        <item name="android:textStyle">bold</item>¡
+    </style>
+
+    <!-- Driver and Team detail -->
+    <style name="rankingDetailHeaderImage">
+        <item name="android:layout_width">100dp</item>
+        <item name="android:layout_height">100dp</item>
+        <item name="android:layout_marginStart">10dp</item>
+    </style>
+
+    <style name="rankingDetailHeaderText">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="rankingDetailNumberText">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="rankingDetailCountryText">
+        <item name="android:layout_marginStart">15dp</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="rankingDetailImageWC">
+        <item name="android:layout_width">80dp</item>
+        <item name="android:layout_height">80dp</item>
+    </style>
+
+    <style name="rankingDetailTextInfo">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="rankingDetailTextLabel">
+        <item name="android:layout_width">80dp</item>
+        <item name="android:layout_height">80dp</item>
+        <item name="android:contentDescription">"@string/icon_wc</item>
+    </style>
+
+    <style name="rankingDetailTextInfo.WC">
+        <item name="android:textSize">40sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginStart">20dp</item>
+    </style>
+
+    <style name="rankingDetailTextLabel.WC">
+        <item name="android:layout_width">80dp</item>
+        <item name="android:layout_height">80dp</item>
+        <item name="android:contentDescription">"@string/icon_wc</item>
+    </style>
+
+</resources>

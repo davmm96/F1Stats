@@ -1,0 +1,23 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/closeButton"
+        android:layout_width="@dimen/close_button_dialog_width"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:textColor="@color/red"
+        android:textSize="@dimen/close_button_dialog_textSize"
+        android:background="@android:color/transparent"
+        android:text="@string/close_button_label" />
+
+    <ImageView
+        android:id="@+id/fullscreenImageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/closeButton"
+        android:contentDescription="@string/photo_content_desc"
+        android:scaleType="fitCenter" />
+</RelativeLayout>
