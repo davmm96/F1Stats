@@ -120,7 +120,7 @@ private fun FavoriteRaceItem(
             IconButton(onClick = onRemove) {
                 Icon(
                     imageVector = Icons.Default.Favorite,
-                    contentDescription = stringResource(R.string.add_to_favorite_list),
+                    contentDescription = stringResource(R.string.favorite_removed),
                     tint = MaterialTheme.colorScheme.primary,
                     modifier = Modifier.size(24.dp)
                 )

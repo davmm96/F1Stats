@@ -1,6 +1,5 @@
 package com.david.f1stats.ui.races.raceDetail
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -20,6 +19,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
@@ -33,14 +33,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.david.f1stats.ui.R
 import com.david.f1stats.domain.model.RaceDetail
 import com.david.f1stats.domain.model.StatusRaceEnum
 import com.david.f1stats.domain.model.TypeRaceEnum
+import com.david.f1stats.ui.R
 
 @Composable
 fun RaceDetailScreen(
@@ -92,7 +94,9 @@ fun RaceDetailScreen(
                         style = MaterialTheme.typography.labelSmall,
                         color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
                         letterSpacing = 1.sp,
-                        modifier = Modifier.padding(top = 20.dp, bottom = 12.dp)
+                        modifier = Modifier
+                            .padding(top = 20.dp, bottom = 12.dp)
+                            .semantics { heading() }
                     )
                 }
 
@@ -211,14 +215,14 @@ private fun RaceWeekendItem(
                 )
             }
 
-            Icon(
-                painter = painterResource(R.drawable.icon_calendar),
-                contentDescription = stringResource(R.string.add_to_calendar),
-                modifier = Modifier
-                    .size(24.dp)
-                    .clickable { onCalendarClick(typeLabel, item.dateCalendar) },
-                tint = MaterialTheme.colorScheme.primary
-            )
+            IconButton(onClick = { onCalendarClick(typeLabel, item.dateCalendar) }) {
+                Icon(
+                    painter = painterResource(R.drawable.icon_calendar),
+                    contentDescription = stringResource(R.string.add_to_calendar),
+                    modifier = Modifier.size(24.dp),
+                    tint = MaterialTheme.colorScheme.primary
+                )
+            }
         }
     }
 }

@@ -29,11 +29,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.david.f1stats.ui.R
 import com.david.f1stats.domain.model.Race
+import com.david.f1stats.ui.R
 import com.david.f1stats.ui.theme.F1DarkBlue
 
 @Composable
@@ -120,7 +122,13 @@ private fun RankingRaceItem(
                 .padding(horizontal = 10.dp, vertical = 12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            IconButton(onClick = onFavClick) {
+            val favStateDesc = stringResource(
+                if (isFavorite) R.string.favorite_added else R.string.add_to_favorite_list
+            )
+            IconButton(
+                onClick = onFavClick,
+                modifier = Modifier.semantics { stateDescription = favStateDesc }
+            ) {
                 Icon(
                     painter = painterResource(
                         if (isFavorite) R.drawable.icon_favorites else R.drawable.icon_favorites_off

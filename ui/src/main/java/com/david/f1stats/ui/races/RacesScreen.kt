@@ -33,6 +33,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -93,6 +96,7 @@ fun RacesScreen(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(top = 12.dp, bottom = 4.dp)
+                                .semantics { heading() }
                         )
                         LazyColumn(
                             modifier = Modifier.fillMaxSize(),
@@ -151,7 +155,7 @@ private fun RaceItem(
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .clickable { onClick() },
+            .clickable(role = Role.Button) { onClick() },
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
         shape = RoundedCornerShape(6.dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
@@ -209,7 +213,7 @@ private fun RaceItem(
 
             Icon(
                 painter = painterResource(R.drawable.arrow_right),
-                contentDescription = null,
+                contentDescription = stringResource(R.string.card_arrow_content_description),
                 modifier = Modifier.size(16.dp),
                 tint = Color.Unspecified
             )

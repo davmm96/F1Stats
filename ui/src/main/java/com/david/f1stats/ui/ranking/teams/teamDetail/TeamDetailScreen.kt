@@ -108,7 +108,7 @@ private fun TeamDetailContent(
             }
             AsyncImage(
                 model = team.image,
-                contentDescription = stringResource(R.string.driverContentDescription),
+                contentDescription = stringResource(R.string.imageTeam),
                 modifier = Modifier
                     .size(100.dp)
                     .padding(start = 10.dp)

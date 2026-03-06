@@ -115,7 +115,7 @@ fun F1StatsApp(sharedViewModel: SharedViewModel = koinViewModel()) {
                         IconButton(onClick = { navController.navigateUp() }) {
                             Icon(
                                 imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                                contentDescription = null
+                                contentDescription = stringResource(R.string.navigate_back)
                             )
                         }
                     }
@@ -394,7 +394,7 @@ private fun F1BottomBar(selectedRoute: String, onTabSelected: (String) -> Unit) 
                 icon = {
                     Icon(
                         painter = painterResource(item.iconRes),
-                        contentDescription = null
+                        contentDescription = stringResource(item.labelRes)
                     )
                 },
                 label = {
