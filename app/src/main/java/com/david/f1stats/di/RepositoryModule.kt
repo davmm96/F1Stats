@@ -18,6 +18,13 @@ import com.david.f1stats.data.repository.RankingRepository
 import com.david.f1stats.data.repository.SeasonRepository
 import com.david.f1stats.data.repository.TeamRepository
 import org.koin.dsl.module
+import com.david.f1stats.domain.repository.CircuitRepository as ICircuitRepository
+import com.david.f1stats.domain.repository.DriverRepository as IDriverRepository
+import com.david.f1stats.domain.repository.FavoriteRaceRepository as IFavoriteRaceRepository
+import com.david.f1stats.domain.repository.RaceRepository as IRaceRepository
+import com.david.f1stats.domain.repository.RankingRepository as IRankingRepository
+import com.david.f1stats.domain.repository.SeasonRepository as ISeasonRepository
+import com.david.f1stats.domain.repository.TeamRepository as ITeamRepository
 
 val repositoryModule = module {
     // Mappers
@@ -33,11 +40,11 @@ val repositoryModule = module {
     single { TeamDetailMapper() }
 
     // Repositories
-    single { CircuitRepository(get(), get()) }
-    single { DriverRepository(get(), get()) }
-    single { FavoriteRaceRepository(get(), get()) }
-    single { RaceRepository(get(), get(), get(), get()) }
-    single { RankingRepository(get(), get(), get()) }
-    single { SeasonRepository(get(), get()) }
-    single { TeamRepository(get(), get()) }
+    single<ICircuitRepository> { CircuitRepository(get(), get()) }
+    single<IDriverRepository> { DriverRepository(get(), get()) }
+    single<IFavoriteRaceRepository> { FavoriteRaceRepository(get(), get()) }
+    single<IRaceRepository> { RaceRepository(get(), get(), get(), get()) }
+    single<IRankingRepository> { RankingRepository(get(), get(), get()) }
+    single<ISeasonRepository> { SeasonRepository(get(), get()) }
+    single<ITeamRepository> { TeamRepository(get(), get()) }
 }

@@ -1,7 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.ksp)
 }
 
 android {
@@ -33,50 +32,22 @@ android {
     }
 
     buildFeatures {
-        viewBinding true   // kept for DialogHelper (dialog_image_fullscreen.xml)
         buildConfig true
         compose true
     }
 }
 
 dependencies {
-    implementation libs.androidx.core.ktx
+    implementation project(':ui')
+    // :ui pulls :data and :domain transitively
+
+    // Needed directly in :app
+    implementation libs.activity.compose
     implementation libs.androidx.appcompat
-    implementation libs.material
-    implementation libs.androidx.lifecycle.viewmodel.ktx
-    implementation libs.lifecycle.runtime.compose
-    implementation libs.navigation.compose
 
-    // Room
-    implementation libs.androidx.room.runtime
-    implementation libs.androidx.room.ktx
-    ksp libs.androidx.room.compiler
-
-    // Retrofit + OkHttp
-    implementation libs.retrofit
-    implementation libs.retrofit.converter.gson
-    implementation libs.okhttp.logging.interceptor
-
-    // Coroutines
-    implementation libs.kotlinx.coroutines.core
-    implementation libs.kotlinx.coroutines.android
-
-    // Koin
+    // Koin needed for DI module wiring in :app
     implementation libs.koin.android
     implementation libs.koin.androidx.compose
-
-    // Coil
-    implementation libs.coil
-    implementation libs.coil.network.okhttp
-    implementation libs.coil.compose
-
-    // Compose
-    implementation platform(libs.compose.bom)
-    implementation libs.compose.ui
-    implementation libs.compose.ui.tooling.preview
-    implementation libs.compose.material3
-    implementation libs.activity.compose
-    debugImplementation libs.compose.ui.tooling
 
     // Tests
     testImplementation libs.junit
