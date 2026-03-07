@@ -3,6 +3,11 @@ plugins {
     alias(libs.plugins.kotlin.compose)
 }
 
+def localProps = new Properties()
+def localPropsFile = rootProject.file('local.properties')
+if (localPropsFile.exists()) localProps.load(localPropsFile.newDataInputStream())
+def apiKey = System.getenv('API_KEY') ?: localProps['API_KEY'] ?: ''
+
 android {
     namespace "com.david.f1stats"
     compileSdk 36
@@ -21,13 +26,13 @@ android {
         debug {
             applicationIdSuffix ".pre"
             buildConfigField "String", "API_BASE", "\"https://v1.formula-1.api-sports.io/\""
-            buildConfigField "String", "API_KEY", "\"034da704a4fcc0f36f7f6c59b86529ff\""
+            buildConfigField "String", "API_KEY", "\"${apiKey}\""
             debuggable true
             minifyEnabled false
         }
         release {
             buildConfigField "String", "API_BASE", "\"https://v1.formula-1.api-sports.io/\""
-            buildConfigField "String", "API_KEY", "\"034da704a4fcc0f36f7f6c59b86529ff\""
+            buildConfigField "String", "API_KEY", "\"${apiKey}\""
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
