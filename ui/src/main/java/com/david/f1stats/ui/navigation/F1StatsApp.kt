@@ -92,15 +92,14 @@ fun F1StatsApp(sharedViewModel: SharedViewModel = koinViewModel()) {
     val showBottomBar = currentRoute != Routes.SETTINGS
     val showBack = !isMainTab
 
-    val title = when {
-        currentRoute == Routes.RACES -> stringResource(R.string.title_calendar, currentSeason)
-        currentRoute == Routes.RANKING -> stringResource(R.string.title_ranking, currentSeason)
-        currentRoute == Routes.CIRCUITS -> stringResource(R.string.title_circuits)
-        currentRoute == Routes.FAVORITES -> stringResource(R.string.title_favorites)
-        currentRoute == Routes.SETTINGS -> stringResource(R.string.settings)
-        currentRoute == Routes.RACE_DETAIL || currentRoute == Routes.RACE_RESULT ->
+    val title = when (currentRoute) {
+        Routes.RACES -> stringResource(R.string.title_calendar, currentSeason)
+        Routes.RANKING -> stringResource(R.string.title_ranking, currentSeason)
+        Routes.CIRCUITS -> stringResource(R.string.title_circuits)
+        Routes.FAVORITES -> stringResource(R.string.title_favorites)
+        Routes.SETTINGS -> stringResource(R.string.settings)
+        Routes.RACE_DETAIL, Routes.RACE_RESULT ->
             currentBackStackEntry?.arguments?.getString("country") ?: ""
-
         else -> ""
     }
 
