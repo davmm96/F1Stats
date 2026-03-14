@@ -126,21 +126,21 @@ convert these into clean domain models, isolating the domain layer from API cont
 
 ## Architecture Decision Records
 
-Key architectural decisions are documented as ADRs in [`docs/adr/`](../../../docs/adr/). Highlights
+Key architectural decisions are documented as ADRs in [`docs/adr/`](docs/adr/). Highlights
 include:
 
-| ADR                                                                   | Decision                                                          |
-|-----------------------------------------------------------------------|-------------------------------------------------------------------|
-| [ADR-001](../../../docs/adr/001-multi-module-clean-architecture.md)   | Multi-module Clean Architecture with strict dependency boundaries |
-| [ADR-002](../../../docs/adr/002-koin-dependency-injection.md)         | Koin over Hilt for lightweight, annotation-free DI                |
-| [ADR-003](../../../docs/adr/003-jetpack-compose-ui.md)                | Full migration to Jetpack Compose + Material 3                    |
-| [ADR-004](../../../docs/adr/004-compose-navigation.md)                | Compose Navigation replacing Fragment-based navigation            |
-| [ADR-005](../../../docs/adr/005-kotlin-stateflow-state-management.md) | StateFlow replacing LiveData for state management                 |
-| [ADR-006](../../../docs/adr/006-sealed-result-error-handling.md)      | Sealed `Result<T>` type for explicit error handling               |
-| [ADR-007](../../../docs/adr/007-room-local-persistence.md)            | Room with reactive `Flow` DAOs for local persistence              |
-| [ADR-008](../../../docs/adr/008-retrofit-okhttp-networking.md)        | Retrofit + OkHttp with interceptor-based auth                     |
-| [ADR-009](../../../docs/adr/009-coil-image-loading.md)                | Coil 3 with shared OkHttp client for image loading                |
-| [ADR-010](../../../docs/adr/010-dto-domain-mapper-pattern.md)         | Dedicated mapper classes for DTO-to-domain transformation         |
+| ADR                                                          | Decision                                                          |
+|--------------------------------------------------------------|-------------------------------------------------------------------|
+| [ADR-001](docs/adr/001-multi-module-clean-architecture.md)   | Multi-module Clean Architecture with strict dependency boundaries |
+| [ADR-002](docs/adr/002-koin-dependency-injection.md)         | Koin over Hilt for lightweight, annotation-free DI                |
+| [ADR-003](docs/adr/003-jetpack-compose-ui.md)                | Full migration to Jetpack Compose + Material 3                    |
+| [ADR-004](docs/adr/004-compose-navigation.md)                | Compose Navigation replacing Fragment-based navigation            |
+| [ADR-005](docs/adr/005-kotlin-stateflow-state-management.md) | StateFlow replacing LiveData for state management                 |
+| [ADR-006](docs/adr/006-sealed-result-error-handling.md)      | Sealed `Result<T>` type for explicit error handling               |
+| [ADR-007](docs/adr/007-room-local-persistence.md)            | Room with reactive `Flow` DAOs for local persistence              |
+| [ADR-008](docs/adr/008-retrofit-okhttp-networking.md)        | Retrofit + OkHttp with interceptor-based auth                     |
+| [ADR-009](docs/adr/009-coil-image-loading.md)                | Coil 3 with shared OkHttp client for image loading                |
+| [ADR-010](docs/adr/010-dto-domain-mapper-pattern.md)         | Dedicated mapper classes for DTO-to-domain transformation         |
 
 ---
 
